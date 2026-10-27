@@ -1,0 +1,93 @@
+{
+ "id": "ficha-digital",
+ "titulo": "Ficha digital de examen con IA",
+ "fecha": "2026-10-26",
+ "resumen": "Examen en papel y hoja de respuestas en el celular: identificación con el DNI o carné leído por IA, comparación de la selfie, control de fugas, calificación inmediata y panel del docente con modo proyector.",
+ "etiquetas": [
+  "Evaluación",
+  "Google Apps Script",
+  "IA (Claude · Gemini)",
+  "Docentes"
+ ],
+ "caracteristicas": [
+  [
+   "Identificación con IA",
+   "Lee el DNI o carné, autocompleta los datos y compara la selfie con la foto del documento."
+  ],
+  [
+   "Lista oficial del curso",
+   "Verifica contra la lista; el docente agrega en el aula a quien falte, con su conformidad."
+  ],
+  [
+   "Hoja de burbujas",
+   "Temporizador, calculadora científica y pantalla siempre encendida en el celular."
+  ],
+  [
+   "Control de fugas",
+   "Cambiar de aplicación cuenta como fuga; con 5 la hoja se bloquea hasta que el docente la libera."
+  ],
+  [
+   "Nota al instante",
+   "Calificación vigesimal, podio de aprobados y revisión con la clave."
+  ],
+  [
+   "Panel del docente",
+   "Monitoreo en vivo, reiniciar o reabrir alumnos, QR por versión, carga de Excel y modo proyector."
+  ]
+ ],
+ "app": {
+  "url": "https://script.google.com/macros/s/AKfycbyjuSIzw83b_SSifcT9sQqLbAh5b5RkugrvapPlMjmM6x1dv59fmn53rQxMSk8m_QAJ4g/exec",
+  "etiqueta": "Abrir la ficha",
+  "nota": "Es la instancia del autor, configurada para sus cursos: sirve para conocer la interfaz. Para usarla con sus propios alumnos, instálela en su cuenta (opción 3)."
+ },
+ "prompts": [
+  {
+   "id": "claude",
+   "nombre": "Claude",
+   "url": "https://claude.ai/new",
+   "archivo": "prompts/claude.txt"
+  },
+  {
+   "id": "chatgpt",
+   "nombre": "ChatGPT",
+   "url": "https://chatgpt.com/",
+   "archivo": "prompts/chatgpt.txt"
+  },
+  {
+   "id": "gemini",
+   "nombre": "Gemini",
+   "url": "https://gemini.google.com/app",
+   "archivo": "prompts/gemini.txt"
+  },
+  {
+   "id": "copilot",
+   "nombre": "Copilot",
+   "url": "https://copilot.microsoft.com/",
+   "archivo": "prompts/copilot.txt"
+  },
+  {
+   "id": "deepseek",
+   "nombre": "DeepSeek",
+   "url": "https://chat.deepseek.com/",
+   "archivo": "prompts/deepseek.txt"
+  },
+  {
+   "id": "kimi",
+   "nombre": "Kimi",
+   "url": "https://www.kimi.com/",
+   "archivo": "prompts/kimi.txt"
+  }
+ ],
+ "instalar": {
+  "zip": "ficha-digital-gas.zip",
+  "leeme": "codigo/LEEME.txt",
+  "minutos": 10,
+  "pasos": [
+   "Cree una hoja de cálculo en sheets.new y abra Extensiones > Apps Script.",
+   "Pegue Code.gs y cree los archivos HTML «Index» y «Admin» con el contenido del zip.",
+   "Ejecute la función preparar(), autorice el script y anote su código docente.",
+   "Implemente como aplicación web (ejecutar como «Yo», acceso «Cualquier usuario»).",
+   "Abra su enlace con ?admin=1, pegue su clave de Gemini (gratuita) o de Claude y cargue su lista de alumnos."
+  ]
+ }
+}

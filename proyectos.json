@@ -1,0 +1,15 @@
+[
+ {
+  "id": "ficha-digital",
+  "titulo": "Ficha digital de examen con IA",
+  "resumen": "Examen en papel y hoja de respuestas en el celular: identificación con el DNI o carné leído por IA, comparación de la selfie, control de fugas, calificación inmediata y panel del docente con modo proyector.",
+  "etiquetas": [
+   "Evaluación",
+   "Google Apps Script",
+   "IA (Claude · Gemini)",
+   "Docentes"
+  ],
+  "fecha": "2026-10-26",
+  "url": "ficha-digital/"
+ }
+]

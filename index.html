@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>toolsHXP · Herramientas con IA para la docencia</title>
+<meta name="description" content="Aplicaciones, prompts y código abierto para docentes, por el Dr. José Alfredo Herrera Quispe.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/estilo.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="./" aria-label="toolsHXP, inicio"><span class="logo" aria-hidden="true">&gt;_</span><span class="nom">tools<span>HXP</span></span></a>
+  <nav class="links" aria-label="Perfil">
+    <a href="https://orcid.org/0000-0002-8207-9714" rel="noopener">ORCID</a>
+    <a href="https://www.linkedin.com/in/jose-herrera-b1a84787/" rel="noopener">LinkedIn</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="kicker">Dr. José Alfredo Herrera Quispe</div>
+    <h1 class="marca">tools<span>HXP</span></h1>
+    <p class="sub">Herramientas con IA para la docencia</p>
+    <p class="lead">Aplicaciones listas para usar, prompts para reconstruirlas con la IA de su preferencia y el código completo para instalarlas en su propia cuenta. Profesor de Ingeniería de Sistemas e Inteligencia Artificial.</p>
+  </section>
+
+  <section aria-labelledby="t-proy">
+    <h2 id="t-proy" style="margin:10px 0 14px">Proyectos</h2>
+    <ul class="lista grid" id="lista"><li class="card">Cargando…</li></ul>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 Dr. José Alfredo Herrera Quispe · Uso educativo libre citando al autor.</span>
+  <span>toolsHXP — cada herramienta: usar · prompt · instalar</span>
+</div></footer>
+<script>
+(function(){
+  var esc=function(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+  var fmt=function(f){try{return new Date(f+'T12:00:00').toLocaleDateString('es-PE',{day:'numeric',month:'long',year:'numeric'});}catch(e){return f;}};
+  fetch('proyectos.json',{cache:'no-cache'}).then(function(r){return r.json();}).then(function(ps){
+    ps.sort(function(a,b){return (b.fecha||'').localeCompare(a.fecha||'');});
+    document.getElementById('lista').innerHTML=ps.map(function(p){
+      return '<li><a class="card proj" href="'+esc(p.url)+'"><div class="fecha">'+esc(fmt(p.fecha))+'</div>'+
+        '<h3 style="font-size:1.15rem;margin-top:8px">'+esc(p.titulo)+'</h3><p>'+esc(p.resumen)+'</p>'+
+        '<ul class="tags">'+(p.etiquetas||[]).map(function(e){return '<li>'+esc(e)+'</li>';}).join('')+'</ul>'+
+        '<div class="tres"><span>1 · Usar la app</span><span>2 · Prompt para su IA</span><span>3 · Instalar</span></div></a></li>';
+    }).join('')||'<li class="card">Pronto habrá proyectos aquí.</li>';
+  },function(){document.getElementById('lista').innerHTML='<li class="card">No se pudo cargar la lista de proyectos.</li>';});
+})();
+</script>
+</body>
+</html>

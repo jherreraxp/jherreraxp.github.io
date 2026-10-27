@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Administración · Ficha digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{--ind:#5B4FE8;--ink:#1D1B33;--dim:#6B6990;--line:#E3E1F2;--bg:#F6F5FD;--ok:#12805C;--bad:#C2362B;--warn:#B7791F}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:hidden}
+body{background:var(--bg);color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;font-size:15px}
+.wrap{max-width:1140px;margin:0 auto;padding:18px 16px 60px}
+.brand{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+h1{font-size:1.4rem;margin-top:4px}
+h2{font-size:1rem;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{padding:8px 14px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font:inherit;font-weight:600;color:var(--dim);cursor:pointer}
+.tab.on{background:var(--ind);border-color:var(--ind);color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+label{display:block;font-size:.8rem;font-weight:600;margin:10px 0 4px}
+input,select{width:100%;padding:10px 11px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff}
+input:focus,select:focus{outline:none;border-color:var(--ind)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row input{flex:1;min-width:140px}
+.btn{padding:10px 14px;border:0;border-radius:10px;background:var(--ind);color:#fff;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
+.btn.ghost{background:#fff;color:var(--ind);border:1.5px solid var(--ind)}
+.btn.red{background:#fff;color:var(--bad);border:1.5px solid var(--bad)}
+.btn.redf{background:var(--bad)}
+.btn.sm{padding:6px 10px;font-size:.8rem}
+.btn:disabled{opacity:.5}
+.mono{font-family:'JetBrains Mono',monospace}
+.key{font-family:'JetBrains Mono',monospace;font-size:.85rem;background:#F3F1FF;border-radius:8px;padding:6px 9px;display:inline-block}
+.muted{color:var(--dim);font-size:.85rem}
+.msg{font-size:.86rem;margin-top:8px;min-height:1.1em}
+.msg.ok{color:var(--ok)}.msg.err{color:var(--bad)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+@media(max-width:560px){.kpis{grid-template-columns:1fr 1fr}.card{padding:12px}}
+.kpi{background:#F8F7FF;border-radius:12px;padding:10px;text-align:center}
+.kpi b{display:block;font-family:'JetBrains Mono',monospace;font-size:1.5rem}
+.kpi span{font-size:.72rem;color:var(--dim);text-transform:uppercase;letter-spacing:.05em}
+.kpi.bad b{color:var(--bad)}
+.scroll{max-height:520px;overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+.scroll table{min-width:760px}
+th{text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--dim);padding:6px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff}
+td{padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr.lock td{background:#FDF1EF}
+td.acc{white-space:nowrap;text-align:right}
+td.acc .btn{margin-left:4px}
+.pill{display:inline-block;border-radius:999px;padding:2px 9px;font-size:.75rem;font-weight:600}
+.p-curso{background:#ECEAFE;color:var(--ind)}.p-lock{background:#FBE1DD;color:var(--bad)}.p-ok{background:#E5F6EF;color:var(--ok)}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.switch:last-child{border-bottom:0}
+.tg{position:relative;width:46px;height:26px;flex:0 0 46px;margin:0}
+.tg input{opacity:0;width:0;height:0}
+.tg span{position:absolute;inset:0;background:#CFCBE8;border-radius:999px;transition:.2s;cursor:pointer}
+.tg span:before{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.tg input:checked+span{background:var(--ind)}
+.tg input:checked+span:before{transform:translateX(20px)}
+.warn{background:#FFF6E5;border:1px solid #F3D9A4;color:#7A5410;border-radius:10px;padding:9px 11px;font-size:.85rem;margin-bottom:12px}
+.danger{border-color:#F2C7C1}
+.hidden{display:none!important}
+.links a{color:var(--ind);word-break:break-all}
+.exrow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.exrow:last-child{border-bottom:0}
+.exrow .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.map{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(max-width:700px){.map{grid-template-columns:1fr 1fr}}
+/* modal */
+.ov{position:fixed;inset:0;background:rgba(29,27,51,.6);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.dlg{background:#fff;border-radius:16px;padding:20px;max-width:460px;width:100%}
+.dlg h3{margin-bottom:8px}
+.dlg p{color:var(--dim);font-size:.92rem;margin-bottom:12px}
+.dlg .btns{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+.qrbox{display:flex;justify-content:center;padding:10px}
+/* proyector */
+#proj{position:fixed;inset:0;background:#0F0E1F;color:#fff;z-index:40;display:flex;flex-direction:column;padding:2.2vw 2.6vw;gap:1.6vw;overflow:auto}
+#proj .pbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:.85rem;color:#B9B6DA;background:#1D1B33;border-radius:12px;padding:8px 12px}
+#proj .pbar select{width:auto;padding:5px 8px;background:#2E2B4F;color:#fff;border-color:#433F73}
+#proj .pbar label{margin:0;display:flex;gap:6px;align-items:center;font-weight:500;color:#B9B6DA}
+#proj .pbar .btn{padding:6px 12px}
+#proj .main{display:grid;grid-template-columns:auto 1fr;gap:3vw;flex:1;min-height:0}
+#proj.sinqr .main{grid-template-columns:1fr}
+#proj .qrcol{display:flex;flex-direction:column;align-items:center;gap:1vw}
+#proj .qrcol .q{background:#fff;padding:1.2vw;border-radius:1.2vw}
+#proj .qrcol .u{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1vw,16px);color:#B9B6DA;max-width:30vw;word-break:break-all;text-align:center}
+#proj h2{font-size:clamp(20px,2.4vw,44px);margin:0;display:block}
+#proj .sub{color:#B9B6DA;font-size:clamp(13px,1.2vw,22px)}
+#proj .clock{font-family:'JetBrains Mono',monospace;font-size:clamp(48px,8vw,150px);font-weight:700;line-height:1;margin:1vw 0}
+#proj .bars{display:grid;gap:1vw;margin-bottom:1.2vw}
+#proj .lbl{display:flex;justify-content:space-between;font-size:clamp(13px,1.3vw,24px);margin-bottom:.4vw}
+#proj .lbl b{font-family:'JetBrains Mono',monospace}
+#proj .track{height:clamp(14px,1.6vw,30px);background:#2E2B4F;border-radius:999px;overflow:hidden}
+#proj .track i{display:block;height:100%;background:linear-gradient(90deg,#5B4FE8,#8B7FFF);transition:width .6s}
+#proj .track.g i{background:linear-gradient(90deg,#12805C,#3CC48F)}
+#proj .chips{display:flex;flex-wrap:wrap;gap:.6vw}
+#proj .chip{background:#2E2B4F;border-radius:999px;padding:.5vw 1vw;font-size:clamp(12px,1.15vw,22px)}
+#proj .chip.env{background:#12805C}
+#proj .big{font-family:'JetBrains Mono',monospace;font-size:clamp(40px,6vw,120px);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div><div class="brand" id="instTop">Ficha digital · Panel del docente</div><h1>Panel de administración</h1></div>
+    <button class="btn hidden" id="btnProj">▶ Modo proyector</button>
+  </div>
+
+  <section id="sLogin" class="card" style="max-width:420px">
+    <h2>Ingreso del docente</h2>
+    <label for="lClave">Clave de administración</label>
+    <input id="lClave" type="password" autocomplete="current-password">
+    <div class="msg err" id="lMsg"></div>
+    <button class="btn" id="btnLogin" style="margin-top:10px;width:100%">Ingresar</button>
+    <p class="muted" style="margin-top:10px">Mientras no defina una clave propia, es el mismo código docente. Cámbiela en «Configuración» después de ingresar.</p>
+  </section>
+
+  <section id="sPanel" class="hidden">
+    <div class="warn hidden" id="wAdmin">Su clave de administración todavía es el código docente que digita en los celulares. Defina una clave propia en «Configuración».</div>
+    <div class="tabs" id="tabs">
+      <button class="tab on" data-t="tMon">Monitoreo</button>
+      <button class="tab" data-t="tEx">Exámenes y enlaces</button>
+      <button class="tab" data-t="tAl">Alumnos</button>
+      <button class="tab" data-t="tCfg">Configuración</button>
+    </div>
+
+    <!-- MONITOREO -->
+    <div id="tMon" class="pane">
+      <div class="card">
+        <h2>Monitoreo en vivo <span class="muted" id="actual"></span></h2>
+        <div class="kpis">
+          <div class="kpi"><b id="kAlu">0</b><span>En la lista</span></div>
+          <div class="kpi"><b id="kCur">0</b><span>Rindiendo</span></div>
+          <div class="kpi bad"><b id="kLock">0</b><span>Bloqueados</span></div>
+          <div class="kpi"><b id="kEnv">0</b><span>Enviados</span></div>
+        </div>
+        <div class="row" style="margin-bottom:8px"><input id="fBus" placeholder="Buscar por código o nombre…"></div>
+        <div class="scroll"><table><thead><tr><th>Ver.</th><th>Código</th><th>Alumno</th><th>Estado</th><th>Fugas</th><th>Marcadas</th><th>Min.</th><th>Nota</th><th style="text-align:right">Acciones</th></tr></thead><tbody id="tb"></tbody></table></div>
+        <p class="muted" style="margin-top:8px"><b>Reabrir</b>: anula el envío y le devuelve su hoja con sus marcas (el tiempo sigue desde su inicio). <b>Reiniciar</b>: borra su intento y su nota para que empiece de cero, incluso con otra versión. Todo queda copiado en la hoja Archivo.</p>
+        <div class="msg" id="mMon"></div>
+      </div>
+    </div>
+
+    <!-- EXÁMENES -->
+    <div id="tEx" class="pane hidden">
+      <div class="card">
+        <h2>Versiones del examen</h2>
+        <div id="exList"></div>
+        <div class="msg" id="mEx"></div>
+      </div>
+      <div class="grid">
+        <div class="card links">
+          <h2>Enlaces</h2>
+          <p class="muted">Enlace general (el alumno elige su versión):</p>
+          <div class="row" style="margin:6px 0 12px"><a id="aAlu" target="_blank"></a><button class="btn ghost sm" data-qr="">QR</button></div>
+          <p class="muted">Hoja de cálculo con respuestas, notas, bitácora y archivo:</p>
+          <p><a id="aHoja" target="_blank"></a></p>
+        </div>
+        <div class="card danger">
+          <h2>Reiniciar todo</h2>
+          <p class="muted">Borra todos los intentos y notas de todas las versiones (por ejemplo, después de una prueba). La lista de alumnos no se toca y todo se copia antes a la hoja Archivo.</p>
+          <button class="btn red" data-resetex="TODOS" style="margin-top:10px">Reiniciar todos los exámenes</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALUMNOS -->
+    <div id="tAl" class="pane hidden">
+      <div class="card">
+        <h2>Cargar la lista desde Excel o CSV <span class="muted" id="alTot"></span></h2>
+        <p class="muted">Suba el archivo tal como sale del sistema de la universidad. El panel detecta la fila de títulos y las columnas; revise la asignación y la vista previa antes de cargar.</p>
+        <input type="file" id="fXls" accept=".xlsx,.xls,.csv" style="margin-top:10px">
+        <div id="mapBox" class="hidden">
+          <div class="map" id="map"></div>
+          <div class="scroll" style="max-height:260px;margin-top:10px"><table id="prev"></table></div>
+          <div class="row" style="margin-top:12px">
+            <button class="btn" id="btnAdd">Agregar y actualizar</button>
+            <button class="btn red" id="btnRepl">Reemplazar toda la lista</button>
+            <span class="muted" id="prevTot"></span>
+          </div>
+        </div>
+        <div class="msg" id="mAl"></div>
+      </div>
+    </div>
+
+    <!-- CONFIGURACIÓN -->
+    <div id="tCfg" class="pane hidden">
+      <div class="grid">
+        <div class="card">
+          <h2>Perfil institucional</h2>
+          <p class="muted">Aparece en la ficha del alumno y en la pantalla del proyector.</p>
+          <label for="pUni">Universidad</label><input id="pUni">
+          <label for="pFac">Facultad</label><input id="pFac">
+          <label for="pCur">Curso</label><input id="pCur">
+          <div class="row"><div style="flex:1;min-width:160px"><label for="pDoc">Docente</label><input id="pDoc"></div><div style="width:140px"><label for="pSem">Semestre</label><input id="pSem"></div></div>
+          <button class="btn" id="btnPerfil" style="margin-top:12px">Guardar perfil</button>
+          <div class="msg" id="mPer"></div>
+        </div>
+        <div class="card">
+          <h2>Inteligencia artificial</h2>
+          <label for="iProv">Proveedor</label>
+          <select id="iProv"><option value="auto">Automático: Claude y, si falla, Gemini</option><option value="claude">Solo Claude</option><option value="gemini">Solo Gemini</option></select>
+          <label>Clave de Claude <span class="muted">(sk-ant-…)</span></label>
+          <div class="row"><span class="key" id="vClaude">sin clave</span><span class="muted" id="mClaude"></span><button class="btn red sm" data-borrar="claude">Quitar</button></div>
+          <label>Clave de Gemini <span class="muted">(AIza…, gratuita en aistudio.google.com)</span></label>
+          <div class="row"><span class="key" id="vGemini">sin clave</span><span class="muted" id="mGemini"></span><button class="btn red sm" data-borrar="gemini">Quitar</button></div>
+          <label for="iClave">Pegar una clave nueva (se reconoce el proveedor por el prefijo)</label>
+          <div class="row"><input id="iClave" type="password" autocomplete="off" placeholder="sk-ant-…  o  AIza…"><button class="btn" id="btnClave">Guardar</button></div>
+          <div class="row" style="margin-top:10px"><button class="btn ghost" id="btnProbar">Probar la IA</button><span class="muted">elige siempre el modelo más reciente con visión</span></div>
+          <div class="msg" id="mIA"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Seguridad</h2>
+        <div class="switch"><div><b>Comparar selfie con la foto del documento</b><div class="muted">Si la IA duda o no coincide, el docente da conformidad viendo ambas fotos.</div></div>
+          <label class="tg"><input type="checkbox" id="tRostro"><span></span></label></div>
+        <div class="grid" style="margin-top:6px">
+          <div><label for="sDoc">Nuevo código docente <span class="muted">(4 a 8 dígitos; se digita en el celular del alumno)</span></label>
+            <div class="row"><input id="sDoc" type="password" inputmode="numeric" maxlength="8" autocomplete="off"><button class="btn" id="btnDoc">Cambiar</button></div></div>
+          <div><label for="sAdm">Nueva clave de administración <span class="muted">(solo este panel; mínimo 6 caracteres)</span></label>
+            <div class="row"><input id="sAdm" type="password" autocomplete="new-password"><button class="btn" id="btnAdm">Cambiar</button></div></div>
+        </div>
+        <div class="msg" id="mSeg"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- confirmación -->
+<div class="ov hidden" id="ov"><div class="dlg">
+  <h3 id="ovT"></h3><p id="ovP"></p>
+  <div id="ovQR" class="qrbox hidden"></div>
+  <input id="ovIn" class="hidden" placeholder="Escriba REINICIAR">
+  <div class="btns"><button class="btn ghost" id="ovNo">Cancelar</button><button class="btn" id="ovSi">Confirmar</button></div>
+</div></div>
+
+<!-- proyector -->
+<div id="proj" class="hidden">
+  <div class="pbar">
+    <label><input type="checkbox" id="prQR" checked style="width:auto"> Mostrar QR</label>
+    <label>Enlace <select id="prLink"></select></label>
+    <label>Lista <select id="prLista"><option value="ini">Iniciales</option><option value="nom">Nombres</option><option value="num">Solo el número</option></select></label>
+    <label>Avance sobre <select id="prBase"><option value="lista">Alumnos de la lista</option><option value="ini">Alumnos que iniciaron</option></select></label>
+    <label><input type="checkbox" id="prMarc" checked style="width:auto"> Promedio de marcadas</label>
+    <span style="flex:1"></span>
+    <button class="btn ghost" id="prFull">Pantalla completa</button>
+    <button class="btn" id="prSalir">Salir</button>
+  </div>
+  <div class="main">
+    <div class="qrcol" id="prQRcol"><div class="q" id="prQRbox"></div><div class="u" id="prUrl"></div><div class="sub">Escanee para abrir su ficha</div></div>
+    <div>
+      <h2 id="prTit"></h2>
+      <div class="sub" id="prSub"></div>
+      <div class="clock" id="prClock">--:--</div>
+      <div class="bars">
+        <div><div class="lbl"><span>Fichas enviadas</span><b id="prEnvTxt">0 / 0</b></div><div class="track g"><i id="prEnvBar" style="width:0"></i></div></div>
+        <div id="prMarcBox"><div class="lbl"><span>Avance promedio de quienes rinden</span><b id="prMarcTxt">0 %</b></div><div class="track"><i id="prMarcBar" style="width:0"></i></div></div>
+      </div>
+      <div class="lbl"><span id="prListosTit">Listos</span></div>
+      <div class="chips" id="prChips"></div>
+      <div class="big hidden" id="prNum"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+var T = null, S = null, timer = null, offset = 0, XLS = null;
+var $ = function (id) { return document.getElementById(id); };
+function api(fn) { var args = [].slice.call(arguments, 1);
+  return new Promise(function (ok, ko) { var r = google.script.run.withSuccessHandler(ok).withFailureHandler(ko); r[fn].apply(r, args); }); }
+function msg(id, t, ok) { $(id).className = 'msg ' + (ok === false ? 'err' : 'ok'); $(id).textContent = t; }
+function err(id) { return function (e) { msg(id, e.message || String(e), false); if (/Sesión vencida/.test(e.message || '')) location.reload(); }; }
+function esc(s) { return String(s === null || s === undefined ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function mmss(s) { s = Math.max(0, Math.round(s)); var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+  return (h ? h + ':' + String(m).padStart(2, '0') : String(m).padStart(2, '0')) + ':' + String(x).padStart(2, '0'); }
+
+/* ---------- confirmación en la página ---------- */
+function confirmar(o) {
+  return new Promise(function (ok) {
+    $('ovT').textContent = o.t; $('ovP').innerHTML = o.p || '';
+    $('ovIn').classList.toggle('hidden', !o.escribir); $('ovIn').value = '';
+    $('ovQR').classList.toggle('hidden', !o.qr); $('ovQR').innerHTML = '';
+    if (o.qr) { try { new QRCode($('ovQR'), { text: o.qr, width: 260, height: 260 }); } catch (e) { $('ovQR').textContent = o.qr; } }
+    $('ovSi').textContent = o.si || 'Confirmar'; $('ovSi').className = 'btn' + (o.rojo ? ' redf' : '');
+    $('ovNo').textContent = o.qr ? 'Cerrar' : 'Cancelar'; $('ovSi').classList.toggle('hidden', !!o.qr);
+    $('ov').classList.remove('hidden');
+    $('ovNo').onclick = function () { $('ov').classList.add('hidden'); ok(null); };
+    $('ovSi').onclick = function () { $('ov').classList.add('hidden'); ok(o.escribir ? $('ovIn').value : true); };
+  });
+}
+
+/* ---------- ingreso y pestañas ---------- */
+$('btnLogin').onclick = function () {
+  api('adminLogin', $('lClave').value).then(function (r) {
+    if (!r.ok) { msg('lMsg', r.error, false); return; }
+    T = r.token; $('lClave').value = ''; $('sLogin').classList.add('hidden'); $('sPanel').classList.remove('hidden'); $('btnProj').classList.remove('hidden');
+    cargar(true); timer = setInterval(cargar, 15000);
+  }).catch(err('lMsg'));
+};
+$('lClave').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('btnLogin').click(); });
+$('tabs').onclick = function (e) {
+  var b = e.target.closest('.tab'); if (!b) return;
+  document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('on', x === b); });
+  document.querySelectorAll('.pane').forEach(function (p) { p.classList.toggle('hidden', p.id !== b.dataset.t); });
+};
+
+function urlV(v) { return S && S.enlaces.alumnos ? S.enlaces.alumnos + (v ? '?v=' + v : '') : ''; }
+
+function cargar(primera) {
+  return api('adminEstado', T).then(function (s) {
+    S = s; offset = s.proyector.ahoraMs - Date.now();
+    $('actual').textContent = '· actualizado ' + new Date().toLocaleTimeString('es-PE') + ' (cada 15 s)';
+    $('wAdmin').classList.toggle('hidden', !s.claveAdminInicial);
+    $('instTop').textContent = s.perfil.universidad + ' · ' + s.perfil.curso;
+    $('kAlu').textContent = s.resumen.alumnos; $('kCur').textContent = s.resumen.enCurso; $('kLock').textContent = s.resumen.bloqueados; $('kEnv').textContent = s.resumen.enviados;
+    $('alTot').textContent = '· ' + s.resumen.alumnos + ' alumnos en la lista';
+    pintarTabla();
+    $('iProv').value = s.ia.proveedor;
+    $('vClaude').textContent = s.ia.claude || 'sin clave'; $('mClaude').textContent = s.ia.modeloClaude ? '· ' + s.ia.modeloClaude : '';
+    $('vGemini').textContent = s.ia.gemini || 'sin clave'; $('mGemini').textContent = s.ia.modeloGemini ? '· ' + s.ia.modeloGemini : '';
+    $('tRostro').checked = s.rostro;
+    if (primera) { $('pUni').value = s.perfil.universidad; $('pFac').value = s.perfil.facultad; $('pCur').value = s.perfil.curso; $('pDoc').value = s.perfil.docente; $('pSem').value = s.perfil.semestre; }
+    $('exList').innerHTML = s.examenes.map(function (e) {
+      var v = e.id.slice(-1), u = urlV(v);
+      return '<div class="exrow"><div><b>' + esc(e.titulo) + '</b> <span class="muted">' + e.minutos + ' min · bloqueo a las ' + e.maxInf + ' fugas</span>' +
+        '<div class="muted mono" style="font-size:.75rem;word-break:break-all">' + esc(u) + '</div></div>' +
+        '<div class="acts"><label class="tg" title="Abierto / cerrado"><input type="checkbox" data-ex="' + esc(e.id) + '"' + (e.activo ? ' checked' : '') + '><span></span></label>' +
+        '<button class="btn ghost sm" data-copy="' + esc(u) + '">Copiar</button><button class="btn ghost sm" data-qr="' + esc(v) + '">QR</button>' +
+        '<button class="btn red sm" data-resetex="' + esc(e.id) + '">Reiniciar</button></div></div>';
+    }).join('');
+    $('aAlu').textContent = $('aAlu').href = s.enlaces.alumnos; $('aHoja').textContent = $('aHoja').href = s.enlaces.hoja;
+    var sel = $('prLink').value;
+    $('prLink').innerHTML = '<option value="">General</option>' + s.examenes.map(function (e) { return '<option value="' + esc(e.id.slice(-1)) + '">Versión ' + esc(e.id.slice(-1)) + '</option>'; }).join('');
+    $('prLink').value = sel || '';
+    if (!$('proj').classList.contains('hidden')) pintarProyector();
+  }).catch(err('mMon'));
+}
+
+function pintarTabla() {
+  if (!S) return;
+  var q = $('fBus').value.trim().toLowerCase();
+  var xs = S.intentos.filter(function (x) { return !q || (x.codigo + ' ' + x.nombre).toLowerCase().indexOf(q) >= 0; });
+  $('tb').innerHTML = xs.length ? xs.map(function (x) {
+    var lock = x.estado === 'Bloqueado', env = x.nota !== null;
+    var pill = lock ? 'p-lock' : env ? 'p-ok' : 'p-curso';
+    var acc = (lock ? '<button class="btn sm" data-unlock="' + esc(x.token) + '">Desbloquear</button>' : '') +
+              (env ? '<button class="btn ghost sm" data-reabrir="' + esc(x.token) + '" data-n="' + esc(x.nombre) + '">Reabrir</button>' : '') +
+              '<button class="btn red sm" data-reset="' + esc(x.token) + '" data-n="' + esc(x.nombre) + '">Reiniciar</button>';
+    return '<tr class="' + (lock ? 'lock' : '') + '"><td class="mono">' + esc(x.examen) + '</td><td class="mono">' + esc(x.codigo) + '</td><td>' + esc(x.nombre) +
+      '<div class="muted" style="font-size:.72rem">' + esc(x.verificacion) + '</div></td><td><span class="pill ' + pill + '">' + esc(x.estado) + '</span></td><td class="mono">' + x.fugas +
+      (x.desbloqueos ? ' <span class="muted">(' + x.desbloqueos + ' desb.)</span>' : '') + '</td><td class="mono">' + x.marcadas + '</td><td class="mono">' + (env ? '—' : x.min) +
+      '</td><td class="mono">' + (env ? x.nota : '') + '</td><td class="acc">' + acc + '</td></tr>';
+  }).join('') : '<tr><td colspan="9" class="muted">' + (q ? 'Sin coincidencias.' : 'Aún no hay intentos.') + '</td></tr>';
+}
+$('fBus').oninput = pintarTabla;
+
+/* ---------- acciones del monitoreo ---------- */
+$('tb').onclick = function (e) {
+  var b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.unlock) { b.disabled = true; api('adminDesbloquear', T, b.dataset.unlock).then(function (m) { msg('mMon', m); cargar(); }).catch(err('mMon')); return; }
+  if (b.dataset.reabrir) {
+    confirmar({ t: 'Reabrir la ficha de ' + b.dataset.n, p: 'Se anula su envío y su nota (quedan en la hoja Archivo). Vuelve a su hoja con sus marcas y el tiempo sigue contando desde su inicio. Debe volver a ingresar con su código.', si: 'Reabrir' })
+      .then(function (ok) { if (ok) api('adminResetAlumno', T, b.dataset.reabrir, 'reabrir').then(function (m) { msg('mMon', m); cargar(); }).catch(err('mMon')); });
+    return;
+  }
+  if (b.dataset.reset) {
+    confirmar({ t: 'Reiniciar a ' + b.dataset.n, p: 'Se borran su intento, sus marcas y su nota (quedan en la hoja Archivo). Podrá ingresar de nuevo desde cero, con el tiempo completo y eligiendo la versión correcta. Si está con la hoja abierta, su celular le avisará en unos segundos.', si: 'Reiniciar', rojo: true })
+      .then(function (ok) { if (ok) api('adminResetAlumno', T, b.dataset.reset, 'cero').then(function (m) { msg('mMon', m); cargar(); }).catch(err('mMon')); });
+  }
+};
+
+/* ---------- exámenes ---------- */
+document.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-qr],[data-copy],[data-resetex]'); if (!b || !T) return;
+  if (b.dataset.copy !== undefined) { try { navigator.clipboard.writeText(b.dataset.copy); msg('mEx', 'Enlace copiado.'); } catch (x) { msg('mEx', b.dataset.copy); } return; }
+  if (b.dataset.qr !== undefined) { var u = urlV(b.dataset.qr); confirmar({ t: b.dataset.qr ? 'Versión ' + b.dataset.qr : 'Enlace general', p: '<span class="mono" style="font-size:.75rem;word-break:break-all">' + esc(u) + '</span>', qr: u }); return; }
+  if (b.dataset.resetex) {
+    var todos = b.dataset.resetex === 'TODOS';
+    confirmar({ t: todos ? 'Reiniciar todos los exámenes' : 'Reiniciar ' + b.dataset.resetex, rojo: true, escribir: true, si: 'Reiniciar',
+                p: 'Se borran todos los intentos y notas ' + (todos ? 'de todas las versiones' : 'de esta versión') + '. Se copian antes a la hoja Archivo y la lista de alumnos no se toca. Escriba <b>REINICIAR</b> para confirmar.' })
+      .then(function (v) { if (v !== null) api('adminResetExamen', T, b.dataset.resetex, v).then(function (m) { msg(todos ? 'mEx' : 'mEx', m); cargar(); }).catch(err('mEx')); });
+  }
+});
+$('exList').onchange = function (e) {
+  var c = e.target.closest('[data-ex]'); if (!c) return;
+  api('adminActivo', T, c.dataset.ex, c.checked).then(function (m) { msg('mEx', m); }).catch(err('mEx'));
+};
+
+/* ---------- alumnos desde Excel ---------- */
+var CAMPOS = [['codigo', 'Código'], ['completo', 'Nombre completo (APELLIDOS, NOMBRES)'], ['apellidos', 'Apellidos'], ['nombres', 'Nombres'], ['dni', 'DNI'], ['email', 'Correo'], ['seccion', 'Sección']];
+function norm(s) { return String(s || '').toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim(); }
+function detectar(rows) {
+  var h = 0, best = -1;
+  rows.slice(0, 30).forEach(function (r, i) { var t = r.map(norm).join(' '); var sc = /COD/.test(t) * 3 + /ALUMNO|APELLIDO|NOMBRE/.test(t) * 3 + r.filter(function (x) { return String(x).trim(); }).length * 0.1; if (sc > best) { best = sc; h = i; } });
+  var head = rows[h].map(norm), body = rows.slice(h + 1).filter(function (r) { return r.some(function (x) { return String(x).trim(); }); });
+  var col = function (re, test) {
+    var i = head.findIndex(function (x) { return re.test(x); });
+    if (i < 0 && test) i = head.findIndex(function (_, j) { var v = body.slice(0, 20).map(function (r) { return String(r[j] || '').trim(); }).filter(Boolean); return v.length && v.filter(test).length / v.length > 0.7; });
+    return i;
+  };
+  var m = { codigo: col(/^COD|CODIGO/, function (v) { return /^\d{8}[A-Z]$/i.test(v); }),
+            completo: col(/ALUMNO|APELLIDOS Y NOMBRES|NOMBRE COMPLETO|ESTUDIANTE/, function (v) { return /,/.test(v); }),
+            apellidos: col(/^APELLIDO/), nombres: col(/^NOMBRE(S)?$/),
+            dni: col(/DNI|DOCUMENTO/, function (v) { return /^\d{8}$/.test(v); }),
+            email: col(/MAIL|CORREO/, function (v) { return /@/.test(v); }), seccion: col(/SECCION|GRUPO|AULA/) };
+  if (m.completo >= 0 && m.completo === m.apellidos) m.apellidos = -1;
+  var sec = ''; rows.slice(0, h).forEach(function (r) { r.forEach(function (x) { var k = /SECCION\s*:\s*([A-Z0-9]+)/.exec(norm(x)); if (k) sec = k[1]; }); });
+  return { head: rows[h], body: body, m: m, seccion: sec };
+}
+function filasMapeadas() {
+  var m = {}; CAMPOS.forEach(function (c) { m[c[0]] = +$('m_' + c[0]).value; });
+  return XLS.body.map(function (r) {
+    var g = function (k) { return m[k] >= 0 ? String(r[m[k]] === undefined ? '' : r[m[k]]).trim() : ''; };
+    var ape = g('apellidos'), nom = g('nombres');
+    if (!ape && g('completo')) { var p = g('completo').split(','); ape = p[0].trim(); nom = (p[1] || '').trim(); }
+    var tit = function (s) { return s.toLowerCase().replace(/(^|\s)\S/g, function (c) { return c.toUpperCase(); }); };
+    return { codigo: g('codigo'), apellidos: tit(ape), nombres: tit(nom), dni: g('dni'), email: g('email').toLowerCase(), seccion: g('seccion') || XLS.seccion };
+  }).filter(function (x) { return x.codigo && x.apellidos; });
+}
+function vistaPrevia() {
+  var f = filasMapeadas();
+  $('prev').innerHTML = '<tr><th>Código</th><th>Apellidos</th><th>Nombres</th><th>DNI</th><th>Correo</th><th>Sección</th></tr>' +
+    f.slice(0, 8).map(function (x) { return '<tr><td class="mono">' + esc(x.codigo) + '</td><td>' + esc(x.apellidos) + '</td><td>' + esc(x.nombres) + '</td><td class="mono">' + esc(x.dni) + '</td><td>' + esc(x.email) + '</td><td>' + esc(x.seccion) + '</td></tr>'; }).join('');
+  $('prevTot').textContent = f.length + ' alumnos válidos detectados' + (f.length > 8 ? ' (se muestran 8)' : '');
+}
+$('fXls').onchange = function () {
+  var f = this.files && this.files[0]; if (!f) return;
+  var rd = new FileReader();
+  rd.onload = function () {
+    try {
+      var wb = XLSX.read(new Uint8Array(rd.result), { type: 'array' });
+      var rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: '', raw: false });
+      XLS = detectar(rows);
+      var opts = '<option value="-1">— no usar —</option>' + XLS.head.map(function (h, i) { return '<option value="' + i + '">' + esc(h || ('Columna ' + (i + 1))) + '</option>'; }).join('');
+      $('map').innerHTML = CAMPOS.map(function (c) { return '<div><label for="m_' + c[0] + '">' + c[1] + '</label><select id="m_' + c[0] + '">' + opts + '</select></div>'; }).join('');
+      CAMPOS.forEach(function (c) { $('m_' + c[0]).value = String(XLS.m[c[0]]); $('m_' + c[0]).onchange = vistaPrevia; });
+      $('mapBox').classList.remove('hidden'); vistaPrevia(); msg('mAl', 'Archivo leído: revise la asignación de columnas.');
+    } catch (e) { msg('mAl', 'No se pudo leer el archivo: ' + e.message, false); }
+  };
+  rd.readAsArrayBuffer(f);
+};
+function cargarLista(reemplazar) {
+  var f = filasMapeadas(); if (!f.length) { msg('mAl', 'No hay filas válidas: revise las columnas de código y nombre.', false); return; }
+  var go = function () { msg('mAl', 'Cargando…'); api('adminCargarAlumnos', T, f, reemplazar).then(function (m) { msg('mAl', m); cargar(); }).catch(err('mAl')); };
+  if (!reemplazar) { go(); return; }
+  confirmar({ t: 'Reemplazar la lista', p: 'La lista actual (incluidos los alumnos agregados en el aula) se copia a la hoja Archivo y se reemplaza por los ' + f.length + ' alumnos del archivo.', si: 'Reemplazar', rojo: true })
+    .then(function (ok) { if (ok) go(); });
+}
+$('btnAdd').onclick = function () { cargarLista(false); };
+$('btnRepl').onclick = function () { cargarLista(true); };
+
+/* ---------- configuración ---------- */
+$('btnPerfil').onclick = function () {
+  api('adminGuardarPerfil', T, { universidad: $('pUni').value, facultad: $('pFac').value, curso: $('pCur').value, docente: $('pDoc').value, semestre: $('pSem').value })
+    .then(function (m) { msg('mPer', m); cargar(); }).catch(err('mPer'));
+};
+$('iProv').onchange = function () { api('adminAjuste', T, 'proveedor', this.value).then(function (m) { msg('mIA', m); }).catch(err('mIA')); };
+$('btnClave').onclick = function () {
+  var k = $('iClave').value.trim(); if (!k) return;
+  msg('mIA', 'Guardando y probando…'); $('iClave').value = '';
+  api('adminGuardarClave', T, k).then(function (m) { msg('mIA', m, !/No reconozco|respondió/.test(m)); cargar(); }).catch(err('mIA'));
+};
+document.querySelectorAll('[data-borrar]').forEach(function (b) {
+  b.onclick = function () { api('adminBorrarClave', T, b.dataset.borrar).then(function (m) { msg('mIA', m); cargar(); }).catch(err('mIA')); };
+});
+$('btnProbar').onclick = function () { msg('mIA', 'Consultando modelos…'); api('adminProbarIA', T).then(function (m) { msg('mIA', m, !/respondió|No hay/.test(m)); cargar(); }).catch(err('mIA')); };
+$('tRostro').onchange = function () { api('adminAjuste', T, 'rostro', this.checked).then(function (m) { msg('mSeg', m); }).catch(err('mSeg')); };
+$('btnDoc').onclick = function () { api('adminAjuste', T, 'docente', $('sDoc').value.trim()).then(function (m) { $('sDoc').value = ''; msg('mSeg', m); }).catch(err('mSeg')); };
+$('btnAdm').onclick = function () { api('adminAjuste', T, 'admin', $('sAdm').value).then(function (m) { $('sAdm').value = ''; msg('mSeg', m); cargar(); }).catch(err('mSeg')); };
+
+/* ---------- modo proyector ---------- */
+var PJ = { qrUrl: null, tick: null };
+function prefs() { try { var p = JSON.parse(localStorage.getItem('proyector') || '{}'); ['prQR', 'prMarc'].forEach(function (k) { if (k in p) $(k).checked = p[k]; }); ['prLista', 'prBase'].forEach(function (k) { if (p[k]) $(k).value = p[k]; }); } catch (e) {} }
+function guardarPrefs() { try { localStorage.setItem('proyector', JSON.stringify({ prQR: $('prQR').checked, prMarc: $('prMarc').checked, prLista: $('prLista').value, prBase: $('prBase').value })); } catch (e) {} }
+function iniciales(n) { return n.split(/\s+/).filter(Boolean).slice(0, 3).map(function (w) { return w[0].toUpperCase() + '.'; }).join(' '); }
+function corto(n) { var w = n.split(/\s+/); return w[0] + ' ' + (w[w.length > 3 ? 2 : 1] || '').charAt(0) + '.'; }
+function pintarProyector() {
+  if (!S) return;
+  $('proj').classList.toggle('sinqr', !$('prQR').checked);
+  $('prQRcol').classList.toggle('hidden', !$('prQR').checked);
+  var u = urlV($('prLink').value);
+  if (u !== PJ.qrUrl) { $('prQRbox').innerHTML = ''; try { var w = Math.min(window.innerHeight * 0.55, window.innerWidth * 0.3); new QRCode($('prQRbox'), { text: u, width: w, height: w }); } catch (e) {} PJ.qrUrl = u; $('prUrl').textContent = u; }
+  $('prTit').textContent = S.perfil.curso; $('prSub').textContent = S.perfil.universidad + ' · ' + S.perfil.docente + ' · ' + S.perfil.semestre;
+  var xs = S.intentos, env = xs.filter(function (x) { return x.nota !== null; }), rind = xs.filter(function (x) { return x.nota === null; });
+  var base = $('prBase').value === 'ini' ? xs.length : Math.max(S.resumen.alumnos, xs.length);
+  relojProyector();
+  $('prEnvTxt').textContent = env.length + ' / ' + base; $('prEnvBar').style.width = (base ? 100 * env.length / base : 0) + '%';
+  var prom = rind.length ? rind.reduce(function (a, x) { return a + x.marcadas; }, 0) / rind.length / 20 * 100 : (env.length ? 100 : 0);
+  $('prMarcBox').classList.toggle('hidden', !$('prMarc').checked);
+  $('prMarcTxt').textContent = Math.round(prom) + ' %'; $('prMarcBar').style.width = prom + '%';
+  var modo = $('prLista').value;
+  $('prListosTit').textContent = 'Listos: ' + xs.length + ' verificados' + (env.length ? ' · ' + env.length + ' ya enviaron' : '');
+  $('prChips').classList.toggle('hidden', modo === 'num'); $('prNum').classList.toggle('hidden', modo !== 'num');
+  $('prNum').textContent = xs.length;
+  if (modo !== 'num') $('prChips').innerHTML = xs.slice().reverse().map(function (x) {
+    return '<span class="chip' + (x.nota !== null ? ' env' : '') + '">' + (x.nota !== null ? '✓ ' : '') + esc(modo === 'nom' ? corto(x.nombre) : iniciales(x.nombre)) + '</span>'; }).join('');
+}
+function relojProyector() {
+  if (!S || !S.proyector.finMs) { $('prClock').textContent = '--:--'; return; }
+  $('prClock').textContent = mmss((S.proyector.finMs - (Date.now() + offset)) / 1000);
+}
+$('btnProj').onclick = function () {
+  prefs(); $('proj').classList.remove('hidden'); PJ.qrUrl = null; pintarProyector(); relojProyector(); cargar();
+  clearInterval(timer); timer = setInterval(cargar, 8000); PJ.tick = setInterval(relojProyector, 1000);
+};
+['prQR', 'prMarc', 'prLista', 'prBase', 'prLink'].forEach(function (k) { $(k).onchange = function () { guardarPrefs(); pintarProyector(); }; });
+$('prFull').onclick = function () { var el = $('proj'); try { (el.requestFullscreen || el.webkitRequestFullscreen).call(el); } catch (e) {} };
+$('prSalir').onclick = function () {
+  try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
+  $('proj').classList.add('hidden'); clearInterval(PJ.tick); clearInterval(timer); timer = setInterval(cargar, 15000);
+};
+</script>
+</body>
+</html>

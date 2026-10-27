@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ficha digital de examen con IA · toolsHXP</title>
+<meta name="description" content="Aplicación gratuita para exámenes de opción múltiple: identificación con IA, hoja de burbujas en el celular, control de fugas y panel del docente. Úsela, genérela con su IA o instálela en su cuenta de Google.">
+<meta property="og:title" content="Ficha digital de examen con IA">
+<meta property="og:description" content="Úsela, genérela con su IA preferida o instálela en su propia cuenta de Google.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/estilo.css">
+</head>
+<body>
+<a class="saltar" href="#op1">Saltar al contenido</a>
+<header class="top"><div class="wrap">
+  <a class="brand" href="../" aria-label="toolsHXP, inicio"><span class="logo" aria-hidden="true">&gt;_</span><span class="nom">tools<span>HXP</span></span></a>
+  <nav class="links" aria-label="Secciones"><a href="#op1">Usar</a><a href="#op2">Prompt</a><a href="#op3">Instalar</a></nav>
+</div></header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="kicker">toolsHXP · Evaluación</div>
+    <h1 id="titulo">Ficha digital de examen con IA</h1>
+    <p class="lead" id="resumen">Cargando…</p>
+    <ul class="tags" id="tags"></ul>
+  </section>
+
+  <section class="opcion" id="op1">
+    <div class="card">
+      <div class="ohead"><span class="num">1</span><h2>Usar la aplicación</h2></div>
+      <p class="desc">Abra la ficha en el navegador del celular para ver cómo la usa un estudiante.</p>
+      <div class="acciones"><a class="btn" id="app-btn" href="#" target="_blank" rel="noopener">Abrir la aplicación</a></div>
+      <p class="nota" id="app-nota"></p>
+    </div>
+  </section>
+
+  <section class="opcion" id="op2">
+    <div class="card">
+      <div class="ohead"><span class="num">2</span><h2>Generarla con su IA preferida</h2></div>
+      <p class="desc">Copie el prompt y péguelo en la IA que use. Cada versión trae indicaciones propias de esa IA para que entregue los archivos completos.</p>
+      <div class="tabs" id="tabs" role="tablist" aria-label="Inteligencia artificial"></div>
+      <ol class="pasos" id="guia"></ol>
+      <pre class="prompt" id="prompt" tabindex="0" aria-label="Texto del prompt">Cargando…</pre>
+      <div class="acciones">
+        <button class="btn" id="abrir" type="button">Copiar y abrir</button>
+        <button class="btn sec" id="copiar" type="button">Solo copiar</button>
+        <a class="btn sec" id="bajar" href="#" download>Descargar .txt</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="opcion" id="op3">
+    <div class="card">
+      <div class="ohead"><span class="num">3</span><h2>Instalarla usted mismo</h2></div>
+      <p class="desc">Descargue el código y la guía, e instálela en su propia cuenta de Google con su propia clave de IA<span id="min"></span>. Sus datos y los de sus alumnos quedan en su Drive.</p>
+      <ol class="pasos" id="pasos"></ol>
+      <div class="acciones">
+        <a class="btn" id="zip" href="#" download>Descargar el código (.zip)</a>
+        <a class="btn sec" id="leeme" href="#" target="_blank" rel="noopener">Leer la guía de instalación</a>
+      </div>
+      <p class="nota">Gemini ofrece una clave gratuita en aistudio.google.com/apikey. Sin clave, la ficha también funciona: el alumno escribe sus datos y el docente da conformidad.</p>
+    </div>
+  </section>
+  <section class="opcion" aria-labelledby="t-inc">
+    <h2 id="t-inc">Qué incluye</h2>
+    <div class="grid feat" id="feat" style="margin-top:12px"></div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 toolsHXP · Dr. José Alfredo Herrera Quispe · Uso educativo libre citando al autor.</span>
+  <span><a href="https://orcid.org/0000-0002-8207-9714" rel="noopener">ORCID</a> · <a href="https://www.linkedin.com/in/jose-herrera-b1a84787/" rel="noopener">LinkedIn</a></span>
+</div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="../assets/proyecto.js"></script>
+</body>
+</html>

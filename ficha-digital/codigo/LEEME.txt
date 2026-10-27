@@ -1,0 +1,85 @@
+FICHA DIGITAL DE EXAMEN CON IA
+Guía de instalación en su propia cuenta de Google
+Autor: Ph.D. José Herrera · https://jherreraxp.github.io · ORCID 0000-0002-8207-9714
+==========================================================================================
+
+Qué es
+------
+Una aplicación web gratuita (Google Apps Script + Hojas de cálculo de Google) para exámenes de
+opción múltiple. El estudiante resuelve en papel y marca sus respuestas en el celular, o rinde
+directamente en la ficha. Incluye:
+- Identificación con la foto del DNI o carné, leída por inteligencia artificial (Claude o Gemini),
+  y comparación de la selfie con la foto del documento.
+- Verificación contra la lista oficial del curso; el docente puede agregar alumnos en el aula.
+- Hoja de burbujas con temporizador, calculadora científica y pantalla siempre encendida.
+- Control de fugas: cambiar de aplicación o salir de la hoja cuenta como fuga; con 5 fugas la hoja
+  se bloquea y solo el docente la desbloquea.
+- Calificación inmediata, podio de aprobados y revisión de la clave.
+- Panel del docente: monitoreo en vivo, reiniciar o reabrir a un alumno, enlaces y QR por versión,
+  carga de la lista desde Excel, modo proyector y configuración de la IA.
+
+Lo que necesita
+---------------
+- Una cuenta de Google (personal o institucional).
+- Una clave de IA para leer documentos. Puede elegir:
+  * Gemini (gratuita): https://aistudio.google.com/apikey  — la clave empieza con «AIza».
+  * Claude (de pago, más estable con salones grandes): https://console.anthropic.com — empieza con «sk-ant-».
+  Sin clave la aplicación también funciona: el alumno escribe sus datos a mano y el docente da conformidad.
+
+Instalación (10 minutos)
+------------------------
+1. Cree una hoja de cálculo nueva en Google Drive (sheets.new). Póngale un nombre, por ejemplo
+   «Ficha digital · Mi curso».
+2. Menú Extensiones > Apps Script. Se abre el editor.
+3. Archivo «Código.gs»: borre su contenido y pegue el de Code.gs de esta carpeta.
+4. Botón «+» junto a «Archivos» > HTML. Nómbrelo exactamente Index (sin .html) y pegue Index.html.
+5. Repita con otro archivo HTML llamado exactamente Admin y pegue Admin.html.
+6. Guarde (Ctrl+S). En la barra superior elija la función «preparar» y pulse «Ejecutar».
+   Google pedirá autorizar el script: «Revisar permisos» > su cuenta > «Configuración avanzada» >
+   «Ir a … (no seguro)» > «Permitir». Es su propio script; el aviso aparece porque no está publicado
+   en el catálogo de Google.
+7. Al terminar, el registro de ejecución muestra su CÓDIGO DOCENTE inicial (6 dígitos). Anótelo:
+   es el código que usted digita en el celular del alumno y, hasta que la cambie, la clave del panel.
+8. Implementar > Nueva implementación > engranaje > «Aplicación web».
+   Ejecutar como: «Yo». Quién tiene acceso: «Cualquier usuario». Pulse «Implementar».
+9. Copie la URL que termina en /exec. Ese es el enlace para sus alumnos.
+   El panel del docente es la misma URL terminada en /exec?admin=1
+
+Primera configuración en el panel (/exec?admin=1)
+-------------------------------------------------
+1. Ingrese con su código docente.
+2. Configuración > Seguridad: defina una clave de administración propia (mínimo 6 caracteres) y,
+   si quiere, cambie el código docente.
+3. Configuración > Inteligencia artificial: pegue su clave de Gemini o de Claude y pulse
+   «Probar la IA». La aplicación elige sola el modelo más reciente con visión.
+4. Configuración > Perfil institucional: universidad, facultad, curso, docente y semestre.
+5. Alumnos: suba el Excel o CSV del sistema de su universidad; revise la asignación de columnas
+   y pulse «Agregar y actualizar». Borre el alumno de ejemplo DEMO0001 en la hoja Alumnos.
+6. Su examen: en la hoja Config, edite las filas de ejemplo (DEMO-A, DEMO-B) o agregue una por
+   versión: examen_id, título, curso, número de preguntas, minutos, fugas permitidas, nota
+   aprobatoria, mostrar correctas (SI/NO), mostrar ranking (SI/NO), activo (SI/NO) y la clave de
+   respuestas en una sola cadena (por ejemplo ABCDEABCDE…). Las versiones del mismo examen deben
+   compartir el texto del título antes del «·» (por ejemplo «Parcial · Versión A»).
+7. Exámenes y enlaces: copie el enlace o muestre el QR de cada versión. «Modo proyector» muestra el
+   QR, la cuenta regresiva y el avance del salón.
+
+Antes del examen real
+---------------------
+- Haga una prueba con un código ficticio y luego use «Reiniciar todos los exámenes» en el panel.
+- Pida a los alumnos que carguen bien la batería y que no apaguen la pantalla durante el examen.
+- Lea en voz alta el aviso de consentimiento: las fotos solo se usan para verificar la identidad y
+  no se guardan (Ley 29733 de Protección de Datos Personales, en el Perú).
+
+Si cambia el código más adelante
+--------------------------------
+Implementar > Gestionar implementaciones > lápiz > Versión: «Nueva versión» > Implementar.
+El enlace /exec no cambia.
+
+Límites honestos
+----------------
+- Una página web no puede impedir que el alumno use otro dispositivo; el control de fugas es
+  disuasivo y deja evidencia con hora. El desarrollo en papel sigue siendo la prueba principal.
+- La comparación de rostros con IA no es un sistema biométrico certificado: ante «no» o «dudoso»,
+  decide el docente viendo las dos fotos.
+- Google limita las ejecuciones simultáneas por cuenta: para salones de más de 100 alumnos que
+  ingresan a la vez, haga antes una prueba de carga. Gemini gratuito tiene límites por minuto.

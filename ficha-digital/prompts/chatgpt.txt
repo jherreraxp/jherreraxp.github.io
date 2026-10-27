@@ -1,0 +1,47 @@
+Indicaciones para ChatGPT: usa Canvas para cada archivo si está disponible; entrega el código completo de cada archivo. Si la respuesta se corta, continúa exactamente donde quedó cuando te escriba «continúa».
+
+Actúa como desarrollador experto en Google Apps Script y diseño de interfaces móviles. Construye conmigo, de punta a punta, una aplicación web llamada «Ficha digital de examen con IA» para que un docente universitario tome exámenes de opción múltiple. Escribe todo en español.
+
+## Contexto
+- El estudiante resuelve el examen en papel (versiones A, B, C…) y marca sus respuestas en el celular. También debe poder rendir solo en la ficha.
+- Tecnología: Google Apps Script vinculado a una hoja de cálculo de Google, desplegado como aplicación web («ejecutar como yo», acceso «cualquier usuario»). Sin servidores externos ni bases de datos de pago.
+- Archivos: Code.gs (servidor), Index.html (ficha del alumno) y Admin.html (panel del docente, en la misma URL con ?admin=1). Más un LEEME con la instalación paso a paso.
+
+## Hojas de cálculo (créalas con una función preparar())
+- Config: una fila por versión → examen_id, titulo, curso, n_preg, minutos, max_infracciones, nota_aprobatoria, mostrar_correctas, mostrar_ranking, activo, clave (cadena de letras, formato texto).
+- Alumnos: codigo, dni, apellidos, nombres, seccion, email, origen.
+- Respuestas, Eventos (bitácora con hora), Intentos (control y reanudación) y Archivo (copia de todo lo que se borra o reinicia).
+- Los secretos (clave de la IA, código docente, clave del panel) van en Propiedades del script, nunca en las hojas ni en el navegador. preparar() genera un código docente aleatorio de 6 dígitos y lo muestra.
+
+## Ficha del alumno (Index.html, diseñada primero para celular de 390 px)
+1. Casilla de consentimiento obligatoria: las fotos solo sirven para verificar la identidad y no se guardan.
+2. Elige su versión (o viene fijada por el enlace ?v=A).
+3. Toma una foto de su DNI o carné: la IA extrae código, DNI, apellidos y nombres y autocompleta los campos; el alumno puede corregirlos.
+4. Toma una selfie: la IA compara su rostro con la foto del documento y responde sí / no / dudoso (solo compara, no identifica a nadie).
+5. «Verificar»: el servidor busca al alumno en la hoja Alumnos por código, DNI o apellidos y nombre (sin importar tildes). Si el rostro es «sí» y está en la lista, pasa. Si no está o el rostro es «no» o «dudoso», aparece «Conformidad del docente»: el docente ve las dos fotos lado a lado y digita su código; si no estaba en la lista, el alumno se agrega con origen «Agregado por el docente».
+6. Hoja de burbujas A–E en dos columnas, temporizador medido en el servidor, contador de fugas, progreso, calculadora científica (exp, ln, log, √, potencias, π, e, Ans; sin eval) y botón fijo «Enviar a calificar» con confirmación.
+7. Pantalla siempre encendida: Wake Lock API y, como respaldo, un video mínimo silencioso en bucle.
+8. Control de fugas: visibilitychange, blur, pagehide, salida de pantalla completa e intento de volver atrás cuentan como fuga (antirrebote de 1,5 s). Fugas 1 a 4: aviso con contador. Fuga 5: la hoja se bloquea y solo se desbloquea con el código docente (validado en el servidor, con límite de 5 intentos erróneos cada 10 minutos) o desde el panel. Bloquear copiar, pegar y menú contextual.
+9. Si se corta la conexión, al volver a ingresar con el mismo código recupera sus marcas, fugas y tiempo. Reintentos automáticos de red. Envío idempotente.
+10. Resultado: nota vigesimal (correctas/n × 20). Si aprueba: «¡Felicitaciones, aprobaste!», podio de los 3 mejores y lista de aprobados (mayor nota, menor tiempo). Si no aprueba: mensaje motivador sin ranking. Revisión con burbujas verdes, rojas y la clave contorneada.
+
+## Inteligencia artificial
+- Admite Claude (clave sk-ant-…) y Gemini (clave AIza…); el proveedor se detecta por el prefijo y en modo automático usa Claude y, si falla, Gemini.
+- No fijes versiones de modelo: consulta la lista de modelos de la API y elige el más reciente con visión (en Claude, el más reciente de la línea rápida; en Gemini, el flash más reciente). Guarda la elección en caché.
+- Respuestas de la IA en JSON estricto; deja margen de tokens para modelos que razonan antes de responder. Ninguna imagen se guarda.
+
+## Panel del docente (Admin.html)
+- Ingreso con clave (al inicio, el código docente; aviso para cambiarla).
+- Monitoreo en vivo cada 15 s: en la lista, rindiendo, bloqueados, enviados; tabla con versión, código, alumno, estado, fugas, marcadas, minutos y nota; buscador. Acciones por alumno con confirmación: Desbloquear, Reabrir (anula un envío y le devuelve su hoja con sus marcas) y Reiniciar (borra intento y nota para empezar de cero, incluso en otra versión; su celular le avisa).
+- Exámenes y enlaces: abrir o cerrar cada versión, copiar el enlace y QR por versión, reiniciar una versión o todas escribiendo REINICIAR (todo se copia antes a Archivo).
+- Alumnos: cargar Excel o CSV tal como sale del sistema de la universidad (detectar fila de títulos, código, «APELLIDOS, NOMBRES», correo y sección), vista previa, «Agregar y actualizar» o «Reemplazar toda la lista».
+- Configuración: perfil institucional (universidad, facultad, curso, docente, semestre), claves de IA enmascaradas con botón «Probar la IA», proveedor, comparación de rostros activable, código docente y clave del panel.
+- Modo proyector a pantalla completa: QR grande, cuenta regresiva, barra de fichas enviadas, avance promedio de quienes rinden y lista de «listos» (iniciales, nombres o solo el número). Nunca mostrar fugas ni bloqueos en el proyector.
+
+## Calidad
+- Diseño limpio y moderno (por ejemplo, Space Grotesk y un color principal índigo), accesible y sin desbordes a 390 px.
+- Valida todo en el servidor; usa LockService al escribir; escapa el HTML que viene de datos.
+- Antes de entregar, revisa el código como si lo probaras con hojas simuladas: calificación, ranking, duplicados, reanudación, fuera de tiempo (gracia de 90 s), bloqueo y desbloqueo, reinicios.
+- Entrega los archivos completos (no fragmentos) y un LEEME con: crear la hoja, pegar los archivos, ejecutar preparar(), autorizar, implementar como aplicación web, abrir ?admin=1 y configurar la IA (cómo obtener una clave gratuita de Gemini en aistudio.google.com).
+
+Empieza mostrándome el plan de archivos y funciones en una lista breve; luego entrega Code.gs, Index.html, Admin.html y el LEEME.
