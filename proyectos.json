@@ -1,5 +1,18 @@
 [
  {
+  "id": "observatorio-scimago",
+  "titulo": "Observatorio SCImago Perú",
+  "resumen": "Tablero interactivo sobre el desempeño de las universidades peruanas en el SCImago Institutions Rankings 2009–2026: KPIs, boxplots, tendencias con proyección, simulador de escenarios con costos referenciados y narrativas por público.",
+  "etiquetas": [
+   "Analítica",
+   "Rankings universitarios",
+   "Visualización de datos",
+   "Simulación"
+  ],
+  "fecha": "2026-11-13",
+  "url": "observatorio-scimago/"
+ },
+ {
   "id": "ficha-digital",
   "titulo": "Ficha digital de examen con IA",
   "resumen": "Examen en papel y hoja de respuestas en el celular: identificación con el DNI o carné leído por IA, comparación de la selfie, control de fugas, calificación inmediata y panel del docente con modo proyector.",

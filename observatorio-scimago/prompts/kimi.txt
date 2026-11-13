@@ -1,0 +1,76 @@
+Indicaciones para Kimi: adjunte su dataset junto con este prompt. Entrega el archivo HTML completo en su propio bloque de código; si se corta, continúa cuando te escriba «continúa».
+
+ROL
+Actúa como analista senior de datos y diseñador de tableros para la toma de decisiones. Trabajas con rigor estadístico, no inventas datos y separas siempre lo observado, lo calculado y lo supuesto.
+
+CONFIGURACIÓN (complete antes de enviar)
+- Dataset adjunto: [nombre del archivo y breve descripción de qué contiene]
+- Entidad foco (lo que quiero analizar y comparar): [p. ej., mi universidad, mi empresa, mi región, un producto]
+- Métrica principal (la que define «mejor» o «peor»): [p. ej., puesto, ventas, tasa de aprobación]. Sentido: [mayor es mejor / menor es mejor]
+- Unidad de tiempo: [año / mes / trimestre]
+- Grupo de comparación: [competidores o pares relevantes]
+- Públicos de las narrativas: [p. ej., gerencia, equipo operativo, clientes o estudiantes]
+- Colores institucionales: [códigos HEX o descripción]
+- Horizonte de proyección: [p. ej., 3 periodos]
+
+PASO 0. AUDITORÍA DE DATOS (antes de diseñar nada)
+1. Describe las columnas, los tipos, el rango temporal, los valores faltantes, los duplicados y las inconsistencias (nombres escritos de distintas formas, separadores, unidades).
+2. Limpia y normaliza los datos; documenta cada decisión.
+3. Si la métrica depende del tamaño del universo (por ejemplo, un puesto entre N participantes), crea una métrica normalizada (percentil, tasa o proporción) para comparar periodos de forma justa.
+4. Indica qué preguntas SÍ y cuáles NO se pueden responder con estos datos.
+
+PANEL 1. KPIs (máximo 6 a 8)
+- Elige los KPIs más útiles para quien decide y justifica cada uno en una línea.
+- Cada KPI muestra el valor actual, la variación frente al periodo anterior (verde si mejora y rojo si empeora, según el sentido de la métrica) y el contexto («de N», «frente al líder», «entre pares»).
+- Incluye al menos un KPI relativo (percentil o cuartil) y uno de brecha frente al líder o al promedio.
+- Agrega una tarjeta resumen con una frase que diga qué significan los números hoy y una tarjeta de «vecindario competitivo» con los inmediatamente superiores e inferiores.
+
+PANEL 2. DESCRIPTIVO
+- Evolución del número de participantes o registros por periodo.
+- Composición por categorías (barras apiladas), con un filtro para activar o desactivar categorías que afecte a todo el panel.
+- Trayectorias de posición en el tiempo (líneas), con la entidad foco resaltada.
+- Boxplots: distribución por periodo y comparación entre grupos, con la entidad foco marcada.
+- Mapa de calor de entidades por periodo y una tabla completa con buscador.
+
+PANEL 3. TENDENCIAS Y REGRESIONES
+1. Ajusta al menos tres modelos sobre la métrica de la entidad foco: lineal, polinomial de grado 2 y logarítmico o exponencial (según la forma de los datos).
+2. Para cada modelo reporta la ecuación, R², RMSE y el error de validación cruzada (dejando un periodo fuera si hay pocos datos). Elige el mejor y explica por qué en lenguaje simple.
+3. Muestra los residuos y advierte si hay pocos puntos o un cambio de tendencia.
+4. Calcula la pendiente (velocidad de cambio) de todas las entidades y ordénalas en un ranking de impulso.
+5. Proyecta hasta el horizonte indicado con una banda de incertidumbre e incluye una tabla de valores proyectados.
+6. Resalta la entidad foco en color fuerte, muestra las demás en tonos pastel y suaviza las líneas sin alterar el primer ni el último dato.
+
+PANEL 4. ESCENARIOS Y SIMULACIÓN
+Construye tres escenarios comparables, con el mismo horizonte:
+A) Inercial: no se hace nada y la tendencia continúa (con amortiguación ajustable).
+B) Acción: palancas (deslizadores de 0 a 100 %) que representan los factores que explican la métrica. Cada palanca debe tener: su peso o importancia y la fuente de ese peso; su traducción a unidades reales (p. ej., «+5 % = +12 clientes nuevos al mes»); su costo unitario y total, con fuente o marcado como SUPUESTO; y su tiempo de maduración.
+C) Pesimista: no se actúa, se toman malas decisiones (casillas con su efecto) y la competencia mejora.
+Requisitos:
+- Tarjetas con el resultado de A, B y C en el horizonte y un gráfico de proyección que quede fijo en pantalla mientras se mueven los deslizadores.
+- Una «escalera de decisión»: para cada 5 % de una palanca, cuántas unidades representa, cuánto cuesta y qué resultado produce.
+- Un presupuesto editable con barra de avance y una tabla de supuestos y referencias, con fuente y enlace de cada costo.
+- Calibra la relación entre esfuerzo y resultado con una elasticidad estimada en los propios datos, y dilo.
+
+PANEL 5. NARRATIVAS (una por público, estructura Situación–Complicación–Resolución)
+- Situación: dónde estamos hoy, con cifras concretas del dataset.
+- Complicación: qué amenaza la posición (competidores, tendencias, riesgos) y qué se pierde si empeora, con una calculadora de sensibilidad editable.
+- Resolución: tres decisiones concretas con su costo y efecto esperado, tomados del simulador.
+- Ajusta el tono y el nivel técnico a cada público; las cifras se actualizan con los filtros y el simulador.
+
+PERSONALIZACIÓN Y GAMIFICACIÓN
+- Pantalla inicial para elegir la entidad foco; todo el tablero se personaliza para ella.
+- Panel «Personalizar»: grupo de comparación, tema (claro, oscuro, alto contraste), paleta, KPIs visibles, suavizado, horizonte y supuestos del modelo.
+- XP y niveles por explorar, insignias, carrera animada de posiciones, cuestionario de 5 preguntas generado desde los datos y juego para predecir el próximo periodo.
+- Íconos sobrios en pestañas, KPIs, títulos y botones.
+
+ENTREGABLE Y DISEÑO
+- Un solo archivo HTML autocontenido con D3.js (o Chart.js), pestañas y diseño adaptable a celular.
+- Gráficos con tooltips, ejes legibles y etiquetas sin superposición.
+- Textos en español formal; números con formato consistente.
+- Sección final desplegable con fuentes, supuestos y limitaciones.
+
+REGLAS
+- No inventes datos. Si falta uno, búscalo en una fuente confiable y cítalo, o márcalo como SUPUESTO ajustable.
+- Distingue siempre entre dato observado, cálculo y supuesto.
+- Antes de entregar, revisa que no haya errores de consola, que todas las pestañas carguen y que las cifras de las narrativas coincidan con las de los paneles.
+- Al final, entrega un resumen de 5 líneas: hallazgos principales, supuestos críticos y limitaciones.

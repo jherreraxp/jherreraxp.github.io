@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="es" class="ui-light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>USIL en SCImago</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Plan: identidad USIL (azul real + azul marino + dorado 30 años). Cabecera marina, pestañas por público, tarjetas sobrias; el dorado solo para logros y metas. */
+:root{
+  --usil:#0047E0; --usil-ink:#0A2A8F; --navy:#0B1E5B; --gold:#C9A14A; --gold-soft:#F3E7C8;
+  --bg:#F4F6FB; --panel:#FFFFFF; --ink:#101A33; --muted:#5A6684; --line:#DDE3F0; --soft:#EAF0FD;
+  --ok:#1F8A4C; --warn:#C27C0E; --bad:#C2352B;
+  --accent:var(--usil); --hl:var(--gold);
+  --f-display:"Montserrat", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --r:12px; --pad:20px; --gap:16px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  html.ui-auto{
+    --bg:#0A1023; --panel:#111a35; --ink:#E8EDFB; --muted:#9AA6C6; --line:#24315A; --soft:#16224a;
+    --usil:#4D82FF; --usil-ink:#8FB0FF; --navy:#071233; --gold:#E0BC6A; --gold-soft:#3a3018;
+    --ok:#3FBF78; --warn:#E3A33A; --bad:#F06A5F; color-scheme:dark;
+  }
+}
+html.ui-dark{
+  --bg:#0A1023; --panel:#111a35; --ink:#E8EDFB; --muted:#9AA6C6; --line:#24315A; --soft:#16224a;
+  --usil:#4D82FF; --usil-ink:#8FB0FF; --navy:#071233; --gold:#E0BC6A; --gold-soft:#3a3018;
+  --ok:#3FBF78; --warn:#E3A33A; --bad:#F06A5F; color-scheme:dark;
+}
+html.ui-contrast{
+  --bg:#FFFFFF; --panel:#FFFFFF; --ink:#000000; --muted:#1D2433; --line:#000000; --soft:#E6ECFF;
+  --usil:#0033B5; --usil-ink:#001F70; --navy:#000A2E; --gold:#8A6400; --gold-soft:#FFF1C9;
+  --ok:#006B2E; --warn:#8A4F00; --bad:#A00000; color-scheme:light;
+}
+html.pal-dorado{ --accent:var(--gold); --hl:var(--usil); }
+html.pal-access{ --accent:#0072B2; --hl:#E69F00; }
+html.dense{ --pad:14px; --gap:10px; }
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:16px; line-height:1.5}
+h1,h2,h3,h4{font-family:var(--f-display); margin:0; text-wrap:balance; letter-spacing:-.01em}
+button,select,input{font:inherit; color:inherit}
+:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+.num{font-variant-numeric:tabular-nums}
+
+/* Cabecera */
+.top{background:var(--navy); color:#fff; position:relative; overflow:hidden}
+.top::after{content:""; position:absolute; right:-60px; top:-80px; width:320px; height:320px; border-radius:50%; border:28px solid rgba(201,161,74,.18); pointer-events:none}
+.top-in{max-width:1280px; margin:0 auto; padding:18px 20px 0; position:relative; z-index:1}
+.brand{display:flex; flex-wrap:wrap; align-items:center; gap:14px 22px; justify-content:space-between}
+.mark{display:flex; align-items:center; gap:14px}
+.wm{font-family:var(--f-display); font-weight:800; font-size:30px; letter-spacing:.04em; background:#fff; color:#0047E0; padding:2px 12px; border-radius:6px; line-height:1.2}
+.ttl h1{font-size:clamp(20px,2.6vw,28px); color:#fff; font-weight:700}
+.ttl p{margin:2px 0 0; color:#C9D5F5; font-size:15px; max-width:70ch}
+.ttl p b{color:#fff}
+.hud{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+.lvl{background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); border-radius:999px; padding:6px 14px 6px 8px; display:flex; align-items:center; gap:10px; min-width:240px}
+.lvl .ic{width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:800;font-family:var(--f-display);font-size:13px}
+.lvl .bar{height:6px;background:rgba(255,255,255,.18);border-radius:3px;overflow:hidden;margin-top:3px}
+.lvl .bar i{display:block;height:100%;background:var(--gold);width:0;transition:width .5s}
+.lvl small{color:#C9D5F5; font-size:12px}
+.lvl strong{font-size:14px}
+.btn{border:1px solid var(--line); background:var(--panel); color:var(--ink); border-radius:999px; padding:7px 14px; cursor:pointer; font-weight:600; font-size:14px; display:inline-flex; gap:6px; align-items:center}
+.btn:hover{border-color:var(--usil)}
+.btn.pri{background:var(--usil); color:#fff; border-color:var(--usil)}
+.top .btn{background:transparent; color:#fff; border-color:rgba(255,255,255,.35)}
+.top .btn:hover{background:rgba(255,255,255,.1)}
+.tabs{display:flex; gap:4px; margin-top:16px; overflow-x:auto; scrollbar-width:none}
+.tabs button{background:none; border:0; color:#C9D5F5; padding:10px 14px 12px; font-family:var(--f-display); font-weight:600; font-size:14px; cursor:pointer; border-radius:10px 10px 0 0; white-space:nowrap; display:flex; gap:8px; align-items:center}
+.tabs button .n{font-size:11px; border:1px solid currentColor; border-radius:50%; width:20px; height:20px; display:grid; place-items:center; opacity:.8}
+.tabs button[aria-selected="true"]{background:var(--bg); color:var(--usil-ink)}
+html.ui-dark .tabs button[aria-selected="true"]{color:#fff}
+.tabs button .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);display:none}
+.tabs button.new .dot{display:inline-block}
+
+main{max-width:1280px; margin:0 auto; padding:22px 20px 60px}
+section.panel{display:grid; gap:var(--gap)}
+section.panel[hidden]{display:none}
+.lead{display:flex; flex-wrap:wrap; gap:8px 18px; align-items:baseline; justify-content:space-between}
+.lead h2{font-size:22px}
+.lead p{margin:0; color:var(--muted); max-width:80ch}
+.grid{display:grid; gap:var(--gap)}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.card{background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:var(--pad); min-width:0}
+.card h3{font-size:16px; margin-bottom:4px}
+.card .sub{color:var(--muted); font-size:14px; margin:0 0 10px}
+.chart{position:relative; min-height:280px; width:100%}
+.chart.tall{min-height:380px}
+.chart svg{display:block; overflow:visible}
+.chart text{font-family:var(--f-body); fill:var(--muted); font-size:12px}
+.chart .axis path,.chart .axis line{stroke:var(--line)}
+.chart .grid line{stroke:var(--line); stroke-opacity:.7}
+.chart .grid path{display:none}
+.tip{position:absolute; pointer-events:none; background:var(--panel); border:1px solid var(--line); box-shadow:0 8px 24px rgba(10,20,60,.16); border-radius:10px; padding:8px 10px; font-size:13px; min-width:150px; z-index:5; opacity:0; transition:opacity .12s}
+.tip b{font-family:var(--f-display); font-size:13px}
+.tip .r{display:flex; justify-content:space-between; gap:12px; align-items:center}
+.tip .sw{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:6px}
+.legend{display:flex; flex-wrap:wrap; gap:6px 14px; font-size:13px; color:var(--muted); margin-top:6px}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.legend i{width:14px; height:3px; border-radius:2px; display:inline-block}
+.note{font-size:13px; color:var(--muted); margin:8px 0 0}
+.pill{display:inline-flex; align-items:center; gap:4px; border-radius:999px; padding:2px 9px; font-size:12px; font-weight:700}
+.pill.up{background:color-mix(in srgb,var(--ok) 15%,transparent); color:var(--ok)}
+.pill.down{background:color-mix(in srgb,var(--bad) 14%,transparent); color:var(--bad)}
+.pill.flat{background:var(--soft); color:var(--muted)}
+.pill.gold{background:var(--gold-soft); color:color-mix(in srgb,var(--gold) 70%,var(--ink))}
+
+/* KPI */
+.kpis{display:grid; gap:var(--gap); grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr))}
+.kpi{background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:var(--pad); display:grid; gap:4px; position:relative; overflow:hidden}
+.kpi::before{content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--accent)}
+.kpi.star::before{background:var(--gold)}
+.kpi .lab{font-size:13px; color:var(--muted); font-weight:600}
+.kpi .val{font-family:var(--f-display); font-weight:700; font-size:32px; line-height:1.1; font-variant-numeric:tabular-nums; color:var(--ink)}
+.kpi .val small{font-size:15px; color:var(--muted); font-weight:600}
+.kpi .ctx{font-size:13px; color:var(--muted); display:flex; gap:6px; align-items:center; flex-wrap:wrap}
+.kpi.hidden{display:none}
+.hero{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:var(--gap)}
+@media (max-width:860px){.hero{grid-template-columns:1fr}}
+.verdict{background:linear-gradient(135deg,#0047E0 0%, #0B1E5B 100%); color:#fff; border-radius:var(--r); padding:22px; display:grid; gap:12px; border:0; align-content:space-between}
+.verdict .chips span{align-self:start}
+.verdict h3{color:#fff; font-size:18px}
+.verdict p{margin:0; color:#E3EAFF}
+.verdict .big{font-family:var(--f-display); font-size:52px; font-weight:800; line-height:1}
+.verdict .big small{font-size:18px; font-weight:600; opacity:.85}
+.verdict .chips{display:flex; gap:8px; flex-wrap:wrap}
+.verdict .chips span{background:rgba(255,255,255,.14); border-radius:999px; padding:4px 10px; font-size:13px}
+.rivals{display:grid; gap:8px}
+.rival{display:grid; grid-template-columns:auto 1fr auto; gap:10px; align-items:center; padding:8px 10px; border-radius:10px; background:var(--soft)}
+.rival.me{background:color-mix(in srgb,var(--accent) 14%,var(--panel)); outline:2px solid var(--accent)}
+.rival .pos{font-family:var(--f-display); font-weight:700; width:30px; text-align:center}
+.rival .nm{font-weight:600; font-size:14px; line-height:1.25}
+.rival .nm small{display:block; color:var(--muted); font-weight:400}
+.rival .gr{font-size:13px; color:var(--muted); text-align:right}
+
+/* Tablas */
+.tblwrap{overflow-x:auto; border:1px solid var(--line); border-radius:10px}
+table{border-collapse:collapse; width:100%; font-size:13px}
+th,td{padding:6px 8px; border-bottom:1px solid var(--line); text-align:left; white-space:nowrap}
+th{position:sticky; top:0; background:var(--panel); font-family:var(--f-display); font-size:12px; color:var(--muted); cursor:pointer; user-select:none}
+td.c,th.c{text-align:center}
+td.r,th.r{text-align:right}
+tr.me td{font-weight:700}
+tr.me td:first-child{box-shadow:inset 4px 0 0 var(--accent)}
+.heat td.cell{text-align:center; font-variant-numeric:tabular-nums; min-width:34px; font-weight:600}
+.heat td.nm{position:sticky; left:0; background:var(--panel); z-index:1}
+.tbar{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:10px}
+.tbar input[type=search], .tbar select, .field select, .field input[type=number]{border:1px solid var(--line); border-radius:8px; padding:6px 10px; background:var(--panel)}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden}
+.seg button{border:0; background:transparent; padding:6px 12px; cursor:pointer; font-size:13px; font-weight:600; color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--usil); color:#fff}
+
+/* Escenarios */
+.sim{display:grid; grid-template-columns:minmax(0,380px) minmax(0,1fr); gap:var(--gap); align-items:start}
+.simR{position:sticky; top:8px; align-self:start; display:grid; gap:var(--gap)}
+.simR .sc{padding:10px 12px}
+.simR .sc .v{font-size:24px}
+.lever .lu{font-size:12.5px; color:var(--ink); background:var(--soft); border-radius:8px; padding:4px 8px; margin-top:2px}
+.lever .lu .lb{color:var(--muted)}
+.refs{display:grid; gap:6px; font-size:13px; padding-left:18px; margin:8px 0 0}
+.refs a{color:var(--usil-ink)}
+.field input[type=number]{border:1px solid var(--line); border-radius:8px; padding:6px 10px; background:var(--panel); width:100%}
+#revCalc .field small{font-size:11.5px}
+@media (max-width:980px){.sim{grid-template-columns:1fr} .simR{position:static; order:-1}}
+.lever{display:grid; gap:2px; padding:10px 0; border-bottom:1px dashed var(--line)}
+.lever:last-child{border-bottom:0}
+.lever .lh{display:flex; justify-content:space-between; gap:8px; font-size:14px; font-weight:600}
+.lever .lh span.w{font-size:12px; color:var(--muted); font-weight:600}
+.lever .ld{font-size:12px; color:var(--muted)}
+.lever input[type=range]{width:100%; accent-color:var(--usil)}
+.lever .lv{display:flex; justify-content:space-between; font-size:12px; color:var(--muted)}
+.fac{font-family:var(--f-display); font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--usil-ink); margin:12px 0 0; display:flex; justify-content:space-between}
+html.ui-dark .fac{color:var(--usil)}
+.budget{position:sticky; top:8px; z-index:2; background:var(--panel); padding:10px 0 8px; border-bottom:1px solid var(--line)}
+.budget .bb{height:12px; border-radius:6px; background:var(--soft); overflow:hidden; margin:6px 0 4px}
+.budget .bb i{display:block; height:100%; background:var(--usil); width:0; transition:width .25s, background .25s}
+.budget.over .bb i{background:var(--bad)}
+.budget .bt{display:flex; justify-content:space-between; font-size:13px; font-weight:600}
+.presets{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px}
+.presets .btn{font-size:12px; padding:5px 10px}
+.scen{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr)); gap:10px}
+.sc{border-radius:12px; padding:14px; border:1px solid var(--line); background:var(--panel); display:grid; gap:4px; border-top:5px solid var(--c)}
+.sc h4{font-size:14px}
+.sc .v{font-family:var(--f-display); font-weight:800; font-size:30px; font-variant-numeric:tabular-nums}
+.sc .v small{font-size:14px; color:var(--muted); font-weight:600}
+.sc p{margin:0; font-size:13px; color:var(--muted)}
+.missions{display:grid; gap:6px}
+.mission{display:flex; gap:10px; align-items:center; padding:8px 10px; border-radius:10px; background:var(--soft); font-size:14px}
+.mission .ck{width:22px;height:22px;border-radius:50%;border:2px solid var(--muted);display:grid;place-items:center;flex:none;font-size:13px;font-weight:800}
+.mission.done{background:var(--gold-soft)}
+.mission.done .ck{background:var(--gold);border-color:var(--gold);color:var(--navy)}
+.mission .xp{margin-left:auto; font-size:12px; font-weight:700; color:var(--muted)}
+.stars{font-size:26px; letter-spacing:4px; color:var(--line)}
+.stars .on{color:var(--gold)}
+.chk{display:flex; gap:8px; align-items:flex-start; font-size:14px; padding:4px 0}
+.chk input{margin-top:4px; accent-color:var(--bad)}
+.chk small{color:var(--muted)}
+
+/* Narrativas */
+.aud{display:flex; gap:8px; flex-wrap:wrap}
+.aud button{border:1px solid var(--line); background:var(--panel); border-radius:12px; padding:10px 16px; cursor:pointer; text-align:left; display:grid; gap:2px; min-width:180px}
+.aud button b{font-family:var(--f-display); font-size:15px}
+.aud button span{font-size:12px; color:var(--muted)}
+.aud button[aria-pressed="true"]{border-color:var(--usil); box-shadow:inset 0 -4px 0 var(--usil)}
+.story{display:grid; gap:var(--gap)}
+.story .card{max-width:none}
+.story p{margin:0 0 10px; max-width:75ch}
+.story ul,.story ol{margin:0; padding-left:20px; display:grid; gap:6px; max-width:78ch}
+.story .kicker{font-family:var(--f-display); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--gold); font-weight:700}
+.story h3{font-size:20px; margin:4px 0 10px}
+.callout{border-left:4px solid var(--gold); background:var(--gold-soft); padding:12px 16px; border-radius:0 10px 10px 0}
+.callout p{margin:0}
+.dec{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:12px}
+.dec > div{border:1px solid var(--line); border-radius:12px; padding:14px; background:var(--soft)}
+.dec h4{font-size:15px; margin-bottom:6px}
+.dec p{font-size:14px; margin:0}
+.dec .w{font-family:var(--f-display); font-weight:800; color:var(--usil-ink); font-size:22px}
+html.ui-dark .dec .w{color:var(--usil)}
+
+/* Arena */
+.race-ctl{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:8px}
+.race-ctl input[type=range]{flex:1; min-width:140px; accent-color:var(--usil)}
+.race-year{font-family:var(--f-display); font-weight:800; font-size:40px; color:var(--usil); line-height:1}
+.badges{display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:10px}
+.badge{border:1px solid var(--line); border-radius:12px; padding:12px; text-align:center; display:grid; gap:6px; justify-items:center; background:var(--panel)}
+.badge .md{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:800;font-size:18px;background:var(--soft);color:var(--muted);border:3px dashed var(--line)}
+.badge.on .md{background:radial-gradient(circle at 35% 30%, #F6E2AE, var(--gold)); color:var(--navy); border:3px solid var(--navy)}
+.badge b{font-size:13px}
+.badge small{font-size:11px; color:var(--muted); line-height:1.3}
+.quiz .q{font-weight:700; margin-bottom:8px}
+.quiz .opts{display:grid; gap:6px}
+.quiz .opts button{text-align:left; border:1px solid var(--line); background:var(--panel); padding:9px 12px; border-radius:10px; cursor:pointer}
+.quiz .opts button.ok{border-color:var(--ok); background:color-mix(in srgb,var(--ok) 12%,var(--panel))}
+.quiz .opts button.ko{border-color:var(--bad); background:color-mix(in srgb,var(--bad) 10%,var(--panel))}
+.quiz .fb{font-size:14px; margin-top:8px; min-height:1.5em}
+.quiz .prog{display:flex; gap:4px; margin-bottom:10px}
+.quiz .prog i{height:5px; flex:1; border-radius:3px; background:var(--line)}
+.quiz .prog i.ok{background:var(--ok)} .quiz .prog i.ko{background:var(--bad)} .quiz .prog i.cur{background:var(--usil)}
+
+/* Ajustes */
+.drawer{position:fixed; inset:0 0 0 auto; width:min(420px,100%); background:var(--panel); border-left:1px solid var(--line); box-shadow:-20px 0 40px rgba(0,0,0,.18); transform:translateX(105%); transition:transform .25s; z-index:30; overflow-y:auto; padding:20px}
+.drawer.open{transform:none}
+.scrim{position:fixed; inset:0; background:rgba(5,12,40,.35); z-index:29; display:none}
+.scrim.open{display:block}
+.drawer h3{font-size:18px; margin-bottom:6px}
+.field{display:grid; gap:4px; margin:14px 0}
+.field > label, .field > span{font-weight:700; font-size:14px}
+.field small{color:var(--muted); font-size:12px}
+.field input[type=range]{accent-color:var(--usil)}
+.comps{display:grid; grid-template-columns:1fr 1fr; gap:2px 10px; max-height:220px; overflow:auto; border:1px solid var(--line); border-radius:8px; padding:6px 8px; font-size:13px}
+.comps label{display:flex; gap:6px; align-items:center}
+.toast{position:fixed; left:50%; bottom:24px; transform:translate(-50%,140%); background:var(--navy); color:#fff; border:2px solid var(--gold); border-radius:14px; padding:12px 18px; z-index:40; display:flex; gap:12px; align-items:center; transition:transform .3s; max-width:92vw}
+.toast.show{transform:translate(-50%,0)}
+.toast .md{width:40px;height:40px;border-radius:50%;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:800;font-family:var(--f-display)}
+.toast small{display:block;color:#C9D5F5}
+footer{max-width:1280px; margin:0 auto; padding:0 20px 40px; color:var(--muted); font-size:13px}
+footer details{background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:12px 16px}
+footer summary{cursor:pointer; font-weight:700; color:var(--ink)}
+footer p, footer li{max-width:100ch}
+svg.ic{vertical-align:-3px; flex:none}
+.card h3 svg.ic, .lead h2 svg.ic{color:var(--accent); margin-right:2px}
+.kpi .lab svg.ic{color:var(--accent); vertical-align:-3px}
+.tabs button svg.ic{opacity:.9}
+.sc h4 svg.ic{color:var(--c)}
+.story .kicker svg.ic{vertical-align:-2px}
+.authbar{display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:14px; background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:10px 14px}
+.authbar .btn{margin-left:auto}
+.authgate{display:grid; place-items:center; padding:32px 16px}
+.authc{max-width:440px; width:100%; display:grid; gap:10px}
+.authc .authic{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--accent)}
+.authc input, .authc select{border:1px solid var(--line); border-radius:8px; padding:8px 10px; background:var(--panel); width:100%}
+.authc .field{margin:6px 0}
+.picker{position:fixed; inset:0; z-index:50; background:rgba(5,12,40,.62); display:grid; place-items:center; padding:16px}
+.picker[hidden]{display:none}
+.pk-card{background:var(--panel); border-radius:16px; width:min(760px,100%); max-height:92vh; display:grid; grid-template-rows:auto auto 1fr; overflow:hidden; box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.pk-head{background:var(--navy); color:#fff; padding:20px 22px; display:flex; gap:14px; justify-content:space-between; align-items:flex-start}
+.pk-head h2{color:#fff; font-size:22px; margin:2px 0 6px}
+.pk-head p{margin:0; color:#C9D5F5; font-size:14px; max-width:60ch}
+.pk-head .btn{background:transparent; color:#fff; border-color:rgba(255,255,255,.35)}
+.pk-k{font-family:var(--f-display); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--gold); font-weight:700}
+.pk-s{display:flex; align-items:center; gap:8px; margin:14px 22px 6px; border:1px solid var(--line); border-radius:10px; padding:8px 12px; color:var(--muted)}
+.pk-s input{border:0; outline:0; flex:1; background:transparent; font-size:16px; color:var(--ink)}
+.pk-list{overflow-y:auto; padding:4px 22px 22px; display:grid; gap:4px; align-content:start}
+.pk-list h4{font-size:13px; color:var(--muted); margin:12px 0 4px; text-transform:uppercase; letter-spacing:.05em; display:flex; gap:6px; align-items:center}
+.pk-otras{margin-top:12px; border-top:1px solid var(--line); padding-top:10px}
+.pk-otras summary{cursor:pointer; font-weight:700; font-size:14px; display:flex; gap:6px; align-items:center; color:var(--ink)}
+.pk-otras summary span{font-weight:400; color:var(--muted); font-size:13px}
+.pk-ol{display:grid; gap:4px; margin-top:8px}
+.pk-it{display:flex; justify-content:space-between; gap:12px; align-items:center; text-align:left; border:1px solid var(--line); background:var(--panel); border-radius:10px; padding:9px 12px; cursor:pointer}
+.pk-it:hover, .pk-it.on{border-color:var(--usil); background:var(--soft)}
+.pk-n{font-weight:600}
+.pk-m{font-size:12px; color:var(--muted); white-space:nowrap}
+@media (max-width:560px){ .pk-it{flex-direction:column; align-items:flex-start} .pk-m{white-space:normal} }
+@media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important} }
+@media (max-width:520px){ .kpi .val{font-size:26px} .verdict .big{font-size:40px} .lvl{min-width:0} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <div class="mark">
+        <span class="wm" id="wm" aria-hidden="true">USIL</span>
+        <div class="ttl">
+          <h1>Observatorio SCImago · <span id="hdrFocus">USIL</span></h1>
+          <p id="hdrLine">Cargando datos…</p>
+        </div>
+      </div>
+      <div class="hud">
+        <div class="lvl" title="Tu progreso en el observatorio">
+          <span class="ic" id="lvlIc">1</span>
+          <div style="flex:1">
+            <strong id="lvlName">Explorador/a</strong> <small id="lvlXp">0 XP</small>
+            <div class="bar"><i id="lvlBar"></i></div>
+          </div>
+        </div>
+        <button class="btn" id="btnSwitch" type="button"><i data-ic="swap"></i> Cambiar universidad</button>
+        <button class="btn" id="btnCopy" type="button"><i data-ic="copy"></i> Copiar resumen</button>
+        <button class="btn" id="btnSettings" type="button" aria-controls="drawer"><i data-ic="settings"></i> Personalizar</button>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Paneles">
+      <button role="tab" id="tab-kpis" data-p="kpis" aria-selected="true"><i data-ic="gauge"></i>KPIs<span class="dot"></span></button>
+      <button role="tab" id="tab-descriptivo" data-p="descriptivo" aria-selected="false" class="new"><i data-ic="bars"></i>Descriptivo<span class="dot"></span></button>
+      <button role="tab" id="tab-tendencias" data-p="tendencias" aria-selected="false" class="new"><i data-ic="trend"></i>Tendencias y proyección<span class="dot"></span></button>
+      <button role="tab" id="tab-escenarios" data-p="escenarios" aria-selected="false" class="new"><i data-ic="sliders"></i>Escenarios<span class="dot"></span></button>
+      <button role="tab" id="tab-narrativas" data-p="narrativas" aria-selected="false" class="new"><i data-ic="book"></i>Narrativas<span class="dot"></span></button>
+      <button role="tab" id="tab-arena" data-p="arena" aria-selected="false" class="new"><i data-ic="target"></i>Arena<span class="dot"></span></button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- 1 KPIs -->
+<section class="panel" id="kpis" role="tabpanel" aria-labelledby="tab-kpis">
+  <div class="lead">
+    <h2>Indicadores clave de <span class="fs">USIL</span></h2>
+    <p>Edición 2026 frente a la anterior. El cuartil mundial se calcula con el percentil, que corrige el crecimiento del número de instituciones evaluadas.</p>
+  </div>
+  <div class="hero">
+    <div class="verdict" id="verdict"></div>
+    <div class="card">
+      <h3><i data-ic="users"></i> Vecindario competitivo en <span class="yy">2026</span></h3>
+      <p class="sub">Las universidades peruanas inmediatamente por encima y por debajo, con la distancia en puestos mundiales.</p>
+      <div class="rivals" id="rivals"></div>
+    </div>
+  </div>
+  <div class="kpis" id="kpiGrid"></div>
+  <div class="grid g2">
+    <div class="card">
+      <h3><i data-ic="flag"></i> Puesto nacional por edición</h3>
+      <p class="sub">Posición entre las universidades peruanas evaluadas (1 = mejor).</p>
+      <div class="chart" id="chNatSpark"></div>
+    </div>
+    <div class="card">
+      <h3><i data-ic="globe"></i> Percentil mundial por edición</h3>
+      <p class="sub">Porcentaje de instituciones del mundo que quedan por encima (menor es mejor). Línea punteada: total estimado.</p>
+      <div class="chart" id="chPctSpark"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 Descriptivo -->
+<section class="panel" id="descriptivo" role="tabpanel" aria-labelledby="tab-descriptivo" hidden>
+  <div class="lead">
+    <h2>Panorama descriptivo de las universidades peruanas, 2009–2026</h2>
+    <p>Todos los registros de los archivos: 17 ediciones (no hay archivo para 2010), 39 universidades y 203 posiciones.</p>
+  </div>
+  <div class="tbar"><span style="font-weight:700">Mostrar universidades:</span><div class="seg" id="segType" role="group" aria-label="Tipo de gestión"><button data-v="" aria-pressed="true">Todas</button><button data-v="Privada" aria-pressed="false">Privadas</button><button data-v="Pública" aria-pressed="false">Públicas</button></div></div>
+  <div class="grid g2">
+    <div class="card">
+      <h3><i data-ic="landmark"></i> Universidades peruanas<span class="desc-lbl"></span> por edición</h3>
+      <p class="sub">El ranking peruano pasó de una institución a decenas; la competencia nacional se multiplicó.</p>
+      <div class="chart" id="chCount"></div>
+    </div>
+    <div class="card">
+      <h3><i data-ic="pie"></i> Composición: tipo de gestión y ubicación</h3>
+      <div class="tbar"><div class="seg" id="segComp"><button aria-pressed="true" data-v="t">Privada / pública</button><button aria-pressed="false" data-v="r">Lima / regiones</button></div></div>
+      <div class="chart" id="chComp"></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3><i data-ic="route"></i> Trayectorias en el ranking nacional</h3>
+    <p class="sub">Cada línea es una universidad; se destacan la universidad foco y su grupo de comparación. Pase el cursor para ver detalles.</p>
+    <div class="tbar">
+      <label>Desde <select id="bumpFrom"></select></label>
+      <label>Mostrar hasta el puesto <select id="bumpTop"><option>10</option><option selected>15</option><option>20</option><option>40</option></select></label>
+    </div>
+    <div class="chart tall" id="chBump"></div>
+  </div>
+  <div class="grid g2">
+    <div class="card">
+      <h3><i data-ic="box"></i> Perú frente al mundo, edición por edición</h3>
+      <p class="sub">Diagrama de caja del percentil mundial de las universidades peruanas<span class="desc-lbl"></span> (arriba = mejor). Franja dorada: la mitad central del mundo. Punto dorado: <span class="fs">USIL</span>.</p>
+      <div class="chart" id="chBoxYear" style="min-height:300px"></div>
+    </div>
+    <div class="card">
+      <h3><i data-ic="box"></i> Mundo, Perú, privadas y públicas en 2026</h3>
+      <p class="sub">Distribución del percentil mundial en la edición 2026; la línea dorada marca a <span class="fs">USIL</span>.</p>
+      <div class="chart" id="chBoxCmp" style="min-height:300px"></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3><i data-ic="grid"></i> Mapa de calor: puesto nacional por universidad y edición</h3>
+    <p class="sub">Más oscuro = mejor posición. Haga clic en un encabezado para ordenar.</p>
+    <div class="tbar">
+      <input type="search" id="heatQ" placeholder="Buscar universidad…" aria-label="Buscar universidad">
+      <select id="heatT" aria-label="Tipo"><option value="">Todas</option><option>Privada</option><option>Pública</option></select>
+      <select id="heatR" aria-label="Ubicación"><option value="">Lima y regiones</option><option>Lima</option><option>Regiones</option></select>
+    </div>
+    <div class="tblwrap" style="max-height:520px"><table class="heat" id="heat"></table></div>
+  </div>
+  <div class="grid g2">
+    <div class="card">
+      <h3><i data-ic="globe"></i> Distribución mundial de las peruanas en <span id="stripYearLbl">2026</span></h3>
+      <p class="sub">Cada punto es una universidad en su puesto mundial.</p>
+      <div class="tbar"><label>Edición <select id="stripYear"></select></label></div>
+      <div class="chart" id="chStrip" style="min-height:200px"></div>
+    </div>
+    <div class="card">
+      <h3><i data-ic="table"></i> Datos completos por edición</h3>
+      <div class="tbar"><label>Edición <select id="tblYear"></select></label><input type="search" id="tblQ" placeholder="Filtrar…" aria-label="Filtrar tabla"></div>
+      <div class="tblwrap" style="max-height:360px"><table id="tblFull"></table></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 Tendencias -->
+<section class="panel" id="tendencias" role="tabpanel" aria-labelledby="tab-tendencias" hidden>
+  <div class="lead">
+    <h2>Tendencias y proyección</h2>
+    <p id="trendLead"></p>
+  </div>
+  <div class="grid g2">
+    <div class="card">
+      <h3><i data-ic="activity"></i> La paradoja del puesto mundial</h3>
+      <p class="sub">Puesto absoluto frente a percentil. El universo de instituciones crece cada año, por eso el puesto puede empeorar mientras la posición relativa mejora.</p>
+      <div class="chart" id="chParadox"></div>
+    </div>
+    <div class="card">
+      <h3><i data-ic="line"></i> Percentil mundial: foco y grupo de comparación</h3>
+      <p class="sub">2020–2026. Menor es mejor. Los totales de 2021 y 2023 son estimados.</p>
+      <div class="chart" id="chPctComp"></div>
+    </div>
+  </div>
+  <div class="grid g2">
+    <div class="card">
+      <h3><i data-ic="file"></i> Producción científica anual, 2021–2025</h3>
+      <p class="sub">Trabajos con afiliación de cada universidad según OpenAlex (consultado el 12-nov-2026). Los conteos difieren de Scopus.</p>
+      <div class="chart" id="chProd"></div>
+    </div>
+    <div class="card">
+      <h3><i data-ic="compass"></i> Proyección inercial a <span class="hz">2030</span></h3>
+      <p class="sub">Tendencia observada con amortiguación (el impulso se reduce cada año). Banda: incertidumbre aproximada.</p>
+      <div class="chart" id="chProj"></div>
+      <div class="tblwrap" style="margin-top:10px"><table id="tblProj"></table></div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3><i data-ic="trend"></i> Impulso: velocidad de mejora 2021–2026</h3>
+      <p class="sub">Puntos porcentuales de percentil ganados por año (pendiente de regresión lineal; universidades con 3 o más ediciones).</p>
+      <div class="chart tall" id="chMomentum"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 Escenarios -->
+<section class="panel" id="escenarios" role="tabpanel" aria-labelledby="tab-escenarios" hidden>
+  <div class="lead">
+    <h2>Simulador predictivo: tres escenarios con costos</h2>
+    <p>Mueva las palancas de la metodología SCImago (Investigación 50 %, Innovación 30 %, Impacto social 20 %). Cada palanca muestra cuántas unidades reales implica y cuánto cuesta al año.</p>
+  </div>
+  <div id="extPath" hidden></div>
+  <div id="simWrap" class="grid" style="gap:var(--gap)">
+  <div class="sim">
+    <div class="card" id="leverCard">
+      <div class="budget" id="budget">
+        <div class="bt"><span>Inversión anual del plan</span><span id="budgetTxt" class="num">S/ 0</span></div>
+        <div class="bb"><i id="budgetBar"></i></div>
+        <small class="note" id="budgetNote" style="margin:0"></small>
+        <div class="tbar" style="margin:8px 0 0;font-size:13px;font-weight:600"><label for="budgetIn">Presupuesto anual (S/ millones)</label><input type="number" id="budgetIn" min="0.1" step="0.5" style="width:90px"></div>
+        <div class="presets">
+          <button class="btn" type="button" data-preset="none">Sin acción</button>
+          <button class="btn" type="button" data-preset="research">Excelencia científica</button>
+          <button class="btn" type="button" data-preset="integral">Plan integral</button>
+          <button class="btn" type="button" data-preset="innov">Océano azul: innovación</button>
+        </div>
+      </div>
+      <div id="levers"></div>
+      <div class="field">
+        <label for="startYear">Año de inicio de las acciones</label>
+        <select id="startYear"><option>2027</option><option>2028</option></select>
+        <small>SCImago evalúa un quinquenio que termina dos años antes de cada edición: lo que se publica en 2027 entra recién en la edición 2029.</small>
+      </div>
+      <h3 style="margin-top:14px"><i data-ic="alert"></i> Escenario pesimista: malas decisiones</h3>
+      <div id="badList"></div>
+      <div class="field">
+        <label for="compBoost">La competencia mejora (puntos de percentil por año)</label>
+        <input type="range" id="compBoost" min="0" max="3" step="0.25" value="1.5">
+        <small id="compBoostTxt"></small>
+      </div>
+    </div>
+    <div class="simR">
+      <div class="scen" id="scenCards"></div>
+      <div class="card">
+        <div class="tbar" style="justify-content:space-between;margin-bottom:4px"><h3 style="margin:0"><i data-ic="line"></i> Proyección por escenario</h3><div class="seg" id="segScen"><button aria-pressed="true" data-v="pct">Percentil</button><button aria-pressed="false" data-v="nat">Nacional</button><button aria-pressed="false" data-v="glob">Mundial</button></div></div>
+        <div class="chart" id="chScen" style="min-height:250px"></div>
+        <div class="legend" id="lgScen"></div>
+      </div>
+    </div>
+  </div>
+  <div class="grid g2">
+    <div class="card">
+      <div class="tbar" style="justify-content:space-between"><h3 style="margin:0"><i data-ic="stairs"></i> Escalera de decisión: cada 5 %</h3><select id="ladderSel" aria-label="Palanca"></select></div>
+      <p class="sub" id="ladderSub"></p>
+      <div class="chart" id="chLadder" style="min-height:300px"></div>
+    </div>
+    <div class="card">
+      <h3><i data-ic="bars"></i> ¿Cuánto aporta cada palanca?</h3>
+      <p class="sub">Mejora de percentil atribuible a cada palanca en la edición <span class="hz">2030</span> (escenario de acción).</p>
+      <div class="chart" id="chContrib" style="min-height:240px"></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3><i data-ic="coins"></i> Costo del plan y referencias</h3>
+    <p class="sub" id="q1note"></p>
+    <div class="tblwrap"><table id="costTbl"></table></div>
+    <details style="margin-top:12px"><summary style="cursor:pointer;font-weight:700">Referencias de costos (fuentes)</summary><ul class="refs" id="refList"></ul></details>
+  </div>
+  </div>
+</section>
+
+<!-- 5 Narrativas -->
+<section class="panel" id="narrativas" role="tabpanel" aria-labelledby="tab-narrativas" hidden>
+  <div class="lead">
+    <h2>Narrativas por público</h2>
+    <p>Los mismos datos, contados para quien debe actuar sobre ellos. Las cifras se actualizan con la configuración y el simulador.</p>
+  </div>
+  <div class="authbar" id="authBar" hidden></div>
+  <div class="card authgate" id="authGate"></div>
+  <div class="aud" id="audSel" hidden>
+    <button type="button" aria-pressed="true" data-a="rector"><b><i data-ic="briefcase"></i> Rectorado</b><span>Posición, riesgos y decisiones</span></button>
+    <button type="button" aria-pressed="false" data-a="docentes"><b><i data-ic="users"></i> Docentes</b><span>Qué mide el ranking de su trabajo</span></button>
+    <button type="button" aria-pressed="false" data-a="estudiantes"><b><i data-ic="grad"></i> Estudiantes</b><span>Qué significa y cómo participar</span></button>
+  </div>
+  <div class="story" id="story" hidden></div>
+</section>
+
+<!-- 6 Arena -->
+<section class="panel" id="arena" role="tabpanel" aria-labelledby="tab-arena" hidden>
+  <div class="lead">
+    <h2>Arena: aprenda jugando con los datos</h2>
+    <p>Gane XP, desbloquee insignias y ponga a prueba su intuición sobre el ranking.</p>
+  </div>
+  <div class="card">
+    <h3><i data-ic="play"></i> La carrera nacional, edición por edición</h3>
+    <p class="sub">Barras más largas = mejor puesto mundial. Vea la carrera completa para ganar una insignia.</p>
+    <div class="race-ctl">
+      <button class="btn pri" id="racePlay" type="button">▶ Reproducir</button>
+      <span class="race-year num" id="raceYear">2009</span>
+      <input type="range" id="raceSlider" min="0" max="16" value="0" aria-label="Edición">
+      <label>Velocidad <select id="raceSpeed"><option value="1600">Lenta</option><option value="1000" selected>Normal</option><option value="550">Rápida</option></select></label>
+    </div>
+    <div class="chart tall" id="chRace"></div>
+  </div>
+  <div class="grid g2">
+    <div class="card quiz" id="quiz"></div>
+    <div class="card" id="predict"></div>
+  </div>
+  <div class="card">
+    <h3><i data-ic="award"></i> Insignias</h3>
+    <p class="sub" id="badgeSub"></p>
+    <div class="badges" id="badges"></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <details>
+    <summary>Fuentes, supuestos y notas metodológicas</summary>
+    <ul>
+      <li>Posiciones: archivos SCImago Institutions Rankings, sector Universidades, Perú (ediciones 2009 y 2011–2026; 2013 venía duplicado y se usó una vez). La columna «Global Rank» es el puesto entre todas las instituciones del mundo de todos los sectores.</li>
+      <li>Total de instituciones evaluadas por edición (para el percentil): 2020: 7 026; 2022: 8 084; 2024: 9 054; 2025: 9 756; 2026: 10 827, según comunicados institucionales que citan a SCImago. 2021 y 2023 se estimaron como punto medio entre ediciones vecinas.</li>
+      <li>Metodología vigente: Investigación 50 % (Impacto normalizado 13, Excelencia con liderazgo 8, Producción 8, Liderazgo científico 5, Revistas no propias 3, Revistas propias 3, Excelencia 2, Publicaciones Q1 2, Colaboración internacional 2, Acceso abierto 2, Talento científico 2); Innovación 30 % (Conocimiento innovador 10, Patentes 10, Impacto tecnológico 10); Impacto social 20 % (Menciones en medios 3, Tamaño web 3, Autoridad web 3, ODS 5, Talento científico femenino 3, Impacto en políticas públicas 3). Ventana: cinco años que terminan dos años antes de la edición.</li>
+      <li>Desde 2023 SCImago numera los empates con el mismo puesto. Los escenarios son un modelo ilustrativo: la relación entre esfuerzo y mejora del percentil (elasticidad), la amortiguación y los costos de las palancas son supuestos ajustables en «Personalizar», no estimaciones oficiales. No se modelan nuevas universidades que ingresen al ranking.</li>
+      <li>Clasificación privada/pública y Lima/regiones elaborada para este análisis según la sede principal de cada universidad.</li>
+      <li>Producción científica: OpenAlex (consultado el 12-nov-2026): trabajos con afiliación, artículos, trabajos con autor de correspondencia de la institución, coautoría internacional y acceso abierto. Los conteos difieren de Scopus y los de 2025 aún pueden crecer.</li>
+      <li>Universidades licenciadas: 98 según SUNEDU (Gestión, 2026); 49 privadas licenciadas según la OCDE (2025). Matrícula de USIL: 19 371 estudiantes en 2022 (Gestión, con datos de SUNEDU).</li>
+      <li>Costos del simulador: referencias publicadas (APC y bonos por cuartil en reglamentos de universidades peruanas, tasas PCT de la OMPI, estancias PUCP) y supuestos señalados como tales en la tabla de costos. El efecto en postulantes es una estimación ilustrativa basada en literatura internacional sobre rankings.</li>
+    </ul>
+  </details>
+</footer>
+
+<div class="picker" id="picker" hidden role="dialog" aria-modal="true" aria-labelledby="pkT">
+  <div class="pk-card">
+    <div class="pk-head"><div><span class="pk-k">Observatorio SCImago · Perú</span><h2 id="pkT">¿Qué universidad desea analizar?</h2><p>El observatorio se personaliza para la universidad elegida: KPIs, comparaciones, proyecciones, simulador y narrativas. Elija una de las universidades peruanas que figuran en SCImago; las demás licenciadas están en «Otras».</p></div><button class="btn" type="button" id="pkClose"><i data-ic="x"></i> Cerrar</button></div>
+    <label class="pk-s"><i data-ic="search"></i><input id="pkQ" type="search" placeholder="Buscar por nombre, sigla o región…" aria-label="Buscar universidad"></label>
+    <div class="pk-list" id="pkList"></div>
+  </div>
+</div>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Personalizar" aria-hidden="true">
+  <div style="display:flex;justify-content:space-between;align-items:center"><h3>Personalizar el observatorio</h3><button class="btn" id="btnClose" type="button">Cerrar</button></div>
+  <p class="note" style="margin-top:0">Sus preferencias se guardan en este navegador.</p>
+  <div class="field"><label for="setFocus"><i data-ic="landmark"></i> Universidad foco</label><select id="setFocus"></select><small>Todos los paneles se recalculan para la universidad elegida.</small></div>
+  <div class="field"><span>Grupo de comparación</span><div class="comps" id="setComps"></div><div class="presets"><button class="btn" type="button" id="compsNear">Vecinos 2026</button><button class="btn" type="button" id="compsPriv">Privadas de Lima</button><button class="btn" type="button" id="compsTop">Top 8</button><button class="btn" type="button" id="compsNone">Ninguno</button></div></div>
+  <div class="field"><span>Tema</span><div class="seg" id="setTheme"><button data-v="auto" aria-pressed="false">Automático</button><button data-v="light" aria-pressed="true">Claro</button><button data-v="dark" aria-pressed="false">Oscuro</button><button data-v="contrast" aria-pressed="false">Alto contraste</button></div></div>
+  <div class="field"><span>Paleta de acento</span><div class="seg" id="setPal"><button data-v="usil" aria-pressed="true">Azul USIL</button><button data-v="dorado" aria-pressed="false">Dorado 30 años</button><button data-v="access" aria-pressed="false">Accesible</button></div></div>
+  <div class="field"><span>Suavizado de líneas</span><div class="seg" id="setSmooth"><button data-v="media" aria-pressed="true">Media ponderada</button><button data-v="curva" aria-pressed="false">Solo curva</button><button data-v="ninguno" aria-pressed="false">Sin suavizar</button></div><small>La media ponderada (1-2-1) conserva el primer y el último valor; los puntos muestran el dato real.</small></div>
+  <div class="field"><label for="setBaseLed">Trabajos liderados al año (línea de base del simulador)</label><input type="number" id="setBaseLed" min="1" step="5"><small>Por defecto: OpenAlex 2025 cuando hay datos.</small></div>
+  <div class="field"><span>Universidades comparadas</span><div class="seg" id="setPastel"><button data-v="1" aria-pressed="true">Tonos pastel</button><button data-v="0" aria-pressed="false">Colores intensos</button></div><small>La universidad foco siempre va en color fuerte.</small></div>
+  <div class="field"><span>Densidad</span><div class="seg" id="setDense"><button data-v="0" aria-pressed="true">Cómoda</button><button data-v="1" aria-pressed="false">Compacta</button></div></div>
+  <div class="field"><span>KPIs visibles</span><div class="comps" id="setKpis" style="grid-template-columns:1fr"></div></div>
+  <div class="field"><label for="setHorizon">Horizonte de proyección: <b id="setHorizonTxt">2030</b></label><input type="range" id="setHorizon" min="2028" max="2032" step="1" value="2030"></div>
+  <div class="field"><label for="setDamp">Persistencia del impulso: <b id="setDampTxt">60 %</b></label><input type="range" id="setDamp" min="0" max="1" step="0.05" value="0.6"><small>100 % = la tendencia sigue igual; 0 % = se detiene el próximo año.</small></div>
+  <div class="field"><label for="setElas">Elasticidad del simulador: <b id="setElasTxt">15</b></label><input type="range" id="setElas" min="5" max="60" step="1" value="15"><small>Puntos de percentil que se ganarían con el 100 % del puntaje compuesto mejorado. Valor por defecto calibrado con la elasticidad producción–puesto observada en las universidades peruanas (−0,155).</small></div>
+  <div class="field"><label for="setQ1">Artículos liderados en Q1: <b id="setQ1Txt">30 %</b></label><input type="range" id="setQ1" min="10" max="60" step="5" value="30"><small>Supuesto para la línea de base de publicaciones Q1 del simulador.</small></div>
+  <div class="field"><button class="btn" type="button" id="btnReset">Restablecer todo (incluye XP)</button></div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"><span class="md" id="toastMd">★</span><div><b id="toastT"></b><small id="toastS"></small></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+const U=[{"name": "Pontificia Universidad Católica del Perú", "s": "PUCP", "t": "Privada", "r": "Lima"}, {"name": "Universidad Autónoma del Perú", "s": "UA", "t": "Privada", "r": "Lima"}, {"name": "Universidad Católica de Santa María", "s": "UCSM", "t": "Privada", "r": "Regiones"}, {"name": "Universidad César Vallejo", "s": "UCV", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Científica del Sur", "s": "UCSUR", "t": "Privada", "r": "Lima"}, {"name": "Universidad Continental", "s": "UC", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Nacional Agraria La Molina", "s": "UNALM", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional Amazónica de Madre de Dios", "s": "UNAMAD", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional Federico Villarreal", "s": "UNFV", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional Jorge Basadre Grohmann de Tacna", "s": "UNJBG", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional Mayor de San Marcos", "s": "UNMSM", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional Pedro Ruiz Gallo", "s": "UNPRG", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional Toribio Rodríguez de Mendoza de Amazonas", "s": "UNTRM", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de Educación Enrique Guzmán y Valle", "s": "UNE", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional de Ingeniería", "s": "UNI", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional de Moquegua", "s": "UNAM", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de San Agustín", "s": "UNSA", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de San Antonio Abad del Cusco", "s": "UNSAAC", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de Trujillo", "s": "UNT", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional del Altiplano", "s": "UNAP", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional del Callao", "s": "UNAC", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional del Centro del Perú", "s": "UNCP", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Norbert Wiener", "s": "UNW", "t": "Privada", "r": "Lima"}, {"name": "Universidad Perúana Cayetano Heredia", "s": "UPCH", "t": "Privada", "r": "Lima"}, {"name": "Universidad Perúana Unión", "s": "UPeU", "t": "Privada", "r": "Lima"}, {"name": "Universidad Perúana de Ciencias Aplicadas", "s": "UPC", "t": "Privada", "r": "Lima"}, {"name": "Universidad Privada Antenor Orrego", "s": "UPAO", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Privada San Juan Bautista", "s": "UPSJB", "t": "Privada", "r": "Lima"}, {"name": "Universidad Privada del Norte", "s": "UPN", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Ricardo Palma", "s": "URP", "t": "Privada", "r": "Lima"}, {"name": "Universidad San Ignacio de Loyola", "s": "USIL", "t": "Privada", "r": "Lima"}, {"name": "Universidad Señor de Sipán", "s": "USS", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Tecnológica del Perú", "s": "UTP", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Ciencias y Humanidades", "s": "UCH", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Ingeniería y Tecnologia", "s": "UTEC", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Lima", "s": "ULIMA", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Piura", "s": "UDEP", "t": "Privada", "r": "Regiones"}, {"name": "Universidad de San Martín de Porres", "s": "USMP", "t": "Privada", "r": "Lima"}, {"name": "Universidad del Pacífico", "s": "UP", "t": "Privada", "r": "Lima"}];
+const RAW=[[2009, 1, 2386, 23, null], [2011, 1, 2717, 23, null], [2011, 2, 3955, 10, null], [2012, 1, 2936, 23, null], [2012, 2, 3292, 0, null], [2012, 3, 4395, 10, null], [2013, 1, 3231, 0, null], [2013, 2, 3411, 23, null], [2013, 3, 4755, 10, null], [2014, 1, 3070, 0, null], [2014, 2, 3802, 23, null], [2014, 3, 5005, 10, null], [2015, 1, 3198, 0, null], [2015, 2, 3866, 23, null], [2015, 3, 5058, 10, null], [2016, 1, 2974, 0, null], [2016, 2, 4037, 23, null], [2016, 3, 5056, 10, null], [2017, 1, 2955, 0, null], [2017, 2, 2962, 23, null], [2017, 3, 4880, 25, null], [2017, 4, 4946, 10, null], [2018, 1, 4052, 0, null], [2018, 2, 4134, 23, null], [2018, 3, 5386, 10, null], [2018, 4, 5523, 25, null], [2018, 5, 5573, 37, null], [2018, 6, 5586, 4, null], [2019, 1, 2845, 23, null], [2019, 2, 3499, 25, null], [2019, 3, 3907, 10, null], [2019, 4, 4280, 0, null], [2019, 5, 4592, 37, null], [2020, 1, 2831, 23, null], [2020, 2, 4117, 10, null], [2020, 3, 4132, 25, null], [2020, 4, 4405, 37, null], [2020, 5, 4903, 0, null], [2020, 6, 5143, 6, null], [2020, 7, 6372, 4, null], [2020, 8, 6529, 14, null], [2020, 9, 6760, 16, null], [2021, 1, 2933, 23, null], [2021, 2, 4069, 6, null], [2021, 3, 4653, 0, null], [2021, 4, 4685, 10, null], [2021, 5, 5315, 37, null], [2021, 6, 5589, 30, null], [2021, 7, 5674, 25, null], [2021, 8, 6010, 5, null], [2021, 9, 6738, 38, null], [2021, 10, 7012, 4, null], [2021, 11, 7218, 14, null], [2021, 12, 7245, 16, null], [2021, 13, 7424, 33, null], [2022, 1, 3137, 18, null], [2022, 2, 3390, 23, null], [2022, 3, 4432, 6, null], [2022, 4, 4625, 10, null], [2022, 5, 4660, 0, null], [2022, 6, 5243, 30, null], [2022, 7, 5822, 5, null], [2022, 8, 6560, 4, null], [2022, 9, 6766, 25, null], [2022, 10, 6812, 3, null], [2022, 11, 7245, 38, null], [2022, 12, 7270, 28, null], [2022, 13, 7389, 16, null], [2022, 14, 7407, 8, null], [2022, 15, 7418, 35, null], [2022, 16, 7786, 14, null], [2022, 17, 7902, 33, null], [2023, 1, 4558, 23, null], [2023, 2, 4813, 0, null], [2023, 3, 5396, 18, null], [2023, 4, 5782, 10, null], [2023, 5, 6208, 30, null], [2023, 6, 6230, 6, null], [2023, 7, 6721, 27, null], [2023, 8, 6764, 37, null], [2023, 8, 6764, 29, null], [2023, 10, 7396, 19, null], [2023, 11, 7416, 4, null], [2023, 12, 7450, 25, null], [2023, 13, 7594, 17, null], [2023, 14, 7694, 14, null], [2023, 15, 7732, 38, null], [2023, 16, 7740, 22, null], [2023, 17, 7830, 28, null], [2023, 18, 7851, 5, null], [2023, 19, 7860, 35, null], [2023, 20, 7867, 16, null], [2023, 21, 7970, 3, null], [2023, 22, 8032, 24, null], [2023, 23, 8042, 2, null], [2023, 24, 8073, 26, null], [2023, 25, 8186, 33, null], [2023, 26, 8201, 8, null], [2023, 27, 8313, 32, null], [2024, 1, 3749, 0, null], [2024, 2, 4289, 23, null], [2024, 3, 4345, 10, null], [2024, 4, 5471, 25, null], [2024, 5, 5661, 32, null], [2024, 6, 5978, 28, null], [2024, 7, 5984, 30, null], [2024, 8, 6155, 3, null], [2024, 9, 6173, 22, null], [2024, 10, 6214, 19, null], [2024, 11, 6335, 29, null], [2024, 12, 6342, 37, null], [2024, 12, 6342, 18, null], [2024, 14, 6720, 5, null], [2024, 15, 6733, 6, null], [2024, 16, 6847, 35, null], [2024, 17, 6858, 17, null], [2024, 18, 6971, 14, null], [2024, 19, 7031, 31, null], [2024, 20, 7141, 16, null], [2024, 21, 7173, 4, null], [2024, 22, 7213, 27, null], [2024, 23, 7285, 38, null], [2024, 24, 7464, 26, null], [2024, 25, 7564, 34, null], [2024, 26, 7587, 24, null], [2024, 27, 7699, 2, null], [2024, 28, 7712, 8, null], [2024, 29, 8431, 33, null], [2024, 30, 8804, 1, null], [2025, 1, 4001, 0, null], [2025, 2, 4730, 10, null], [2025, 3, 4774, 23, null], [2025, 4, 5677, 25, null], [2025, 5, 5784, 3, null], [2025, 6, 6127, 30, null], [2025, 7, 6548, 28, null], [2025, 8, 6822, 4, null], [2025, 9, 6848, 22, null], [2025, 10, 6910, 24, null], [2025, 11, 6983, 31, null], [2025, 12, 7016, 14, null], [2025, 13, 7028, 17, null], [2025, 14, 7139, 5, null], [2025, 15, 7146, 37, null], [2025, 16, 7237, 29, null], [2025, 17, 7274, 32, null], [2025, 18, 7366, 19, null], [2025, 19, 7404, 38, null], [2025, 20, 7418, 21, null], [2025, 21, 7428, 18, null], [2025, 22, 7478, 6, null], [2025, 23, 7496, 16, null], [2025, 24, 7790, 35, null], [2025, 25, 7802, 27, null], [2025, 26, 7840, 26, null], [2025, 27, 7862, 7, null], [2025, 28, 7926, 2, null], [2025, 29, 7930, 11, null], [2025, 30, 8078, 8, null], [2025, 31, 8085, 36, null], [2025, 32, 8099, 13, null], [2025, 33, 8127, 12, null], [2025, 33, 8127, 20, null], [2025, 35, 9139, 1, null], [2025, 36, 9382, 33, null], [2026, 1, 4618, 0, 1], [2026, 2, 5526, 10, 1], [2026, 3, 5964, 23, 1], [2026, 4, 6448, 3, 1], [2026, 5, 6530, 30, 1], [2026, 6, 6663, 31, 1], [2026, 7, 6745, 24, 1], [2026, 8, 6956, 25, 1], [2026, 9, 6968, 4, 2], [2026, 10, 7116, 29, 2], [2026, 11, 7269, 5, 2], [2026, 12, 7373, 28, 1], [2026, 13, 7419, 22, 1], [2026, 14, 7460, 37, 2], [2026, 15, 7528, 27, 2], [2026, 16, 7534, 14, 1], [2026, 17, 7569, 17, 2], [2026, 18, 7620, 7, 1], [2026, 19, 7783, 6, 2], [2026, 20, 7809, 32, 1], [2026, 21, 7850, 38, 1], [2026, 21, 7850, 19, 2], [2026, 23, 7873, 12, 1], [2026, 24, 8027, 18, 2], [2026, 25, 8250, 16, 2], [2026, 26, 8271, 21, 1], [2026, 27, 8383, 9, 2], [2026, 28, 8401, 2, 3], [2026, 29, 8613, 8, 3], [2026, 30, 8665, 26, 3], [2026, 31, 8757, 35, 2], [2026, 32, 8943, 11, 3], [2026, 33, 8950, 13, 2], [2026, 34, 9270, 34, 1], [2026, 35, 9477, 20, 4], [2026, 36, 9831, 1, 2], [2026, 37, 9836, 15, 2], [2026, 38, 10260, 33, 4]];
+const LIC=[["Universidad Científica del Perú", "Privada", "Loreto", -1], ["Universidad Peruana de las Américas", "Privada", "Lima", -1], ["Universidad Nacional Tecnológica de Frontera San Ignacio de Loyola", "Pública", "Cajamarca", -1], ["Universidad Interamericana para el Desarrollo", "Privada", "Lima", -1], ["Universidad José Carlos Mariátegui", "Privada", "Moquegua", -1], ["Universidad Nacional de Música", "Pública", "Lima", -1], ["Universidad Nacional Daniel Alomía Robles", "Pública", "Huánuco", -1], ["Universidad Católica Los Ángeles de Chimbote", "Privada", "Áncash", -1], ["Universidad Politécnica del Perú", "Privada", "Lima", -1], ["Universidad Privada de Trujillo", "Privada", "La Libertad", -1], ["Universidad Peruana del Centro", "Privada", "Junín", -1], ["Universidad Nacional Ciro Alegría", "Pública", "La Libertad", -1], ["Universidad Nacional Pedro Ruiz Gallo", "Pública", "Lambayeque", 11], ["Universidad Nacional San Luis Gonzaga", "Pública", "Ica", -1], ["Universidad Autónoma de Ica", "Privada", "Ica", -1], ["Facultad de Teología Pontificia y Civil de Lima", "Privada", "Lima", -1], ["Universidad Nacional Federico Villarreal", "Pública", "Lima", 8], ["Universidad Tecnológica de los Andes", "Privada", "Apurímac", -1], ["Universidad Peruana Los Andes", "Privada", "Junín", -1], ["Universidad Nacional Micaela Bastidas de Apurímac", "Pública", "Apurímac", -1], ["Universidad Nacional José Faustino Sánchez Carrión", "Pública", "Lima", -1], ["Universidad Señor de Sipán", "Privada", "Lambayeque", 31], ["Universidad Nacional del Callao", "Pública", "Callao", 20], ["Universidad Nacional de Educación Enrique Guzmán y Valle", "Pública", "Lima", 13], ["Universidad Privada Norbert Wiener", "Privada", "Lima", 22], ["Universidad Nacional de Tumbes", "Pública", "Tumbes", -1], ["Universidad Privada San Juan Bautista", "Privada", "Lima", 27], ["Universidad Nacional Amazónica de Madre de Dios", "Pública", "Madre de Dios", 7], ["Universidad Nacional Agraria de la Selva", "Pública", "Huánuco", -1], ["Universidad Nacional Daniel Alcides Carrión", "Pública", "Pasco", -1], ["Universidad Nacional Hermilio Valdizán", "Pública", "Huánuco", -1], ["Universidad Nacional de Huancavelica", "Pública", "Huancavelica", -1], ["Universidad Nacional Intercultural de Quillabamba", "Pública", "Cusco", -1], ["Universidad Tecnológica del Perú", "Privada", "Lima", 32], ["Universidad Privada de Huancayo Franklin Roosevelt", "Privada", "Junín", -1], ["Universidad César Vallejo", "Privada", "La Libertad", 3], ["Universidad de Huánuco", "Privada", "Huánuco", -1], ["Universidad Nacional de Piura", "Pública", "Piura", -1], ["Universidad Nacional de San Antonio Abad del Cusco", "Pública", "Cusco", 17], ["Universidad Nacional de San Martín", "Pública", "San Martín", -1], ["Universidad Nacional de Frontera", "Pública", "Piura", -1], ["Universidad Nacional del Santa", "Pública", "Áncash", -1], ["Universidad Nacional del Centro del Perú", "Pública", "Junín", 21], ["Universidad Católica de Trujillo Benedicto XVI", "Privada", "La Libertad", -1], ["Universidad Nacional Autónoma de Tayacaja Daniel Hernández Morillo", "Pública", "Huancavelica", -1], ["Universidad Nacional de la Amazonía Peruana", "Pública", "Loreto", -1], ["Universidad Nacional Santiago Antúnez de Mayolo", "Pública", "Áncash", -1], ["Universidad Nacional Autónoma de Chota", "Pública", "Cajamarca", -1], ["Universidad Le Cordon Bleu", "Privada", "Lima", -1], ["Universidad Nacional de Ucayali", "Pública", "Ucayali", -1], ["Universidad María Auxiliadora", "Privada", "Lima", -1], ["Universidad Nacional Autónoma Altoandina de Tarma", "Pública", "Junín", -1], ["Universidad Nacional Intercultural de la Amazonía", "Pública", "Ucayali", -1], ["Universidad Nacional de Trujillo", "Pública", "La Libertad", 18], ["Universidad Católica Sedes Sapientiae", "Privada", "Lima", -1], ["Universidad Nacional de Cañete", "Pública", "Lima", -1], ["Universidad Nacional de San Agustín", "Pública", "Arequipa", 16], ["Universidad Nacional de Juliaca", "Pública", "Puno", -1], ["Universidad Nacional Intercultural Fabiola Salazar Leguía de Bagua", "Pública", "Amazonas", -1], ["Universidad Continental", "Privada", "Junín", 5], ["Universidad Autónoma del Perú", "Privada", "Lima", 1], ["Universidad Nacional de Cajamarca", "Pública", "Cajamarca", -1], ["Universidad Nacional Autónoma de Alto Amazonas", "Pública", "Loreto", -1], ["Universidad Nacional Tecnológica de Lima Sur", "Pública", "Lima", -1], ["Universidad Jaime Bausate y Meza", "Privada", "Lima", -1], ["Universidad Nacional Jorge Basadre Grohmann", "Pública", "Tacna", 9], ["Universidad Peruana Unión", "Privada", "Lima", 24], ["Universidad Nacional de San Cristóbal de Huamanga", "Pública", "Ayacucho", -1], ["Universidad Nacional de Barranca", "Pública", "Lima", -1], ["Universidad Científica del Sur", "Privada", "Lima", 4], ["Universidad ESAN", "Privada", "Lima", -1], ["Universidad Nacional Mayor de San Marcos", "Pública", "Lima", 10], ["Universidad Privada Antenor Orrego", "Privada", "La Libertad", 26], ["Universidad Nacional Intercultural de la Selva Central Juan Santos Atahualpa", "Pública", "Junín", -1], ["Universidad Católica Santo Toribio de Mogrovejo", "Privada", "Lambayeque", -1], ["Universidad La Salle", "Privada", "Arequipa", -1], ["Universidad Nacional de Jaén", "Pública", "Cajamarca", -1], ["Universidad Nacional de Moquegua", "Pública", "Moquegua", 15], ["Universidad Católica de Santa María", "Privada", "Arequipa", 2], ["Universidad Nacional del Altiplano", "Pública", "Puno", 19], ["Universidad Andina del Cusco", "Privada", "Cusco", -1], ["Universidad Privada de Tacna", "Privada", "Tacna", -1], ["Universidad Nacional de Ingeniería", "Pública", "Lima", 14], ["Universidad de Ciencias y Humanidades", "Privada", "Lima", 33], ["Universidad Privada del Norte", "Privada", "La Libertad", 28], ["Universidad Católica San Pablo", "Privada", "Arequipa", -1], ["Universidad Marcelino Champagnat", "Privada", "Lima", -1], ["Universidad San Ignacio de Loyola", "Privada", "Lima", 30], ["Universidad Peruana de Ciencias Aplicadas", "Privada", "Lima", 25], ["Universidad Nacional José María Arguedas", "Pública", "Apurímac", -1], ["Universidad Nacional Toribio Rodríguez de Mendoza de Amazonas", "Pública", "Amazonas", 12], ["Universidad de San Martín de Porres", "Privada", "Lima", 37], ["Universidad Antonio Ruiz de Montoya", "Privada", "Lima", -1], ["Universidad Nacional Autónoma de Huanta", "Pública", "Ayacucho", -1], ["Universidad Nacional Agraria La Molina", "Pública", "Lima", 6], ["Universidad de Piura", "Privada", "Piura", 36], ["Universidad Ricardo Palma", "Privada", "Lima", 29], ["Universidad Femenina del Sagrado Corazón", "Privada", "Lima", -1], ["Universidad de Ciencias y Artes de América Latina", "Privada", "Lima", -1], ["Universidad para el Desarrollo Andino", "Privada", "Huancavelica", -1], ["Universidad Peruana Cayetano Heredia", "Privada", "Lima", 23], ["Universidad del Pacífico", "Privada", "Lima", 38], ["Universidad de Lima", "Privada", "Lima", 35], ["Pontificia Universidad Católica del Perú", "Privada", "Lima", 0], ["Universidad de Ingeniería y Tecnología", "Privada", "Lima", 34]];
+/* ===== Datos base ===== */
+const TOT = {2020:[7026,0],2021:[7555,1],2022:[8084,0],2023:[8569,1],2024:[9054,0],2025:[9756,0],2026:[10827,0]};
+const GROW = 886; // crecimiento anual medio del universo SCImago 2024–2026
+const LAST = 2026, PREV = 2025;
+const recs = RAW.map(([y,n,g,u,q]) => ({y,n,g,u,q}));
+const YEARS = [...new Set(recs.map(d=>d.y))].sort((a,b)=>a-b);
+const byY = d3.group(recs, d=>d.y);
+const byU = new Map(); recs.forEach(r=>{ if(!byU.has(r.u)) byU.set(r.u,new Map()); byU.get(r.u).set(r.y,r); });
+const NY = y => (byY.get(y)||[]).length;
+const pctOf = r => (r && TOT[r.y]) ? r.g/TOT[r.y][0]*100 : null;
+const Tproj = E => E<=LAST ? TOT[E][0] : TOT[LAST][0] + GROW*(E-LAST);
+const SIG = s => U.findIndex(u=>u.s===s);
+const iUSIL = SIG('USIL');
+/* ===== Universidades licenciadas por SUNEDU (25/08/2026) ===== */
+const LIC_STOP = new Set(['universidad','nacional','de','del','la','las','los','el','y','para','privada','peruana']);
+function siglaOf(name){
+  const w = name.replace(/["“”]/g,'').split(/\s+/).filter(x=>x && !LIC_STOP.has(x.toLowerCase()));
+  let s = 'U' + w.map(x=>x[0].toUpperCase()).join('').slice(0,5);
+  if(name.startsWith('Universidad Nacional')) s = 'UN' + s.slice(1);
+  if(name.startsWith('Facultad')) s = 'FTPCL';
+  let k=s, i=2; while(U.some(u=>u.s===k)) k = s + (i++);
+  return k;
+}
+LIC.forEach(([n,t,d,ui])=>{
+  const reg = (d==='Lima'||d==='Callao') ? 'Lima' : 'Regiones';
+  if(ui>=0){ U[ui].lic=true; U[ui].dep=d; }
+  else U.push({name:n, s:siglaOf(n), t, r:reg, dep:d, lic:true, ext:true});
+});
+const SUNEDU = {lic:107, uni:LIC.length, priv:LIC.filter(l=>l[1]==='Privada').length, pub:LIC.filter(l=>l[1]==='Pública').length, fecha:'25/08/2026'};
+
+/* ===== Íconos (trazo, estilo sobrio) ===== */
+const ICONS = {
+ trophy:'<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.7V17c0 .6-.5 1-1 1.2C7.8 18.8 7 20.2 7 22"/><path d="M14 14.7V17c0 .6.5 1 1 1.2 1.2.6 2 2 2 3.8"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
+ globe:'<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+ flag:'<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/>',
+ landmark:'<path d="M3 22h18"/><path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7"/><path d="M12 2 20 7H4z"/>',
+ ruler:'<path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.4 2.4 0 0 1 0-3.4l2.6-2.6a2.4 2.4 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2M11.5 9.5l2-2M8.5 6.5l2-2M17.5 15.5l2-2"/>',
+ award:'<circle cx="12" cy="8" r="6"/><path d="M15.5 12.9 17 22l-5-3-5 3 1.5-9.1"/>',
+ layers:'<path d="m12 2 10 5-10 5L2 7l10-5z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/>',
+ shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+ bars:'<path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/>',
+ line:'<path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/>',
+ trend:'<path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/>',
+ sliders:'<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M2 14h4M10 8h4M18 16h4"/>',
+ book:'<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+ target:'<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+ gauge:'<path d="m12 14 4-4"/><path d="M3.3 19a10 10 0 1 1 17.4 0"/>',
+ users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
+ grad:'<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+ briefcase:'<rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+ settings:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>',
+ copy:'<rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
+ info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+ alert:'<path d="m21.7 18-8-14a2 2 0 0 0-3.5 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-3Z"/><path d="M12 9v4M12 17h.01"/>',
+ lock:'<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+ user:'<circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/>',
+ coins:'<circle cx="8" cy="8" r="6"/><path d="M18.1 10.4A6 6 0 1 1 10.3 18"/><path d="M7 6h1v4"/>',
+ flask:'<path d="M9 3h6M10 9V3M14 9V3"/><path d="M10 9 4.5 19a1.5 1.5 0 0 0 1.3 2h12.4a1.5 1.5 0 0 0 1.3-2L14 9"/>',
+ bulb:'<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/>',
+ megaphone:'<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
+ search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+ play:'<path d="M6 3 20 12 6 21Z"/>',
+ grid:'<rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>',
+ table:'<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M3 15h18M12 3v18"/>',
+ box:'<path d="M3 3v18h18"/><path d="M9 5v4M9 15v2"/><rect width="4" height="6" x="7" y="9" rx="1"/><path d="M17 3v2M17 13v3"/><rect width="4" height="8" x="15" y="5" rx="1"/>',
+ pie:'<path d="M21.2 15.9A10 10 0 1 1 8 2.8"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',
+ route:'<circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/>',
+ compass:'<circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.1 6.3-6.3 2.1 2.1-6.3z"/>',
+ activity:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+ clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+ checks:'<path d="m3 17 2 2 4-4M3 7l2 2 4-4M13 6h8M13 12h8M13 18h8"/>',
+ spark:'<path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/>',
+ logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/>',
+ swap:'<path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/>',
+ file:'<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5z"/><path d="M14 2v6h6M16 13H8M16 17H8"/>',
+ stairs:'<path d="M3 21h4v-4h4v-4h4V9h4V5h2"/>',
+ x:'<path d="M18 6 6 18M6 6l12 12"/>',
+ key:'<circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/>'
+};
+const ic = (n, sz) => `<svg class="ic" viewBox="0 0 24 24" width="${sz||16}" height="${sz||16}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||''}</svg>`;
+function paintIcons(root){ (root||document).querySelectorAll('i[data-ic]').forEach(el=>{ if(!el.dataset.done){ el.innerHTML = ic(el.dataset.ic, +el.dataset.sz||undefined); el.dataset.done=1; } }); }
+
+/* ===== Suavizado: media ponderada 1-2-1 que conserva los extremos ===== */
+function smoothPts(pts){
+  const idx = pts.map((p,i)=>p.y!=null?i:-1).filter(i=>i>=0); if(idx.length<3) return pts;
+  const out = pts.map(p=>({...p}));
+  for(let k=1;k<idx.length-1;k++){ const a=pts[idx[k-1]].y, b=pts[idx[k]].y, c=pts[idx[k+1]].y; out[idx[k]].y=(a+2*b+c)/4; }
+  return out;
+}
+
+const COMP_COL = ['#E39B2B','#0E9F9F','#C2185B','#7B61FF','#2E9E5B','#D9534F','#5A6B8C','#8D6E63','#0097D7','#B08C00','#E36BAE','#3F51B5'];
+
+const loc = d3.formatLocale({decimal:'.', thousands:' ', grouping:[3], currency:['','']});
+const fInt = loc.format(',d'), f1 = loc.format('.1f'), f0 = loc.format('.0f');
+const ord = n => n==null ? '—' : n+'.º';
+const ordF = n => n==null ? '—' : n+'.ª';
+const nm = u => U[u].s;
+const full = u => U[u].name;
+const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ===== Estado y persistencia ===== */
+const KPI_DEFS = [
+ ['nat','Puesto nacional'],['glob','Puesto mundial'],['gap','Brecha con el líder'],['priv','Puesto entre privadas'],
+ ['qpais','Cuartil en el país'],['qmundo','Cuartil en el mundo'],['sunedu','Frente a todas las universidades licenciadas']
+];
+const DEF = () => ({focus:iUSIL, comps:['UPC','UCV','USS','UPeU','UCSUR','ULIMA','UP','UTP'].map(SIG), theme:'light', pal:'usil', dense:0, pastel:1,
+  horizon:2030, damp:0.6, elas:15, kpis:KPI_DEFS.map(k=>k[0]), lev:{q1:0,out:0,tal:0,col:0,pat:0,ik:0,ods:0,web:0}, start:2027, budget:5,
+  q1share:30, bad:{cut:true,pred:true,rot:true,aff:true,web:true}, comp:1.5, xp:0, got:[], visited:[], narr:[], pred:null, tab:'kpis', aud:'rector',
+  rev:{mat:19371, pago:20000, ing:20, sens:0.5}, smooth:'media', onboarded:false, baseLedBy:{}, revBy:{}, extBy:{}});
+let S = DEF();
+try {
+  const s2 = JSON.parse(localStorage.getItem('usil-scimago-v2')||'null');
+  if(s2) S = Object.assign(DEF(), s2);
+  else { const s1 = JSON.parse(localStorage.getItem('usil-scimago-v1')||'null'); if(s1){ S.xp=s1.xp||0; S.got=(s1.got||[]).filter(k=>k!=='efficient'); S.visited=s1.visited||[]; S.focus=s1.focus??S.focus; S.theme=s1.theme||S.theme; S.pal=s1.pal||S.pal; } }
+} catch(e){}
+if(!U[S.focus]) S.focus = iUSIL;
+S.kpis = S.kpis.filter(k=>KPI_DEFS.some(d=>d[0]===k)); if(!S.kpis.length) S.kpis=KPI_DEFS.map(k=>k[0]);
+S.rev = Object.assign(DEF().rev, S.rev||{});
+const save = () => { try { localStorage.setItem('usil-scimago-v2', JSON.stringify(S)); } catch(e){} };
+
+/* ===== Datos externos ===== */
+// OpenAlex, consultado el 12-nov-2026. w = trabajos con afiliación; led = trabajos con autor de correspondencia de la institución.
+const PUB_Y = [2021,2022,2023,2024,2025];
+const PUB = {
+ UNMSM:{w:[2577,2583,2961,2871,2834]}, PUCP:{w:[1379,1358,1565,1528,1655],led:[772,712,822,802,869]}, UPCH:{w:[1136,1044,1134,1181,1265],led:[347,342,359,343,404]},
+ UCV:{w:[1870,2194,2726,2530,2704],led:[1091,1198,1351,1206,1320]}, UPC:{w:[713,787,964,932,1035],led:[428,446,476,412,533]}, UCSUR:{w:[756,842,1129,1006,1309]},
+ UNALM:{w:[496,477,702,437,452]}, UNT:{w:[413,520,610,635,657]}, USMP:{w:[476,417,489,471,474]}, UNSA:{w:[678,570,628,627,653]},
+ USIL:{w:[629,656,639,651,762],led:[211,293,263,250,357],art:[449,483,429,447,541],intl:[290,236,230,238,224],oa:[471,531,475,456,583]},
+ UTP:{w:[268,553,1022,891,1054]}, ULIMA:{w:[464,442,551,572,484]}, UNFV:{w:[460,565,602,588,658]}, UNAP:{w:[429,526,651,680,657]}, UPN:{w:[372,726,900,680,722]},
+ UNI:{w:[390,336,417,377,445]}, URP:{w:[399,365,510,400,369]}, UC:{w:[310,535,782,600,628]}, UNSAAC:{w:[303,301,368,409,368]}, UPeU:{w:[305,439,444,414,495],led:[177,234,247,254,279]},
+ UP:{w:[205,218,263,231,267]}, UNTRM:{w:[285,256,239,349,478]}, USS:{w:[278,232,355,291,343],led:[169,100,162,139,148]}, UPAO:{w:[160,185,256,221,263]}, UCSM:{w:[204,216,262,340,365]},
+ UNJBG:{w:[190,184,199,240,302]}, UNCP:{w:[336,385,196,220,248]}, UNW:{w:[217,442,515,200,156]}, UNPRG:{w:[185,146,206,245,281]}, UDEP:{w:[162,129,176,162,165]},
+ UPSJB:{w:[313,312,328,210,208]}, UNE:{w:[127,258,267,217,206]}
+};
+const TC = 3.73; // S/ por US$, referencia PROCIENCIA 2026
+
+/* ===== Utilidades de modelo ===== */
+function linreg(pts){
+  const n=pts.length, mx=d3.mean(pts,p=>p[0]), my=d3.mean(pts,p=>p[1]);
+  let sxy=0,sxx=0; pts.forEach(([x,y])=>{sxy+=(x-mx)*(y-my); sxx+=(x-mx)**2;});
+  const s = sxx? sxy/sxx : 0, b = my - s*mx;
+  const res = pts.map(([x,y])=>y-(b+s*x));
+  const sd = n>2 ? Math.sqrt(d3.sum(res,r=>r*r)/(n-2)) : 3;
+  return {s,b,sd,n};
+}
+const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+function pctSeries(u){ const out=[]; for(let y=2020;y<=LAST;y++){ const r=byU.get(u)?.get(y); if(r) out.push([y,pctOf(r)]); } return out; }
+function slopeOf(u){ const p=pctSeries(u).filter(d=>d[0]>=2021); if(p.length<3) return {s:0,sd:3,n:p.length}; return linreg(p); }
+const present = () => (byY.get(LAST)||[]).map(r=>r.u);
+const geom = (d,h) => { let s=0; for(let k=0;k<h;k++) s+=d**k; return s; };
+function inert(u,E){ const r=byU.get(u)?.get(LAST); if(!r) return null; const sl=clamp(slopeOf(u).s,-4,4); return clamp(pctOf(r)+sl*geom(S.damp,E-LAST),0.5,99.5); }
+
+/* Palancas: peso SCImago, unidades reales y costo unitario anual (S/). base = línea de base anual estimada de USIL. */
+const q1Base = () => Math.round(baseLed() * S.q1share/100);
+const LEVERS = [
+ {id:'q1', f:'Investigación', n:'Publicaciones Q1 con liderazgo', w:30, lag:'res', ind:'Impacto normalizado 13 · Excelencia con liderazgo 8 · Liderazgo científico 5 · Excelencia 2 · Q1 2',
+  unit:'artículos Q1 liderados', base:()=>q1Base(), max:()=>q1Base(), uc:29000, ucTxt:'APC esperado S/ 5 600 + bono S/ 8 000 + producción S/ 15 000', src:'ref'},
+ {id:'out',f:'Investigación', n:'Volumen de producción en Scopus', w:14, lag:'res', ind:'Producción 8 · Revistas no propias 3 · Revistas propias 3',
+  unit:'artículos Q2–Q4 liderados', base:()=>baseLed()-q1Base(), max:()=>baseLed()-q1Base(), uc:15000, ucTxt:'APC esperado S/ 3 700 + bono S/ 5 000 + producción S/ 6 000', src:'ref'},
+ {id:'tal',f:'Investigación', n:'Talento científico (autores activos)', w:2, lag:'res', ind:'Talento científico 2',
+  unit:'investigadores a tiempo completo', base:()=>null, max:()=>20, uc:120000, ucTxt:'remuneración anual estimada', src:'sup'},
+ {id:'col',f:'Investigación', n:'Colaboración internacional y acceso abierto', w:4, lag:'res', ind:'Colaboración internacional 2 · Acceso abierto 2',
+  unit:'estancias internacionales (≈2 artículos c/u)', base:()=>intlBase(), max:()=>Math.round(intlBase()/2), uc:25000, ucTxt:'tope PUCP por estancia de investigación', src:'ref'},
+ {id:'pat',f:'Innovación', n:'Patentes e impacto tecnológico', w:20, lag:'inn', ind:'Patentes 10 · Impacto tecnológico 10',
+  unit:'solicitudes PCT', base:()=>null, max:()=>10, uc:120000, ucTxt:'tasas PCT ≈ S/ 6 000–12 000 + redacción y agente + desarrollo del invento', src:'mix'},
+ {id:'ik', f:'Innovación', n:'Conocimiento citado en patentes', w:10, lag:'inn', ind:'Conocimiento innovador 10',
+  unit:'proyectos de I+D aplicada con empresas', base:()=>null, max:()=>10, uc:150000, ucTxt:'cofinanciamiento por proyecto', src:'sup'},
+ {id:'ods',f:'Impacto social', n:'ODS, políticas públicas e investigadoras', w:11, lag:'res', ind:'ODS 5 · Impacto en políticas públicas 3 · Talento científico femenino 3',
+  unit:'proyectos ODS o informes de política', base:()=>null, max:()=>40, uc:20000, ucTxt:'por proyecto o informe', src:'sup'},
+ {id:'web',f:'Impacto social', n:'Visibilidad web y en medios', w:9, lag:'web', ind:'Menciones en medios 3 · Tamaño web 3 · Autoridad web 3',
+  unit:'piezas de divulgación en medios', base:()=>null, max:()=>200, uc:2500, ucTxt:'producción y difusión por pieza', src:'sup'}
+];
+const PRESETS = {
+ none:{q1:0,out:0,tal:0,col:0,pat:0,ik:0,ods:0,web:0},
+ research:{q1:60,out:20,tal:0,col:40,pat:0,ik:0,ods:20,web:50},
+ integral:{q1:40,out:10,tal:10,col:30,pat:30,ik:10,ods:50,web:100},
+ innov:{q1:30,out:0,tal:0,col:0,pat:100,ik:40,ods:0,web:40}
+};
+const BAD = [
+ {id:'cut', t:'Recortar incentivos y bonos a la publicación', v:1.0},
+ {id:'pred',t:'Tolerar revistas cuestionadas y autocitas excesivas', s:'Riesgo de alerta en SCImago IRIS', v:0.8},
+ {id:'rot', t:'Perder investigadores RENACYT por rotación', v:0.7},
+ {id:'aff', t:'No normalizar la afiliación institucional en Scopus', v:0.3},
+ {id:'web', t:'Descuidar el portal, el repositorio y la presencia en medios', v:0.2}
+];
+const unitsOf = (l,v) => Math.round(l.max()*((v ?? S.lev[l.id]) || 0)/100);
+const costOf = (l,v) => unitsOf(l,v)*l.uc;
+const annualCost = () => d3.sum(LEVERS, l=>costOf(l));
+const actionYears = E => Math.max(0, (E-2) - S.start + 1);
+const f2 = loc.format('.2f');
+const fmtS = v => v>=1e6 ? 'S/ '+f2(v/1e6).replace(/\.?0+$/,'')+' M' : v>=1000 ? 'S/ '+fInt(Math.round(v/1000))+' mil' : 'S/ '+fInt(v);
+function ramp(lag,E){
+  if(lag==='web') return (E-1)>=S.start ? 1 : 0;
+  const end = (lag==='inn' ? E-3 : E-2);
+  return clamp(end - S.start + 1, 0, 5)/5;
+}
+function leverEff(l,E){ return l.w/100 * ((S.lev[l.id]||0)/100) * ramp(l.lag,E) * S.elas; }
+const badSum = () => d3.sum(BAD.filter(b=>S.bad[b.id]), b=>b.v);
+function scen(E){
+  const f=S.focus, r=byU.get(f)?.get(LAST); if(!r) return null;
+  const A=inert(f,E), dB=d3.sum(LEVERS,l=>leverEff(l,E)), B=clamp(A-dB,0.5,99.5), rr=ramp('res',E), C=clamp(A+badSum()*5*rr,0.5,99.5);
+  const others = present().filter(u=>u!==f);
+  const natFor = (p, boost) => 1 + others.filter(u=> (inert(u,E) - boost) < p).length;
+  return {E, A, B, C, dB, natA:natFor(A,0), natB:natFor(B,0), natC:natFor(C,S.comp*5*rr), gA:Math.round(A/100*Tproj(E)), gB:Math.round(B/100*Tproj(E)), gC:Math.round(C/100*Tproj(E))};
+}
+const REFS = [
+ {t:'Apoyo al pago de APC por cuartil', d:'Q1 (SJR < 2): hasta US$ 2 500; Q2: US$ 2 000; Q3: US$ 700.', s:'Universidad Norbert Wiener, directiva 2025', url:'https://repositorio.uwiener.edu.pe/bitstreams/3ecb743c-0dbe-40e4-8bda-60c0b31a8cc4/download'},
+ {t:'Bono por publicación (universidad pública)', d:'Q1: S/ 10 000; Q2–Q3: S/ 8 000; Q4: S/ 5 000 por artículo.', s:'UNSA, incentivo por publicación', url:'https://vri.unsa.edu.pe/?p=14399'},
+ {t:'Bono por publicación (universidad privada)', d:'Q1: S/ 6 000; Q2: S/ 5 000; Q3: S/ 4 500 por artículo.', s:'Universidad Norbert Wiener, política de incentivos', url:'https://intranet.uwiener.edu.pe/univwiener/portales/centroinvestigacion/UPNW-EES-POL-001.pdf'},
+ {t:'Incentivo por proyecto con artículo liderado', d:'Hasta S/ 40 000 por proyecto, con autor de correspondencia de la universidad.', s:'UPC, XIII Concurso de Incentivo a la Investigación 2025', url:'https://investigacion.upc.edu.pe/assets/files/BASES-DEL-XIII-CONCURSO-ANUAL-DE-INCENTIVO-A-LA-INVESTIGACION-2025.pdf'},
+ {t:'Estancia internacional de investigación', d:'Hasta S/ 25 000 por estancia (pasajes y viáticos).', s:'PUCP, Apoyo a Estancias de Investigación 2026', url:'https://investigacion.pucp.edu.pe/wp-content/uploads/2026/08/Bases-Apoyos-a-Estancias-de-Investigacion-PUCP-2026_AGOSTO-1.pdf'},
+ {t:'Tasa de presentación internacional PCT', d:'CHF 1 330, más tasa de búsqueda y tasa de transmisión de la oficina receptora.', s:'OMPI (WIPO)', url:'https://wipo.int/en/web/pct-system/introduction'},
+ {t:'Tasa de búsqueda PCT', d:'Entre CHF 150 y CHF 2 000 según la autoridad de búsqueda.', s:'Patsnap, guía de presupuesto PCT', url:'https://www.patsnap.com/resources/blog/articles/how-much-does-it-cost-to-patent-an-idea-worldwide/'},
+ {t:'Costo completo de un artículo', d:'Estimación conservadora de US$ 70 000 para un artículo de ciencias sociales en una universidad pública doctoral de EE. UU.', s:'University of Sydney Business School, 2026', url:'https://www.sydney.edu.au/news-opinion/news/2026/10/15/what-the-public-invests-to-produce-research.html'},
+ {t:'Tipo de cambio de referencia', d:'S/ 3,73 por US$.', s:'PROCIENCIA, bases 2026', url:'https://prociencia.gob.pe/wp-content/uploads/2026/Pasant%C3%ADas%20en%20Ciencia%2C%20Tecnolog%C3%ADa%20e%20Innovaci%C3%B3n%20Tecnol%C3%B3gica%202026/UD_04%2020260224%20E009_2026_01%20ANEXOS%20UDISE%C3%91O%5BF%5D%5BF%5D.pdf'},
+ {t:'Producción de USIL y competidores', d:'Trabajos, artículos, autoría de correspondencia, coautoría internacional y acceso abierto por año.', s:'OpenAlex, consultado el 12-nov-2026', url:'https://api.openalex.org/institutions?search=San%20Ignacio%20de%20Loyola&filter=country_code:PE'}
+];
+
+/* ===== Hechos derivados para la universidad foco ===== */
+function facts(){
+  const f=S.focus, m=byU.get(f)||new Map(), ys=[...m.keys()].sort((a,b)=>a-b);
+  const last=m.get(LAST), prev=m.get(PREV), first=ys[0];
+  const leader = y => d3.min(byY.get(y), r=>r.g);
+  const sameT = y => byY.get(y).filter(r=>U[r.u].t===U[f].t).sort((a,b)=>a.g-b.g);
+  const sameR = y => byY.get(y).filter(r=>U[r.u].r===U[f].r).sort((a,b)=>a.g-b.g);
+  const posIn = (arr) => 1 + arr.filter(r=>r.g < (m.get(arr[0]?.y)?.g ?? Infinity)).length;
+  let streak=0; for(let i=YEARS.length-1;i>=0;i--){ if(m.has(YEARS[i])) streak++; else break; }
+  const bestN = ys.length ? d3.min(ys, y=>m.get(y).n) : null;
+  const bestYs = ys.filter(y=>m.get(y).n===bestN);
+  const sl = slopeOf(f);
+  const moms = present().map(u=>({u, s:slopeOf(u)})).filter(d=>d.s.n>=3).sort((a,b)=>a.s.s-b.s.s);
+  const momRank = moms.findIndex(d=>d.u===f)+1;
+  const firstCmp = ys.find(y=>y>=2021) ?? first;
+  const above26 = last ? byY.get(LAST).filter(r=>r.g<last.g).map(r=>r.u) : [];
+  const newc = firstCmp && m.get(firstCmp) ? above26.filter(u=>{ const r0=byU.get(u).get(firstCmp); return !r0 || r0.g>m.get(firstCmp).g; }) : [];
+  return {f, ys, last, prev, first, firstCmp, leader, sameT, sameR, posIn, streak, bestN, bestYs, sl, moms, momRank, newc,
+    pctL: pctOf(last), pctP: pctOf(prev), pctF: firstCmp ? pctOf(m.get(firstCmp)) : null};
+}
+
+/* ===== Gamificación ===== */
+const LEVELS = [[0,'Explorador/a'],[80,'Analista'],[200,'Estratega'],[350,'Decano/a de datos'],[520,'Rector/a visionario/a']];
+const BADGES = [
+ {id:'explorer',t:'Explorador/a',d:'Visitó los seis paneles',m:'6'},
+ {id:'custom',t:'A mi medida',d:'Personalizó el observatorio',m:'⚙'},
+ {id:'strategist',t:'Estratega',d:'Movió una palanca del simulador',m:'S'},
+ {id:'top5',t:'Top 5',d:'Top 5 nacional en el escenario de acción',m:'5'},
+ {id:'podium',t:'Podio',d:'Top 3 nacional en el escenario de acción',m:'3'},
+ {id:'half',t:'Mitad superior',d:'Percentil mundial menor que 50 %',m:'50'},
+ {id:'roi',t:'Inversión rentable',d:'El plan protege más ingreso del que cuesta',m:'S/'},
+ {id:'pess',t:'Gestión de riesgos',d:'Exploró el escenario pesimista',m:'!'},
+ {id:'race',t:'Cronista',d:'Vio la carrera completa 2009–2026',m:'▶'},
+ {id:'quiz',t:'Sabio/a del ranking',d:'Respondió bien todo el cuestionario',m:'Q'},
+ {id:'oracle',t:'Oráculo',d:'Registró su predicción para 2027',m:'O'},
+ {id:'narr',t:'Comunicador/a',d:'Leyó las tres narrativas',m:'N'},
+ {id:'share',t:'Difusor/a',d:'Copió el resumen ejecutivo',m:'C'}
+];
+const has = k => S.got.includes(k);
+let toastT;
+function award(key, xp, title, sub, mark){
+  if(has(key)) return false;
+  S.got.push(key); S.xp += xp; save(); hud();
+  const b = BADGES.find(b=>b.id===key);
+  showToast(mark || (b? b.m : '+'), title || (b? 'Insignia: '+b.t : 'Logro'), (sub || (b? b.d : '')) + ' · +' + xp + ' XP');
+  if(S.tab==='arena') renderBadges();
+  return true;
+}
+function showToast(mk,t,s){
+  const el=document.getElementById('toast');
+  document.getElementById('toastMd').textContent=mk; document.getElementById('toastT').textContent=t; document.getElementById('toastS').textContent=s;
+  el.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),3200);
+}
+function hud(){
+  let li=0; LEVELS.forEach((l,i)=>{ if(S.xp>=l[0]) li=i; });
+  const cur=LEVELS[li][0], nxt=LEVELS[li+1]?.[0];
+  document.getElementById('lvlIc').textContent=li+1;
+  document.getElementById('lvlName').textContent=LEVELS[li][1];
+  document.getElementById('lvlXp').textContent = fInt(S.xp)+' XP' + (nxt? ' · faltan '+fInt(nxt-S.xp) : ' · nivel máximo');
+  document.getElementById('lvlBar').style.width = (nxt? (S.xp-cur)/(nxt-cur)*100 : 100)+'%';
+}
+
+/* ===== Gráficos ===== */
+function measure(svg, texts, weight){
+  const g=svg.append('g'); let w=0;
+  texts.forEach(t=>{ const n=g.append('text').style('font-size','12px').style('font-weight',weight||400).text(t).node(); w=Math.max(w,n.getComputedTextLength()); });
+  g.remove(); return w;
+}
+function tipBox(el){ const t=document.createElement('div'); t.className='tip'; el.appendChild(t); return t; }
+function placeTip(el,tip,px,py){
+  const W=el.clientWidth, tw=tip.offsetWidth, th=tip.offsetHeight;
+  let x=px+14; if(x+tw>W) x=px-tw-14; if(x<0) x=0;
+  let y=py-th/2; y=clamp(y,0,Math.max(0,el.clientHeight-th));
+  tip.style.left=x+'px'; tip.style.top=y+'px'; tip.style.opacity=1;
+}
+const motionOK = () => !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function lineChart(el,o){
+  el.innerHTML='';
+  const W=Math.max(260,el.clientWidth), H=o.h||280;
+  const svg=d3.select(el).append('svg').attr('width',W).attr('height',H).attr('role','img').attr('aria-label',o.aria||'Gráfico de líneas');
+  const pts=o.series.flatMap(s=>s.pts).filter(p=>p.y!=null);
+  let yd=o.yDomain;
+  if(!yd){ const vals=[...pts.map(p=>p.y),...(o.band||[]).flatMap(b=>[b.lo,b.hi]),...(o.refs||[]).map(r=>r.y)]; yd=d3.extent(vals); const pad=(yd[1]-yd[0])*0.08||1; yd=[yd[0]-pad,yd[1]+pad]; if(o.yMin!=null) yd[0]=Math.max(o.yMin,yd[0]); }
+  const y=d3.scaleLinear().domain(yd); if(!o.yDomain) y.nice(5);
+  const yFmt=o.yFmt||(v=>fInt(v));
+  let yt = o.yInt ? y.ticks(Math.min(8, Math.ceil(y.domain()[1]-y.domain()[0]))).filter(t=>Number.isInteger(t)) : y.ticks(5);
+  const wl=measure(svg, yt.map(yFmt));
+  const labS=o.series.filter(s=>s.label);
+  let wr = o.endLabels ? measure(svg, labS.map(s=>s.label), 700) : 0;
+  const m={t:12, r: wr? wr+16 : 14, b:26, l: wl+12};
+  if(W-m.l-m.r < 180){ wr=0; m.r=14; }
+  const x=d3.scaleLinear().domain(o.xDomain).range([m.l, W-m.r]);
+  y.range(o.yRev? [m.t, H-m.b] : [H-m.b, m.t]);
+  const span=o.xDomain[1]-o.xDomain[0], step = (W-m.l-m.r)/span > 40 ? 1 : (W-m.l-m.r)/span > 20 ? 2 : 3;
+  const xt=d3.range(Math.ceil(o.xDomain[0]), o.xDomain[1]+0.01, step);
+  svg.append('g').attr('class','grid').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).tickValues(yt).tickSize(-(W-m.l-m.r)).tickFormat(yFmt)).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').style('stroke','var(--line)'));
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).tickValues(xt).tickFormat(d3.format('d')).tickSizeOuter(0));
+  (o.vlines||[]).forEach(v=>{ svg.append('line').attr('x1',x(v.x)).attr('x2',x(v.x)).attr('y1',m.t).attr('y2',H-m.b).style('stroke','var(--muted)').style('stroke-dasharray','3 4'); if(v.label) svg.append('text').attr('x',x(v.x)+5).attr('y',m.t+10).text(v.label).style('font-size','11px'); });
+  (o.refs||[]).forEach(r=>{ svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(r.y)).attr('y2',y(r.y)).style('stroke','var(--gold)').style('stroke-dasharray','5 4').style('stroke-width',1.5); svg.append('text').attr('x',m.l+4).attr('y',y(r.y)-4).text(r.label).style('fill','var(--gold)').style('font-size','11px').style('font-weight',700); });
+  const curve = S.smooth==='ninguno' ? d3.curveLinear : d3.curveMonotoneX;
+  if(o.band){ svg.append('path').datum(o.band).attr('d',d3.area().curve(curve).x(d=>x(d.x)).y0(d=>y(d.lo)).y1(d=>y(d.hi))).style('fill',o.bandColor||'var(--accent)').style('opacity',.13); }
+  const line=d3.line().curve(curve).defined(p=>p.y!=null).x(p=>x(p.x)).y(p=>y(p.y));
+  const order=[...o.series].sort((a,b)=>(a.z||0)-(b.z||0));
+  const anim = o.animate && motionOK();
+  order.forEach(s=>{
+    const sm = S.smooth==='media' && s.smooth!==false && !s.dash && !o.yInt;
+    const p=svg.append('path').datum(sm? smoothPts(s.pts) : s.pts).attr('d',line).style('fill','none').style('stroke',s.color).style('stroke-width',s.width||2).style('stroke-dasharray',s.dash||null).style('opacity',s.op??1).style('stroke-linejoin','round');
+    if(anim && !s.dash){ const L=p.node().getTotalLength(); p.style('stroke-dasharray',`${L} ${L}`).style('stroke-dashoffset',L).transition().duration(900).style('stroke-dashoffset',0).on('end',function(){d3.select(this).style('stroke-dasharray',null);}); }
+    if(s.dots!==false) svg.append('g').selectAll('circle').data(s.pts.filter(p=>p.y!=null)).join('circle').attr('cx',p=>x(p.x)).attr('cy',p=>y(p.y)).attr('r',(p,i,a)=> s.big ? (i===a.length-1?5.5:3.5) : 2.6)
+      .style('fill',p=>p.est?'var(--panel)':s.color).style('stroke',s.color).style('stroke-width',1.5).style('opacity',(p,i,a)=> (S.smooth==='media' && s.smooth!==false && !s.dash && !o.yInt && i>0 && i<a.length-1) ? .45*(s.op??1) : (s.op??1));
+    if(s.ptLabels) svg.append('g').selectAll('text').data(s.pts.filter(p=>p.y!=null)).join('text').attr('x',p=>x(p.x)).attr('y',p=>y(p.y)-9).attr('text-anchor','middle').text(p=>s.ptLabels(p)).style('font-size','11px').style('font-weight',700).style('fill',s.color);
+  });
+  if(wr){
+    let labs=labS.map(s=>{ const lp=[...s.pts].reverse().find(p=>p.y!=null); return lp? {s, x:x(lp.x), y:y(lp.y)} : null; }).filter(Boolean).sort((a,b)=>a.y-b.y);
+    for(let i=1;i<labs.length;i++){ if(labs[i].y-labs[i-1].y<13) labs[i].y=labs[i-1].y+13; }
+    const over = labs.length? labs[labs.length-1].y-(H-m.b) : 0; if(over>0) labs.forEach(l=>l.y-=over);
+    svg.append('g').selectAll('text').data(labs).join('text').attr('x',W-m.r+6).attr('y',d=>d.y+4).text(d=>d.s.label).style('font-weight',700).style('fill',d=>d.s.color).style('opacity',d=>d.s.op??1);
+  }
+  // tooltip
+  const tip=tipBox(el), xs=[...new Set(pts.map(p=>p.x))].sort((a,b)=>a-b);
+  const rule=svg.append('line').style('stroke','var(--muted)').style('opacity',0).attr('y1',m.t).attr('y2',H-m.b);
+  svg.append('rect').attr('x',m.l).attr('y',m.t).attr('width',W-m.l-m.r).attr('height',H-m.t-m.b).style('fill','transparent')
+   .on('pointermove',ev=>{
+     const [mx,my]=d3.pointer(ev); const xv=x.invert(mx); const xn=xs.reduce((a,b)=>Math.abs(b-xv)<Math.abs(a-xv)?b:a, xs[0]);
+     rule.attr('x1',x(xn)).attr('x2',x(xn)).style('opacity',.5);
+     let rows=o.series.filter(s=>s.tip!==false).map(s=>({s,p:s.pts.find(p=>p.x===xn)})).filter(d=>d.p&&d.p.y!=null);
+     rows.sort((a,b)=> o.yRev? a.p.y-b.p.y : b.p.y-a.p.y);
+     const max=o.tipMax||10, more=rows.length-max; rows=rows.slice(0,max);
+     tip.innerHTML=`<b>${o.tipTitle? o.tipTitle(xn): xn}</b>`+rows.map(d=>`<div class="r"><span><i class="sw" style="background:${d.s.color}"></i>${esc(d.s.name)}</span><span class="num">${o.tipFmt? o.tipFmt(d.p,d.s): yFmt(d.p.y)}</span></div>`).join('')+(more>0?`<div class="note" style="margin:2px 0 0">y ${more} más</div>`:'');
+     placeTip(el,tip,x(xn),my);
+   }).on('pointerleave',()=>{tip.style.opacity=0; rule.style('opacity',0);});
+}
+
+function barChart(el,o){ // vertical bars: data [{x,label,v,color,tip}]
+  el.innerHTML=''; const W=Math.max(260,el.clientWidth), H=o.h||260;
+  const svg=d3.select(el).append('svg').attr('width',W).attr('height',H).attr('role','img').attr('aria-label',o.aria||'Gráfico de barras');
+  const maxV=d3.max(o.data,d=>o.stack? d3.sum(o.keys,k=>d[k]) : d.v);
+  const y=d3.scaleLinear().domain([0,maxV]).nice(4);
+  const wl=measure(svg,y.ticks(4).map(fInt));
+  const m={t:18,r:8,b:26,l:wl+10};
+  const x=d3.scaleBand().domain(o.data.map(d=>d.x)).range([m.l,W-m.r]).padding(.22);
+  y.range([H-m.b,m.t]);
+  svg.append('g').attr('class','grid').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).ticks(4).tickSize(-(W-m.l-m.r)).tickFormat(fInt)).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').style('stroke','var(--line)'));
+  const every = x.bandwidth()<22 ? 2 : 1;
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).tickValues(o.data.map(d=>d.x).filter((d,i,a)=>i%every===0 || i===a.length-1)).tickFormat(d=> every>1? "'"+String(d).slice(2) : d).tickSizeOuter(0));
+  const tip=tipBox(el); const anim=motionOK() && o.animate;
+  const show=(ev,d)=>{ tip.innerHTML=o.tip(d); const [mx,my]=d3.pointer(ev,el); placeTip(el,tip,mx,my); };
+  if(o.stack){
+    const st=d3.stack().keys(o.keys)(o.data);
+    st.forEach((layer,li)=>{ svg.append('g').selectAll('rect').data(layer).join('rect').attr('x',d=>x(d.data.x)).attr('width',x.bandwidth()).attr('y',d=>y(d[1])).attr('height',d=>Math.max(0,y(d[0])-y(d[1]))).style('fill',o.colors[li]).attr('rx',2)
+      .on('pointermove',(ev,d)=>show(ev,d.data)).on('pointerleave',()=>tip.style.opacity=0); });
+  } else {
+    const r=svg.append('g').selectAll('rect').data(o.data).join('rect').attr('x',d=>x(d.x)).attr('width',x.bandwidth()).attr('rx',3).style('fill',d=>d.color||'var(--accent)')
+      .on('pointermove',show).on('pointerleave',()=>tip.style.opacity=0);
+    if(anim) r.attr('y',H-m.b).attr('height',0).transition().duration(700).delay((d,i)=>i*25).attr('y',d=>y(d.v)).attr('height',d=>y(0)-y(d.v));
+    else r.attr('y',d=>y(d.v)).attr('height',d=>y(0)-y(d.v));
+    if(x.bandwidth()>=18) svg.append('g').selectAll('text').data(o.data).join('text').attr('x',d=>x(d.x)+x.bandwidth()/2).attr('y',d=>y(d.v)-5).attr('text-anchor','middle').text(d=>d.label??fInt(d.v)).style('font-size','11px').style('font-weight',700).style('fill','var(--ink)');
+  }
+}
+
+function hBar(el,o){ // horizontal bars: data [{k,label,v,color,bold}]
+  el.innerHTML=''; const W=Math.max(260,el.clientWidth), rowH=o.rowH||22, H=o.data.length*rowH+30;
+  const svg=d3.select(el).append('svg').attr('width',W).attr('height',H).attr('role','img').attr('aria-label',o.aria||'Gráfico de barras horizontales');
+  const wl=measure(svg,o.data.map(d=>d.label),700), vf=o.vFmt||(v=>f1(v));
+  const wv=measure(svg,o.data.map(d=>vf(d.v)),700);
+  const ext=d3.extent([0,...o.data.map(d=>d.v)]);
+  const m={t:6,r:wv+10,b:22,l:wl+12};
+  const x=d3.scaleLinear().domain(ext).nice(4).range([m.l,W-m.r]);
+  const y=d3.scaleBand().domain(o.data.map(d=>d.k)).range([m.t,H-m.b]).padding(.2);
+  svg.append('g').attr('class','grid').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(4).tickSize(-(H-m.t-m.b)).tickFormat(o.tFmt||vf)).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').style('stroke','var(--line)'));
+  svg.append('line').attr('x1',x(0)).attr('x2',x(0)).attr('y1',m.t).attr('y2',H-m.b).style('stroke','var(--muted)');
+  const g=svg.append('g').selectAll('g').data(o.data).join('g');
+  g.append('rect').attr('y',d=>y(d.k)).attr('height',y.bandwidth()).attr('x',d=>x(Math.min(0,d.v))).attr('width',d=>Math.abs(x(d.v)-x(0))).attr('rx',3).style('fill',d=>d.color);
+  g.append('text').attr('x',m.l-8).attr('y',d=>y(d.k)+y.bandwidth()/2+4).attr('text-anchor','end').text(d=>d.label).style('font-weight',d=>d.bold?800:500).style('fill',d=>d.bold?'var(--ink)':'var(--muted)');
+  g.append('text').attr('x',d=> d.v>=0? x(d.v)+5 : x(0)+5).attr('y',d=>y(d.k)+y.bandwidth()/2+4).text(d=>vf(d.v)).style('font-weight',700).style('fill','var(--ink)');
+  if(o.tip){ const tip=tipBox(el); g.on('pointermove',(ev,d)=>{tip.innerHTML=o.tip(d); const [mx,my]=d3.pointer(ev,el); placeTip(el,tip,mx,my);}).on('pointerleave',()=>tip.style.opacity=0); }
+}
+
+/* ===== Colores de serie ===== */
+const PASTEL = ['#F2C48D','#9FD3D3','#F2AFC3','#C5B6F2','#AFDCBF','#F0A9A2','#B7C2D8','#D9C1B0','#A6D2EE','#E3D48F','#F1C3E0','#B3BBE8'];
+const focusCol = 'var(--accent)';
+const compCol = u => (S.pastel ? PASTEL : COMP_COL)[S.comps.indexOf(u) % COMP_COL.length];
+const colOf = u => u===S.focus ? focusCol : S.comps.includes(u) ? compCol(u) : 'var(--line)';
+const worldQ = p => p<=25?1 : p<=50?2 : p<=75?3 : 4;
+
+/* ===== Panel 1: KPIs ===== */
+function pill(delta, goodWhenNeg, fmt, unit){
+  if(delta==null || isNaN(delta)) return '';
+  if(Math.abs(delta)<1e-9) return `<span class="pill flat">sin cambio</span>`;
+  const good = goodWhenNeg ? delta<0 : delta>0;
+  return `<span class="pill ${good?'up':'down'}">${good?'▲':'▼'} ${fmt(Math.abs(delta))}${unit||''}</span>`;
+}
+function renderKPIs(){
+  if(isExt()){ renderKPIsExt(); return; }
+  const F=facts(), f=F.f, L=F.last, P=F.prev, nL=NY(LAST), nP=NY(PREV), K={};
+  const priv = U[f].t==='Privada';
+  document.querySelectorAll('.kpi-priv-lbl').forEach(e=>e.textContent = priv?'privadas':'públicas');
+  if(L){
+    const dn = P? L.n-P.n : null;
+    K.nat = {v:`${ord(L.n)} <small>de ${nL}</small>`, c:`${pill(dn,true,v=>v,Math.abs(dn)===1?' puesto':' puestos')} en ${PREV}: ${P?ord(P.n)+' de '+nP:'no figuraba'}<br>Percentil nacional: top ${f0(L.n/nL*100)} %${P?` (en ${PREV}: top ${f0(P.n/nP*100)} %)`:''} · fuente: SCImago`};
+    K.glob = {v:fInt(L.g), c:`${pill(P? L.g-P.g:null,true,fInt)} de ${fInt(TOT[LAST][0])} instituciones del mundo<br>Percentil mundial: top ${f1(F.pctL)} %${F.pctP!=null?` (en ${PREV}: ${f1(F.pctP)} %, ${F.pctL<F.pctP?'mejoró':'retrocedió'} ${f1(Math.abs(F.pctL-F.pctP))} pp)`:''}`};
+    const gp=L.g-F.leader(LAST), gpp=P? P.g-F.leader(PREV):null;
+    K.gap = {v:fInt(gp)+' <small>puestos</small>', c:`${pill(gpp!=null? gp-gpp:null,true,fInt)} detrás de ${nm(byY.get(LAST).find(r=>r.g===F.leader(LAST)).u)}, líder nacional`};
+    const arr=F.sameT(LAST), p=1+arr.filter(r=>r.g<L.g).length, pp = P? 1+F.sameT(PREV).filter(r=>r.g<P.g).length : null;
+    K.priv = {v:`${ordF(p)} <small>de ${arr.length}</small>`, c:`${pill(pp!=null? p-pp:null,true,v=>v,' puesto')} entre universidades ${priv?'privadas':'públicas'} en SCImago ${LAST}`};
+    K.qpais = L.q ? {v:'Q'+L.q, c:'mejor cuartil SCImago dentro del Perú', star:L.q===1} : {v:'—', c:'dato publicado desde 2026'};
+    const q=worldQ(F.pctL), qp=F.pctP!=null? worldQ(F.pctP):null;
+    K.qmundo = {v:'Q'+q, c:`top ${f1(F.pctL)} % de ${fInt(TOT[LAST][0])} instituciones${qp?` · en ${PREV}: Q${qp}`:''} (cálculo propio)`};
+    K.sunedu = {v:`${ordF(L.n)} <small>de ${SUNEDU.lic}</small>`, star:true,
+      c:`instituciones con licencia vigente (SUNEDU, ${SUNEDU.fecha}); ${SUNEDU.lic-nL} no superan el umbral de SCImago<br>Supera al ${f0((1-L.n/SUNEDU.lic)*100)} % de las licenciadas${priv?` · ${ordF(p)} de ${SUNEDU.priv} universidades privadas`:''}`};
+  }
+  document.getElementById('kpiGrid').innerHTML = KPI_DEFS.map(([id,lab])=>{ const k=K[id]; if(!k) return '';
+    const label = id==='priv' ? (priv?'Puesto entre privadas':'Puesto entre públicas') : lab;
+    const KIC={nat:'flag',glob:'globe',gap:'ruler',priv:'landmark',qpais:'award',qmundo:'layers',sunedu:'shield'};
+    return `<div class="kpi ${k.star?'star':''} ${S.kpis.includes(id)?'':'hidden'}" id="kpi-${id}"><span class="lab">${ic(KIC[id])} ${label}</span><span class="val">${k.v}</span><span class="ctx">${k.c}</span></div>`; }).join('');
+  const v=document.getElementById('verdict');
+  if(!L){ v.innerHTML=`<h3>${esc(full(f))}</h3><p>No figura en la edición ${LAST}.</p>`; }
+  else {
+    const dpp = F.pctP!=null? F.pctL-F.pctP : null;
+    v.innerHTML = `<h3>${ic('trophy',18)} ${esc(full(f))} en SCImago ${LAST}</h3>
+     <div class="big num">${ord(L.n)} <small>de ${nL} en Perú</small></div>
+     <p>${F.pctF!=null && F.firstCmp<LAST ? `Desde ${F.firstCmp}, su puesto mundial pasó de ${fInt(byU.get(f).get(F.firstCmp).g)} a ${fInt(L.g)}, pero el número de instituciones evaluadas creció; en términos relativos pasó del ${f1(F.pctF)} % al ${f1(F.pctL)} % superior del mundo.` : `Ocupa el puesto mundial ${fInt(L.g)} de ${fInt(TOT[LAST][0])}.`}</p>
+     <div class="chips"><span>Top ${f1(F.pctL)} % mundial</span>${L.q?`<span>Q${L.q} en el país</span>`:''}${dpp!=null?`<span>${dpp<0?'Mejoró':'Retrocedió'} ${f1(Math.abs(dpp))} pp vs ${PREV}</span>`:''}<span>${F.streak} ediciones seguidas</span></div>`;
+  }
+  const lst=[...byY.get(LAST)].sort((a,b)=>a.g-b.g), i=lst.findIndex(r=>r.u===f), rv=document.getElementById('rivals');
+  if(i<0){ rv.innerHTML='<p class="note">Sin datos en la edición actual.</p>'; }
+  else rv.innerHTML = lst.slice(Math.max(0,i-2), i+3).map(r=>{ const d=r.g-L.g; return `<div class="rival ${r.u===f?'me':''}"><span class="pos num">${ord(r.n)}</span><span class="nm">${esc(full(r.u))}<small>${U[r.u].t} · ${U[r.u].r}</small></span><span class="gr num">${fInt(r.g)}${r.u===f?'':`<br>${d<0?'+':'−'}${fInt(Math.abs(d))} vs ${nm(f)}`}</span></div>`; }).join('');
+  const m=byU.get(f)||new Map(), ys=[...m.keys()].sort((a,b)=>a-b);
+  const x0=Math.min(...ys,2019), natPts=ys.map(y=>({x:y,y:m.get(y).n}));
+  lineChart(document.getElementById('chNatSpark'),{xDomain:[x0,LAST], yRev:true, yInt:true, yDomain:[1, Math.max(8, d3.max(natPts,p=>p.y)+1)], h:240, animate:true, aria:'Puesto nacional por edición',
+    series:[{name:nm(f),color:focusCol,width:3,big:true,pts:natPts, ptLabels:p=>ord(p.y)}], tipFmt:(p)=>ord(p.y)+' de '+NY(p.x), yFmt:v=>ord(v)});
+  const pp=ys.filter(y=>TOT[y]).map(y=>({x:y,y:pctOf(m.get(y)),est:!!TOT[y][1]}));
+  lineChart(document.getElementById('chPctSpark'),{xDomain:[Math.min(2020,...pp.map(p=>p.x)),LAST], yRev:true, h:240, animate:true, aria:'Percentil mundial por edición',
+    series:[{name:nm(f),color:focusCol,width:3,big:true,pts:pp, ptLabels:p=>f1(p.y)+'%'}], yFmt:v=>f0(v)+' %', tipFmt:p=>f1(p.y)+' %'+(p.est?' (total estimado)':'')});
+}
+
+/* ===== Panel 2: Descriptivo ===== */
+let compMode='t', descT='';
+const recsD = () => descT ? recs.filter(r=>U[r.u].t===descT) : recs;
+const byYD = y => recsD().filter(r=>r.y===y);
+function renderDesc(){
+  const f=S.focus;
+  document.querySelectorAll('#segType button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.v===descT));
+  const lab = descT==='Privada'?'privadas':descT==='Pública'?'públicas':'';
+  document.querySelectorAll('.desc-lbl').forEach(e=>e.textContent = lab ? ' '+lab : '');
+  barChart(document.getElementById('chCount'),{h:260, animate:true, aria:'Universidades peruanas por edición',
+    data:YEARS.map(y=>({x:y,v:byYD(y).length,color: byU.get(f)?.has(y) && (!descT||U[f].t===descT)? 'var(--accent)' : 'color-mix(in srgb,var(--accent) 35%,var(--panel))'})),
+    tip:d=>`<b>${d.x}</b><div class="r"><span>Universidades${lab?' '+lab:''}</span><span class="num">${d.v}</span></div><div class="r"><span>${nm(f)}</span><span>${byU.get(f)?.has(d.x)? ord(byU.get(f).get(d.x).n)+' nacional' : 'no figura'}</span></div>`});
+  const mode = descT ? 'r' : compMode;
+  document.querySelectorAll('#segComp button').forEach(b=>{ b.setAttribute('aria-pressed', b.dataset.v===mode); b.disabled = !!descT && b.dataset.v==='t'; });
+  const keys = mode==='t'? ['Privada','Pública'] : ['Lima','Regiones'], cols=['var(--accent)','var(--gold)'];
+  barChart(document.getElementById('chComp'),{h:240, stack:true, keys, colors:cols, aria:'Composición por edición',
+    data:YEARS.map(y=>{ const o={x:y}; keys.forEach(k=>o[k]=byYD(y).filter(r=>U[r.u][mode]===k).length); return o; }),
+    tip:d=>`<b>${d.x}</b>`+keys.map((k,i)=>`<div class="r"><span><i class="sw" style="background:${cols[i]}"></i>${k}</span><span class="num">${d[k]}</span></div>`).join('')});
+  const lg=document.createElement('div'); lg.className='legend'; lg.innerHTML=keys.map((k,i)=>`<span><i style="background:${cols[i]};height:10px;width:10px"></i>${k}</span>`).join(''); document.getElementById('chComp').appendChild(lg);
+  const fromSel=document.getElementById('bumpFrom'); if(!fromSel.options.length){ YEARS.forEach(y=>fromSel.add(new Option(y,y))); fromSel.value=2017; }
+  const from=+fromSel.value, top=+document.getElementById('bumpTop').value;
+  const us=[...new Set(recsD().filter(r=>r.y>=from && r.n<=top).map(r=>r.u))];
+  const series=us.map(u=>{ const hl=u===S.focus||S.comps.includes(u); return {name:nm(u), label: hl? nm(u):null, color:colOf(u), width:u===S.focus?4:hl?2.4:1.4, op:hl?1:.55, z:u===S.focus?3:hl?2:1, big:u===S.focus,
+    pts:YEARS.filter(y=>y>=from).map(y=>{ const r=byU.get(u).get(y); return {x:y,y: r && r.n<=top ? r.n : null}; })}; });
+  const bump=document.getElementById('chBump');
+  if(!series.length) bump.innerHTML='<p class="note">No hay universidades de este tipo en el rango elegido.</p>';
+  else lineChart(bump,{xDomain:[from,LAST], yRev:true, yInt:true, yDomain:[0.5,top+0.5], h:Math.max(340, top*20), endLabels:true, tipMax:12, aria:'Trayectorias del ranking nacional',
+    series, yFmt:v=>ord(v), tipFmt:p=>ord(p.y), tipTitle:x=>'Edición '+x});
+  document.getElementById('heatT').value = descT;
+  renderHeat(); renderBox(); renderStrip(); renderFull();
+}
+let heatSort={k:LAST,dir:1};
+function renderHeat(){
+  const q=document.getElementById('heatQ').value.toLowerCase(), t=document.getElementById('heatT').value, rg=document.getElementById('heatR').value;
+  let us=[...byU.keys()].filter(u=>(!q||full(u).toLowerCase().includes(q)||nm(u).toLowerCase().includes(q)) && (!t||U[u].t===t) && (!rg||U[u].r===rg));
+  const val=(u,k)=> k==='nm'? full(u) : (byU.get(u).get(k)?.n ?? 999);
+  us.sort((a,b)=>{ const va=val(a,heatSort.k), vb=val(b,heatSort.k); return (va<vb?-1:va>vb?1:0)*heatSort.dir || val(a,LAST)-val(b,LAST); });
+  const col=n=>{ if(n==null) return ''; const t=clamp(1-(n-1)/20,0.08,1); return `background:color-mix(in srgb,var(--usil) ${Math.round(t*85)}%,var(--panel));color:${t>0.5?'#fff':'var(--ink)'}`; };
+  const tb=document.getElementById('heat');
+  tb.innerHTML=`<thead><tr><th class="nm" data-k="nm">Universidad</th>${YEARS.map(y=>`<th class="c" data-k="${y}">${"'"+String(y).slice(2)}</th>`).join('')}</tr></thead><tbody>`+
+    us.map(u=>`<tr class="${u===S.focus?'me':''}"><td class="nm" title="${esc(full(u))}">${esc(nm(u))} <small style="color:var(--muted)">${U[u].t[0]}·${U[u].r==='Lima'?'L':'R'}</small></td>${YEARS.map(y=>{const r=byU.get(u).get(y); return `<td class="cell" style="${col(r?.n)}" title="${r? full(u)+' · '+y+': '+ord(r.n)+' nacional, '+fInt(r.g)+' mundial':''}">${r? r.n : ''}</td>`;}).join('')}</tr>`).join('')+'</tbody>';
+  tb.querySelectorAll('th').forEach(th=>th.onclick=()=>{ const k=th.dataset.k==='nm'?'nm':+th.dataset.k; heatSort = {k, dir: heatSort.k===k? -heatSort.dir : 1}; renderHeat(); });
+}
+function boxStats(a){ a=[...a].sort(d3.ascending); return {min:a[0], q1:d3.quantileSorted(a,.25), med:d3.quantileSorted(a,.5), q3:d3.quantileSorted(a,.75), max:a[a.length-1], n:a.length}; }
+function renderBox(){
+  const f=S.focus;
+  // A) por edición
+  const el=document.getElementById('chBoxYear'); el.innerHTML='';
+  const ys=d3.range(2020,LAST+1), W=Math.max(260,el.clientWidth), H=300, m={t:16,r:W>420?96:12,b:28,l:46};
+  const svg=d3.select(el).append('svg').attr('width',W).attr('height',H).attr('role','img').attr('aria-label','Diagramas de caja del percentil mundial de las universidades peruanas por edición');
+  const x=d3.scaleBand().domain(ys).range([m.l,W-m.r]).padding(.38), y=d3.scaleLinear().domain([0,100]).range([m.t,H-m.b]);
+  svg.append('g').attr('class','grid').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).tickValues([0,25,50,75,100]).tickSize(-(W-m.l-m.r)).tickFormat(v=>v+' %')).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').style('stroke','var(--line)'));
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).tickSizeOuter(0));
+  svg.append('rect').attr('x',m.l).attr('width',W-m.l-m.r).attr('y',y(25)).attr('height',y(75)-y(25)).style('fill','var(--gold)').style('opacity',.08);
+  [[50,'Mediana mundial'],[25,'Q1 mundial'],[75,'Q3 mundial']].forEach(([v,t])=>{ svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).style('stroke','var(--gold)').style('stroke-dasharray','5 4'); svg.append('text').attr('x',m.r>20? W-m.r+6 : W-m.r-4).attr('y',y(v)+(m.r>20?4:-4)).attr('text-anchor',m.r>20?'start':'end').text(t).style('fill','var(--gold)').style('font-size','11px').style('font-weight',700); });
+  const tip=tipBox(el), bw=Math.min(46,x.bandwidth());
+  ys.forEach(yr=>{
+    const vals=byYD(yr).map(pctOf).filter(v=>v!=null); if(!vals.length) return;
+    const st=boxStats(vals), cx=x(yr)+x.bandwidth()/2, g=svg.append('g');
+    g.append('line').attr('x1',cx).attr('x2',cx).attr('y1',y(st.min)).attr('y2',y(st.max)).style('stroke','var(--muted)');
+    [st.min,st.max].forEach(v=>g.append('line').attr('x1',cx-bw/4).attr('x2',cx+bw/4).attr('y1',y(v)).attr('y2',y(v)).style('stroke','var(--muted)'));
+    g.append('rect').attr('x',cx-bw/2).attr('width',bw).attr('y',y(st.q1)).attr('height',Math.max(1,y(st.q3)-y(st.q1))).attr('rx',3).style('fill','color-mix(in srgb,var(--accent) 22%,var(--panel))').style('stroke','var(--accent)');
+    g.append('line').attr('x1',cx-bw/2).attr('x2',cx+bw/2).attr('y1',y(st.med)).attr('y2',y(st.med)).style('stroke','var(--accent)').style('stroke-width',2.5);
+    const r=byU.get(f)?.get(yr); const fv = r && (!descT||U[f].t===descT) ? pctOf(r) : null;
+    if(fv!=null){ g.append('circle').attr('cx',cx).attr('cy',y(fv)).attr('r',6).style('fill','var(--gold)').style('stroke','var(--navy)').style('stroke-width',2); }
+    g.append('rect').attr('x',x(yr)).attr('width',x.bandwidth()).attr('y',m.t).attr('height',H-m.t-m.b).style('fill','transparent')
+     .on('pointermove',ev=>{ tip.innerHTML=`<b>${yr}${TOT[yr][1]?' (total estimado)':''}</b><div class="r"><span>Universidades</span><span>${st.n}</span></div><div class="r"><span>Mediana Perú</span><span>${f1(st.med)} %</span></div><div class="r"><span>Rango intercuartil</span><span>${f1(st.q1)}–${f1(st.q3)} %</span></div><div class="r"><span>Mejor / peor</span><span>${f1(st.min)} / ${f1(st.max)} %</span></div>${fv!=null?`<div class="r"><span>${nm(f)}</span><span>${f1(fv)} %</span></div>`:''}`; const [mx,my]=d3.pointer(ev,el); placeTip(el,tip,mx,my); })
+     .on('pointerleave',()=>tip.style.opacity=0);
+  });
+  // B) comparación de la edición actual
+  const el2=document.getElementById('chBoxCmp'); el2.innerHTML='';
+  const all=byY.get(LAST), pv=t=>all.filter(r=>!t||U[r.u].t===t).map(pctOf);
+  const rows=[{k:'Mundo (todas las instituciones)', st:{min:0,q1:25,med:50,q3:75,max:100,n:TOT[LAST][0]}, world:true},
+    {k:'Perú: todas', st:boxStats(pv('')), pts:pv('')}, {k:'Perú: privadas', st:boxStats(pv('Privada')), pts:pv('Privada')}, {k:'Perú: públicas', st:boxStats(pv('Pública')), pts:pv('Pública')}];
+  const W2=Math.max(260,el2.clientWidth), svg2=d3.select(el2).append('svg').attr('width',W2).attr('role','img').attr('aria-label','Comparación del percentil mundial: mundo, Perú, privadas y públicas');
+  const wl=measure(svg2,rows.map(r=>r.k),600), H2=rows.length*58+44, m2={t:26,r:16,b:30,l:Math.min(wl+14,W2*0.42)};
+  svg2.attr('height',H2);
+  const x2=d3.scaleLinear().domain([0,100]).range([m2.l,W2-m2.r]), y2=d3.scaleBand().domain(rows.map(r=>r.k)).range([m2.t,H2-m2.b]).padding(.35);
+  svg2.append('g').attr('class','grid').attr('transform',`translate(0,${H2-m2.b})`).call(d3.axisBottom(x2).tickValues([0,25,50,75,100]).tickSize(-(H2-m2.t-m2.b)).tickFormat(v=>v+' %')).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').style('stroke','var(--line)'));
+  svg2.append('text').attr('x',m2.l).attr('y',12).text('← mejor posición').style('font-size','11px');
+  const tip2=tipBox(el2);
+  rows.forEach(r=>{
+    const cy=y2(r.k)+y2.bandwidth()/2, h=y2.bandwidth(), st=r.st, g=svg2.append('g');
+    g.append('text').attr('x',m2.l-8).attr('y',cy+4).attr('text-anchor','end').text(r.k).style('font-weight',600).style('fill','var(--ink)');
+    g.append('line').attr('x1',x2(st.min)).attr('x2',x2(st.max)).attr('y1',cy).attr('y2',cy).style('stroke','var(--muted)');
+    g.append('rect').attr('x',x2(st.q1)).attr('width',Math.max(1,x2(st.q3)-x2(st.q1))).attr('y',cy-h/2).attr('height',h).attr('rx',4)
+      .style('fill', r.world? 'color-mix(in srgb,var(--gold) 25%,var(--panel))' : 'color-mix(in srgb,var(--accent) 22%,var(--panel))').style('stroke', r.world?'var(--gold)':'var(--accent)');
+    g.append('line').attr('x1',x2(st.med)).attr('x2',x2(st.med)).attr('y1',cy-h/2).attr('y2',cy+h/2).style('stroke',r.world?'var(--gold)':'var(--accent)').style('stroke-width',2.5);
+    (r.pts||[]).forEach((v,i)=>g.append('circle').attr('cx',x2(v)).attr('cy',cy+((i%5)-2)*3).attr('r',2.4).style('fill','var(--muted)').style('opacity',.55));
+    g.append('rect').attr('x',m2.l).attr('width',W2-m2.l-m2.r).attr('y',cy-h/2).attr('height',h).style('fill','transparent')
+     .on('pointermove',ev=>{ tip2.innerHTML=`<b>${esc(r.k)}</b><div class="r"><span>${r.world?'Instituciones':'Universidades'}</span><span>${fInt(st.n)}</span></div><div class="r"><span>Mediana</span><span>${f1(st.med)} %</span></div><div class="r"><span>Q1–Q3</span><span>${f1(st.q1)}–${f1(st.q3)} %</span></div>${r.world?'<div class="note" style="margin:2px 0 0">Por definición, el percentil mundial se reparte de forma uniforme.</div>':''}`; const [mx,my]=d3.pointer(ev,el2); placeTip(el2,tip2,mx,my); })
+     .on('pointerleave',()=>tip2.style.opacity=0);
+  });
+  const L=byU.get(f)?.get(LAST);
+  if(L){ const fx=x2(pctOf(L)); svg2.append('line').attr('x1',fx).attr('x2',fx).attr('y1',m2.t-4).attr('y2',H2-m2.b).style('stroke','var(--gold)').style('stroke-width',2.5);
+    svg2.append('text').attr('x',clamp(fx,m2.l+40,W2-m2.r-40)).attr('y',m2.t-8).attr('text-anchor','middle').text(`${nm(f)} · ${f1(pctOf(L))} %`).style('font-weight',800).style('fill','var(--ink)'); }
+}
+function renderStrip(){
+  const sel=document.getElementById('stripYear'); if(!sel.options.length){ [...YEARS].reverse().forEach(y=>sel.add(new Option(y,y))); }
+  const y=+sel.value; document.getElementById('stripYearLbl').textContent=y;
+  const el=document.getElementById('chStrip'); el.innerHTML='';
+  const W=Math.max(260,el.clientWidth), H=200, m={t:20,r:16,b:30,l:16};
+  const data=byYD(y).sort((a,b)=>a.g-b.g);
+  if(!data.length){ el.innerHTML='<p class="note">Sin universidades de este tipo en la edición elegida.</p>'; return; }
+  const x=d3.scaleLinear().domain([0, TOT[y]? TOT[y][0] : d3.max(data,d=>d.g)*1.1]).range([m.l,W-m.r]);
+  const svg=d3.select(el).append('svg').attr('width',W).attr('height',H).attr('role','img').attr('aria-label','Puestos mundiales de universidades peruanas');
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(W>500?6:4).tickFormat(fInt));
+  svg.append('text').attr('x',W-m.r).attr('y',H-2).attr('text-anchor','end').text(TOT[y]? 'Puesto mundial (total '+(TOT[y][1]?'estimado ':'')+fInt(TOT[y][0])+')' : 'Puesto mundial').style('font-size','11px');
+  const pos=[]; data.forEach(d=>{ let lvl=0; while(pos.some(p=>p.l===lvl && Math.abs(x(p.g)-x(d.g))<11)) lvl++; pos.push({...d,l:lvl}); });
+  const cy=d=> (H-m.b-14) - d.l*11, tip=tipBox(el);
+  svg.append('g').selectAll('circle').data(pos).join('circle').attr('cx',d=>x(d.g)).attr('cy',cy).attr('r',d=>d.u===S.focus?7:5)
+    .style('fill',d=>d.u===S.focus?'var(--accent)':S.comps.includes(d.u)?compCol(d.u):'color-mix(in srgb,var(--muted) 45%,var(--panel))').style('stroke','var(--panel)').style('stroke-width',1.5)
+    .on('pointermove',(ev,d)=>{ tip.innerHTML=`<b>${esc(full(d.u))}</b><div class="r"><span>Nacional</span><span>${ord(d.n)}</span></div><div class="r"><span>Mundial</span><span class="num">${fInt(d.g)}</span></div>`; const [mx,my]=d3.pointer(ev,el); placeTip(el,tip,mx,my); }).on('pointerleave',()=>tip.style.opacity=0);
+  const me=pos.find(d=>d.u===S.focus); if(me){ const topY=d3.min(pos,cy)-16; svg.append('line').attr('x1',x(me.g)).attr('x2',x(me.g)).attr('y1',topY+4).attr('y2',cy(me)-8).style('stroke','var(--accent)'); svg.append('text').attr('x',clamp(x(me.g),60,W-60)).attr('y',topY).attr('text-anchor','middle').text(nm(me.u)+' · '+fInt(me.g)).style('font-weight',800).style('fill','var(--ink)'); }
+}
+function renderFull(){
+  const sel=document.getElementById('tblYear'); if(!sel.options.length){ [...YEARS].reverse().forEach(y=>sel.add(new Option(y,y))); }
+  const y=+sel.value, q=document.getElementById('tblQ').value.toLowerCase();
+  const rows=byYD(y).sort((a,b)=>a.n-b.n).filter(r=>!q||full(r.u).toLowerCase().includes(q)||nm(r.u).toLowerCase().includes(q));
+  const has26=y===LAST;
+  document.getElementById('tblFull').innerHTML=`<thead><tr><th class="r">Nac.</th><th class="r">Mundial</th>${TOT[y]?'<th class="r">Percentil</th>':''}<th>Universidad</th><th>Tipo</th><th>Zona</th>${has26?'<th class="c">Cuartil</th>':''}</tr></thead><tbody>`+
+   rows.map(r=>`<tr class="${r.u===S.focus?'me':''}"><td class="r num">${r.n}</td><td class="r num">${fInt(r.g)}</td>${TOT[y]?`<td class="r num">${f1(pctOf(r))} %</td>`:''}<td>${esc(full(r.u))}</td><td>${U[r.u].t}</td><td>${U[r.u].r}</td>${has26?`<td class="c">Q${r.q}</td>`:''}</tr>`).join('')+'</tbody>';
+}
+
+/* ===== Panel 3: Tendencias ===== */
+function renderTrend(){
+  const f=S.focus, F=facts(), m=byU.get(f)||new Map(), H=S.horizon;
+  const ys=[...m.keys()].filter(y=>y>=2020).sort((a,b)=>a-b);
+  const el=document.getElementById('chParadox');
+  if(ys.length<2){ el.innerHTML='<p class="note">Se necesitan al menos dos ediciones desde 2020.</p>'; }
+  else {
+    const g0=m.get(ys[0]).g, p0=pctOf(m.get(ys[0]));
+    lineChart(el,{xDomain:[ys[0],LAST], h:260, aria:'Índice de puesto mundial frente a percentil', yFmt:v=>f0(v), refs:[{y:100,label:'Base '+ys[0]+' = 100'}],
+      series:[
+        {name:'Puesto mundial (índice)', label:'Puesto', color:'#E8A39C', width:2.5, pts:ys.map(y=>({x:y,y:m.get(y).g/g0*100, raw:fInt(m.get(y).g)}))},
+        {name:'Percentil mundial (índice)', label:'Percentil', color:focusCol, width:4, big:true, pts:ys.map(y=>({x:y,y:pctOf(m.get(y))/p0*100, raw:f1(pctOf(m.get(y)))+' %', est:!!TOT[y][1]}))}],
+      endLabels:true, yRev:true, tipFmt:(p)=>p.raw+' · índice '+f0(p.y), tipTitle:x=>'Edición '+x});
+    const n=document.createElement('p'); n.className='note'; n.textContent='Índice base '+ys[0]+' = 100; por encima de la línea dorada = mejor que el año base. El puesto absoluto se movió en contra; el percentil mejoró.'; el.appendChild(n);
+  }
+  const set=[f,...S.comps].filter(u=>byU.has(u));
+  lineChart(document.getElementById('chPctComp'),{xDomain:[2020,LAST], yRev:true, h:300, endLabels:true, aria:'Percentil mundial comparado',
+    series:set.map(u=>({name:nm(u), label:nm(u), color:colOf(u), width:u===f?4.5:1.8, big:u===f, z:u===f?2:1, op:u===f?1:.9, pts:d3.range(2020,LAST+1).map(y=>{const r=byU.get(u).get(y); return {x:y,y:r?pctOf(r):null,est:!!TOT[y][1]};})})),
+    yFmt:v=>f0(v)+' %', tipFmt:p=>f1(p.y)+' %', tipTitle:x=>'Edición '+x+(TOT[x][1]?' (total estimado)':'')});
+  // producción OpenAlex
+  const pset=set.filter(u=>PUB[nm(u)]), prodEl=document.getElementById('chProd');
+  if(!pset.length) prodEl.innerHTML='<p class="note">Sin datos de producción para este grupo.</p>';
+  else lineChart(prodEl,{xDomain:[2021,2025], h:400, endLabels:true, aria:'Producción científica anual según OpenAlex',
+    series:pset.map(u=>({name:nm(u), label:nm(u), color:colOf(u), width:u===f?4.5:1.8, big:u===f, z:u===f?2:1, pts:PUB_Y.map((yy,i)=>({x:yy,y:PUB[nm(u)].w[i]}))})),
+    yFmt:fInt, tipFmt:p=>fInt(p.y)+' trabajos', tipTitle:x=>'Año '+x});
+  const moms=F.moms.map(d=>({k:d.u,label:nm(d.u),v:-d.s.s,bold:d.u===f,color:d.u===f?'var(--accent)':(-d.s.s>=0?'#C9E6D3':'#F3C9C4'), s:d.s}));
+  hBar(document.getElementById('chMomentum'),{data:moms, rowH:20, vFmt:v=>(v>0?'+':'')+f1(v), tFmt:v=>f0(v), aria:'Velocidad de mejora del percentil',
+    tip:d=>`<b>${esc(full(d.k))}</b><div class="r"><span>Mejora anual</span><span class="num">${(d.v>0?'+':'')+f1(d.v)} pp</span></div><div class="r"><span>Ediciones usadas</span><span>${d.s.n}</span></div>`});
+  const last=m.get(LAST), projEl=document.getElementById('chProj');
+  if(!last){ projEl.innerHTML='<p class="note">La universidad no figura en '+LAST+'.</p>'; document.getElementById('tblProj').innerHTML=''; document.getElementById('trendLead').textContent=''; return; }
+  const sd=F.sl.sd||3, obs=ys.map(y=>({x:y,y:pctOf(m.get(y)),est:!!TOT[y][1]}));
+  const proj=d3.range(LAST,H+1).map(E=>({x:E,y:E===LAST?pctOf(last):inert(f,E)}));
+  const band=proj.map(p=>({x:p.x, lo:p.y-sd*0.9*Math.sqrt(p.x-LAST), hi:p.y+sd*0.9*Math.sqrt(p.x-LAST)}));
+  lineChart(projEl,{xDomain:[Math.min(2020,ys[0]),H], yRev:true, h:260, band, aria:'Proyección inercial del percentil', vlines:[{x:LAST+0.5,label:'Proyección'}],
+    series:[{name:'Observado',color:focusCol,width:3.5,big:true,pts:obs},{name:'Proyección inercial',color:focusCol,width:2.5,dash:'6 5',pts:proj}],
+    yFmt:v=>f0(v)+' %', tipFmt:p=>f1(p.y)+' %', tipTitle:x=>x>LAST?'Proyección '+x:'Edición '+x});
+  const rows=d3.range(LAST+1,H+1).map(E=>{ const s=scen(E), b=band.find(b=>b.x===E); return `<tr><td class="num">${E}</td><td class="r num">${f1(s.A)} %</td><td class="r num">${f1(b.lo)}–${f1(b.hi)} %</td><td class="r num">${fInt(s.gA)}</td><td class="r num">${fInt(Math.round(Tproj(E)))}</td><td class="c">${ord(s.natA)}</td></tr>`; });
+  document.getElementById('tblProj').innerHTML=`<thead><tr><th>Edición</th><th class="r">Percentil</th><th class="r">Banda</th><th class="r">Puesto mundial</th><th class="r">Universo est.</th><th class="c">Nacional</th></tr></thead><tbody>${rows.join('')}</tbody>`;
+  const sH=scen(H);
+  document.getElementById('trendLead').innerHTML=`Con la tendencia actual de ${esc(nm(f))} (${F.sl.s<0?'mejora':'retroceso'} de ${f1(Math.abs(F.sl.s))} pp por año) y una persistencia del impulso del ${f0(S.damp*100)} %, la proyección inercial la ubica en el ${f1(sH.A)} % superior del mundo en ${H}, puesto nacional ${ord(sH.natA)}.`;
+}
+
+/* ===== Panel 4: Escenarios ===== */
+function leverLine(l){ const u=unitsOf(l), b=l.base(); return `+${fInt(u)} ${l.unit}/año · <b>${fmtS(costOf(l))}</b>/año${b!=null?` <span class="lb">(hoy ≈ ${fInt(b)}/año)</span>`:''}`; }
+function buildLevers(){
+  const box=document.getElementById('levers'); let html='', cur='';
+  LEVERS.forEach(l=>{
+    if(l.f!==cur){ cur=l.f; const w=d3.sum(LEVERS.filter(x=>x.f===cur),x=>x.w); html+=`<div class="fac"><span>${cur}</span><span>${w} %</span></div>`; }
+    html+=`<div class="lever"><div class="lh"><label for="lv-${l.id}">${l.n}</label><span class="w">peso ${l.w} %</span></div><span class="ld">${l.ind}</span>
+      <input type="range" id="lv-${l.id}" min="0" max="100" step="5" value="${S.lev[l.id]||0}" data-id="${l.id}">
+      <div class="lv"><span>Intensidad <b id="lvv-${l.id}">${S.lev[l.id]||0} %</b></span><span>${fmtS(l.uc)} por unidad</span></div>
+      <div class="lu" id="lvu-${l.id}">${leverLine(l)}</div></div>`;
+  });
+  box.innerHTML=html;
+  box.querySelectorAll('input[type=range]').forEach(inp=>inp.addEventListener('input',()=>{ const l=LEVERS.find(x=>x.id===inp.dataset.id); S.lev[l.id]=+inp.value; document.getElementById('lvv-'+l.id).textContent=inp.value+' %'; document.getElementById('lvu-'+l.id).innerHTML=leverLine(l); save(); award('strategist',15); renderScen(); }));
+  document.getElementById('badList').innerHTML=BAD.map(b=>`<label class="chk"><input type="checkbox" data-b="${b.id}" ${S.bad[b.id]?'checked':''}><span>${b.t} <small>(+${f1(b.v)} pp/año)${b.s?' · '+b.s:''}</small></span></label>`).join('');
+  document.querySelectorAll('#badList input').forEach(c=>c.addEventListener('change',()=>{ S.bad[c.dataset.b]=c.checked; save(); award('pess',15); renderScen(); }));
+}
+let scenView='pct', ladderL='q1';
+function renderScen(){
+  const ext=isExt(); document.getElementById('extPath').hidden=!ext; document.getElementById('simWrap').hidden=ext;
+  if(ext){ renderScenExt(); return; }
+  const f=S.focus, H=S.horizon, ann=annualCost(), bud=S.budget*1e6, over=ann>bud+1, yrs=actionYears(H);
+  document.getElementById('budgetTxt').textContent=`${fmtS(ann)} / ${fmtS(bud)} al año`;
+  document.getElementById('budgetBar').style.width=Math.min(100,ann/bud*100)+'%';
+  document.getElementById('budget').classList.toggle('over',over);
+  document.getElementById('budgetNote').innerHTML = (over ? `<b>Supera el presupuesto en ${fmtS(ann-bud)} al año.</b> ` : '') + `Inversión acumulada que cuenta para la edición ${H}: <b>${fmtS(ann*yrs)}</b> (${yrs} ${yrs===1?'año':'años'} de datos, ${S.start}–${H-2}).`;
+  document.getElementById('compBoostTxt').textContent=`En el escenario pesimista, las demás universidades peruanas ganan ${f1(S.comp)} pp de percentil por año; como toda decisión, el efecto aparece desde la edición ${S.start+2}.`;
+  const last=byU.get(f)?.get(LAST);
+  if(!last){ document.getElementById('scenCards').innerHTML='<p class="note">La universidad foco no figura en '+LAST+'.</p>'; return; }
+  const s=scen(H);
+  const card=(c,t,v,sub,p)=>`<div class="sc" style="--c:${c}"><h4>${t}</h4><div class="v num">${v}</div><p>${sub}</p><p>${p}</p></div>`;
+  document.getElementById('scenCards').innerHTML =
+    card('var(--muted)',ic('clock')+' A · Inercial', ord(s.natA)+' <small>nacional</small>', `Top ${f1(s.A)} % · puesto ${fInt(s.gA)}`, 'No se hace nada.')+
+    card('var(--accent)',ic('target')+' B · Acción', ord(s.natB)+' <small>nacional</small>', `Top ${f1(s.B)} % · puesto ${fInt(s.gB)}`, `${fmtS(ann)}/año · ${f1(s.dB)} pp sobre la inercia.`)+
+    card('var(--bad)',ic('alert')+' C · Pesimista', ord(s.natC)+' <small>nacional</small>', `Top ${f1(s.C)} % · puesto ${fInt(s.gC)}`, `Malas decisiones y competencia que mejora.`);
+  const yrsArr=d3.range(LAST,H+1), obsY=[...byU.get(f).keys()].filter(y=>y>=2020).sort((a,b)=>a-b), S0=yrsArr.map(scen);
+  const pick={pct:['A','B','C'],nat:['natA','natB','natC'],glob:['gA','gB','gC']}[scenView];
+  const obsV=y=>{ const r=byU.get(f).get(y); return scenView==='pct'? pctOf(r) : scenView==='nat'? r.n : r.g; };
+  const names=['A · Inercial','B · Acción','C · Pesimista'], cols=['var(--muted)','var(--accent)','var(--bad)'];
+  const series=[{name:'Observado',color:'var(--ink)',width:2.5,pts:obsY.map(y=>({x:y,y:obsV(y),est:!!TOT[y][1]}))},
+    ...pick.map((k,i)=>({name:names[i],color:cols[i],width:i===1?3.5:2.5,dash:i===0?'6 5':null,big:i===1,pts:S0.map(sc=>({x:sc.E,y:sc.E===LAST?obsV(LAST):sc[k]})), label:names[i].split(' · ')[1]}))];
+  const fmt = scenView==='pct'? (v=>f0(v)+' %') : scenView==='nat'? (v=>ord(v)) : (v=>fInt(v));
+  const tf = scenView==='pct'? (p=>f1(p.y)+' %') : scenView==='nat'? (p=>ord(p.y)) : (p=>fInt(p.y));
+  const o={xDomain:[obsY[0],H], yRev:true, h:250, endLabels:true, aria:'Proyección por escenario', vlines:[{x:LAST+0.5,label:'Proyección'}], series, yFmt:fmt, tipFmt:tf};
+  if(scenView==='nat'){ o.yInt=true; const mx=d3.max(series.flatMap(s=>s.pts),p=>p.y); o.yDomain=[0.5, Math.max(8,mx+0.5)]; }
+  if(scenView==='pct'){ o.refs=[{y:50,label:'Mitad superior del mundo'}]; }
+  lineChart(document.getElementById('chScen'),o);
+  document.getElementById('lgScen').innerHTML=series.map(s=>`<span><i style="background:${s.color}"></i>${s.name}</span>`).join('');
+  document.querySelectorAll('#segScen button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.v===scenView));
+  const ctb=LEVERS.map(l=>({k:l.id,label:l.n.length>30? l.n.slice(0,29)+'…' : l.n, v:leverEff(l,H), color: l.f==='Investigación'?'var(--accent)': l.f==='Innovación'?'var(--gold)':'color-mix(in srgb,var(--accent) 45%,var(--gold))', l}));
+  hBar(document.getElementById('chContrib'),{data:ctb,rowH:24,vFmt:v=>f1(v)+' pp', tFmt:v=>f0(v), aria:'Aporte de cada palanca',
+    tip:d=>`<b>${esc(d.l.n)}</b><div class="r"><span>Intensidad</span><span>${S.lev[d.k]} %</span></div><div class="r"><span>Unidades/año</span><span>${fInt(unitsOf(d.l))}</span></div><div class="r"><span>Costo anual</span><span>${fmtS(costOf(d.l))}</span></div><div class="r"><span>Maduración en ${H}</span><span>${f0(ramp(d.l.lag,H)*100)} %</span></div><div class="r"><span>Aporte</span><span>${f1(d.v)} pp</span></div>`});
+  renderLadder(); renderCostTable();
+  if(s.natB<=5) award('top5',20); if(s.natB<=3) award('podium',40); if(s.B<50) award('half',30);
+}
+function renderLadder(){
+  const l=LEVERS.find(x=>x.id===ladderL), H=S.horizon, keep=S.lev[l.id], cur=keep||0;
+  const steps=d3.range(5,101,5).map(v=>{ S.lev[l.id]=v; const s=scen(H); return {v, units:unitsOf(l,v), cost:costOf(l,v), nat:s.natB, pct:s.B, dB:s.dB}; });
+  S.lev[l.id]=keep;
+  const el=document.getElementById('chLadder'); el.innerHTML='';
+  document.getElementById('ladderSub').innerHTML=`Cada barra suma 5 % de intensidad en <b>${esc(l.n)}</b> (las demás palancas quedan como están). Encima: unidades adicionales por año; debajo: puesto nacional y percentil mundial proyectados en ${H}, cuando la palanca ha madurado ${f0(ramp(l.lag,H)*100)} %. Costo unitario: ${fmtS(l.uc)} (${esc(l.ucTxt)}).`;
+  const W=Math.max(260,el.clientWidth), H2=320, svg=d3.select(el).append('svg').attr('width',W).attr('height',H2).attr('role','img').attr('aria-label','Costo anual y resultado por cada 5 % de intensidad');
+  const yv=d3.scaleLinear().domain([0,d3.max(steps,d=>d.cost)||1]).nice(4);
+  const wl=measure(svg,yv.ticks(4).map(v=>fmtS(v)));
+  const m={t:22,r:8,b:70,l:Math.max(wl,measure(svg,['Percentil']))+10};
+  const x=d3.scaleBand().domain(steps.map(d=>d.v)).range([m.l,W-m.r]).padding(.18); yv.range([H2-m.b,m.t]);
+  svg.append('g').attr('class','grid').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(yv).ticks(4).tickSize(-(W-m.l-m.r)).tickFormat(v=>fmtS(v))).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').style('stroke','var(--line)'));
+  const every = x.bandwidth()<26 ? 2 : 1;
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H2-m.b})`).call(d3.axisBottom(x).tickValues(steps.map(d=>d.v).filter((v,i)=>i%every===every-1)).tickFormat(v=>v+' %').tickSizeOuter(0));
+  const tip=tipBox(el);
+  const g=svg.append('g').selectAll('g').data(steps).join('g');
+  g.append('rect').attr('x',d=>x(d.v)).attr('width',x.bandwidth()).attr('y',d=>yv(d.cost)).attr('height',d=>yv(0)-yv(d.cost)).attr('rx',3)
+    .style('fill',d=> d.v<=cur ? 'var(--accent)' : 'color-mix(in srgb,var(--accent) 30%,var(--panel))');
+  g.filter((d,i)=>x.bandwidth()>=18 || i%2===1).append('text').attr('x',d=>x(d.v)+x.bandwidth()/2).attr('y',d=>yv(d.cost)-5).attr('text-anchor','middle').text(d=>'+'+fInt(d.units)).style('font-size','11px').style('font-weight',700).style('fill','var(--ink)');
+  g.filter((d,i)=>x.bandwidth()>=18 || i%2===1).append('text').attr('x',d=>x(d.v)+x.bandwidth()/2).attr('y',H2-m.b+36).attr('text-anchor','middle').text(d=>ord(d.nat)).style('font-size','11px').style('font-weight',700).style('fill',d=>d.nat<=3?'var(--ok)':'var(--muted)');
+  g.filter((d,i)=>x.bandwidth()>=22 || i%2===1).append('text').attr('x',d=>x(d.v)+x.bandwidth()/2).attr('y',H2-m.b+54).attr('text-anchor','middle').text(d=>f1(d.pct)).style('font-size','10.5px').style('fill','var(--muted)');
+  svg.append('text').attr('x',m.l-6).attr('y',H2-m.b+36).attr('text-anchor','end').text('Nacional').style('font-size','11px');
+  svg.append('text').attr('x',m.l-6).attr('y',H2-m.b+54).attr('text-anchor','end').text('Percentil').style('font-size','11px');
+  g.append('rect').attr('x',d=>x(d.v)).attr('width',x.bandwidth()).attr('y',m.t).attr('height',H2-m.t-m.b+62).style('fill','transparent')
+   .on('pointermove',(ev,d)=>{ tip.innerHTML=`<b>${d.v} % de intensidad</b><div class="r"><span>Adicional por año</span><span>+${fInt(d.units)} ${esc(l.unit)}</span></div><div class="r"><span>Costo anual</span><span>${fmtS(d.cost)}</span></div><div class="r"><span>Acumulado a ${H}</span><span>${fmtS(d.cost*actionYears(H))}</span></div><div class="r"><span>Resultado en ${H}</span><span>${ord(d.nat)} nacional · top ${f1(d.pct)} %</span></div>`; const [mx,my]=d3.pointer(ev,el); placeTip(el,tip,mx,my); })
+   .on('pointerleave',()=>tip.style.opacity=0);
+}
+function renderCostTable(){
+  const H=S.horizon, srcTxt={ref:'Referencia publicada',sup:'Supuesto del modelo',mix:'Referencia y supuesto'};
+  document.getElementById('costTbl').innerHTML=`<thead><tr><th>Palanca</th><th class="r">Hoy (estimado)</th><th class="r">Intensidad</th><th class="r">Adicional/año</th><th class="r">Costo unitario</th><th class="r">Costo anual</th><th>Base del costo</th></tr></thead><tbody>`+
+    LEVERS.map(l=>`<tr><td>${esc(l.n)}</td><td class="r num">${l.base()!=null?fInt(l.base()):'—'}</td><td class="r num">${S.lev[l.id]||0} %</td><td class="r num">+${fInt(unitsOf(l))} <small>${esc(l.unit)}</small></td><td class="r num">${fmtS(l.uc)}</td><td class="r num"><b>${fmtS(costOf(l))}</b></td><td><small>${srcTxt[l.src]}: ${esc(l.ucTxt)}</small></td></tr>`).join('')+
+    `<tr class="me"><td>Total del plan</td><td></td><td></td><td></td><td></td><td class="r num">${fmtS(annualCost())}</td><td><small>Acumulado a la edición ${H}: ${fmtS(annualCost()*actionYears(H))}</small></td></tr></tbody>`;
+  document.getElementById('refList').innerHTML=REFS.map(r=>`<li><b>${esc(r.t)}.</b> ${esc(r.d)} <a href="${r.url}" target="_blank" rel="noopener">${esc(r.s)}</a></li>`).join('');
+  document.getElementById('q1note').innerHTML=`Línea de base: ${fInt(baseLed())} trabajos al año con autor de correspondencia ${esc(sigF())} (${PUB[sigF()]?.led?'OpenAlex, 2025':PUB[sigF()]?'estimado como 45 % de sus trabajos en OpenAlex, 2025':'valor por defecto; ajústelo en Personalizar'}). Se asume que el <b>${S.q1share} %</b> está en revistas Q1 (≈ ${fInt(q1Base())} artículos); en 2023, entre el 26 % y el 65 % de la producción de las principales universidades peruanas estuvo en Q1–Q2 (Mayta-Tristán, Andina). Ajuste el supuesto en Personalizar.`;
+}
+
+/* ===== Panel 5: Narrativas (Situación, Complicación, Resolución) ===== */
+const gr = (a,b) => (b/a-1)*100;
+function revenueImpact(s, L){
+  const R=revOf(), ingr=R.mat*R.ing/100, per=(d)=> -d*R.sens/100*ingr;
+  return ['natA','natB','natC'].map(k=>{ const d=s[k]-L.n, st=per(d); return {k, d, st, rev:st*R.pago*5}; });
+}
+function renderStory(){
+  renderAuth(); if(!SESSION) return;
+  if(isExt()){ document.querySelectorAll('#audSel button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.a===S.aud)); document.getElementById('story').innerHTML=storyExt(); return; }
+  const F=facts(), f=F.f, L=F.last, H=S.horizon, nL=NY(LAST), name=full(f), sig=nm(f), box=document.getElementById('story');
+  document.querySelectorAll('#audSel button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.a===S.aud));
+  if(!L){ box.innerHTML=`<div class="card"><p>${esc(name)} no figura en la edición ${LAST}; las narrativas requieren datos actuales.</p></div>`; return; }
+  const s=scen(H), P=PUB[sig], first=F.firstCmp, r0=byU.get(f).get(first), ann=annualCost(), yrs=actionYears(H);
+  const lst=[...byY.get(LAST)].sort((a,b)=>a.g-b.g), i=lst.findIndex(r=>r.u===f);
+  const above=lst.slice(Math.max(0,i-1),i), below=lst.slice(i+1,i+3);
+  const prodTxt = P ? `En 2025, ${esc(sig)} registró <b>${fInt(P.w[4])} trabajos</b> en OpenAlex${P.art?` (${fInt(P.art[4])} artículos)`:''}${P.led?`, de los cuales <b>${fInt(P.led[4])}</b> tienen autor de correspondencia de la universidad (${f0(P.led[4]/P.w[4]*100)} %; ${gr(P.led[0],P.led[4])>=0?'+':''}${f0(gr(P.led[0],P.led[4]))} % desde 2021)`:''}${P.oa?`. El ${f0(P.oa[4]/P.w[4]*100)} % está en acceso abierto`:''}.` : 'No hay datos de producción de OpenAlex cargados para esta universidad.';
+  const compRows = [...new Set([...S.comps.map(nm),'UCV','UPC','PUCP'])].filter(k=>PUB[k] && k!==sig).slice(0,8).map(k=>({k, a:PUB[k].w[0], b:PUB[k].w[4], g:gr(PUB[k].w[0],PUB[k].w[4])})).sort((a,b)=>b.g-a.g);
+  const own = P? gr(P.w[0],P.w[4]) : null;
+  const compTbl = `<div class="tblwrap"><table><thead><tr><th>Universidad</th><th class="r">Trabajos 2021</th><th class="r">Trabajos 2025</th><th class="r">Crecimiento</th><th class="r">SCImago ${LAST}</th></tr></thead><tbody>${
+    (P?[{k:sig,a:P.w[0],b:P.w[4],g:own}]:[]).concat(compRows).map(r=>{ const u=SIG(r.k), rr=byU.get(u)?.get(LAST); return `<tr class="${r.k===sig?'me':''}"><td>${esc(r.k)}</td><td class="r num">${fInt(r.a)}</td><td class="r num">${fInt(r.b)}</td><td class="r num">${r.g>=0?'+':''}${f0(r.g)} %</td><td class="r">${rr?ord(rr.n):'—'}</td></tr>`; }).join('')}</tbody></table></div><p class="note">Fuente: OpenAlex, consultado el 12-nov-2026; los conteos difieren de Scopus y los de 2025 pueden crecer aún.</p>`;
+  const intlTxt = P && P.intl ? ` La coautoría internacional bajó de ${fInt(P.intl[0])} trabajos en 2021 a ${fInt(P.intl[4])} en 2025 (${f0(gr(P.intl[0],P.intl[4]))} %), justo en un indicador que SCImago premia.` : '';
+  const neighTxt = `${above.map(r=>`${esc(nm(r.u))} está ${fInt(L.g-r.g)} puestos mundiales arriba`).join('')}${above.length&&below.length?'; ':''}${below.map(r=>`${esc(nm(r.u))} está solo ${fInt(r.g-L.g)} puestos abajo`).join(' y ')}.`;
+  const ri=revenueImpact(s,L), R=revOf(), isU=sig==='USIL', ingr=Math.round(R.mat*R.ing/100);
+  const gainBA = ri[1].rev-ri[0].rev, lossCA = ri[2].rev-ri[0].rev;
+  if(gainBA>ann*yrs && ann>0) award('roi',25);
+  const calc = `<div class="card" id="revCalc"><h3>Postulantes e ingresos en juego</h3>
+    <p class="sub">Calculadora de sensibilidad. Ajuste los valores con datos internos de admisión de ${esc(sig)}.</p>
+    <div class="grid g3" style="gap:10px">
+      <label class="field" style="margin:0"><span>Estudiantes matriculados</span><input type="number" id="rvMat" value="${R.mat}" min="0" step="100"><small>${isU?'19 371 en 2022 (Gestión, con datos de SUNEDU).':'Supuesto: ingrese la matrícula de la universidad.'}</small></label>
+      <label class="field" style="margin:0"><span>Pago anual promedio (S/)</span><input type="number" id="rvPago" value="${R.pago}" min="0" step="500"><small>${isU?'Tarifario USIL 2025: pagos totales por carrera de S/ 99 450 a S/ 196 800.':'Supuesto: ingrese el pago anual promedio.'}</small></label>
+      <label class="field" style="margin:0"><span>Ingresantes al año (% de la matrícula)</span><input type="number" id="rvIng" value="${R.ing}" min="0" max="100" step="1"><small>Supuesto; reemplazar con datos de admisión.</small></label>
+      <label class="field" style="margin:0"><span>Postulantes por cada puesto nacional (%)</span><input type="number" id="rvSens" value="${R.sens}" min="0" max="5" step="0.1"><small>En EE. UU., subir un puesto en U.S. News eleva ~1 % las postulaciones; SCImago es menos visible para escolares, por eso 0,5 % por defecto.</small></label>
+    </div>
+    <div class="dec" style="margin-top:12px">
+      ${ri.map((r,j)=>`<div><h4>${['A · Inercial','B · Acción','C · Pesimista'][j]} (${ord(s[r.k])})</h4><p class="w">${r.st>=0?'+':'−'}${fInt(Math.abs(Math.round(r.st)))}</p><p>ingresantes por año (${r.d>0?'pierde '+r.d:r.d<0?'gana '+(-r.d):'mantiene'} ${Math.abs(r.d)===1?'puesto':'puestos'}). Ingreso de una cohorte en 5 años: <b>${r.rev>=0?'+':'−'}${fmtS(Math.abs(r.rev))}</b>.</p></div>`).join('')}
+    </div>
+    <p class="note">Base: ${fInt(ingr)} ingresantes al año. Frente a la inercia, el plan B ${gainBA>=0?'protege o gana':'pierde'} ${fmtS(Math.abs(gainBA))} por cohorte con una inversión de ${fmtS(ann*yrs)} hasta ${H}; el escenario pesimista arriesga ${fmtS(Math.abs(lossCA))} por cohorte. Estimación ilustrativa basada en Luca y Smith (Harvard Business School, 2011) y Monks y Ehrenberg (1999).</p></div>`;
+  const T={
+  rector:`
+   <div class="card"><span class="kicker">${ic('compass')} Situación</span><h3>${esc(name)} es ${ordF(L.n)} de ${nL} en el Perú y está en el ${f1(F.pctL)} % superior del mundo</h3>
+   <p>En SCImago ${LAST} ocupa el puesto mundial ${fInt(L.g)}${L.q?` y el mejor cuartil nacional, Q${L.q}`:''}. Entre las ${SUNEDU.lic} instituciones con licencia vigente de SUNEDU, solo ${nL} figuran en SCImago, y ${esc(sig)} supera al ${f0((1-L.n/SUNEDU.lic)*100)} % de ellas.${F.pctF!=null&&first<LAST?` Desde ${first}, el puesto mundial pasó de ${fInt(r0.g)} a ${fInt(L.g)}, pero el universo evaluado creció de unas ${fInt(TOT[first][0])} a ${fInt(TOT[LAST][0])} instituciones: en términos relativos mejoró del ${f1(F.pctF)} % al ${f1(F.pctL)} % superior.`:''}</p>
+   <p>${prodTxt}${P&&first?'':''}</p></div>
+   <div class="card"><span class="kicker">${ic('alert')} Complicación</span><h3>La competencia crece más rápido y la ventaja es estrecha</h3>
+   <p>${neighTxt} ${F.newc.length?`Desde ${first}, ${F.newc.map(u=>esc(nm(u))).join(', ')} pasó por encima.`:''}${own!=null?` Entre 2021 y 2025 la producción de ${esc(sig)} creció ${f0(own)} %, mientras varias competidoras crecieron bastante más:`:''}</p>
+   ${compTbl}
+   <p>${intlTxt} En innovación, que pesa 30 %, las universidades peruanas presentaron 968 solicitudes de patente al Indecopi en 2025, 34 % más que en 2024 (Energiminas, con datos de Indecopi).</p>
+   <p><b>¿Por qué podría bajar?</b> SCImago mide un quinquenio con dos años de retraso: las ediciones ${LAST+1} y ${LAST+2} ya están escritas. Si se recortan incentivos o se publica en revistas cuestionadas, el efecto aparece desde ${S.start+2} y la recuperación toma años. En el escenario pesimista, ${esc(sig)} caería al puesto ${s.natC} en ${H}.</p></div>
+   ${calc}
+   <div class="card"><span class="kicker">${ic('target')} Resolución</span><h3>Qué decidir: el plan del simulador cuesta ${fmtS(ann)} al año</h3>
+   <div class="dec">
+     <div><h4>Sin actuar</h4><p class="w">${ord(s.natA)}</p><p>Puesto nacional en ${H}; ${f1(s.A)} % superior mundial.</p></div>
+     <div><h4>Con el plan</h4><p class="w">${ord(s.natB)}</p><p>${f1(s.B)} % superior mundial; inversión acumulada de ${fmtS(ann*yrs)} hasta ${H}.</p></div>
+     <div><h4>Si se decide mal</h4><p class="w">${ord(s.natC)}</p><p>${f1(s.C)} % superior mundial, con la competencia mejorando.</p></div>
+   </div>
+   <ol style="margin-top:12px">
+    <li><b>Publicaciones Q1 con autor de correspondencia ${esc(sig)} (30 % del indicador).</b> ${S.lev.q1?`El plan suma ${fInt(unitsOf(LEVERS[0]))} artículos al año por ${fmtS(costOf(LEVERS[0]))}.`:'Hoy el plan no la activa.'} Cada artículo Q1 cuesta unos ${fmtS(LEVERS[0].uc)}, entre APC, bono e investigación.</li>
+    <li><b>Oficina de transferencia y patentes PCT (30 % del indicador).</b> Una solicitud PCT parte de CHF 1 330 en tasas internacionales; con redacción y desarrollo, el modelo usa ${fmtS(LEVERS[4].uc)} por solicitud.</li>
+    <li><b>Colaboración internacional, ODS y visibilidad (≈ 24 %).</b> Recuperar la coautoría internacional con estancias de hasta S/ 25 000 y comunicar la ciencia en medios: es la palanca más rápida.</li>
+   </ol></div>`,
+  docentes:`
+   <div class="card"><span class="kicker">${ic('compass')} Situación</span><h3>La investigación pesa 50 % del puntaje y se construye artículo por artículo</h3>
+   <p>${esc(name)} es ${ordF(L.n)} entre ${nL} universidades peruanas en SCImago ${LAST}. ${prodTxt}</p>
+   <p>El indicador de mayor peso es el <b>impacto normalizado (13 %)</b>, que solo cuenta los artículos que la universidad lidera; le siguen la excelencia con liderazgo (8 %) y la producción (8 %).</p></div>
+   <div class="card"><span class="kicker">${ic('alert')} Complicación</span><h3>Otras universidades publican más y más rápido</h3>${compTbl}<p>${intlTxt} Lo que usted publique en ${S.start} contará recién en las ediciones ${S.start+2} a ${S.start+6}.</p></div>
+   <div class="grid g2">
+    <div class="card"><span class="kicker">${ic('target')} Resolución</span><h3>Cómo sumar desde su trabajo</h3><ul>
+     <li>Firme siempre con la afiliación normalizada «${esc(name)}, Perú», sin abreviaturas.</li>
+     <li>Mantenga su ORCID y su perfil de autor en Scopus vinculados a la universidad.</li>
+     <li>Sea autor de correspondencia cuando lidere el trabajo: ahí se mide el liderazgo.</li>
+     <li>Priorice revistas Q1 y Q2 según SJR; universidades peruanas pagan bonos de S/ 6 000 a S/ 10 000 por artículo Q1.</li>
+     <li>Busque coautores en el extranjero y postule a estancias (hasta S/ 25 000 en programas de referencia).</li>
+     <li>Deposite sus artículos en el repositorio institucional y vincúlelos con los ODS.</li>
+    </ul></div>
+    <div class="card"><h3>Qué evitar</h3><ul>
+     <li>Revistas depredadoras: SCImago vigila la integridad con SCImago IRIS y puede excluir instituciones.</li>
+     <li>Autocitación excesiva y citación cruzada pactada.</li>
+     <li>Publicar resultados patentables antes de proteger la invención.</li>
+     <li>Afiliaciones abreviadas o sin «Perú», que dispersan la producción.</li>
+    </ul><div class="callout" style="margin-top:12px"><p>En el plan del simulador, las palancas de investigación aportarían ${f1(d3.sum(LEVERS.filter(l=>l.f==='Investigación'),l=>leverEff(l,H)))} pp de mejora en ${H}.</p></div></div>
+   </div>`,
+  estudiantes:`
+   <div class="card"><span class="kicker">${ic('compass')} Situación</span><h3>Tu universidad es la ${L.n}.ª del Perú en el ranking de investigación más amplio del mundo</h3>
+   <p>SCImago compara más de ${fInt(Math.floor(TOT[LAST][0]/1000)*1000)} instituciones por su investigación, su innovación y su impacto social. En ${LAST}, ${esc(sig)} es ${ordF(L.n)} entre ${nL} universidades peruanas y supera al ${f0((1-L.n/SUNEDU.lic)*100)} % de las ${SUNEDU.lic} instituciones licenciadas del país.</p>
+   <p>${prodTxt}</p></div>
+   <div class="card"><span class="kicker">${ic('alert')} Complicación</span><h3>Otras universidades avanzan rápido</h3><p>${neighTxt} No es un ranking de encuestas: se basa en artículos, patentes y presencia pública verificables, así que el lugar se defiende cada año.</p></div>
+   <div class="grid g2">
+    <div class="card"><span class="kicker">${ic('target')} Resolución</span><h3>Cómo puedes participar</h3><ul>
+     <li>Únete a un semillero o grupo de investigación desde los primeros ciclos.</li>
+     <li>Plantea tu tesis pensando en convertirla en artículo publicable.</li>
+     <li>Crea tu ORCID y firma con la afiliación correcta de la universidad.</li>
+     <li>Participa en proyectos ODS y en concursos de innovación: una invención puede terminar en patente.</li>
+     <li>Comparte la ciencia de tu universidad en redes y medios.</li>
+    </ul></div>
+    <div class="card"><h3>Qué ganas</h3><ul>
+     <li>Un currículo con publicaciones para becas, maestrías y doctorados.</li>
+     <li>Redes con investigadores nacionales y extranjeros.</li>
+     <li>Un título de una universidad cuya investigación es visible en el mundo.</li>
+    </ul><div class="callout" style="margin-top:12px"><p>Reto: con el plan del simulador, ${esc(sig)} podría pasar del puesto ${L.n} al ${s.natB} en ${H}.</p></div></div>
+   </div>`
+  };
+  box.innerHTML=T[S.aud];
+  const bind=(id,key)=>{ const e=document.getElementById(id); if(e) e.onchange=()=>{ S.revBy=S.revBy||{}; S.revBy[sig]=Object.assign({},S.revBy[sig]||{},{[key]:+e.value||0}); save(); renderStory(); }; };
+  bind('rvMat','mat'); bind('rvPago','pago'); bind('rvIng','ing'); bind('rvSens','sens');
+  if(!S.narr.includes(S.aud)){ S.narr.push(S.aud); save(); }
+  if(S.narr.length>=3) award('narr',20);
+}
+
+
+/* ===== Línea de base de producción por universidad ===== */
+const sigF = () => nm(S.focus);
+function defaultLed(sg){ const P=PUB[sg]; if(P?.led) return P.led[4]; if(P?.w) return Math.round(P.w[4]*0.45); return 100; }
+const baseLed = () => (S.baseLedBy && S.baseLedBy[sigF()]) ?? defaultLed(sigF());
+const intlBase = () => { const P=PUB[sigF()]; if(P?.intl) return P.intl[4]; if(P?.w) return Math.round(P.w[4]*0.35); return Math.round(baseLed()*0.5); };
+function revOf(){ const sg=sigF(); return Object.assign(sg==='USIL'? {mat:19371,pago:20000,ing:20,sens:0.5} : {mat:10000,pago:15000,ing:20,sens:0.5}, (S.revBy||{})[sg]||{}); }
+const isExt = () => !byU.get(S.focus)?.get(LAST);
+
+/* ===== Universidad fuera del ranking ===== */
+const THRESH = 100;
+function extPlan(){
+  const sg=sigF(), e=Object.assign({docs:40, g:30}, (S.extBy||{})[sg]||{});
+  const yrs=d3.range(2025,2034), rows=yrs.map(y=>({y, d: Math.round(e.docs*Math.pow(1+e.g/100, y-2025))}));
+  const hit=rows.find(r=>r.d>=THRESH && r.y>=2026);
+  const uc=LEVERS[1].uc, extra=rows.filter(r=>r.y>=2026 && (!hit || r.y<=hit.y)).map(r=>({...r, add:Math.max(0,r.d-e.docs), cost:Math.max(0,r.d-e.docs)*uc}));
+  return {e, rows, hit, firstEd: hit? hit.y+2 : null, extra, total:d3.sum(extra,r=>r.cost), uc};
+}
+function renderKPIsExt(){
+  const f=S.focus, sg=nm(f), pl=extPlan(), nL=NY(LAST);
+  const tiles=[
+    ['landmark','Estado en SCImago '+LAST, 'No figura', `${esc(full(f))} es una de las ${SUNEDU.lic-nL} instituciones licenciadas que no superan el umbral de SCImago`],
+    ['target','Umbral de inclusión', `${THRESH} <small>documentos/año</small>`, 'publicados en Scopus en el último año del periodo, con al menos 75 % de documentos citables'],
+    ['file','Documentos en el último año', `${fInt(pl.e.docs)} <small>estimados</small>`, `faltan ${fInt(Math.max(0,THRESH-pl.e.docs))} para el umbral · dato editable en Escenarios`],
+    ['clock','Primera edición posible', pl.firstEd? String(pl.firstEd) : '—', pl.hit? `si alcanza ${THRESH} documentos en ${pl.hit.y} (crecimiento de ${pl.e.g} % anual)` : 'con el crecimiento actual no alcanza el umbral antes de 2033'],
+    ['shield','Licenciamiento SUNEDU', 'Vigente', `${U[f].t} · ${esc(U[f].dep||U[f].r)} · lista al ${SUNEDU.fecha}`],
+    ['globe','Peruanas en SCImago '+LAST, `${nL} <small>de ${SUNEDU.lic}</small>`, `${f0(nL/SUNEDU.lic*100)} % de las instituciones licenciadas supera el umbral`]
+  ];
+  document.getElementById('kpiGrid').innerHTML = tiles.map(([i,l,v,c])=>`<div class="kpi"><span class="lab">${ic(i)} ${l}</span><span class="val">${v}</span><span class="ctx">${c}</span></div>`).join('');
+  document.getElementById('verdict').innerHTML = `<h3>${ic('landmark',18)} ${esc(full(f))}</h3><div class="big num" style="font-size:40px">Fuera del ranking</div>
+    <p>SCImago incluye a las instituciones con al menos ${THRESH} documentos en Scopus en el último año del periodo evaluado. ${pl.hit?`Con un crecimiento de ${pl.e.g} % anual desde ${fInt(pl.e.docs)} documentos, ${esc(sg)} podría superar el umbral en ${pl.hit.y} y aparecer en la edición ${pl.firstEd}.`:'Con el crecimiento indicado no alcanza el umbral en el horizonte analizado.'}</p>
+    <div class="chips"><span>${U[f].t}</span><span>${esc(U[f].dep||U[f].r)}</span><span>Licenciada por SUNEDU</span></div>`;
+  const lst=[...byY.get(LAST)].filter(r=>U[r.u].t===U[f].t).sort((a,b)=>b.g-a.g).slice(0,5);
+  document.getElementById('rivals').innerHTML = `<p class="note" style="margin:0 0 6px">Últimas universidades ${U[f].t==='Privada'?'privadas':'públicas'} que entraron al ranking ${LAST}: la vara a superar.</p>`+lst.map(r=>`<div class="rival"><span class="pos num">${ord(r.n)}</span><span class="nm">${esc(full(r.u))}<small>${U[r.u].t} · ${U[r.u].r}</small></span><span class="gr num">${fInt(r.g)}</span></div>`).join('');
+  ['chNatSpark','chPctSpark'].forEach(id=>document.getElementById(id).innerHTML='<p class="note">Sin historial en SCImago para esta universidad.</p>');
+}
+function renderScenExt(){
+  const pl=extPlan(), sg=sigF(), box=document.getElementById('extPath');
+  box.innerHTML = `<div class="card"><h3>${ic('route')} Ruta de ingreso a SCImago para ${esc(sg)}</h3>
+   <p class="sub">${esc(full(S.focus))} no figura en SCImago ${LAST}. Ajuste su producción actual y el crecimiento planificado para estimar cuándo superaría el umbral de ${THRESH} documentos y cuánto costaría.</p>
+   <div class="grid g3" style="gap:10px">
+     <label class="field" style="margin:0"><span>Documentos en Scopus del último año</span><input type="number" id="exDocs" min="0" step="5" value="${pl.e.docs}"><small>Consulte el perfil de afiliación de la universidad en Scopus.</small></label>
+     <label class="field" style="margin:0"><span>Crecimiento anual planificado: <b>${pl.e.g} %</b></span><input type="range" id="exG" min="0" max="100" step="5" value="${pl.e.g}"></label>
+     <div class="field" style="margin:0"><span>Costo por artículo adicional</span><b style="font-size:20px">${fmtS(pl.uc)}</b><small>APC esperado, bono e insumos (ver referencias del simulador).</small></div>
+   </div>
+   <div class="scen" style="margin-top:12px">
+     <div class="sc" style="--c:var(--accent)"><h4>${ic('target')} Año en que supera el umbral</h4><div class="v num">${pl.hit?pl.hit.y:'—'}</div><p>${pl.hit?fInt(pl.hit.d)+' documentos':'no lo alcanza antes de 2033'}</p></div>
+     <div class="sc" style="--c:var(--gold)"><h4>${ic('flag')} Primera edición posible</h4><div class="v num">${pl.firstEd||'—'}</div><p>SCImago publica con dos años de retraso.</p></div>
+     <div class="sc" style="--c:var(--muted)"><h4>${ic('coins')} Inversión adicional acumulada</h4><div class="v num" style="font-size:24px">${fmtS(pl.total)}</div><p>hasta superar el umbral.</p></div>
+   </div>
+   <div class="chart" id="chExt" style="min-height:280px;margin-top:10px"></div></div>`;
+  const el=document.getElementById('chExt'), data=pl.rows.filter(r=>r.y<=2032);
+  barChart(el,{h:280, aria:'Trayectoria de documentos hacia el umbral', data:data.map(r=>({x:r.y,v:r.d,color:r.d>=THRESH?'var(--accent)':'color-mix(in srgb,var(--accent) 35%,var(--panel))'})),
+    tip:d=>`<b>${d.x}</b><div class="r"><span>Documentos</span><span>${fInt(d.v)}</span></div><div class="r"><span>Edición en que cuenta</span><span>${d.x+2}</span></div>`});
+  const svg=d3.select(el).select('svg'), yMax=Math.max(THRESH, d3.max(data,d=>d.d));
+  const H=280, mT=18, mB=26, yy=d3.scaleLinear().domain([0,yMax]).nice(4).range([H-mB,mT]);
+  svg.append('line').attr('x1',40).attr('x2',el.clientWidth-8).attr('y1',yy(THRESH)).attr('y2',yy(THRESH)).style('stroke','var(--gold)').style('stroke-dasharray','5 4').style('stroke-width',2);
+  svg.append('text').attr('x',el.clientWidth-10).attr('y',yy(THRESH)-5).attr('text-anchor','end').text('Umbral SCImago: '+THRESH).style('fill','var(--gold)').style('font-weight',700).style('font-size','11px');
+  const setE=(k,v)=>{ S.extBy=S.extBy||{}; S.extBy[sg]=Object.assign({}, S.extBy[sg]||{}, {[k]:v}); save(); renderScenExt(); };
+  document.getElementById('exDocs').onchange=e=>setE('docs',Math.max(0,+e.target.value||0));
+  document.getElementById('exG').onchange=e=>setE('g',+e.target.value);
+}
+function storyExt(){
+  const f=S.focus, sg=nm(f), pl=extPlan(), nL=NY(LAST);
+  const peers=[...byY.get(LAST)].filter(r=>U[r.u].t===U[f].t).sort((a,b)=>b.g-a.g).slice(0,3).map(r=>esc(nm(r.u))).join(', ');
+  const A={rector:'Para el Rectorado',docentes:'Para el cuerpo docente',estudiantes:'Para estudiantes'}[S.aud];
+  return `<div class="card"><span class="kicker">${ic('compass')} Situación · ${A}</span><h3>${esc(full(f))} todavía no figura en SCImago</h3>
+   <p>Está licenciada por SUNEDU, pero es una de las ${SUNEDU.lic-nL} instituciones licenciadas que no superan el umbral de ${THRESH} documentos en Scopus en un año. Hoy registra unos ${fInt(pl.e.docs)} documentos anuales (dato editable).</p></div>
+   <div class="card"><span class="kicker">${ic('alert')} Complicación</span><h3>Las ${nL} que ya están siguen creciendo</h3>
+   <p>En ${LAST} figuran ${nL} universidades peruanas; las de menor puesto entre las ${U[f].t==='Privada'?'privadas':'públicas'} son ${peers}. Sin presencia en SCImago, ${esc(sg)} queda fuera de las comparaciones que miran postulantes, empleadores y agencias de financiamiento.</p></div>
+   <div class="card"><span class="kicker">${ic('target')} Resolución</span><h3>${pl.hit?`Meta: superar ${THRESH} documentos en ${pl.hit.y} y entrar en la edición ${pl.firstEd}`:'Meta: definir un crecimiento que permita superar el umbral'}</h3>
+   <ul>
+    <li>Crecer ${pl.e.g} % al año en documentos Scopus, con una inversión adicional acumulada de ${fmtS(pl.total)}.</li>
+    <li>Normalizar la afiliación institucional en Scopus para que no se pierdan documentos.</li>
+    <li>${S.aud==='estudiantes'?'Convertir tesis en artículos y participar en semilleros de investigación.':S.aud==='docentes'?'Priorizar artículos y revisiones (documentos citables) en revistas indexadas en Scopus.':'Crear incentivos por publicación y un fondo de apoyo a APC.'}</li>
+    <li>Cuidar que al menos el 75 % de lo publicado sean documentos citables (artículos, revisiones, capítulos, ponencias).</li>
+   </ul></div>`;
+}
+
+/* ===== Selección inicial de universidad ===== */
+function openPicker(){
+  const m=document.getElementById('picker'); m.hidden=false; document.getElementById('pkQ').value=''; renderPicker(); setTimeout(()=>document.getElementById('pkQ').focus(),30);
+  document.getElementById('pkClose').hidden = !S.onboarded;
+}
+function renderPicker(){
+  const q=document.getElementById('pkQ').value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  const match=u=>!q || (full(u)+' '+nm(u)+' '+(U[u].dep||'')).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(q);
+  const inR=[...byY.get(LAST)].sort((a,b)=>a.n-b.n).map(r=>r.u).filter(match);
+  const out=[...U.keys()].filter(u=>U[u].lic && !byU.get(u)?.get(LAST)).sort((a,b)=>full(a).localeCompare(full(b),'es')).filter(match);
+  const item=(u,meta)=>`<button type="button" class="pk-it ${u===S.focus?'on':''}" data-u="${u}"><span class="pk-n">${esc(full(u))}</span><span class="pk-m">${meta}</span></button>`;
+  const openO = (q && !inR.length) || (isExt() && !q);
+  document.getElementById('pkList').innerHTML =
+    `<h4>${ic('trophy')} Universidades en SCImago ${LAST} (${inR.length})</h4>`+(inR.length? inR.map(u=>{ const r=byU.get(u).get(LAST); return item(u,`${ord(r.n)} nacional · ${fInt(r.g)} mundial · ${U[u].t}`); }).join('') : '<p class="note">Ninguna universidad del ranking coincide con la búsqueda.</p>')+
+    `<details class="pk-otras" ${openO?'open':''}><summary>${ic('landmark')} Otras universidades <span>(${out.length} licenciadas por SUNEDU que no figuran en SCImago)</span></summary><div class="pk-ol">${out.map(u=>item(u,`${U[u].t} · ${esc(U[u].dep||U[u].r)}`)).join('') || '<p class="note">Sin coincidencias.</p>'}</div></details>`;
+  document.querySelectorAll('.pk-it').forEach(b=>b.onclick=()=>selectFocus(+b.dataset.u));
+}
+function selectFocus(u){
+  S.focus=u; S.onboarded=true;
+  const lst=[...byY.get(LAST)].sort((a,b)=>a.g-b.g), i=lst.findIndex(r=>r.u===u);
+  S.comps = i>=0 ? lst.slice(Math.max(0,i-4),i+5).map(r=>r.u).filter(x=>x!==u) : lst.filter(r=>U[r.u].t===U[u].t).slice(-8).map(r=>r.u);
+  save(); document.getElementById('picker').hidden=true;
+  const sf=document.getElementById('setFocus'); if(sf) sf.value=u; const bl=document.getElementById('setBaseLed'); if(bl) bl.value=baseLed();
+  buildComps(); buildLevers(); refresh(); award('custom',15);
+}
+
+/* ===== Acceso a narrativas (registro local) ===== */
+async function hashPw(pw, salt){
+  try { const b=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(salt+'|'+pw)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join(''); }
+  catch(e){ let h=5381; for(const c of salt+'|'+pw) h=((h<<5)+h+c.charCodeAt(0))>>>0; return 'd'+h.toString(16); }
+}
+const getUsers=()=>{ try{ return JSON.parse(localStorage.getItem('scimago-obs-users')||'{}'); }catch(e){ return {}; } };
+const setUsers=u=>{ try{ localStorage.setItem('scimago-obs-users', JSON.stringify(u)); }catch(e){} };
+let SESSION=null; try{ SESSION=JSON.parse(sessionStorage.getItem('scimago-obs-session')||'null'); }catch(e){}
+const setSession=s=>{ SESSION=s; try{ s? sessionStorage.setItem('scimago-obs-session',JSON.stringify(s)) : sessionStorage.removeItem('scimago-obs-session'); }catch(e){} };
+let authMode='login';
+function renderAuth(){
+  const gate=document.getElementById('authGate'), bar=document.getElementById('authBar');
+  const logged=!!SESSION;
+  gate.hidden=logged; document.getElementById('audSel').hidden=!logged; document.getElementById('story').hidden=!logged; bar.hidden=!logged;
+  if(logged){ bar.innerHTML=`${ic('user')} Sesión de <b>${esc(SESSION.name)}</b> · ${esc(SESSION.role)} <button class="btn" type="button" id="btnOut">${ic('logout')} Cerrar sesión</button>`; document.getElementById('btnOut').onclick=()=>{ setSession(null); renderAuth(); }; return; }
+  gate.innerHTML=`<div class="authc"><span class="authic">${ic('lock',28)}</span><h3>Narrativas para usuarios registrados</h3>
+    <p class="sub">Ingrese o regístrese para ver las narrativas del Rectorado, los docentes y los estudiantes.</p>
+    <div class="seg" id="authSeg"><button type="button" data-v="login" aria-pressed="${authMode==='login'}">Ingresar</button><button type="button" data-v="reg" aria-pressed="${authMode==='reg'}">Registrarse</button></div>
+    <form id="authForm" novalidate>
+      ${authMode==='reg'?`<label class="field"><span>Nombre completo</span><input id="auName" autocomplete="name" required></label>
+      <label class="field"><span>Rol</span><select id="auRole"><option value="rector">Autoridad</option><option value="docentes">Docente</option><option value="estudiantes">Estudiante</option></select></label>`:''}
+      <label class="field"><span>Correo</span><input id="auMail" type="email" autocomplete="email" required></label>
+      <label class="field"><span>Contraseña</span><input id="auPw" type="password" autocomplete="${authMode==='reg'?'new-password':'current-password'}" minlength="8" required></label>
+      <p class="note" id="auMsg" role="alert"></p>
+      <button class="btn pri" type="submit">${ic('key')} ${authMode==='reg'?'Crear cuenta':'Ingresar'}</button>
+    </form>
+    <p class="note">${ic('info')} El registro se guarda solo en este navegador, con la contraseña cifrada (SHA-256). Sirve para ordenar el acceso en un aula o una reunión, no para proteger información confidencial: eso requiere un servidor con autenticación.</p></div>`;
+  gate.querySelectorAll('#authSeg button').forEach(b=>b.onclick=()=>{ authMode=b.dataset.v; renderAuth(); });
+  document.getElementById('authForm').onsubmit=async ev=>{
+    ev.preventDefault(); const msg=document.getElementById('auMsg');
+    const mail=document.getElementById('auMail').value.trim().toLowerCase(), pw=document.getElementById('auPw').value, users=getUsers();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ msg.textContent='Escriba un correo válido.'; return; }
+    if(pw.length<8){ msg.textContent='La contraseña debe tener al menos 8 caracteres.'; return; }
+    if(authMode==='reg'){
+      const name=document.getElementById('auName').value.trim(), role=document.getElementById('auRole').value;
+      if(!name){ msg.textContent='Escriba su nombre.'; return; }
+      if(users[mail]){ msg.textContent='Ese correo ya está registrado. Use «Ingresar».'; return; }
+      const salt=Math.random().toString(36).slice(2); users[mail]={name, role, salt, h:await hashPw(pw,salt)}; setUsers(users);
+      setSession({mail,name,role:{rector:'Autoridad',docentes:'Docente',estudiantes:'Estudiante'}[role], aud:role});
+    } else {
+      const u=users[mail]; if(!u || await hashPw(pw,u.salt)!==u.h){ msg.textContent='Correo o contraseña incorrectos.'; return; }
+      setSession({mail,name:u.name,role:{rector:'Autoridad',docentes:'Docente',estudiantes:'Estudiante'}[u.role], aud:u.role});
+    }
+    S.aud=SESSION.aud; save(); renderAuth(); renderStory();
+  };
+}
+
+/* ===== Panel 6: Arena ===== */
+let raceI=0, raceTimer=null, raceFromStart=false;
+function drawRace(i){
+  const el=document.getElementById('chRace'), y=YEARS[i]; document.getElementById('raceYear').textContent=y; document.getElementById('raceSlider').value=i;
+  const K=Math.min(14, NY(y)), rowH=28, W=Math.max(260,el.clientWidth), H=Math.max(380, 14*rowH+30);
+  let svg=d3.select(el).select('svg');
+  if(svg.empty()){ el.innerHTML=''; svg=d3.select(el).append('svg').attr('role','img'); svg.append('g').attr('class','bars'); svg.append('text').attr('class','rnote'); }
+  svg.attr('width',W).attr('height',H).attr('aria-label','Carrera nacional, edición '+y);
+  const data=[...byY.get(y)].sort((a,b)=>a.n-b.n||a.g-b.g).slice(0,K);
+  const lw=Math.min(150, W*0.28), m={l:lw, r:70, t:4};
+  const x=d3.scaleLinear().domain([0,10500]).range([0,W-m.l-m.r]);
+  const len=g=>Math.max(4,x(Math.max(0,11500-g)));
+  const dur=motionOK()? +document.getElementById('raceSpeed').value*0.7 : 0;
+  const g=svg.select('.bars').selectAll('g.row').data(data,d=>d.u);
+  const enter=g.enter().append('g').attr('class','row').attr('transform',`translate(0,${H})`).style('opacity',0);
+  enter.append('text').attr('class','nm').attr('x',m.l-8).attr('y',rowH/2).attr('text-anchor','end');
+  enter.append('rect').attr('x',m.l).attr('y',3).attr('height',rowH-8).attr('rx',4);
+  enter.append('text').attr('class','vl').attr('y',rowH/2);
+  const all=enter.merge(g);
+  all.transition().duration(dur).attr('transform',(d,j)=>`translate(0,${m.t+j*rowH})`).style('opacity',1);
+  all.select('text.nm').text(d=>ord(d.n)+' '+nm(d.u)).style('font-weight',d=>d.u===S.focus?800:500).style('fill',d=>d.u===S.focus?'var(--ink)':'var(--muted)').attr('dy','0.15em');
+  all.select('rect').style('fill',d=>d.u===S.focus?'var(--accent)':S.comps.includes(d.u)?compCol(d.u):'color-mix(in srgb,var(--muted) 35%,var(--panel))').transition().duration(dur).attr('width',d=>len(d.g));
+  all.select('text.vl').text(d=>fInt(d.g)).attr('dy','0.15em').style('font-weight',700).style('fill','var(--ink)').transition().duration(dur).attr('x',d=>m.l+len(d.g)+6);
+  g.exit().transition().duration(dur).style('opacity',0).attr('transform',`translate(0,${H})`).remove();
+  const me=byU.get(S.focus)?.get(y);
+  svg.select('.rnote').attr('x',W-4).attr('y',H-6).attr('text-anchor','end').style('font-size','12px').text(me? (me.n>K? `${nm(S.focus)}: ${ord(me.n)} (fuera de la vista)` : '') : `${nm(S.focus)} no figura en ${y}`);
+}
+function racePlay(){
+  const btn=document.getElementById('racePlay');
+  if(raceTimer){ clearInterval(raceTimer); raceTimer=null; btn.textContent='▶ Reproducir'; return; }
+  if(raceI>=YEARS.length-1) raceI=0;
+  raceFromStart = raceI===0; btn.textContent='❚❚ Pausa';
+  raceTimer=setInterval(()=>{ raceI++; drawRace(raceI); if(raceI>=YEARS.length-1){ clearInterval(raceTimer); raceTimer=null; btn.textContent='▶ Reproducir'; if(raceFromStart) award('race',25); } }, +document.getElementById('raceSpeed').value);
+}
+let QZ={i:0,ans:[]};
+function quizQs(){
+  const F=facts(), f=F.f, L=F.last, sig=nm(f), nL=NY(LAST);
+  const lead=byY.get(LAST).find(r=>r.n===1).u;
+  const pick=(c,arr)=>{ const o=[...new Set([c,...arr])].slice(0,4); return d3.shuffle ? d3.shuffle(o) : o; };
+  const qs=[];
+  if(L){ const opts=[L.n, L.n+2, Math.max(1,L.n-2), L.n+5].filter((v,i,a)=>a.indexOf(v)===i); qs.push({q:`¿Qué puesto nacional obtuvo ${sig} en ${LAST}?`, o:pick(ord(L.n),opts.map(ord)), a:ord(L.n), e:`${sig} fue ${ord(L.n)} de ${nL}.`}); }
+  qs.push({q:`¿Cuántas universidades peruanas figuran en SCImago ${LAST}?`, o:pick(String(nL),[String(NY(2023)),String(NY(2022)),'52']), a:String(nL), e:`Eran ${NY(2022)} en 2022 y ${nL} en ${LAST}.`});
+  qs.push({q:'¿Qué factor pesa más en la metodología SCImago?', o:pick('Investigación (50 %)',['Innovación (30 %)','Impacto social (20 %)','Reputación (40 %)']), a:'Investigación (50 %)', e:'Investigación 50 %, innovación 30 % e impacto social 20 %. No hay encuestas de reputación.'});
+  qs.push({q:'Si el puesto mundial empeora pero el percentil mejora, ¿qué ocurrió?', o:pick('Creció el número de instituciones evaluadas',['Cambió el nombre de la universidad','Hubo un error en los datos','Se eliminaron universidades peruanas']), a:'Creció el número de instituciones evaluadas', e:`El universo pasó de ${fInt(TOT[2022][0])} instituciones en 2022 a ${fInt(TOT[LAST][0])} en ${LAST}.`});
+  qs.push({q:`Si se publica más en ${S.start}, ¿desde qué edición empieza a contar?`, o:pick(String(S.start+2),[String(S.start),String(S.start+1),String(S.start+4)]), a:String(S.start+2), e:'La ventana de cinco años termina dos años antes de la edición.'});
+  qs.push({q:`¿Qué universidad lideró el ranking peruano en ${LAST}?`, o:pick(full(lead), ['Universidad Peruana Cayetano Heredia','Universidad Nacional Mayor de San Marcos','Universidad Nacional de Ingeniería','Pontificia Universidad Católica del Perú'].filter(x=>x!==full(lead)).slice(0,3)), a:full(lead), e:`${full(lead)} ocupó el puesto mundial ${fInt(byU.get(lead).get(LAST).g)}.`});
+  return qs;
+}
+let QS=null;
+function renderQuiz(){
+  if(!QS) QS=quizQs();
+  const box=document.getElementById('quiz'), i=QZ.i;
+  const prog=`<div class="prog">${QS.map((q,k)=>`<i class="${QZ.ans[k]===true?'ok':QZ.ans[k]===false?'ko':k===i?'cur':''}"></i>`).join('')}</div>`;
+  if(i>=QS.length){ const ok=QZ.ans.filter(Boolean).length;
+    box.innerHTML=`<h3>Cuestionario del ranking</h3>${prog}<p class="q">Resultado: ${ok} de ${QS.length} correctas.</p><p class="note">${ok===QS.length?'Respuesta perfecta.':'Puede intentarlo otra vez; las preguntas se reordenan.'}</p><button class="btn pri" id="qzAgain" type="button">Jugar de nuevo</button>`;
+    document.getElementById('qzAgain').onclick=()=>{ QZ={i:0,ans:[]}; QS=quizQs(); renderQuiz(); };
+    if(ok===QS.length) award('quiz',30);
+    return; }
+  const q=QS[i];
+  box.innerHTML=`<h3>Cuestionario del ranking</h3>${prog}<p class="q">${i+1}. ${esc(q.q)}</p><div class="opts">${q.o.map(o=>`<button type="button" data-o="${esc(o)}">${esc(o)}</button>`).join('')}</div><p class="fb" id="qzFb"></p>`;
+  box.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{
+    if(QZ.ans[i]!==undefined) return;
+    const ok=b.dataset.o===q.a; QZ.ans[i]=ok; b.classList.add(ok?'ok':'ko');
+    if(!ok) box.querySelectorAll('.opts button').forEach(x=>{ if(x.dataset.o===q.a) x.classList.add('ok'); });
+    if(ok){ S.xp+=10; save(); hud(); }
+    document.getElementById('qzFb').innerHTML=(ok?'<b style="color:var(--ok)">Correcto (+10 XP).</b> ':'<b style="color:var(--bad)">No es correcto.</b> ')+esc(q.e)+' <button class="btn" id="qzNext" type="button" style="margin-left:6px">Siguiente</button>';
+    document.getElementById('qzNext').onclick=()=>{ QZ.i++; renderQuiz(); };
+  });
+}
+function renderPredict(){
+  const box=document.getElementById('predict'), f=S.focus, L=byU.get(f)?.get(LAST), sig=nm(f);
+  if(!L){ box.innerHTML='<h3>Prediga 2027</h3><p class="note">La universidad foco no figura en '+LAST+'.</p>'; return; }
+  const s=scen(LAST+1), p=S.pred && S.pred.u===f ? S.pred.v : null;
+  box.innerHTML=`<h3>Prediga la edición ${LAST+1}</h3><p class="sub">¿Qué puesto nacional tendrá ${esc(sig)} en ${LAST+1}? Hoy es ${ord(L.n)}.</p>
+   <div class="field"><label for="predV">Mi predicción: <b id="predTxt">${ord(p ?? L.n)}</b></label><input type="range" id="predV" min="1" max="15" value="${p ?? L.n}" ${p?'disabled':''}></div>
+   ${p? '' : '<button class="btn pri" type="button" id="predGo">Registrar predicción</button>'}
+   <div id="predRes" ${p?'':'hidden'}><div class="dec" style="margin-top:12px">
+     <div><h4>Su predicción</h4><p class="w">${ord(p ?? L.n)}</p></div>
+     <div><h4>Modelo inercial</h4><p class="w">${ord(s.natA)}</p><p>${f1(s.A)} % superior</p></div>
+     <div><h4>Puesto mundial esperado</h4><p class="w">${fInt(s.gA)}</p><p>de unas ${fInt(Math.round(Tproj(LAST+1)))} instituciones</p></div></div>
+     <p class="note">Ninguna decisión, buena o mala, cambia la edición ${LAST+1}: se calcula con publicaciones de ${LAST-5} a ${LAST-1}, que ya están escritas. Por eso los tres escenarios coinciden ese año.</p>
+     <button class="btn" type="button" id="predReset">Cambiar predicción</button></div>`;
+  const r=document.getElementById('predV'); r.oninput=()=>document.getElementById('predTxt').textContent=ord(+r.value);
+  const go=document.getElementById('predGo'); if(go) go.onclick=()=>{ S.pred={u:f,v:+r.value}; save(); award('oracle',20); renderPredict(); };
+  const rs=document.getElementById('predReset'); if(rs) rs.onclick=()=>{ S.pred=null; save(); renderPredict(); };
+}
+function renderBadges(){
+  document.getElementById('badgeSub').textContent=`${BADGES.filter(b=>has(b.id)).length} de ${BADGES.length} desbloqueadas · ${fInt(S.xp)} XP acumulados.`;
+  document.getElementById('badges').innerHTML=BADGES.map(b=>`<div class="badge ${has(b.id)?'on':''}"><span class="md">${has(b.id)?b.m:'?'}</span><b>${b.t}</b><small>${b.d}</small></div>`).join('');
+}
+function renderArena(){ drawRace(raceI); renderQuiz(); renderPredict(); renderBadges(); }
+
+/* ===== Cabecera, ajustes y navegación ===== */
+function header(){
+  const F=facts(), L=F.last, sig=nm(F.f);
+  document.getElementById('hdrFocus').textContent=sig; document.getElementById('wm').textContent=sig; document.title='Observatorio SCImago · '+sig;
+  document.querySelectorAll('.fs').forEach(e=>e.textContent=sig);
+  document.querySelectorAll('.hz').forEach(e=>e.textContent=S.horizon);
+  document.querySelectorAll('.yy').forEach(e=>e.textContent=LAST);
+  document.getElementById('hdrLine').innerHTML = L ? `En ${LAST}, <b>${esc(full(F.f))}</b> es ${ordF(L.n)} de ${NY(LAST)} universidades peruanas en SCImago${F.pctP!=null?` y ${F.pctL<F.pctP?'mejoró':'retrocedió'} su percentil mundial de ${f1(F.pctP)} % a ${f1(F.pctL)} %`:''}.` : `${esc(full(F.f))} no figura en la edición ${LAST}.`;
+}
+const RENDER={kpis:renderKPIs, descriptivo:renderDesc, tendencias:renderTrend, escenarios:renderScen, narrativas:renderStory, arena:renderArena};
+function show(p, fromHash){
+  if(!RENDER[p]) p='kpis';
+  S.tab=p; save();
+  document.querySelectorAll('section.panel').forEach(s=>s.hidden = s.id!==p);
+  document.querySelectorAll('.tabs button').forEach(b=>{ const on=b.dataset.p===p; b.setAttribute('aria-selected',on); if(on) b.classList.remove('new'); });
+  if(!fromHash && location.hash!=='#'+p) { try{ history.replaceState(null,'','#'+p); }catch(e){ location.hash=p; } }
+  RENDER[p]();
+  if(!S.visited.includes(p)){ S.visited.push(p); S.xp+=10; save(); hud(); }
+  if(S.visited.length>=6) award('explorer',20);
+}
+function refresh(){ header(); QS=null; QZ={i:0,ans:[]}; RENDER[S.tab](); }
+function applyLook(){
+  const h=document.documentElement;
+  h.classList.remove('ui-light','ui-dark','ui-contrast','ui-auto','pal-dorado','pal-access','dense');
+  h.classList.add({light:'ui-light',dark:'ui-dark',contrast:'ui-contrast',auto:'ui-auto'}[S.theme]||'ui-light');
+  if(S.pal!=='usil') h.classList.add('pal-'+S.pal);
+  if(S.dense) h.classList.add('dense');
+  [['setTheme',S.theme],['setPal',S.pal],['setDense',String(S.dense)],['setPastel',String(S.pastel)],['setSmooth',S.smooth]].forEach(([id,v])=>document.querySelectorAll('#'+id+' button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)));
+}
+function buildSettings(){
+  const sf=document.getElementById('setFocus');
+  [...U.keys()].sort((a,b)=>full(a).localeCompare(full(b),'es')).forEach(u=>sf.add(new Option(full(u)+' ('+nm(u)+')',u)));
+  sf.value=S.focus;
+  sf.onchange=()=>selectFocus(+sf.value);
+  buildComps();
+  document.getElementById('setKpis').innerHTML=KPI_DEFS.map(([id,l])=>`<label><input type="checkbox" data-k="${id}" ${S.kpis.includes(id)?'checked':''}> ${l}</label>`).join('');
+  document.querySelectorAll('#setKpis input').forEach(c=>c.onchange=()=>{ S.kpis = c.checked? [...S.kpis,c.dataset.k] : S.kpis.filter(k=>k!==c.dataset.k); save(); custom(); const el=document.getElementById('kpi-'+c.dataset.k); if(el) el.classList.toggle('hidden',!c.checked); });
+  const seg=(id,fn)=>document.querySelectorAll('#'+id+' button').forEach(b=>b.onclick=()=>{ fn(b.dataset.v); save(); custom(); applyLook(); RENDER[S.tab](); });
+  seg('setTheme',v=>S.theme=v); seg('setPal',v=>S.pal=v); seg('setDense',v=>S.dense=+v); seg('setPastel',v=>S.pastel=+v); seg('setSmooth',v=>S.smooth=v);
+  const bl=document.getElementById('setBaseLed'); bl.value=baseLed(); bl.onchange=()=>{ S.baseLedBy=S.baseLedBy||{}; S.baseLedBy[sigF()]=Math.max(1,+bl.value||defaultLed(sigF())); save(); buildLevers(); RENDER[S.tab](); };
+  const rng=(id,key,txt,fmt)=>{ const r=document.getElementById(id); r.value=S[key]; document.getElementById(txt).textContent=fmt(S[key]); r.oninput=()=>{ S[key]=+r.value; document.getElementById(txt).textContent=fmt(S[key]); save(); custom(); header(); if(key==='q1share') buildLevers(); RENDER[S.tab](); }; };
+  rng('setHorizon','horizon','setHorizonTxt',v=>v); rng('setDamp','damp','setDampTxt',v=>f0(v*100)+' %'); rng('setElas','elas','setElasTxt',v=>v); rng('setQ1','q1share','setQ1Txt',v=>v+' %');
+  const near=()=>{ const lst=[...byY.get(LAST)].sort((a,b)=>a.g-b.g), i=lst.findIndex(r=>r.u===S.focus); return lst.slice(Math.max(0,i-4),i+5).map(r=>r.u).filter(u=>u!==S.focus); };
+  const setC=a=>{ S.comps=a.filter(u=>u!==S.focus).slice(0,12); save(); custom(); buildComps(); RENDER[S.tab](); };
+  document.getElementById('compsNear').onclick=()=>setC(near());
+  document.getElementById('compsPriv').onclick=()=>setC([...byY.get(LAST)].filter(r=>U[r.u].t==='Privada'&&U[r.u].r==='Lima').sort((a,b)=>a.g-b.g).map(r=>r.u).slice(0,9));
+  document.getElementById('compsTop').onclick=()=>setC([...byY.get(LAST)].sort((a,b)=>a.g-b.g).map(r=>r.u).slice(0,9));
+  document.getElementById('compsNone').onclick=()=>setC([]);
+  document.getElementById('btnReset').onclick=()=>{ try{localStorage.removeItem('usil-scimago-v1');}catch(e){} S=DEF(); save(); location.hash='kpis'; location.reload(); };
+}
+function buildComps(){
+  const box=document.getElementById('setComps');
+  box.innerHTML=[...byU.keys()].filter(u=>u!==S.focus).sort((a,b)=>nm(a).localeCompare(nm(b))).map(u=>`<label title="${esc(full(u))}"><input type="checkbox" data-u="${u}" ${S.comps.includes(u)?'checked':''}> ${esc(nm(u))}</label>`).join('');
+  box.querySelectorAll('input').forEach(c=>c.onchange=()=>{ const u=+c.dataset.u; S.comps = c.checked? [...S.comps,u] : S.comps.filter(x=>x!==u); save(); custom(); RENDER[S.tab](); });
+}
+const custom = () => award('custom',15);
+function openDrawer(o){ document.getElementById('drawer').classList.toggle('open',o); document.getElementById('scrim').classList.toggle('open',o); document.getElementById('drawer').setAttribute('aria-hidden',!o); }
+function summary(){
+  const F=facts(), L=F.last, s=L?scen(S.horizon):null;
+  if(!L) return `${full(F.f)} no figura en SCImago ${LAST}.`;
+  return [`${full(F.f)} en SCImago Institutions Rankings ${LAST}`,
+   `• Puesto nacional: ${L.n} de ${NY(LAST)} universidades peruanas${F.prev?` (en ${PREV}: ${F.prev.n})`:''}.`,
+   `• Puesto mundial: ${fInt(L.g)} de ${fInt(TOT[LAST][0])} instituciones; ${f1(F.pctL)} % superior del mundo${F.pctP!=null?` (en ${PREV}: ${f1(F.pctP)} %)`:''}.`,
+   L.q?`• Mejor cuartil en el país: Q${L.q}.`:'',
+   `• Proyección ${S.horizon}: inercial ${s.natA}.º nacional (${f1(s.A)} %); con acción ${s.natB}.º (${f1(s.B)} %); pesimista ${s.natC}.º (${f1(s.C)} %).`,
+   `• Las acciones iniciadas en ${S.start} empiezan a reflejarse en la edición ${S.start+2}.`,
+   'Fuente: SCImago Institutions Rankings; modelo de escenarios ilustrativo.'].filter(Boolean).join('\n');
+}
+
+/* ===== Arranque ===== */
+function init(){
+  paintIcons();
+  document.getElementById('pkQ').oninput=renderPicker; document.getElementById('pkClose').onclick=()=>document.getElementById('picker').hidden=true;
+  document.getElementById('btnSwitch').onclick=openPicker;
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && S.onboarded) document.getElementById('picker').hidden=true; });
+  applyLook(); hud(); header(); buildSettings(); buildLevers();
+  document.getElementById('startYear').value=S.start;
+  document.getElementById('startYear').onchange=e=>{ S.start=+e.target.value; save(); renderScen(); };
+  const cb=document.getElementById('compBoost'); cb.value=S.comp; cb.oninput=()=>{ S.comp=+cb.value; save(); award('pess',15); renderScen(); };
+  document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{ S.lev={...PRESETS[b.dataset.preset]}; save(); buildLevers(); award('strategist',15); renderScen(); });
+  document.querySelectorAll('#segScen button').forEach(b=>b.onclick=()=>{ scenView=b.dataset.v; renderScen(); });
+  document.querySelectorAll('#segComp button').forEach(b=>b.onclick=()=>{ compMode=b.dataset.v; renderDesc(); });
+  document.querySelectorAll('#segType button').forEach(b=>b.onclick=()=>{ descT=b.dataset.v; renderDesc(); });
+  const bi=document.getElementById('budgetIn'); bi.value=S.budget; bi.onchange=()=>{ S.budget=Math.max(0.1,+bi.value||5); save(); renderScen(); };
+  const ls=document.getElementById('ladderSel'); LEVERS.forEach(l=>ls.add(new Option(l.n,l.id))); ls.value=ladderL; ls.onchange=()=>{ ladderL=ls.value; renderLadder(); };
+  ['bumpFrom','bumpTop'].forEach(id=>document.getElementById(id).onchange=renderDesc);
+  ['heatQ','heatT','heatR'].forEach(id=>document.getElementById(id).oninput=renderHeat);
+  document.getElementById('stripYear').onchange=renderStrip;
+  ['tblYear','tblQ'].forEach(id=>document.getElementById(id).oninput=renderFull);
+  document.querySelectorAll('#audSel button').forEach(b=>b.onclick=()=>{ S.aud=b.dataset.a; save(); renderStory(); });
+  document.getElementById('racePlay').onclick=racePlay;
+  document.getElementById('raceSlider').max=YEARS.length-1;
+  document.getElementById('raceSlider').oninput=e=>{ if(raceTimer) racePlay(); raceI=+e.target.value; drawRace(raceI); };
+  document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>show(b.dataset.p));
+  document.getElementById('btnSettings').onclick=()=>openDrawer(true);
+  document.getElementById('btnClose').onclick=()=>openDrawer(false);
+  document.getElementById('scrim').onclick=()=>openDrawer(false);
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') openDrawer(false); });
+  document.getElementById('btnCopy').onclick=async()=>{ try{ await navigator.clipboard.writeText(summary()); award('share',10) || showToast('✓','Resumen copiado','Péguelo en un correo o mensaje.'); } catch(e){ showToast('!','No se pudo copiar','Su navegador bloqueó el portapapeles.'); } };
+  window.addEventListener('hashchange',()=>{ const h=location.hash.slice(1); if(RENDER[h] && h!==S.tab) show(h,true); });
+  let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(()=>{ if(S.tab==='arena'){ d3.select('#chRace').selectAll('*').remove(); } RENDER[S.tab](); },160); });
+  const h=location.hash.slice(1);
+  if(S.theme==='auto') window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',()=>RENDER[S.tab]());
+  show(RENDER[h]? h : (S.tab||'kpis'), true);
+  if(!S.onboarded) openPicker();
+}
+init();
+
+</script>
+</body>
+</html>

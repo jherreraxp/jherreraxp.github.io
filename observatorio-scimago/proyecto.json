@@ -1,0 +1,124 @@
+{
+ "id": "observatorio-scimago",
+ "titulo": "Observatorio SCImago Perú",
+ "fecha": "2026-11-13",
+ "resumen": "Tablero interactivo sobre el desempeño de las universidades peruanas en el SCImago Institutions Rankings 2009–2026: KPIs, boxplots, tendencias con proyección, simulador de escenarios con costos referenciados y narrativas por público.",
+ "etiquetas": [
+  "Analítica",
+  "Rankings universitarios",
+  "Visualización de datos",
+  "Simulación"
+ ],
+ "caracteristicas": [
+  [
+   "Cualquier universidad",
+   "Elija entre las 38 universidades peruanas del ranking; las licenciadas que no figuran tienen su propia ruta de ingreso."
+  ],
+  [
+   "KPIs comparables",
+   "Puesto nacional y mundial con percentiles, brecha con el líder, cuartiles y posición entre las 107 instituciones licenciadas."
+  ],
+  [
+   "Descriptivo",
+   "Filtro privadas/públicas, trayectorias, mapa de calor y boxplots del Perú frente al mundo."
+  ],
+  [
+   "Tendencias",
+   "Percentil corregido por el crecimiento del universo, producción científica (OpenAlex) y proyección con banda de incertidumbre."
+  ],
+  [
+   "Escenarios con costos",
+   "Palancas de la metodología SCImago traducidas a artículos, patentes y estancias, con su costo en soles y la escalera de decisión cada 5 %."
+  ],
+  [
+   "Narrativas y juego",
+   "Relatos Situación–Complicación–Resolución por público, con registro, e insignias, carrera animada y cuestionario."
+  ]
+ ],
+ "app": {
+  "url": "app/",
+  "etiqueta": "Abrir el observatorio",
+  "nota": "Funciona en el navegador, sin instalación ni claves. El informe técnico en PDF está en la carpeta «informe»."
+ },
+ "prompts": [
+  {
+   "id": "claude",
+   "nombre": "Claude",
+   "url": "https://claude.ai/new",
+   "archivo": "prompts/claude.txt"
+  },
+  {
+   "id": "chatgpt",
+   "nombre": "ChatGPT",
+   "url": "https://chatgpt.com/",
+   "archivo": "prompts/chatgpt.txt"
+  },
+  {
+   "id": "gemini",
+   "nombre": "Gemini",
+   "url": "https://gemini.google.com/app",
+   "archivo": "prompts/gemini.txt"
+  },
+  {
+   "id": "copilot",
+   "nombre": "Copilot",
+   "url": "https://copilot.microsoft.com/",
+   "archivo": "prompts/copilot.txt"
+  },
+  {
+   "id": "deepseek",
+   "nombre": "DeepSeek",
+   "url": "https://chat.deepseek.com/",
+   "archivo": "prompts/deepseek.txt"
+  },
+  {
+   "id": "kimi",
+   "nombre": "Kimi",
+   "url": "https://www.kimi.com/",
+   "archivo": "prompts/kimi.txt"
+  }
+ ],
+ "guia": {
+  "claude": [
+   "Abra Claude, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.",
+   "Descargue el HTML del artefacto y ábralo en el navegador o publíquelo en GitHub Pages."
+  ],
+  "chatgpt": [
+   "Abra ChatGPT, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.",
+   "Si aparece Canvas, el archivo se abre allí; si la respuesta se corta, escriba «continúa»."
+  ],
+  "gemini": [
+   "Abra Gemini, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.",
+   "Active Canvas para obtener el archivo completo y luego descárguelo."
+  ],
+  "copilot": [
+   "Abra Copilot, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.",
+   "Recibirá el archivo por partes: escriba «siguiente» y únalas en orden."
+  ],
+  "deepseek": [
+   "Abra DeepSeek, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.",
+   "Active DeepThink; si el archivo llega en partes numeradas, únalas en orden."
+  ],
+  "kimi": [
+   "Abra Kimi, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.",
+   "El archivo llega en un bloque; si se corta, escriba «continúa»."
+  ]
+ },
+ "instalar": {
+  "zip": "observatorio-scimago.zip",
+  "leeme": "codigo/LEEME.txt",
+  "minutos": 5,
+  "pasos": [
+   "Descargue el .zip y descomprímalo.",
+   "Abra observatorio-scimago.html en su navegador para usarlo de inmediato.",
+   "Para publicarlo, súbalo como index.html a un repositorio con GitHub Pages activado, o arrástrelo a Netlify Drop.",
+   "Ajuste los supuestos del simulador en «Personalizar» según su institución."
+  ]
+ }
+}

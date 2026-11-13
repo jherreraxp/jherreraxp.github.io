@@ -43,7 +43,7 @@
   function elegir(d, p) {
     actual = p;
     document.querySelectorAll('.tab').forEach(function (b) { b.setAttribute('aria-selected', b.dataset.id === p.id ? 'true' : 'false'); });
-    $('#guia').innerHTML = (GUIA[p.id] || ['Copie el prompt y péguelo en la IA.']).map(function (g) { return '<li>' + esc(g) + '</li>'; }).join('');
+    $('#guia').innerHTML = ((d.guia && d.guia[p.id]) || GUIA[p.id] || ['Copie el prompt y péguelo en la IA.']).map(function (g) { return '<li>' + esc(g) + '</li>'; }).join('');
     $('#abrir').textContent = 'Copiar y abrir ' + p.nombre;
     $('#bajar').href = p.archivo; $('#bajar').setAttribute('download', d.id + '-prompt-' + p.id + '.txt');
     $('#prompt').textContent = 'Cargando…';
