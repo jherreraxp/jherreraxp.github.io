@@ -38,7 +38,7 @@
  "app": {
   "url": "app/",
   "etiqueta": "Abrir el observatorio",
-  "nota": "Funciona en el navegador, sin instalación ni claves. El informe técnico en PDF está en la carpeta «informe»."
+  "nota": "Funciona en el navegador, sin instalación ni claves. Los informes en PDF (todas las universidades del Perú y USIL) están en la carpeta «informe»."
  },
  "prompts": [
   {
