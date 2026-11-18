@@ -403,7 +403,7 @@ html.ui-dark .fx{border-left-color:var(--usil)}
 .pk-card{width:min(980px,100%)}
 .pk-table{border:1px solid var(--line); border-radius:12px; overflow:hidden}
 .pk-list{display:block !important} .pk-list > * + *{margin-top:6px}
-.pk-hd, .pk-row{display:grid; grid-template-columns:40px 26px 54px minmax(0,1fr) 54px 74px 74px 62px 86px; align-items:center; gap:0 8px; padding:0 12px}
+.pk-hd, .pk-row{display:grid; grid-template-columns:40px 30px 54px minmax(0,1fr) 54px 74px 74px 62px 86px; align-items:center; gap:0 8px; padding:0 12px}
 .pk-hd{background:var(--navy); color:#fff; font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; height:36px}
 .pk-hd span{text-align:center} .pk-hd span:nth-child(4){text-align:left}
 .pk-hd .pk-w{background:var(--gold); color:var(--navy); align-self:stretch; display:grid; place-items:center; margin:0 -4px}
@@ -437,6 +437,21 @@ html.ui-dark .pk-row .pk-w{background:#071233}
 }
 .scen-note{display:flex; gap:8px; align-items:flex-start; font-size:13px; line-height:1.5; color:var(--ink); background:var(--soft); border-radius:10px; padding:9px 12px; margin:8px 0 0}
 .scen-note svg.ic{flex:none; margin-top:3px; color:var(--muted)}
+
+/* ===== v6: bienvenida tipo tablero olímpico ===== */
+#picker{background:radial-gradient(120% 90% at 50% 0%, #1B3A8F 0%, #0B1E5B 55%, #050C28 100%)}
+#picker .pk-card{width:min(1040px,100%); max-height:96vh; background:var(--panel)}
+.pk-head.wl{position:relative; justify-content:center; text-align:center; padding:22px 22px 18px; background:linear-gradient(180deg,#0B1E5B,#0A2A8F)}
+.pk-head.wl #pkClose{position:absolute; right:16px; top:16px}
+.wl-c{display:grid; justify-items:center; gap:4px}
+.wl-mark{width:52px; height:52px; border-radius:50%; display:grid; place-items:center; background:rgba(201,161,74,.16); color:var(--gold); border:1px solid rgba(201,161,74,.45)}
+.pk-head.wl h2{font-family:var(--f-display); font-size:30px; letter-spacing:.06em; text-transform:uppercase; margin:2px 0 0}
+.wl-sub{display:flex; gap:8px; align-items:center; font-size:17px; color:#DCE5FF; font-weight:600; letter-spacing:.02em}
+.wl-sub select{font:inherit; font-weight:800; color:var(--navy); background:#fff; border:0; border-radius:8px; padding:3px 8px; cursor:pointer}
+.pk-head.wl p{margin:2px 0 0; font-size:12.5px; color:#AFC0EE}
+.pk-badge.lg{background:#fff; border:1px solid var(--line); box-shadow:none; padding:2px}
+.pk-badge.lg img{max-width:100%; max-height:100%; object-fit:contain}
+@media (max-width:720px){ .pk-head.wl h2{font-size:22px} .wl-sub{font-size:14px} .pk-head.wl #pkClose{position:static} .pk-head.wl{flex-direction:column; align-items:center} }
 </style>
 </head>
 <body>
@@ -782,7 +797,16 @@ html.ui-dark .pk-row .pk-w{background:#071233}
 
 <div class="picker" id="picker" hidden role="dialog" aria-modal="true" aria-labelledby="pkT">
   <div class="pk-card">
-    <div class="pk-head"><div><span class="pk-k">Observatorio SCImago · Perú</span><h2 id="pkT">Tabla de posiciones · SCImago 2026</h2><p>Las 38 universidades peruanas del ranking. Elija una para ver su detalle: KPIs, comparaciones, proyecciones, simulación y narrativas. Las demás universidades licenciadas están en «Otras».</p></div><button class="btn" type="button" id="pkClose"><i data-ic="x"></i> Cerrar</button></div>
+    <div class="pk-head wl">
+      <div class="wl-c">
+        <span class="wl-mark" aria-hidden="true"><i data-ic="trophy" data-sz="30"></i></span>
+        <span class="pk-k">SCImago Institutions Rankings · Observatorio Perú</span>
+        <h2 id="pkT">Tabla de posiciones</h2>
+        <div class="wl-sub"><span>Universidades peruanas · Edición</span> <select id="pkYear" aria-label="Edición del ranking"></select></div>
+        <p id="pkInfo"></p>
+      </div>
+      <button class="btn" type="button" id="pkClose"><i data-ic="x"></i> Cerrar</button>
+    </div>
     <label class="pk-s"><i data-ic="search"></i><input id="pkQ" type="search" placeholder="Buscar por nombre, sigla o región…" aria-label="Buscar universidad"></label>
     <div class="pk-list" id="pkList"></div>
   </div>
@@ -1831,45 +1855,55 @@ function openPicker(){
   document.getElementById('pkClose').hidden = !S.onboarded;
 }
 const MEDALS={1:['#E8C35A','#8A6A1E','Oro'],2:['#CDD3DC','#5E6878','Plata'],3:['#D49A62','#7A4A1F','Bronce']};
-const medal = n => { const m=MEDALS[n]; return m? `<svg class="pk-medal" viewBox="0 0 24 28" width="22" height="26" role="img" aria-label="Medalla de ${m[2]}"><path d="M6 1h5l2 8H8z" fill="#1F4E9E"/><path d="M13 1h5l-2 8h-5z" fill="#8E2C25"/><circle cx="12" cy="18" r="8" fill="${m[0]}" stroke="${m[1]}" stroke-width="1.6"/><circle cx="12" cy="18" r="5.2" fill="none" stroke="${m[1]}" stroke-width=".8" opacity=".6"/><text x="12" y="21.2" text-anchor="middle" font-size="8.5" font-weight="800" fill="${m[1]}">${n}</text></svg>` : ''; };
+const medal = n => { const m=MEDALS[n]; return m? `<svg class="pk-medal" viewBox="0 0 24 28" width="27" height="32" role="img" aria-label="Medalla de ${m[2]}"><path d="M6 1h5l2 8H8z" fill="#1F4E9E"/><path d="M13 1h5l-2 8h-5z" fill="#8E2C25"/><circle cx="12" cy="18" r="8" fill="${m[0]}" stroke="${m[1]}" stroke-width="1.6"/><circle cx="12" cy="18" r="5.2" fill="none" stroke="${m[1]}" stroke-width=".8" opacity=".6"/><text x="12" y="21.2" text-anchor="middle" font-size="8.5" font-weight="800" fill="${m[1]}">${n}</text></svg>` : ''; };
 function laurel(){ let l=''; for(let side of [-1,1]) for(let i=0;i<6;i++){ const ang=(90+side*(38+i*22))*Math.PI/180, cx=17+13*Math.cos(ang), cy=17+13*Math.sin(ang), rot=(ang*180/Math.PI)+(side>0?-60:60);
   l+=`<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="3.6" ry="1.7" transform="rotate(${rot.toFixed(0)} ${cx.toFixed(1)} ${cy.toFixed(1)})"/>`; }
   return `<svg class="pk-laurel" viewBox="0 0 34 34" aria-hidden="true"><g fill="#3B7A57" opacity=".9">${l}</g></svg>`; }
-function pkSpark(u){
-  const p=pctSeries(u); if(p.length<2) return '<span class="pk-tnew">nueva</span>';
-  const W=78,H=24, x=d3.scaleLinear().domain([2020,LAST]).range([3,W-5]), ext=d3.extent(p,d=>d[1]), pad=Math.max(2,(ext[1]-ext[0])*0.12);
-  const y=d3.scaleLinear().domain([ext[0]-pad,ext[1]+pad]).range([3,H-3]);   // percentil menor (mejor) arriba
+function pkSpark(u,Y){
+  const m=byU.get(u); let p=pctSeries(u).filter(d=>d[0]<=Y), lab='percentil mundial', x0=2020;
+  if(p.length<2){ p=[...m.keys()].filter(y=>y<=Y).sort((a,b)=>a-b).map(y=>[y,m.get(y).n]); lab='puesto nacional'; x0=YEARS[0]; }
+  if(p.length<2) return '<span class="pk-tnew">nueva</span>';
+  const W=84,H=26, x=d3.scaleLinear().domain([Math.max(x0,p[0][0]-1),Y]).range([3,W-5]), ext=d3.extent(p,d=>d[1]), pad=Math.max(lab==='puesto nacional'?0.6:2,(ext[1]-ext[0])*0.12);
+  const y=d3.scaleLinear().domain([ext[0]-pad,ext[1]+pad]).range([3,H-3]);   // menor (mejor) arriba
   const pts=smoothPts(p.map(([a,b])=>({x:a,y:b}))), up=p[p.length-1][1]<=p[0][1], c=up?'#3B7A57':'#8E2C25';
   const d=d3.line().curve(d3.curveMonotoneX).x(q=>x(q.x)).y(q=>y(q.y))(pts), lp=p[p.length-1];
-  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Tendencia del percentil mundial ${p[0][0]}–${LAST}: ${up?'mejora':'empeora'}"><path d="${d}" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round"/><circle cx="${x(lp[0])}" cy="${y(lp[1])}" r="2.6" fill="${c}"/></svg>`;
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Tendencia del ${lab} ${p[0][0]}–${Y}: ${up?'mejora':'empeora'}"><path d="${d}" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round"/><circle cx="${x(lp[0])}" cy="${y(lp[1])}" r="2.6" fill="${c}"/></svg>`;
 }
+/* Logos opcionales: si junto al tablero existe logos/index.json (lista de siglas) y logos/SIGLA.png, se muestran; si no, se usan las siglas */
+let LOGOS=new Set();
+try{ if(/^https?:/.test(location.protocol)) fetch('logos/index.json',{cache:'no-store'}).then(r=>r.ok?r.json():[]).then(a=>{ if(Array.isArray(a) && a.length){ LOGOS=new Set(a); if(!document.getElementById('picker').hidden) renderPicker(); } }).catch(()=>{}); }catch(e){}
+const pkBadge = u => { const sg=nm(u), pub=U[u].t==='Pública';
+  return LOGOS.has(sg) ? `<span class="pk-badge lg"><img src="logos/${encodeURIComponent(sg)}.png" alt="" loading="lazy"></span>` : `<span class="pk-badge ${pub?'pu':'pr'} l${Math.min(6,sg.length)}">${esc(sg.slice(0,6))}</span>`; };
 function renderPicker(){
   const q=document.getElementById('pkQ').value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
   const match=u=>!q || (full(u)+' '+nm(u)+' '+(U[u].dep||'')).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(q);
-  const cur=[...byY.get(LAST)].sort((a,b)=>a.n-b.n||a.g-b.g);
+  const ysel=document.getElementById('pkYear'); if(ysel && !ysel.options.length){ [...YEARS].reverse().forEach(y=>ysel.add(new Option(y,y))); ysel.value=LAST; ysel.onchange=renderPicker; }
+  const Y=+(ysel?.value||LAST), PY=YEARS[YEARS.indexOf(Y)-1];
+  const cur=[...byY.get(Y)].sort((a,b)=>a.n-b.n||a.g-b.g);
+  document.getElementById('pkInfo').textContent=`${cur.length} ${cur.length===1?'universidad peruana':'universidades peruanas'} en la edición ${Y}${TOT[Y]?' · '+fInt(TOT[Y][0])+' instituciones evaluadas en el mundo'+(TOT[Y][1]?' (estimado)':''):''}`;
   const typePos=u=>{ const arr=cur.filter(r=>U[r.u].t===U[u].t).sort((a,b)=>a.g-b.g); return arr.findIndex(r=>r.u===u)+1; };
   const inR=cur.map(r=>r.u).filter(match);
-  const out=[...U.keys()].filter(u=>U[u].lic && !byU.get(u)?.get(LAST)).sort((a,b)=>full(a).localeCompare(full(b),'es')).filter(match);
+  const out= Y!==LAST ? [] : [...U.keys()].filter(u=>U[u].lic && !byU.get(u)?.get(LAST)).sort((a,b)=>full(a).localeCompare(full(b),'es')).filter(match);
   const item=(u,meta)=>`<button type="button" class="pk-it ${u===S.focus?'on':''}" data-u="${u}"><span class="pk-n">${esc(full(u))}</span><span class="pk-m">${meta}</span></button>`;
-  const row=u=>{ const r=byU.get(u).get(LAST), pr=byU.get(u).get(PREV), d=pr? pr.n-r.n : null, pub=U[u].t==='Pública', tp=typePos(u);
-    const dz = d==null? `<span class="pk-d nw" title="Primera edición en ${LAST}">nueva</span>` : d>0? `<span class="pk-d up" title="Subió ${d} ${d===1?'puesto':'puestos'} frente a ${PREV}">▲ ${d}</span>` : d<0? `<span class="pk-d dn" title="Bajó ${-d} ${d===-1?'puesto':'puestos'} frente a ${PREV}">▼ ${-d}</span>` : `<span class="pk-d eq" title="Mismo puesto que en ${PREV}">=</span>`;
+  const row=u=>{ const r=byU.get(u).get(Y), pr=PY? byU.get(u).get(PY) : null, d=pr? pr.n-r.n : null, pub=U[u].t==='Pública', tp=typePos(u);
+    const dz = d==null? `<span class="pk-d nw" title="Primera edición en ${Y}">nueva</span>` : d>0? `<span class="pk-d up" title="Subió ${d} ${d===1?'puesto':'puestos'} frente a ${PY}">▲ ${d}</span>` : d<0? `<span class="pk-d dn" title="Bajó ${-d} ${d===-1?'puesto':'puestos'} frente a ${PY}">▼ ${-d}</span>` : `<span class="pk-d eq" title="Mismo puesto que en ${PY}">=</span>`;
     return `<button type="button" class="pk-row ${u===S.focus?'on':''} ${r.n<=3?'top3':''}" data-u="${u}" aria-label="${esc(full(u))}: ${r.n}.º nacional, ${fInt(r.g)} mundial. Ver detalle">
       <span class="pk-pos">${r.n<=5? laurel() : ''}<b>${r.n}</b></span>
       <span class="pk-med">${medal(r.n)}</span>
-      <span class="pk-badge ${pub?'pu':'pr'} l${Math.min(6,nm(u).length)}">${esc(nm(u).slice(0,6))}</span>
+      ${pkBadge(u)}
       <span class="pk-name"><b>${esc(nm(u))}</b><small>${esc(full(u))} · ${U[u].t} · ${esc(U[u].r)}</small></span>
       <span class="pk-c num">${ord(r.n)}</span>
       <span class="pk-c num" title="Puesto entre universidades ${pub?'públicas':'privadas'}">${tp}.ª <small>${pub?'púb.':'priv.'}</small></span>
       <span class="pk-c pk-w num">${fInt(r.g)}</span>
       <span class="pk-c">${dz}</span>
-      <span class="pk-c pk-t">${pkSpark(u)}</span>
+      <span class="pk-c pk-t">${pkSpark(u,Y)}</span>
     </button>`; };
   const openO = (q && !inR.length) || (isExt() && !q);
   document.getElementById('pkList').innerHTML =
-    `<div class="pk-table" role="list"><div class="pk-hd" aria-hidden="true"><span>#</span><span></span><span></span><span>Universidad</span><span>Nac.</span><span>Priv./Púb.</span><span class="pk-w">Mundial</span><span>vs ${PREV}</span><span>Tendencia</span></div>`+
+    `<div class="pk-table" role="list"><div class="pk-hd" aria-hidden="true"><span>#</span><span></span><span></span><span>Universidad</span><span>Nac.</span><span>Priv./Púb.</span><span class="pk-w">Mundial</span><span>vs ${PY||'—'}</span><span>Tendencia</span></div>`+
     (inR.length? inR.map(row).join('') : '<p class="note" style="padding:10px">Ninguna universidad del ranking coincide con la búsqueda.</p>')+`</div>`+
-    `<p class="pk-foot">${ic('info',13)} Medallas: tres primeros puestos nacionales; corona de laurel: cinco primeros. «vs ${PREV}»: cambio del puesto nacional. Tendencia: percentil mundial 2020–${LAST}, verde si mejoró. Haga clic en una fila para ver el detalle.</p>`+
-    `<details class="pk-otras" ${openO?'open':''}><summary>${ic('landmark')} Otras universidades <span>(${out.length} licenciadas por SUNEDU que no figuran en SCImago)</span></summary><div class="pk-ol">${out.map(u=>item(u,`${U[u].t} · ${esc(U[u].dep||U[u].r)}`)).join('') || '<p class="note">Sin coincidencias.</p>'}</div></details>`;
+    `<p class="pk-foot">${ic('info',13)} Medallas de oro, plata y bronce: tres primeros puestos nacionales; corona de laurel: cinco primeros. «vs ${PY||'—'}»: cambio del puesto nacional frente a la edición anterior. Tendencia: percentil mundial hasta ${Y} (puesto nacional en ediciones anteriores a 2021), verde si mejoró. Haga clic en una fila para ver el detalle.</p>`+
+    (Y!==LAST? '' : `<details class="pk-otras" ${openO?'open':''}><summary>${ic('landmark')} Otras universidades <span>(${out.length} licenciadas por SUNEDU que no figuran en SCImago)</span></summary><div class="pk-ol">${out.map(u=>item(u,`${U[u].t} · ${esc(U[u].dep||U[u].r)}`)).join('') || '<p class="note">Sin coincidencias.</p>'}</div></details>`);
   document.querySelectorAll('.pk-it, .pk-row').forEach(b=>b.onclick=()=>selectFocus(+b.dataset.u));
 }
 function selectFocus(u){
@@ -2225,7 +2259,7 @@ function init(){
   const h=location.hash.slice(1);
   if(S.theme==='auto') window.matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',()=>RENDER[S.tab]());
   show(RENDER[h]? h : (S.tab||'kpis'), true);
-  if(!S.onboarded) openPicker();
+  openPicker();   // la tabla de posiciones es la pantalla de bienvenida
 }
 init();
 
