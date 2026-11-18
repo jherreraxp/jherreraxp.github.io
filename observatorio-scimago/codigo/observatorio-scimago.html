@@ -299,6 +299,75 @@ svg.ic{vertical-align:-3px; flex:none}
 @media (max-width:560px){ .pk-it{flex-direction:column; align-items:flex-start} .pk-m{white-space:normal} }
 @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important} }
 @media (max-width:520px){ .kpi .val{font-size:26px} .verdict .big{font-size:40px} .lvl{min-width:0} }
+
+/* ===== v4: simulación con escala de color, KPI único y dinero ===== */
+.lever{border-left:4px solid var(--c,#F2C94C); padding-left:10px; transition:border-color .2s}
+.lever .lh label{display:inline-flex; gap:6px; align-items:center}
+.lever .lh label svg.ic{color:var(--c,#B58900)}
+.rwrap{position:relative}
+.rwrap::after{content:''; position:absolute; left:50%; top:5px; width:2px; height:18px; margin-left:-1px; background:var(--muted); opacity:.45; pointer-events:none; border-radius:1px}
+.lever input[type=range]{-webkit-appearance:none; appearance:none; width:100%; height:10px; border-radius:6px; background:var(--soft); outline:none; margin:9px 0 3px; cursor:pointer}
+.lever input[type=range]:focus-visible{box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 40%,transparent)}
+.lever input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:var(--c,#F2C94C); border:3px solid #fff; box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 5px rgba(0,0,0,.3)}
+.lever input[type=range]::-moz-range-thumb{width:18px; height:18px; border-radius:50%; background:var(--c,#F2C94C); border:3px solid #fff; box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 5px rgba(0,0,0,.3)}
+.lscale{display:flex; justify-content:space-between; font-size:10.5px; color:var(--muted); margin-top:-1px}
+.lscale span{display:inline-flex; gap:3px; align-items:center}
+.lever .lu{display:flex; gap:6px; align-items:flex-start; border-left:3px solid var(--c,#F2C94C)}
+.lever .lu svg.ic{flex:none; margin-top:2px}
+.scalebar{display:flex; justify-content:space-between; font-size:11px; font-weight:700; color:var(--muted); margin:12px 0 2px; padding:16px 2px 0; position:relative}
+.scalebar::before{content:''; position:absolute; left:0; right:0; top:0; height:10px; border-radius:6px; background:linear-gradient(90deg,#C62828,#E5482A 12.5%,#F57C00 25%,#F9A825 37.5%,#F2C94C 50%,#B7C53B 62.5%,#43A047 75%,#00897B 87.5%,#1E5BD8)}
+.pgrid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px}
+.pgrid .btn{justify-content:center; border-color:color-mix(in srgb,var(--pc) 45%,var(--line)); font-size:12px; padding:7px 8px; text-align:center}
+.pgrid .btn svg.ic{color:var(--pc)}
+.pgrid .btn[aria-pressed=true]{background:var(--pc); color:#fff; border-color:var(--pc)}
+.pgrid .btn[aria-pressed=true] svg.ic{color:#fff}
+@media (max-width:520px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.simsum{border-top:6px solid var(--c,#F2C94C); padding:12px 14px; display:grid; gap:8px; transition:border-color .25s}
+.ss-top{display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap}
+.ss-k{font-size:13px; font-weight:700; color:var(--muted); display:inline-flex; gap:6px; align-items:center}
+.chip{display:inline-flex; gap:5px; align-items:center; border-radius:999px; padding:4px 11px; font-size:12.5px; font-weight:800; transition:background .25s,color .25s}
+.ss-main{display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:center}
+.ss-rank{display:grid; text-align:center; min-width:84px}
+.ss-rank b{font-family:var(--f-display); font-size:42px; line-height:1; color:var(--c,#B58900); font-weight:800; transition:color .25s; text-shadow:0 0 1px rgba(0,0,0,.15)}
+.ss-rank small{font-size:11.5px; color:var(--muted); font-weight:600}
+.ss-meta{display:grid; gap:4px; font-size:13px}
+.ss-meta div{display:flex; gap:6px; align-items:flex-start}
+.ss-meta svg.ic{flex:none; margin-top:2px; color:var(--muted)}
+.ss-meta .mut{color:var(--muted); font-size:12px}
+.ss-meter{position:relative; padding-top:2px}
+.ss-track{height:8px; border-radius:5px; background:linear-gradient(90deg,#C62828,#F57C00 25%,#F2C94C 50%,#43A047 75%,#1E5BD8)}
+#ssMark{position:absolute; top:-3px; width:14px; height:14px; margin-left:-7px; border-radius:50%; background:#fff; border:3px solid var(--ink); transition:left .3s cubic-bezier(.2,.8,.2,1)}
+.ss-lbl{display:flex; justify-content:space-between; font-size:10.5px; color:var(--muted); margin-top:3px}
+.money{display:grid; grid-template-columns:74px 1fr; gap:10px; align-items:center; border-top:1px dashed var(--line); padding-top:8px}
+.coinbox{position:relative; height:66px; border-radius:10px; background:color-mix(in srgb,var(--gold) 10%,var(--panel)); overflow:hidden; border:1px solid color-mix(in srgb,var(--gold) 35%,var(--line))}
+.pile{position:absolute; left:50%; bottom:6px; width:40px; margin-left:-20px; height:56px}
+.pile i{position:absolute; left:0; width:40px; height:9px; border-radius:50%; background:linear-gradient(#F3D27A,#C9A14A); border:1px solid #9A7424; box-shadow:0 1px 0 #8A6A1E}
+.money.over .pile i{background:linear-gradient(#F29B92,#C62828); border-color:#8E1D1D}
+.coin{position:absolute; top:-22px; width:18px; height:18px; border-radius:50%; background:radial-gradient(circle at 35% 35%,#FCE7A6,#C9A14A 70%); border:1px solid #9A7424; font-size:7px; font-weight:800; color:#6B4E12; display:grid; place-items:center; opacity:0; pointer-events:none}
+.coin.in{animation:coinIn .9s cubic-bezier(.3,.7,.4,1) forwards}
+.coin.out{top:30px; animation:coinOut .9s ease-out forwards}
+@keyframes coinIn{0%{transform:translateY(0) rotate(0); opacity:0} 15%{opacity:1} 80%{transform:translateY(64px) rotate(200deg); opacity:1} 100%{transform:translateY(64px) rotate(220deg); opacity:0}}
+@keyframes coinOut{0%{transform:translateY(0); opacity:0} 15%{opacity:1} 100%{transform:translateY(-60px) translateX(14px) rotate(-160deg); opacity:0}}
+.mtxt{display:grid; gap:2px}
+.mtxt small{font-size:11.5px; color:var(--muted); display:inline-flex; gap:5px; align-items:center}
+.mtxt b{font-family:var(--f-display); font-size:22px; font-weight:800}
+.money.save .mtxt b{color:var(--bad)}
+.money.over .mtxt b{color:var(--bad)}
+.mbar{height:7px; border-radius:4px; background:var(--soft); overflow:hidden}
+.mbar i{display:block; height:100%; width:0; background:linear-gradient(90deg,#C9A14A,#E3B95A); transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.money.over .mbar i{background:var(--bad)}
+.dotc{display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:5px; vertical-align:0}
+ul.ib{list-style:none; padding:0; margin:0; display:grid; gap:8px}
+ul.ib li{display:flex; gap:9px; align-items:flex-start; font-size:14px; line-height:1.45}
+ul.ib li > i{flex:none; display:inline-flex; width:26px; height:26px; border-radius:8px; align-items:center; justify-content:center; background:var(--soft); color:var(--usil-ink, var(--usil)); margin-top:1px}
+html.ui-dark ul.ib li > i{color:var(--usil)}
+.why .note{margin-top:10px}
+.why details{margin-top:8px} .why summary{cursor:pointer; font-weight:700}
+footer ul.ib li{font-size:13px}
+.lead h2 svg.ic{vertical-align:-3px; color:var(--accent)}
+.field label svg.ic, .field > span svg.ic{vertical-align:-2px; margin-right:2px; color:var(--muted)}
+.seg button svg.ic{vertical-align:-2px}
+@media (prefers-reduced-motion: reduce){ .coin{display:none} #ssMark,.mbar i{transition:none} }
 </style>
 </head>
 <body>
@@ -329,7 +398,7 @@ svg.ic{vertical-align:-3px; flex:none}
       <button role="tab" id="tab-kpis" data-p="kpis" aria-selected="true"><i data-ic="gauge"></i>KPIs<span class="dot"></span></button>
       <button role="tab" id="tab-descriptivo" data-p="descriptivo" aria-selected="false" class="new"><i data-ic="bars"></i>Descriptivo<span class="dot"></span></button>
       <button role="tab" id="tab-tendencias" data-p="tendencias" aria-selected="false" class="new"><i data-ic="trend"></i>Tendencias y proyección<span class="dot"></span></button>
-      <button role="tab" id="tab-escenarios" data-p="escenarios" aria-selected="false" class="new"><i data-ic="sliders"></i>Escenarios<span class="dot"></span></button>
+      <button role="tab" id="tab-escenarios" data-p="escenarios" aria-selected="false" class="new"><i data-ic="sliders"></i>Simulación<span class="dot"></span></button>
       <button role="tab" id="tab-narrativas" data-p="narrativas" aria-selected="false" class="new"><i data-ic="book"></i>Narrativas<span class="dot"></span></button>
       <button role="tab" id="tab-arena" data-p="arena" aria-selected="false" class="new"><i data-ic="target"></i>Arena<span class="dot"></span></button>
     </nav>
@@ -372,7 +441,7 @@ svg.ic{vertical-align:-3px; flex:none}
     <h2>Panorama descriptivo de las universidades peruanas, 2009–2026</h2>
     <p>Todos los registros de los archivos: 17 ediciones (no hay archivo para 2010), 39 universidades y 203 posiciones.</p>
   </div>
-  <div class="tbar"><span style="font-weight:700">Mostrar universidades:</span><div class="seg" id="segType" role="group" aria-label="Tipo de gestión"><button data-v="" aria-pressed="true">Todas</button><button data-v="Privada" aria-pressed="false">Privadas</button><button data-v="Pública" aria-pressed="false">Públicas</button></div></div>
+  <div class="tbar"><span style="font-weight:700">Mostrar universidades:</span><div class="seg" id="segType" role="group" aria-label="Tipo de gestión"><button data-v="" aria-pressed="true"><i data-ic="grid"></i> Todas</button><button data-v="Privada" aria-pressed="false"><i data-ic="briefcase"></i> Privadas</button><button data-v="Pública" aria-pressed="false"><i data-ic="landmark"></i> Públicas</button></div></div>
   <div class="grid g2">
     <div class="card">
       <h3><i data-ic="landmark"></i> Universidades peruanas<span class="desc-lbl"></span> por edición</h3>
@@ -381,7 +450,7 @@ svg.ic{vertical-align:-3px; flex:none}
     </div>
     <div class="card">
       <h3><i data-ic="pie"></i> Composición: tipo de gestión y ubicación</h3>
-      <div class="tbar"><div class="seg" id="segComp"><button aria-pressed="true" data-v="t">Privada / pública</button><button aria-pressed="false" data-v="r">Lima / regiones</button></div></div>
+      <div class="tbar"><div class="seg" id="segComp"><button aria-pressed="true" data-v="t"><i data-ic="briefcase"></i> Privada / pública</button><button aria-pressed="false" data-v="r"><i data-ic="pin"></i> Lima / regiones</button></div></div>
       <div class="chart" id="chComp"></div>
     </div>
   </div>
@@ -439,78 +508,105 @@ svg.ic{vertical-align:-3px; flex:none}
   </div>
   <div class="grid g2">
     <div class="card">
-      <h3><i data-ic="activity"></i> La paradoja del puesto mundial</h3>
-      <p class="sub">Puesto absoluto frente a percentil. El universo de instituciones crece cada año, por eso el puesto puede empeorar mientras la posición relativa mejora.</p>
-      <div class="chart" id="chParadox"></div>
-    </div>
-    <div class="card">
       <h3><i data-ic="line"></i> Percentil mundial: foco y grupo de comparación</h3>
       <p class="sub">2020–2026. Menor es mejor. Los totales de 2021 y 2023 son estimados.</p>
       <div class="chart" id="chPctComp"></div>
     </div>
   </div>
-  <div class="grid g2">
     <div class="card">
       <h3><i data-ic="file"></i> Producción científica anual, 2021–2025</h3>
       <p class="sub">Trabajos con afiliación de cada universidad según OpenAlex (consultado el 12-nov-2026). Los conteos difieren de Scopus.</p>
       <div class="chart" id="chProd"></div>
     </div>
-    <div class="card">
-      <h3><i data-ic="compass"></i> Proyección inercial a <span class="hz">2030</span></h3>
-      <p class="sub">Tendencia observada con amortiguación (el impulso se reduce cada año). Banda: incertidumbre aproximada.</p>
+  </div>
+  <div class="card">
+    <h3><i data-ic="compass"></i> Proyección inercial a 2035</h3>
+    <p class="sub">Tendencia observada con amortiguación (el impulso se reduce cada año). Banda: incertidumbre aproximada, que se ensancha con el horizonte.</p>
+    <div class="grid g2" style="align-items:start">
       <div class="chart" id="chProj"></div>
-      <div class="tblwrap" style="margin-top:10px"><table id="tblProj"></table></div>
+      <div class="tblwrap"><table id="tblProj"></table></div>
     </div>
   </div>
-  <div class="grid">
+  <div class="grid g2" style="align-items:start">
     <div class="card">
       <h3><i data-ic="trend"></i> Impulso: velocidad de mejora 2021–2026</h3>
       <p class="sub">Puntos porcentuales de percentil ganados por año (pendiente de regresión lineal; universidades con 3 o más ediciones).</p>
       <div class="chart tall" id="chMomentum"></div>
     </div>
+    <div class="card why">
+      <h3><i data-ic="help"></i> ¿Por qué UPeU, UCV, USS, UPN, UNW y UTP mejoran tan rápido?</h3>
+      <ul class="ib">
+        <li><i data-ic="flag"></i><span><b>Parten de abajo y tienen pocas ediciones.</b> Entraron al ranking entre 2022 y 2024 en la parte baja de la tabla nacional (UPeU fue 22.ª en 2023; USS, 19.ª en 2024). Con solo 3 a 5 ediciones, la pendiente se infla: subir desde el fondo es más fácil que mantenerse arriba.</span></li>
+        <li><i data-ic="file"></i><span><b>Su producción creció mucho justo en la ventana que mide SCImago.</b> Según OpenAlex, entre 2021 y 2023 la UTP pasó de 268 a 1 022 trabajos, la UPN de 372 a 900, la UNW de 217 a 515 y la UCV de 1 870 a 2 726. La edición 2026 evalúa 2020–2024.</span></li>
+        <li><i data-ic="coins"></i><span><b>Incentivos económicos por publicar.</b> Bonos por artículo indexado, pago de APC y metas contractuales para docentes (por ejemplo, las políticas de incentivos de la UNW y el programa de incentivos de la UTP), además de semilleros estudiantiles que publican en Scopus.</span></li>
+        <li><i data-ic="briefcase"></i><span><b>Estrategia corporativa de posicionamiento.</b> Son privadas con gestión centralizada que declaran la investigación y el ranking como objetivo (la USS reporta inversión y docentes investigadores dedicados; SCImago Lab destacó a la UCV como la que más creció en investigación en el país).</span></li>
+        <li><i data-ic="alert"></i><span><b>Volumen no es lo mismo que calidad.</b> En 2023, la UCV tuvo 36,2 % de su producción en revistas Q1–Q2 y la UPN 25,6 %, frente a 47,8 % de la UNMSM. El índice RI² ubicó a la UCV en riesgo alto, con 17,7 % de artículos en revistas excluidas de Scopus o WoS. El impulso de la UNW probablemente se revierta: su producción bajó a 156 trabajos en 2025.</span></li>
+      </ul>
+      <p class="note">Un estudio de 94 universidades peruanas encontró que el número de políticas de investigación no explicó por sí solo la producción; pesaron más el tipo de gestión y el número de investigadores RENACYT.</p>
+      <details><summary>Fuentes</summary><ul class="refs">
+        <li><a href="https://andina.pe/agencia/noticia-estas-son-las-universidades-peruanas-mas-publicaciones-cientificas-realizaron-2023-967652.aspx" target="_blank" rel="noopener">Andina (2023): universidades con más publicaciones y porcentaje en Q1–Q2</a></li>
+        <li><a href="https://larepublica.pe/opinion/2025/09/29/el-antirranking-universitario-por-percy-mayta-tristan-hnews-2566645" target="_blank" rel="noopener">Mayta-Tristán, La República (2025): el antirranking universitario (RI²)</a></li>
+        <li><a href="https://doi.org/10.1371/journal.pone.0252410" target="_blank" rel="noopener">Millones-Gómez et al., PLOS ONE (2021): políticas de investigación en 94 universidades peruanas</a></li>
+        <li><a href="https://www.uwiener.edu.pe/wp-content/uploads/2024/11/99-upnw-ees-lin-005-directiva-de-incentivos-a-la-publicacion.pdf" target="_blank" rel="noopener">UNW: directiva de incentivos a la publicación</a></li>
+        <li><a href="https://www.utp.edu.pe/sites/default/files/publicaciones-investigacion/boletin_-_anuario_2020.pdf" target="_blank" rel="noopener">UTP: programa de incentivo a las publicaciones científicas</a></li>
+        <li><a href="https://elcomercio.pe/publirreportaje/ranking-scimago-2026-ucv-se-ubica-en-el-top-3-de-mejores-universidades-privadas-del-peru-noticia" target="_blank" rel="noopener">El Comercio (2026, publirreportaje): UCV en SCImago 2026</a></li>
+        <li><a href="https://larepublica.pe/nota-de-prensa/2026/03/06/ranking-scimago-2026-universidad-senor-de-sipan-se-consolida-entre-las-seis-mejores-universidades-del-pais-300228" target="_blank" rel="noopener">La República (2026, nota de prensa): USS en SCImago 2026</a></li>
+      </ul></details>
+    </div>
   </div>
 </section>
 
-<!-- 4 Escenarios -->
+<!-- 4 Simulación -->
 <section class="panel" id="escenarios" role="tabpanel" aria-labelledby="tab-escenarios" hidden>
   <div class="lead">
-    <h2>Simulador predictivo: tres escenarios con costos</h2>
-    <p>Mueva las palancas de la metodología SCImago (Investigación 50 %, Innovación 30 %, Impacto social 20 %). Cada palanca muestra cuántas unidades reales implica y cuánto cuesta al año.</p>
+    <h2><i data-ic="sliders" data-sz="22"></i> Simulación: decisiones, costos y puesto</h2>
+    <p>Cada palanca va de −100 a +100. En 0 todo sigue igual (inercia); por encima de 0 se invierte más en lo que valora SCImago; por debajo se recorta o se descuida. El color indica el tipo de escenario, de rojo (pesimista) a amarillo (inercial), verde (optimista) y azul (óptimo).</p>
   </div>
   <div id="extPath" hidden></div>
   <div id="simWrap" class="grid" style="gap:var(--gap)">
   <div class="sim">
     <div class="card" id="leverCard">
-      <div class="budget" id="budget">
-        <div class="bt"><span>Inversión anual del plan</span><span id="budgetTxt" class="num">S/ 0</span></div>
-        <div class="bb"><i id="budgetBar"></i></div>
-        <small class="note" id="budgetNote" style="margin:0"></small>
-        <div class="tbar" style="margin:8px 0 0;font-size:13px;font-weight:600"><label for="budgetIn">Presupuesto anual (S/ millones)</label><input type="number" id="budgetIn" min="0.1" step="0.5" style="width:90px"></div>
-        <div class="presets">
-          <button class="btn" type="button" data-preset="none">Sin acción</button>
-          <button class="btn" type="button" data-preset="research">Excelencia científica</button>
-          <button class="btn" type="button" data-preset="integral">Plan integral</button>
-          <button class="btn" type="button" data-preset="innov">Océano azul: innovación</button>
-        </div>
+      <h3 style="margin-top:0"><i data-ic="layers"></i> Planes de partida</h3>
+      <div class="presets pgrid">
+        <button class="btn" type="button" data-preset="pess" style="--pc:#C62828"><i data-ic="alert"></i> Malas decisiones</button>
+        <button class="btn" type="button" data-preset="none" style="--pc:#D9A300"><i data-ic="clock"></i> Inercia</button>
+        <button class="btn" type="button" data-preset="research" style="--pc:#43A047"><i data-ic="flask"></i> Excelencia científica</button>
+        <button class="btn" type="button" data-preset="integral" style="--pc:#43A047"><i data-ic="layers"></i> Plan integral</button>
+        <button class="btn" type="button" data-preset="innov" style="--pc:#00897B"><i data-ic="bulb"></i> Océano azul</button>
+        <button class="btn" type="button" data-preset="max" style="--pc:#1E5BD8"><i data-ic="trophy"></i> Óptimo máximo</button>
       </div>
+      <div class="scalebar" aria-hidden="true"><span>−100</span><span>0</span><span>+100</span></div>
       <div id="levers"></div>
       <div class="field">
-        <label for="startYear">Año de inicio de las acciones</label>
+        <label for="budgetIn"><i data-ic="wallet"></i> Presupuesto anual disponible (S/ millones)</label>
+        <input type="number" id="budgetIn" min="0.1" step="0.5" style="width:110px">
+      </div>
+      <div class="field">
+        <label for="startYear"><i data-ic="calendar"></i> Año de inicio de las acciones</label>
         <select id="startYear"><option>2027</option><option>2028</option></select>
         <small>SCImago evalúa un quinquenio que termina dos años antes de cada edición: lo que se publica en 2027 entra recién en la edición 2029.</small>
       </div>
-      <h3 style="margin-top:14px"><i data-ic="alert"></i> Escenario pesimista: malas decisiones</h3>
-      <div id="badList"></div>
       <div class="field">
-        <label for="compBoost">La competencia mejora (puntos de percentil por año)</label>
-        <input type="range" id="compBoost" min="0" max="3" step="0.25" value="1.5">
+        <label for="compBoost"><i data-ic="users"></i> La competencia acelera (pp de percentil por año)</label>
+        <input type="range" id="compBoost" min="0" max="3" step="0.25" value="0">
         <small id="compBoostTxt"></small>
       </div>
     </div>
     <div class="simR">
-      <div class="scen" id="scenCards"></div>
+      <div class="card simsum" id="simSum">
+        <div class="ss-top"><span class="ss-k"><i data-ic="target"></i> Tu simulación · edición <b class="hz2">2030</b></span><span class="chip" id="ssTag"></span></div>
+        <div class="ss-main">
+          <div class="ss-rank"><b id="ssNat" class="num">—</b><small>puesto nacional</small></div>
+          <div class="ss-meta" id="ssMeta"></div>
+        </div>
+        <div class="ss-meter" aria-hidden="true"><div class="ss-track"></div><i id="ssMark"></i><div class="ss-lbl"><span>Pesimista</span><span>Inercial</span><span>Optimista</span><span>Óptimo</span></div></div>
+        <div class="money" id="money">
+          <div class="coinbox" id="coinBox"><div class="pile" id="pile"></div></div>
+          <div class="mtxt"><small id="mLbl">Inversión anual del plan</small><b id="mVal" class="num">S/ 0</b><div class="mbar"><i id="mBar"></i></div><small id="mSub"></small></div>
+        </div>
+      </div>
       <div class="card">
-        <div class="tbar" style="justify-content:space-between;margin-bottom:4px"><h3 style="margin:0"><i data-ic="line"></i> Proyección por escenario</h3><div class="seg" id="segScen"><button aria-pressed="true" data-v="pct">Percentil</button><button aria-pressed="false" data-v="nat">Nacional</button><button aria-pressed="false" data-v="glob">Mundial</button></div></div>
+        <div class="tbar" style="justify-content:space-between;margin-bottom:4px"><h3 style="margin:0"><i data-ic="line"></i> Proyección de la simulación</h3><div class="seg" id="segScen"><button aria-pressed="true" data-v="pct"><i data-ic="percent"></i> Percentil</button><button aria-pressed="false" data-v="nat"><i data-ic="flag"></i> Nacional</button><button aria-pressed="false" data-v="glob"><i data-ic="globe"></i> Mundial</button></div></div>
         <div class="chart" id="chScen" style="min-height:250px"></div>
         <div class="legend" id="lgScen"></div>
       </div>
@@ -523,16 +619,16 @@ svg.ic{vertical-align:-3px; flex:none}
       <div class="chart" id="chLadder" style="min-height:300px"></div>
     </div>
     <div class="card">
-      <h3><i data-ic="bars"></i> ¿Cuánto aporta cada palanca?</h3>
-      <p class="sub">Mejora de percentil atribuible a cada palanca en la edición <span class="hz">2030</span> (escenario de acción).</p>
+      <h3><i data-ic="bars"></i> ¿Cuánto aporta o resta cada palanca?</h3>
+      <p class="sub">Puntos de percentil que cada palanca suma (derecha) o resta (izquierda) frente a la inercia en la edición <span class="hz">2030</span>.</p>
       <div class="chart" id="chContrib" style="min-height:240px"></div>
     </div>
   </div>
   <div class="card">
-    <h3><i data-ic="coins"></i> Costo del plan y referencias</h3>
+    <h3><i data-ic="coins"></i> Costo o ahorro del plan y referencias</h3>
     <p class="sub" id="q1note"></p>
     <div class="tblwrap"><table id="costTbl"></table></div>
-    <details style="margin-top:12px"><summary style="cursor:pointer;font-weight:700">Referencias de costos (fuentes)</summary><ul class="refs" id="refList"></ul></details>
+    <details style="margin-top:12px"><summary style="cursor:pointer;font-weight:700"><i data-ic="book"></i> Referencias de costos (fuentes)</summary><ul class="refs" id="refList"></ul></details>
   </div>
   </div>
 </section>
@@ -563,7 +659,7 @@ svg.ic{vertical-align:-3px; flex:none}
     <h3><i data-ic="play"></i> La carrera nacional, edición por edición</h3>
     <p class="sub">Barras más largas = mejor puesto mundial. Vea la carrera completa para ganar una insignia.</p>
     <div class="race-ctl">
-      <button class="btn pri" id="racePlay" type="button">▶ Reproducir</button>
+      <button class="btn pri" id="racePlay" type="button"><i data-ic="play"></i> Reproducir</button>
       <span class="race-year num" id="raceYear">2009</span>
       <input type="range" id="raceSlider" min="0" max="16" value="0" aria-label="Edición">
       <label>Velocidad <select id="raceSpeed"><option value="1600">Lenta</option><option value="1000" selected>Normal</option><option value="550">Rápida</option></select></label>
@@ -584,16 +680,16 @@ svg.ic{vertical-align:-3px; flex:none}
 
 <footer>
   <details>
-    <summary>Fuentes, supuestos y notas metodológicas</summary>
-    <ul>
-      <li>Posiciones: archivos SCImago Institutions Rankings, sector Universidades, Perú (ediciones 2009 y 2011–2026; 2013 venía duplicado y se usó una vez). La columna «Global Rank» es el puesto entre todas las instituciones del mundo de todos los sectores.</li>
-      <li>Total de instituciones evaluadas por edición (para el percentil): 2020: 7 026; 2022: 8 084; 2024: 9 054; 2025: 9 756; 2026: 10 827, según comunicados institucionales que citan a SCImago. 2021 y 2023 se estimaron como punto medio entre ediciones vecinas.</li>
-      <li>Metodología vigente: Investigación 50 % (Impacto normalizado 13, Excelencia con liderazgo 8, Producción 8, Liderazgo científico 5, Revistas no propias 3, Revistas propias 3, Excelencia 2, Publicaciones Q1 2, Colaboración internacional 2, Acceso abierto 2, Talento científico 2); Innovación 30 % (Conocimiento innovador 10, Patentes 10, Impacto tecnológico 10); Impacto social 20 % (Menciones en medios 3, Tamaño web 3, Autoridad web 3, ODS 5, Talento científico femenino 3, Impacto en políticas públicas 3). Ventana: cinco años que terminan dos años antes de la edición.</li>
-      <li>Desde 2023 SCImago numera los empates con el mismo puesto. Los escenarios son un modelo ilustrativo: la relación entre esfuerzo y mejora del percentil (elasticidad), la amortiguación y los costos de las palancas son supuestos ajustables en «Personalizar», no estimaciones oficiales. No se modelan nuevas universidades que ingresen al ranking.</li>
-      <li>Clasificación privada/pública y Lima/regiones elaborada para este análisis según la sede principal de cada universidad.</li>
-      <li>Producción científica: OpenAlex (consultado el 12-nov-2026): trabajos con afiliación, artículos, trabajos con autor de correspondencia de la institución, coautoría internacional y acceso abierto. Los conteos difieren de Scopus y los de 2025 aún pueden crecer.</li>
-      <li>Universidades licenciadas: 98 según SUNEDU (Gestión, 2026); 49 privadas licenciadas según la OCDE (2025). Matrícula de USIL: 19 371 estudiantes en 2022 (Gestión, con datos de SUNEDU).</li>
-      <li>Costos del simulador: referencias publicadas (APC y bonos por cuartil en reglamentos de universidades peruanas, tasas PCT de la OMPI, estancias PUCP) y supuestos señalados como tales en la tabla de costos. El efecto en postulantes es una estimación ilustrativa basada en literatura internacional sobre rankings.</li>
+    <summary><i data-ic="info"></i> Fuentes, supuestos y notas metodológicas</summary>
+    <ul class="ib">
+      <li><i data-ic="file"></i><span>Posiciones: archivos SCImago Institutions Rankings, sector Universidades, Perú (ediciones 2009 y 2011–2026; 2013 venía duplicado y se usó una vez). La columna «Global Rank» es el puesto entre todas las instituciones del mundo de todos los sectores.</span></li>
+      <li><i data-ic="globe"></i><span>Total de instituciones evaluadas por edición (para el percentil): 2020: 7 026; 2022: 8 084; 2024: 9 054; 2025: 9 756; 2026: 10 827, según comunicados institucionales que citan a SCImago. 2021 y 2023 se estimaron como punto medio entre ediciones vecinas.</span></li>
+      <li><i data-ic="ruler"></i><span>Metodología vigente: Investigación 50 % (Impacto normalizado 13, Excelencia con liderazgo 8, Producción 8, Liderazgo científico 5, Revistas no propias 3, Revistas propias 3, Excelencia 2, Publicaciones Q1 2, Colaboración internacional 2, Acceso abierto 2, Talento científico 2); Innovación 30 % (Conocimiento innovador 10, Patentes 10, Impacto tecnológico 10); Impacto social 20 % (Menciones en medios 3, Tamaño web 3, Autoridad web 3, ODS 5, Talento científico femenino 3, Impacto en políticas públicas 3). Ventana: cinco años que terminan dos años antes de la edición.</span></li>
+      <li><i data-ic="alert"></i><span>Desde 2023 SCImago numera los empates con el mismo puesto. Los escenarios son un modelo ilustrativo: la relación entre esfuerzo y mejora del percentil (elasticidad), la amortiguación y los costos de las palancas son supuestos ajustables en «Personalizar», no estimaciones oficiales. No se modelan nuevas universidades que ingresen al ranking.</span></li>
+      <li><i data-ic="pin"></i><span>Clasificación privada/pública y Lima/regiones elaborada para este análisis según la sede principal de cada universidad.</span></li>
+      <li><i data-ic="book"></i><span>Producción científica: OpenAlex (consultado el 12-nov-2026): trabajos con afiliación, artículos, trabajos con autor de correspondencia de la institución, coautoría internacional y acceso abierto. Los conteos difieren de Scopus y los de 2025 aún pueden crecer.</span></li>
+      <li><i data-ic="shield"></i><span>Instituciones licenciadas: 107 según la lista oficial de SUNEDU (105 universidades y 2 escuelas de posgrado). Matrícula de USIL: 19 371 estudiantes en 2022 (Gestión, con datos de SUNEDU).</span></li>
+      <li><i data-ic="coins"></i><span>Costos del simulador: referencias publicadas (APC y bonos por cuartil en reglamentos de universidades peruanas, tasas PCT de la OMPI, estancias PUCP) y supuestos señalados como tales en la tabla de costos. El efecto en postulantes es una estimación ilustrativa basada en literatura internacional sobre rankings.</span></li>
     </ul>
   </details>
 </footer>
@@ -607,27 +703,27 @@ svg.ic{vertical-align:-3px; flex:none}
 </div>
 <div class="scrim" id="scrim"></div>
 <aside class="drawer" id="drawer" aria-label="Personalizar" aria-hidden="true">
-  <div style="display:flex;justify-content:space-between;align-items:center"><h3>Personalizar el observatorio</h3><button class="btn" id="btnClose" type="button">Cerrar</button></div>
+  <div style="display:flex;justify-content:space-between;align-items:center"><h3>Personalizar el observatorio</h3><button class="btn" id="btnClose" type="button"><i data-ic="x"></i> Cerrar</button></div>
   <p class="note" style="margin-top:0">Sus preferencias se guardan en este navegador.</p>
   <div class="field"><label for="setFocus"><i data-ic="landmark"></i> Universidad foco</label><select id="setFocus"></select><small>Todos los paneles se recalculan para la universidad elegida.</small></div>
-  <div class="field"><span>Grupo de comparación</span><div class="comps" id="setComps"></div><div class="presets"><button class="btn" type="button" id="compsNear">Vecinos 2026</button><button class="btn" type="button" id="compsPriv">Privadas de Lima</button><button class="btn" type="button" id="compsTop">Top 8</button><button class="btn" type="button" id="compsNone">Ninguno</button></div></div>
-  <div class="field"><span>Tema</span><div class="seg" id="setTheme"><button data-v="auto" aria-pressed="false">Automático</button><button data-v="light" aria-pressed="true">Claro</button><button data-v="dark" aria-pressed="false">Oscuro</button><button data-v="contrast" aria-pressed="false">Alto contraste</button></div></div>
-  <div class="field"><span>Paleta de acento</span><div class="seg" id="setPal"><button data-v="usil" aria-pressed="true">Azul USIL</button><button data-v="dorado" aria-pressed="false">Dorado 30 años</button><button data-v="access" aria-pressed="false">Accesible</button></div></div>
-  <div class="field"><span>Suavizado de líneas</span><div class="seg" id="setSmooth"><button data-v="media" aria-pressed="true">Media ponderada</button><button data-v="curva" aria-pressed="false">Solo curva</button><button data-v="ninguno" aria-pressed="false">Sin suavizar</button></div><small>La media ponderada (1-2-1) conserva el primer y el último valor; los puntos muestran el dato real.</small></div>
+  <div class="field"><span><i data-ic="users"></i> Grupo de comparación</span><div class="comps" id="setComps"></div><div class="presets"><button class="btn" type="button" id="compsNear"><i data-ic="users"></i> Vecinos 2026</button><button class="btn" type="button" id="compsPriv"><i data-ic="briefcase"></i> Privadas de Lima</button><button class="btn" type="button" id="compsTop"><i data-ic="trophy"></i> Top 8</button><button class="btn" type="button" id="compsNone"><i data-ic="x"></i> Ninguno</button></div></div>
+  <div class="field"><span><i data-ic="sun"></i> Tema</span><div class="seg" id="setTheme"><button data-v="auto" aria-pressed="false"><i data-ic="settings"></i> Automático</button><button data-v="light" aria-pressed="true"><i data-ic="sun"></i> Claro</button><button data-v="dark" aria-pressed="false"><i data-ic="moon"></i> Oscuro</button><button data-v="contrast" aria-pressed="false">Alto contraste</button></div></div>
+  <div class="field"><span><i data-ic="palette"></i> Paleta de acento</span><div class="seg" id="setPal"><button data-v="usil" aria-pressed="true">Azul USIL</button><button data-v="dorado" aria-pressed="false">Dorado 30 años</button><button data-v="access" aria-pressed="false">Accesible</button></div></div>
+  <div class="field"><span><i data-ic="activity"></i> Suavizado de líneas</span><div class="seg" id="setSmooth"><button data-v="media" aria-pressed="true">Media ponderada</button><button data-v="curva" aria-pressed="false">Solo curva</button><button data-v="ninguno" aria-pressed="false">Sin suavizar</button></div><small>La media ponderada (1-2-1) conserva el primer y el último valor; los puntos muestran el dato real.</small></div>
   <div class="field"><label for="setBaseLed">Trabajos liderados al año (línea de base del simulador)</label><input type="number" id="setBaseLed" min="1" step="5"><small>Por defecto: OpenAlex 2025 cuando hay datos.</small></div>
-  <div class="field"><span>Universidades comparadas</span><div class="seg" id="setPastel"><button data-v="1" aria-pressed="true">Tonos pastel</button><button data-v="0" aria-pressed="false">Colores intensos</button></div><small>La universidad foco siempre va en color fuerte.</small></div>
-  <div class="field"><span>Densidad</span><div class="seg" id="setDense"><button data-v="0" aria-pressed="true">Cómoda</button><button data-v="1" aria-pressed="false">Compacta</button></div></div>
-  <div class="field"><span>KPIs visibles</span><div class="comps" id="setKpis" style="grid-template-columns:1fr"></div></div>
-  <div class="field"><label for="setHorizon">Horizonte de proyección: <b id="setHorizonTxt">2030</b></label><input type="range" id="setHorizon" min="2028" max="2032" step="1" value="2030"></div>
+  <div class="field"><span><i data-ic="palette"></i> Universidades comparadas</span><div class="seg" id="setPastel"><button data-v="1" aria-pressed="true">Tonos pastel</button><button data-v="0" aria-pressed="false">Colores intensos</button></div><small>La universidad foco siempre va en color fuerte.</small></div>
+  <div class="field"><span><i data-ic="grid"></i> Densidad</span><div class="seg" id="setDense"><button data-v="0" aria-pressed="true">Cómoda</button><button data-v="1" aria-pressed="false">Compacta</button></div></div>
+  <div class="field"><span><i data-ic="gauge"></i> KPIs visibles</span><div class="comps" id="setKpis" style="grid-template-columns:1fr"></div></div>
+  <div class="field"><label for="setHorizon"><i data-ic="calendar"></i> Horizonte de la simulación: <b id="setHorizonTxt">2030</b></label><input type="range" id="setHorizon" min="2028" max="2035" step="1" value="2030"></div>
   <div class="field"><label for="setDamp">Persistencia del impulso: <b id="setDampTxt">60 %</b></label><input type="range" id="setDamp" min="0" max="1" step="0.05" value="0.6"><small>100 % = la tendencia sigue igual; 0 % = se detiene el próximo año.</small></div>
   <div class="field"><label for="setElas">Elasticidad del simulador: <b id="setElasTxt">15</b></label><input type="range" id="setElas" min="5" max="60" step="1" value="15"><small>Puntos de percentil que se ganarían con el 100 % del puntaje compuesto mejorado. Valor por defecto calibrado con la elasticidad producción–puesto observada en las universidades peruanas (−0,155).</small></div>
   <div class="field"><label for="setQ1">Artículos liderados en Q1: <b id="setQ1Txt">30 %</b></label><input type="range" id="setQ1" min="10" max="60" step="5" value="30"><small>Supuesto para la línea de base de publicaciones Q1 del simulador.</small></div>
-  <div class="field"><button class="btn" type="button" id="btnReset">Restablecer todo (incluye XP)</button></div>
+  <div class="field"><button class="btn" type="button" id="btnReset"><i data-ic="reset"></i> Restablecer todo (incluye XP)</button></div>
 </aside>
 <div class="toast" id="toast" role="status" aria-live="polite"><span class="md" id="toastMd">★</span><div><b id="toastT"></b><small id="toastS"></small></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <script>
-const U=[{"name": "Pontificia Universidad Católica del Perú", "s": "PUCP", "t": "Privada", "r": "Lima"}, {"name": "Universidad Autónoma del Perú", "s": "UA", "t": "Privada", "r": "Lima"}, {"name": "Universidad Católica de Santa María", "s": "UCSM", "t": "Privada", "r": "Regiones"}, {"name": "Universidad César Vallejo", "s": "UCV", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Científica del Sur", "s": "UCSUR", "t": "Privada", "r": "Lima"}, {"name": "Universidad Continental", "s": "UC", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Nacional Agraria La Molina", "s": "UNALM", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional Amazónica de Madre de Dios", "s": "UNAMAD", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional Federico Villarreal", "s": "UNFV", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional Jorge Basadre Grohmann de Tacna", "s": "UNJBG", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional Mayor de San Marcos", "s": "UNMSM", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional Pedro Ruiz Gallo", "s": "UNPRG", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional Toribio Rodríguez de Mendoza de Amazonas", "s": "UNTRM", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de Educación Enrique Guzmán y Valle", "s": "UNE", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional de Ingeniería", "s": "UNI", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional de Moquegua", "s": "UNAM", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de San Agustín", "s": "UNSA", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de San Antonio Abad del Cusco", "s": "UNSAAC", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de Trujillo", "s": "UNT", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional del Altiplano", "s": "UNAP", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional del Callao", "s": "UNAC", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional del Centro del Perú", "s": "UNCP", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Norbert Wiener", "s": "UNW", "t": "Privada", "r": "Lima"}, {"name": "Universidad Perúana Cayetano Heredia", "s": "UPCH", "t": "Privada", "r": "Lima"}, {"name": "Universidad Perúana Unión", "s": "UPeU", "t": "Privada", "r": "Lima"}, {"name": "Universidad Perúana de Ciencias Aplicadas", "s": "UPC", "t": "Privada", "r": "Lima"}, {"name": "Universidad Privada Antenor Orrego", "s": "UPAO", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Privada San Juan Bautista", "s": "UPSJB", "t": "Privada", "r": "Lima"}, {"name": "Universidad Privada del Norte", "s": "UPN", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Ricardo Palma", "s": "URP", "t": "Privada", "r": "Lima"}, {"name": "Universidad San Ignacio de Loyola", "s": "USIL", "t": "Privada", "r": "Lima"}, {"name": "Universidad Señor de Sipán", "s": "USS", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Tecnológica del Perú", "s": "UTP", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Ciencias y Humanidades", "s": "UCH", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Ingeniería y Tecnologia", "s": "UTEC", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Lima", "s": "ULIMA", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Piura", "s": "UDEP", "t": "Privada", "r": "Regiones"}, {"name": "Universidad de San Martín de Porres", "s": "USMP", "t": "Privada", "r": "Lima"}, {"name": "Universidad del Pacífico", "s": "UP", "t": "Privada", "r": "Lima"}];
+const U=[{"name": "Pontificia Universidad Católica del Perú", "s": "PUCP", "t": "Privada", "r": "Lima"}, {"name": "Universidad Autónoma del Perú", "s": "UA", "t": "Privada", "r": "Lima"}, {"name": "Universidad Católica de Santa María", "s": "UCSM", "t": "Privada", "r": "Regiones"}, {"name": "Universidad César Vallejo", "s": "UCV", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Científica del Sur", "s": "UCSUR", "t": "Privada", "r": "Lima"}, {"name": "Universidad Continental", "s": "UC", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Nacional Agraria La Molina", "s": "UNALM", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional Amazónica de Madre de Dios", "s": "UNAMAD", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional Federico Villarreal", "s": "UNFV", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional Jorge Basadre Grohmann de Tacna", "s": "UNJBG", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional Mayor de San Marcos", "s": "UNMSM", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional Pedro Ruiz Gallo", "s": "UNPRG", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional Toribio Rodríguez de Mendoza de Amazonas", "s": "UNTRM", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de Educación Enrique Guzmán y Valle", "s": "UNE", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional de Ingeniería", "s": "UNI", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional de Moquegua", "s": "UNAM", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de San Agustín", "s": "UNSA", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de San Antonio Abad del Cusco", "s": "UNSAAC", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de Trujillo", "s": "UNT", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional del Altiplano", "s": "UNAP", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional del Callao", "s": "UNAC", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional del Centro del Perú", "s": "UNCP", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Norbert Wiener", "s": "UNW", "t": "Privada", "r": "Lima"}, {"name": "Universidad Peruana Cayetano Heredia", "s": "UPCH", "t": "Privada", "r": "Lima"}, {"name": "Universidad Peruana Unión", "s": "UPeU", "t": "Privada", "r": "Lima"}, {"name": "Universidad Peruana de Ciencias Aplicadas", "s": "UPC", "t": "Privada", "r": "Lima"}, {"name": "Universidad Privada Antenor Orrego", "s": "UPAO", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Privada San Juan Bautista", "s": "UPSJB", "t": "Privada", "r": "Lima"}, {"name": "Universidad Privada del Norte", "s": "UPN", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Ricardo Palma", "s": "URP", "t": "Privada", "r": "Lima"}, {"name": "Universidad San Ignacio de Loyola", "s": "USIL", "t": "Privada", "r": "Lima"}, {"name": "Universidad Señor de Sipán", "s": "USS", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Tecnológica del Perú", "s": "UTP", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Ciencias y Humanidades", "s": "UCH", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Ingeniería y Tecnología", "s": "UTEC", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Lima", "s": "ULIMA", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Piura", "s": "UDEP", "t": "Privada", "r": "Regiones"}, {"name": "Universidad de San Martín de Porres", "s": "USMP", "t": "Privada", "r": "Lima"}, {"name": "Universidad del Pacífico", "s": "UP", "t": "Privada", "r": "Lima"}];
 const RAW=[[2009, 1, 2386, 23, null], [2011, 1, 2717, 23, null], [2011, 2, 3955, 10, null], [2012, 1, 2936, 23, null], [2012, 2, 3292, 0, null], [2012, 3, 4395, 10, null], [2013, 1, 3231, 0, null], [2013, 2, 3411, 23, null], [2013, 3, 4755, 10, null], [2014, 1, 3070, 0, null], [2014, 2, 3802, 23, null], [2014, 3, 5005, 10, null], [2015, 1, 3198, 0, null], [2015, 2, 3866, 23, null], [2015, 3, 5058, 10, null], [2016, 1, 2974, 0, null], [2016, 2, 4037, 23, null], [2016, 3, 5056, 10, null], [2017, 1, 2955, 0, null], [2017, 2, 2962, 23, null], [2017, 3, 4880, 25, null], [2017, 4, 4946, 10, null], [2018, 1, 4052, 0, null], [2018, 2, 4134, 23, null], [2018, 3, 5386, 10, null], [2018, 4, 5523, 25, null], [2018, 5, 5573, 37, null], [2018, 6, 5586, 4, null], [2019, 1, 2845, 23, null], [2019, 2, 3499, 25, null], [2019, 3, 3907, 10, null], [2019, 4, 4280, 0, null], [2019, 5, 4592, 37, null], [2020, 1, 2831, 23, null], [2020, 2, 4117, 10, null], [2020, 3, 4132, 25, null], [2020, 4, 4405, 37, null], [2020, 5, 4903, 0, null], [2020, 6, 5143, 6, null], [2020, 7, 6372, 4, null], [2020, 8, 6529, 14, null], [2020, 9, 6760, 16, null], [2021, 1, 2933, 23, null], [2021, 2, 4069, 6, null], [2021, 3, 4653, 0, null], [2021, 4, 4685, 10, null], [2021, 5, 5315, 37, null], [2021, 6, 5589, 30, null], [2021, 7, 5674, 25, null], [2021, 8, 6010, 5, null], [2021, 9, 6738, 38, null], [2021, 10, 7012, 4, null], [2021, 11, 7218, 14, null], [2021, 12, 7245, 16, null], [2021, 13, 7424, 33, null], [2022, 1, 3137, 18, null], [2022, 2, 3390, 23, null], [2022, 3, 4432, 6, null], [2022, 4, 4625, 10, null], [2022, 5, 4660, 0, null], [2022, 6, 5243, 30, null], [2022, 7, 5822, 5, null], [2022, 8, 6560, 4, null], [2022, 9, 6766, 25, null], [2022, 10, 6812, 3, null], [2022, 11, 7245, 38, null], [2022, 12, 7270, 28, null], [2022, 13, 7389, 16, null], [2022, 14, 7407, 8, null], [2022, 15, 7418, 35, null], [2022, 16, 7786, 14, null], [2022, 17, 7902, 33, null], [2023, 1, 4558, 23, null], [2023, 2, 4813, 0, null], [2023, 3, 5396, 18, null], [2023, 4, 5782, 10, null], [2023, 5, 6208, 30, null], [2023, 6, 6230, 6, null], [2023, 7, 6721, 27, null], [2023, 8, 6764, 37, null], [2023, 8, 6764, 29, null], [2023, 10, 7396, 19, null], [2023, 11, 7416, 4, null], [2023, 12, 7450, 25, null], [2023, 13, 7594, 17, null], [2023, 14, 7694, 14, null], [2023, 15, 7732, 38, null], [2023, 16, 7740, 22, null], [2023, 17, 7830, 28, null], [2023, 18, 7851, 5, null], [2023, 19, 7860, 35, null], [2023, 20, 7867, 16, null], [2023, 21, 7970, 3, null], [2023, 22, 8032, 24, null], [2023, 23, 8042, 2, null], [2023, 24, 8073, 26, null], [2023, 25, 8186, 33, null], [2023, 26, 8201, 8, null], [2023, 27, 8313, 32, null], [2024, 1, 3749, 0, null], [2024, 2, 4289, 23, null], [2024, 3, 4345, 10, null], [2024, 4, 5471, 25, null], [2024, 5, 5661, 32, null], [2024, 6, 5978, 28, null], [2024, 7, 5984, 30, null], [2024, 8, 6155, 3, null], [2024, 9, 6173, 22, null], [2024, 10, 6214, 19, null], [2024, 11, 6335, 29, null], [2024, 12, 6342, 37, null], [2024, 12, 6342, 18, null], [2024, 14, 6720, 5, null], [2024, 15, 6733, 6, null], [2024, 16, 6847, 35, null], [2024, 17, 6858, 17, null], [2024, 18, 6971, 14, null], [2024, 19, 7031, 31, null], [2024, 20, 7141, 16, null], [2024, 21, 7173, 4, null], [2024, 22, 7213, 27, null], [2024, 23, 7285, 38, null], [2024, 24, 7464, 26, null], [2024, 25, 7564, 34, null], [2024, 26, 7587, 24, null], [2024, 27, 7699, 2, null], [2024, 28, 7712, 8, null], [2024, 29, 8431, 33, null], [2024, 30, 8804, 1, null], [2025, 1, 4001, 0, null], [2025, 2, 4730, 10, null], [2025, 3, 4774, 23, null], [2025, 4, 5677, 25, null], [2025, 5, 5784, 3, null], [2025, 6, 6127, 30, null], [2025, 7, 6548, 28, null], [2025, 8, 6822, 4, null], [2025, 9, 6848, 22, null], [2025, 10, 6910, 24, null], [2025, 11, 6983, 31, null], [2025, 12, 7016, 14, null], [2025, 13, 7028, 17, null], [2025, 14, 7139, 5, null], [2025, 15, 7146, 37, null], [2025, 16, 7237, 29, null], [2025, 17, 7274, 32, null], [2025, 18, 7366, 19, null], [2025, 19, 7404, 38, null], [2025, 20, 7418, 21, null], [2025, 21, 7428, 18, null], [2025, 22, 7478, 6, null], [2025, 23, 7496, 16, null], [2025, 24, 7790, 35, null], [2025, 25, 7802, 27, null], [2025, 26, 7840, 26, null], [2025, 27, 7862, 7, null], [2025, 28, 7926, 2, null], [2025, 29, 7930, 11, null], [2025, 30, 8078, 8, null], [2025, 31, 8085, 36, null], [2025, 32, 8099, 13, null], [2025, 33, 8127, 12, null], [2025, 33, 8127, 20, null], [2025, 35, 9139, 1, null], [2025, 36, 9382, 33, null], [2026, 1, 4618, 0, 1], [2026, 2, 5526, 10, 1], [2026, 3, 5964, 23, 1], [2026, 4, 6448, 3, 1], [2026, 5, 6530, 30, 1], [2026, 6, 6663, 31, 1], [2026, 7, 6745, 24, 1], [2026, 8, 6956, 25, 1], [2026, 9, 6968, 4, 2], [2026, 10, 7116, 29, 2], [2026, 11, 7269, 5, 2], [2026, 12, 7373, 28, 1], [2026, 13, 7419, 22, 1], [2026, 14, 7460, 37, 2], [2026, 15, 7528, 27, 2], [2026, 16, 7534, 14, 1], [2026, 17, 7569, 17, 2], [2026, 18, 7620, 7, 1], [2026, 19, 7783, 6, 2], [2026, 20, 7809, 32, 1], [2026, 21, 7850, 38, 1], [2026, 21, 7850, 19, 2], [2026, 23, 7873, 12, 1], [2026, 24, 8027, 18, 2], [2026, 25, 8250, 16, 2], [2026, 26, 8271, 21, 1], [2026, 27, 8383, 9, 2], [2026, 28, 8401, 2, 3], [2026, 29, 8613, 8, 3], [2026, 30, 8665, 26, 3], [2026, 31, 8757, 35, 2], [2026, 32, 8943, 11, 3], [2026, 33, 8950, 13, 2], [2026, 34, 9270, 34, 1], [2026, 35, 9477, 20, 4], [2026, 36, 9831, 1, 2], [2026, 37, 9836, 15, 2], [2026, 38, 10260, 33, 4]];
 const LIC=[["Universidad Científica del Perú", "Privada", "Loreto", -1], ["Universidad Peruana de las Américas", "Privada", "Lima", -1], ["Universidad Nacional Tecnológica de Frontera San Ignacio de Loyola", "Pública", "Cajamarca", -1], ["Universidad Interamericana para el Desarrollo", "Privada", "Lima", -1], ["Universidad José Carlos Mariátegui", "Privada", "Moquegua", -1], ["Universidad Nacional de Música", "Pública", "Lima", -1], ["Universidad Nacional Daniel Alomía Robles", "Pública", "Huánuco", -1], ["Universidad Católica Los Ángeles de Chimbote", "Privada", "Áncash", -1], ["Universidad Politécnica del Perú", "Privada", "Lima", -1], ["Universidad Privada de Trujillo", "Privada", "La Libertad", -1], ["Universidad Peruana del Centro", "Privada", "Junín", -1], ["Universidad Nacional Ciro Alegría", "Pública", "La Libertad", -1], ["Universidad Nacional Pedro Ruiz Gallo", "Pública", "Lambayeque", 11], ["Universidad Nacional San Luis Gonzaga", "Pública", "Ica", -1], ["Universidad Autónoma de Ica", "Privada", "Ica", -1], ["Facultad de Teología Pontificia y Civil de Lima", "Privada", "Lima", -1], ["Universidad Nacional Federico Villarreal", "Pública", "Lima", 8], ["Universidad Tecnológica de los Andes", "Privada", "Apurímac", -1], ["Universidad Peruana Los Andes", "Privada", "Junín", -1], ["Universidad Nacional Micaela Bastidas de Apurímac", "Pública", "Apurímac", -1], ["Universidad Nacional José Faustino Sánchez Carrión", "Pública", "Lima", -1], ["Universidad Señor de Sipán", "Privada", "Lambayeque", 31], ["Universidad Nacional del Callao", "Pública", "Callao", 20], ["Universidad Nacional de Educación Enrique Guzmán y Valle", "Pública", "Lima", 13], ["Universidad Privada Norbert Wiener", "Privada", "Lima", 22], ["Universidad Nacional de Tumbes", "Pública", "Tumbes", -1], ["Universidad Privada San Juan Bautista", "Privada", "Lima", 27], ["Universidad Nacional Amazónica de Madre de Dios", "Pública", "Madre de Dios", 7], ["Universidad Nacional Agraria de la Selva", "Pública", "Huánuco", -1], ["Universidad Nacional Daniel Alcides Carrión", "Pública", "Pasco", -1], ["Universidad Nacional Hermilio Valdizán", "Pública", "Huánuco", -1], ["Universidad Nacional de Huancavelica", "Pública", "Huancavelica", -1], ["Universidad Nacional Intercultural de Quillabamba", "Pública", "Cusco", -1], ["Universidad Tecnológica del Perú", "Privada", "Lima", 32], ["Universidad Privada de Huancayo Franklin Roosevelt", "Privada", "Junín", -1], ["Universidad César Vallejo", "Privada", "La Libertad", 3], ["Universidad de Huánuco", "Privada", "Huánuco", -1], ["Universidad Nacional de Piura", "Pública", "Piura", -1], ["Universidad Nacional de San Antonio Abad del Cusco", "Pública", "Cusco", 17], ["Universidad Nacional de San Martín", "Pública", "San Martín", -1], ["Universidad Nacional de Frontera", "Pública", "Piura", -1], ["Universidad Nacional del Santa", "Pública", "Áncash", -1], ["Universidad Nacional del Centro del Perú", "Pública", "Junín", 21], ["Universidad Católica de Trujillo Benedicto XVI", "Privada", "La Libertad", -1], ["Universidad Nacional Autónoma de Tayacaja Daniel Hernández Morillo", "Pública", "Huancavelica", -1], ["Universidad Nacional de la Amazonía Peruana", "Pública", "Loreto", -1], ["Universidad Nacional Santiago Antúnez de Mayolo", "Pública", "Áncash", -1], ["Universidad Nacional Autónoma de Chota", "Pública", "Cajamarca", -1], ["Universidad Le Cordon Bleu", "Privada", "Lima", -1], ["Universidad Nacional de Ucayali", "Pública", "Ucayali", -1], ["Universidad María Auxiliadora", "Privada", "Lima", -1], ["Universidad Nacional Autónoma Altoandina de Tarma", "Pública", "Junín", -1], ["Universidad Nacional Intercultural de la Amazonía", "Pública", "Ucayali", -1], ["Universidad Nacional de Trujillo", "Pública", "La Libertad", 18], ["Universidad Católica Sedes Sapientiae", "Privada", "Lima", -1], ["Universidad Nacional de Cañete", "Pública", "Lima", -1], ["Universidad Nacional de San Agustín", "Pública", "Arequipa", 16], ["Universidad Nacional de Juliaca", "Pública", "Puno", -1], ["Universidad Nacional Intercultural Fabiola Salazar Leguía de Bagua", "Pública", "Amazonas", -1], ["Universidad Continental", "Privada", "Junín", 5], ["Universidad Autónoma del Perú", "Privada", "Lima", 1], ["Universidad Nacional de Cajamarca", "Pública", "Cajamarca", -1], ["Universidad Nacional Autónoma de Alto Amazonas", "Pública", "Loreto", -1], ["Universidad Nacional Tecnológica de Lima Sur", "Pública", "Lima", -1], ["Universidad Jaime Bausate y Meza", "Privada", "Lima", -1], ["Universidad Nacional Jorge Basadre Grohmann", "Pública", "Tacna", 9], ["Universidad Peruana Unión", "Privada", "Lima", 24], ["Universidad Nacional de San Cristóbal de Huamanga", "Pública", "Ayacucho", -1], ["Universidad Nacional de Barranca", "Pública", "Lima", -1], ["Universidad Científica del Sur", "Privada", "Lima", 4], ["Universidad ESAN", "Privada", "Lima", -1], ["Universidad Nacional Mayor de San Marcos", "Pública", "Lima", 10], ["Universidad Privada Antenor Orrego", "Privada", "La Libertad", 26], ["Universidad Nacional Intercultural de la Selva Central Juan Santos Atahualpa", "Pública", "Junín", -1], ["Universidad Católica Santo Toribio de Mogrovejo", "Privada", "Lambayeque", -1], ["Universidad La Salle", "Privada", "Arequipa", -1], ["Universidad Nacional de Jaén", "Pública", "Cajamarca", -1], ["Universidad Nacional de Moquegua", "Pública", "Moquegua", 15], ["Universidad Católica de Santa María", "Privada", "Arequipa", 2], ["Universidad Nacional del Altiplano", "Pública", "Puno", 19], ["Universidad Andina del Cusco", "Privada", "Cusco", -1], ["Universidad Privada de Tacna", "Privada", "Tacna", -1], ["Universidad Nacional de Ingeniería", "Pública", "Lima", 14], ["Universidad de Ciencias y Humanidades", "Privada", "Lima", 33], ["Universidad Privada del Norte", "Privada", "La Libertad", 28], ["Universidad Católica San Pablo", "Privada", "Arequipa", -1], ["Universidad Marcelino Champagnat", "Privada", "Lima", -1], ["Universidad San Ignacio de Loyola", "Privada", "Lima", 30], ["Universidad Peruana de Ciencias Aplicadas", "Privada", "Lima", 25], ["Universidad Nacional José María Arguedas", "Pública", "Apurímac", -1], ["Universidad Nacional Toribio Rodríguez de Mendoza de Amazonas", "Pública", "Amazonas", 12], ["Universidad de San Martín de Porres", "Privada", "Lima", 37], ["Universidad Antonio Ruiz de Montoya", "Privada", "Lima", -1], ["Universidad Nacional Autónoma de Huanta", "Pública", "Ayacucho", -1], ["Universidad Nacional Agraria La Molina", "Pública", "Lima", 6], ["Universidad de Piura", "Privada", "Piura", 36], ["Universidad Ricardo Palma", "Privada", "Lima", 29], ["Universidad Femenina del Sagrado Corazón", "Privada", "Lima", -1], ["Universidad de Ciencias y Artes de América Latina", "Privada", "Lima", -1], ["Universidad para el Desarrollo Andino", "Privada", "Huancavelica", -1], ["Universidad Peruana Cayetano Heredia", "Privada", "Lima", 23], ["Universidad del Pacífico", "Privada", "Lima", 38], ["Universidad de Lima", "Privada", "Lima", 35], ["Pontificia Universidad Católica del Perú", "Privada", "Lima", 0], ["Universidad de Ingeniería y Tecnología", "Privada", "Lima", 34]];
 /* ===== Datos base ===== */
@@ -707,7 +803,21 @@ const ICONS = {
  file:'<path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5z"/><path d="M14 2v6h6M16 13H8M16 17H8"/>',
  stairs:'<path d="M3 21h4v-4h4v-4h4V9h4V5h2"/>',
  x:'<path d="M18 6 6 18M6 6l12 12"/>',
- key:'<circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/>'
+ key:'<circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/>',
+ wallet:'<path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>',
+ percent:'<path d="M19 5 5 19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>',
+ reset:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>',
+ scissors:'<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ down:'<path d="M22 17 13.5 8.5 8.5 13.5 2 7"/><path d="M16 17h6v-6"/>',
+ rocket:'<path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.9A12.9 12.9 0 0 1 22 2c0 2.7-.8 7.5-6 11a22.4 22.4 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/>',
+ calendar:'<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+ help:'<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/>',
+ check:'<path d="M20 6 9 17l-5-5"/>',
+ palette:'<circle cx="13.5" cy="6.5" r="1"/><circle cx="17.5" cy="10.5" r="1"/><circle cx="8.5" cy="7.5" r="1"/><circle cx="6.5" cy="12.5" r="1"/><path d="M12 2a10 10 0 0 0 0 20c.9 0 1.7-.7 1.7-1.7 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.7 1.7-1.7H16a6 6 0 0 0 6-6c0-4.9-4.5-8.4-10-8.4z"/>',
+ moon:'<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>',
+ sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+ pin:'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>'
 };
 const ic = (n, sz) => `<svg class="ic" viewBox="0 0 24 24" width="${sz||16}" height="${sz||16}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||''}</svg>`;
 function paintIcons(root){ (root||document).querySelectorAll('i[data-ic]').forEach(el=>{ if(!el.dataset.done){ el.innerHTML = ic(el.dataset.ic, +el.dataset.sz||undefined); el.dataset.done=1; } }); }
@@ -737,7 +847,7 @@ const KPI_DEFS = [
 ];
 const DEF = () => ({focus:iUSIL, comps:['UPC','UCV','USS','UPeU','UCSUR','ULIMA','UP','UTP'].map(SIG), theme:'light', pal:'usil', dense:0, pastel:1,
   horizon:2030, damp:0.6, elas:15, kpis:KPI_DEFS.map(k=>k[0]), lev:{q1:0,out:0,tal:0,col:0,pat:0,ik:0,ods:0,web:0}, start:2027, budget:5,
-  q1share:30, bad:{cut:true,pred:true,rot:true,aff:true,web:true}, comp:1.5, xp:0, got:[], visited:[], narr:[], pred:null, tab:'kpis', aud:'rector',
+  q1share:30, comp:1.5, compSim:0, xp:0, got:[], visited:[], narr:[], pred:null, tab:'kpis', aud:'rector',
   rev:{mat:19371, pago:20000, ing:20, sens:0.5}, smooth:'media', onboarded:false, baseLedBy:{}, revBy:{}, extBy:{}});
 let S = DEF();
 try {
@@ -785,55 +895,62 @@ function inert(u,E){ const r=byU.get(u)?.get(LAST); if(!r) return null; const sl
 /* Palancas: peso SCImago, unidades reales y costo unitario anual (S/). base = línea de base anual estimada de USIL. */
 const q1Base = () => Math.round(baseLed() * S.q1share/100);
 const LEVERS = [
- {id:'q1', f:'Investigación', n:'Publicaciones Q1 con liderazgo', w:30, lag:'res', ind:'Impacto normalizado 13 · Excelencia con liderazgo 8 · Liderazgo científico 5 · Excelencia 2 · Q1 2',
+ {id:'q1', ic:'award', neg:'Recortar incentivos y bonos a la publicación Q1', negSave:true, f:'Investigación', n:'Publicaciones Q1 con liderazgo', w:30, lag:'res', ind:'Impacto normalizado 13 · Excelencia con liderazgo 8 · Liderazgo científico 5 · Excelencia 2 · Q1 2',
   unit:'artículos Q1 liderados', base:()=>q1Base(), max:()=>q1Base(), uc:29000, ucTxt:'APC esperado S/ 5 600 + bono S/ 8 000 + producción S/ 15 000', src:'ref'},
- {id:'out',f:'Investigación', n:'Volumen de producción en Scopus', w:14, lag:'res', ind:'Producción 8 · Revistas no propias 3 · Revistas propias 3',
+ {id:'out', ic:'file', neg:'Recortar horas y apoyo a la publicación', negSave:true,f:'Investigación', n:'Volumen de producción en Scopus', w:14, lag:'res', ind:'Producción 8 · Revistas no propias 3 · Revistas propias 3',
   unit:'artículos Q2–Q4 liderados', base:()=>baseLed()-q1Base(), max:()=>baseLed()-q1Base(), uc:15000, ucTxt:'APC esperado S/ 3 700 + bono S/ 5 000 + producción S/ 6 000', src:'ref'},
- {id:'tal',f:'Investigación', n:'Talento científico (autores activos)', w:2, lag:'res', ind:'Talento científico 2',
+ {id:'tal', ic:'users', neg:'Perder investigadores RENACYT por rotación', negSave:true,f:'Investigación', n:'Talento científico (autores activos)', w:2, lag:'res', ind:'Talento científico 2',
   unit:'investigadores a tiempo completo', base:()=>null, max:()=>20, uc:120000, ucTxt:'remuneración anual estimada', src:'sup'},
- {id:'col',f:'Investigación', n:'Colaboración internacional y acceso abierto', w:4, lag:'res', ind:'Colaboración internacional 2 · Acceso abierto 2',
+ {id:'col', ic:'globe', neg:'Cortar estancias y no normalizar la afiliación en Scopus', negSave:true,f:'Investigación', n:'Colaboración internacional y acceso abierto', w:4, lag:'res', ind:'Colaboración internacional 2 · Acceso abierto 2',
   unit:'estancias internacionales (≈2 artículos c/u)', base:()=>intlBase(), max:()=>Math.round(intlBase()/2), uc:25000, ucTxt:'tope PUCP por estancia de investigación', src:'ref'},
- {id:'pat',f:'Innovación', n:'Patentes e impacto tecnológico', w:20, lag:'inn', ind:'Patentes 10 · Impacto tecnológico 10',
+ {id:'pat', ic:'shield', neg:'Abandonar las solicitudes de patente', negSave:false,f:'Innovación', n:'Patentes e impacto tecnológico', w:20, lag:'inn', ind:'Patentes 10 · Impacto tecnológico 10',
   unit:'solicitudes PCT', base:()=>null, max:()=>10, uc:120000, ucTxt:'tasas PCT ≈ S/ 6 000–12 000 + redacción y agente + desarrollo del invento', src:'mix'},
- {id:'ik', f:'Innovación', n:'Conocimiento citado en patentes', w:10, lag:'inn', ind:'Conocimiento innovador 10',
+ {id:'ik', ic:'bulb', neg:'Cerrar convenios de I+D con empresas', negSave:false, f:'Innovación', n:'Conocimiento citado en patentes', w:10, lag:'inn', ind:'Conocimiento innovador 10',
   unit:'proyectos de I+D aplicada con empresas', base:()=>null, max:()=>10, uc:150000, ucTxt:'cofinanciamiento por proyecto', src:'sup'},
- {id:'ods',f:'Impacto social', n:'ODS, políticas públicas e investigadoras', w:11, lag:'res', ind:'ODS 5 · Impacto en políticas públicas 3 · Talento científico femenino 3',
+ {id:'ods', ic:'target', neg:'Desatender ODS, políticas públicas y equidad de género', negSave:false,f:'Impacto social', n:'ODS, políticas públicas e investigadoras', w:11, lag:'res', ind:'ODS 5 · Impacto en políticas públicas 3 · Talento científico femenino 3',
   unit:'proyectos ODS o informes de política', base:()=>null, max:()=>40, uc:20000, ucTxt:'por proyecto o informe', src:'sup'},
- {id:'web',f:'Impacto social', n:'Visibilidad web y en medios', w:9, lag:'web', ind:'Menciones en medios 3 · Tamaño web 3 · Autoridad web 3',
+ {id:'web', ic:'megaphone', neg:'Descuidar el portal, el repositorio y los medios', negSave:false,f:'Impacto social', n:'Visibilidad web y en medios', w:9, lag:'web', ind:'Menciones en medios 3 · Tamaño web 3 · Autoridad web 3',
   unit:'piezas de divulgación en medios', base:()=>null, max:()=>200, uc:2500, ucTxt:'producción y difusión por pieza', src:'sup'}
 ];
 const PRESETS = {
  none:{q1:0,out:0,tal:0,col:0,pat:0,ik:0,ods:0,web:0},
+ pess:{q1:-100,out:-60,tal:-70,col:-50,pat:-30,ik:-30,ods:-40,web:-70},
+ max:{q1:100,out:100,tal:100,col:100,pat:100,ik:100,ods:100,web:100},
  research:{q1:60,out:20,tal:0,col:40,pat:0,ik:0,ods:20,web:50},
  integral:{q1:40,out:10,tal:10,col:30,pat:30,ik:10,ods:50,web:100},
  innov:{q1:30,out:0,tal:0,col:0,pat:100,ik:40,ods:0,web:40}
 };
-const BAD = [
- {id:'cut', t:'Recortar incentivos y bonos a la publicación', v:1.0},
- {id:'pred',t:'Tolerar revistas cuestionadas y autocitas excesivas', s:'Riesgo de alerta en SCImago IRIS', v:0.8},
- {id:'rot', t:'Perder investigadores RENACYT por rotación', v:0.7},
- {id:'aff', t:'No normalizar la afiliación institucional en Scopus', v:0.3},
- {id:'web', t:'Descuidar el portal, el repositorio y la presencia en medios', v:0.2}
-];
 const unitsOf = (l,v) => Math.round(l.max()*((v ?? S.lev[l.id]) || 0)/100);
-const costOf = (l,v) => unitsOf(l,v)*l.uc;
+const costOf = (l,v) => { const vv=(v ?? S.lev[l.id]) || 0; return (vv<0 && !l.negSave) ? 0 : unitsOf(l,vv)*l.uc; };
 const annualCost = () => d3.sum(LEVERS, l=>costOf(l));
 const actionYears = E => Math.max(0, (E-2) - S.start + 1);
 const f2 = loc.format('.2f');
-const fmtS = v => v>=1e6 ? 'S/ '+f2(v/1e6).replace(/\.?0+$/,'')+' M' : v>=1000 ? 'S/ '+fInt(Math.round(v/1000))+' mil' : 'S/ '+fInt(v);
+const fmtS = v => v<0 ? '−'+fmtS(-v) : v>=1e6 ? 'S/ '+f2(v/1e6).replace(/\.?0+$/,'')+' M' : v>=1000 ? 'S/ '+fInt(Math.round(v/1000))+' mil' : 'S/ '+fInt(v);
 function ramp(lag,E){
   if(lag==='web') return (E-1)>=S.start ? 1 : 0;
   const end = (lag==='inn' ? E-3 : E-2);
   return clamp(end - S.start + 1, 0, 5)/5;
 }
-function leverEff(l,E){ return l.w/100 * ((S.lev[l.id]||0)/100) * ramp(l.lag,E) * S.elas; }
-const badSum = () => d3.sum(BAD.filter(b=>S.bad[b.id]), b=>b.v);
+const leverEffV = (l,v,E) => l.w/100 * (v/100) * ramp(l.lag,E) * S.elas;
+function leverEff(l,E){ return leverEffV(l, S.lev[l.id]||0, E); }
+const dMaxOf = E => d3.sum(LEVERS, l=>leverEffV(l,100,E));
+const COMP_PESS = 1.5;   // pp/año que gana la competencia en el escenario pesimista de referencia
+const levRatio = () => d3.sum(LEVERS,l=>l.w*(S.lev[l.id]||0)/100) / d3.sum(LEVERS,l=>l.w);
+/* Escala de color de la rueda cromática: rojo (recortes) → amarillo (inercia) → verde (mejora) → azul (óptimo) */
+const SCALE_STOPS = [[-100,'#C62828'],[-75,'#E5482A'],[-50,'#F57C00'],[-25,'#F9A825'],[0,'#F2C94C'],[25,'#B7C53B'],[50,'#43A047'],[75,'#00897B'],[100,'#1E5BD8']];
+const colorAt = d3.scaleLinear().domain(SCALE_STOPS.map(d=>d[0])).range(SCALE_STOPS.map(d=>d[1])).interpolate(d3.interpolateRgb).clamp(true);
+const inkOn = c => d3.lab(c).l > 62 ? '#14213D' : '#fff';
+function scenTag(r){ const p=r*100;
+  if(p<=-60) return {t:'Pesimista severo', i:'alert'}; if(p<-5) return {t:'Pesimista', i:'down'}; if(p<=5) return {t:'Inercial', i:'clock'};
+  if(p<60) return {t:'Optimista', i:'trend'}; if(p<95) return {t:'Muy optimista', i:'rocket'}; return {t:'Óptimo máximo', i:'trophy'}; }
 function scen(E){
   const f=S.focus, r=byU.get(f)?.get(LAST); if(!r) return null;
-  const A=inert(f,E), dB=d3.sum(LEVERS,l=>leverEff(l,E)), B=clamp(A-dB,0.5,99.5), rr=ramp('res',E), C=clamp(A+badSum()*5*rr,0.5,99.5);
+  const A=inert(f,E), dB=d3.sum(LEVERS,l=>leverEff(l,E)), dM=dMaxOf(E), rr=ramp('res',E);
+  const B=clamp(A-dB,0.5,99.5), C=clamp(A+dM,0.5,99.5), O=clamp(A-dM,0.5,99.5);
   const others = present().filter(u=>u!==f);
   const natFor = (p, boost) => 1 + others.filter(u=> (inert(u,E) - boost) < p).length;
-  return {E, A, B, C, dB, natA:natFor(A,0), natB:natFor(B,0), natC:natFor(C,S.comp*5*rr), gA:Math.round(A/100*Tproj(E)), gB:Math.round(B/100*Tproj(E)), gC:Math.round(C/100*Tproj(E))};
+  const g = v => Math.round(v/100*Tproj(E));
+  return {E, A, B, C, O, dB, dM, natA:natFor(A,0), natB:natFor(B,(S.compSim||0)*5*rr), natC:natFor(C,COMP_PESS*5*rr), natO:natFor(O,0), gA:g(A), gB:g(B), gC:g(C), gO:g(O)};
 }
 const REFS = [
  {t:'Apoyo al pago de APC por cuartil', d:'Q1 (SJR < 2): hasta US$ 2 500; Q2: US$ 2 000; Q3: US$ 700.', s:'Universidad Norbert Wiener, directiva 2025', url:'https://repositorio.uwiener.edu.pe/bitstreams/3ecb743c-0dbe-40e4-8bda-60c0b31a8cc4/download'},
@@ -875,8 +992,8 @@ const BADGES = [
  {id:'explorer',t:'Explorador/a',d:'Visitó los seis paneles',m:'6'},
  {id:'custom',t:'A mi medida',d:'Personalizó el observatorio',m:'⚙'},
  {id:'strategist',t:'Estratega',d:'Movió una palanca del simulador',m:'S'},
- {id:'top5',t:'Top 5',d:'Top 5 nacional en el escenario de acción',m:'5'},
- {id:'podium',t:'Podio',d:'Top 3 nacional en el escenario de acción',m:'3'},
+ {id:'top5',t:'Top 5',d:'Top 5 nacional en el la simulación',m:'5'},
+ {id:'podium',t:'Podio',d:'Top 3 nacional en el la simulación',m:'3'},
  {id:'half',t:'Mitad superior',d:'Percentil mundial menor que 50 %',m:'50'},
  {id:'roi',t:'Inversión rentable',d:'El plan protege más ingreso del que cuesta',m:'S/'},
  {id:'pess',t:'Gestión de riesgos',d:'Exploró el escenario pesimista',m:'!'},
@@ -916,6 +1033,17 @@ function measure(svg, texts, weight){
   texts.forEach(t=>{ const n=g.append('text').style('font-size','12px').style('font-weight',weight||400).text(t).node(); w=Math.max(w,n.getComputedTextLength()); });
   g.remove(); return w;
 }
+function cup(svg,x,y,anchor,label){
+  const s=14, g=svg.append('g').attr('class','cup').attr('pointer-events','none');
+  g.append('title').text('Lado de la mejor posición');
+  const t=g.append('text').attr('y',y).style('font-size','10.5px').style('font-weight',800).style('fill','var(--gold)').text(label ?? 'Mejor');
+  const tw=t.node().getComputedTextLength(); let ix;
+  if(anchor==='end'){ ix=x-s; t.attr('x',ix-3).attr('text-anchor','end'); }
+  else if(anchor==='middle'){ ix=x-(s+3+tw)/2; t.attr('x',ix+s+3); }
+  else { ix=x; t.attr('x',x+s+3); }
+  g.append('g').attr('transform',`translate(${ix},${y-s+3}) scale(${s/24})`).attr('fill','none').attr('stroke','var(--gold)').attr('stroke-width',2.4).attr('stroke-linecap','round').attr('stroke-linejoin','round').html(ICONS.trophy);
+  return g;
+}
 function tipBox(el){ const t=document.createElement('div'); t.className='tip'; el.appendChild(t); return t; }
 function placeTip(el,tip,px,py){
   const W=el.clientWidth, tw=tip.offsetWidth, th=tip.offsetHeight;
@@ -938,7 +1066,8 @@ function lineChart(el,o){
   const wl=measure(svg, yt.map(yFmt));
   const labS=o.series.filter(s=>s.label);
   let wr = o.endLabels ? measure(svg, labS.map(s=>s.label), 700) : 0;
-  const m={t:12, r: wr? wr+16 : 14, b:26, l: wl+12};
+  const hasCup = o.cup ?? !!o.yRev;
+  const m={t:hasCup?30:12, r: wr? wr+16 : 14, b:26, l: wl+12};
   if(W-m.l-m.r < 180){ wr=0; m.r=14; }
   const x=d3.scaleLinear().domain(o.xDomain).range([m.l, W-m.r]);
   y.range(o.yRev? [m.t, H-m.b] : [H-m.b, m.t]);
@@ -948,6 +1077,7 @@ function lineChart(el,o){
   svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).tickValues(xt).tickFormat(d3.format('d')).tickSizeOuter(0));
   (o.vlines||[]).forEach(v=>{ svg.append('line').attr('x1',x(v.x)).attr('x2',x(v.x)).attr('y1',m.t).attr('y2',H-m.b).style('stroke','var(--muted)').style('stroke-dasharray','3 4'); if(v.label) svg.append('text').attr('x',x(v.x)+5).attr('y',m.t+10).text(v.label).style('font-size','11px'); });
   (o.refs||[]).forEach(r=>{ svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(r.y)).attr('y2',y(r.y)).style('stroke','var(--gold)').style('stroke-dasharray','5 4').style('stroke-width',1.5); svg.append('text').attr('x',m.l+4).attr('y',y(r.y)-4).text(r.label).style('fill','var(--gold)').style('font-size','11px').style('font-weight',700); });
+  if(hasCup) cup(svg, 4, 14, 'start', 'Mejor posición');
   const curve = S.smooth==='ninguno' ? d3.curveLinear : d3.curveMonotoneX;
   if(o.band){ svg.append('path').datum(o.band).attr('d',d3.area().curve(curve).x(d=>x(d.x)).y0(d=>y(d.lo)).y1(d=>y(d.hi))).style('fill',o.bandColor||'var(--accent)').style('opacity',.13); }
   const line=d3.line().curve(curve).defined(p=>p.y!=null).x(p=>x(p.x)).y(p=>y(p.y));
@@ -1010,13 +1140,14 @@ function barChart(el,o){ // vertical bars: data [{x,label,v,color,tip}]
 }
 
 function hBar(el,o){ // horizontal bars: data [{k,label,v,color,bold}]
-  el.innerHTML=''; const W=Math.max(260,el.clientWidth), rowH=o.rowH||22, H=o.data.length*rowH+30;
+  el.innerHTML=''; const hc=o.cup!==false, W=Math.max(260,el.clientWidth), rowH=o.rowH||22, H=o.data.length*rowH+30+(hc?18:0);
   const svg=d3.select(el).append('svg').attr('width',W).attr('height',H).attr('role','img').attr('aria-label',o.aria||'Gráfico de barras horizontales');
   const wl=measure(svg,o.data.map(d=>d.label),700), vf=o.vFmt||(v=>f1(v));
   const wv=measure(svg,o.data.map(d=>vf(d.v)),700);
   const ext=d3.extent([0,...o.data.map(d=>d.v)]);
-  const m={t:6,r:wv+10,b:22,l:wl+12};
+  const m={t:6,r:wv+10,b:22+(hc?18:0),l:wl+12};
   const x=d3.scaleLinear().domain(ext).nice(4).range([m.l,W-m.r]);
+  if(hc) cup(svg, W-4, H-4, 'end', 'Mejor →');
   const y=d3.scaleBand().domain(o.data.map(d=>d.k)).range([m.t,H-m.b]).padding(.2);
   svg.append('g').attr('class','grid').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(4).tickSize(-(H-m.t-m.b)).tickFormat(o.tFmt||vf)).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').style('stroke','var(--line)'));
   svg.append('line').attr('x1',x(0)).attr('x2',x(0)).attr('y1',m.t).attr('y2',H-m.b).style('stroke','var(--muted)');
@@ -1133,11 +1264,12 @@ function renderBox(){
   const f=S.focus;
   // A) por edición
   const el=document.getElementById('chBoxYear'); el.innerHTML='';
-  const ys=d3.range(2020,LAST+1), W=Math.max(260,el.clientWidth), H=300, m={t:16,r:W>420?96:12,b:28,l:46};
+  const ys=d3.range(2020,LAST+1), W=Math.max(260,el.clientWidth), H=314, m={t:30,r:W>420?96:12,b:28,l:46};
   const svg=d3.select(el).append('svg').attr('width',W).attr('height',H).attr('role','img').attr('aria-label','Diagramas de caja del percentil mundial de las universidades peruanas por edición');
   const x=d3.scaleBand().domain(ys).range([m.l,W-m.r]).padding(.38), y=d3.scaleLinear().domain([0,100]).range([m.t,H-m.b]);
   svg.append('g').attr('class','grid').attr('transform',`translate(${m.l},0)`).call(d3.axisLeft(y).tickValues([0,25,50,75,100]).tickSize(-(W-m.l-m.r)).tickFormat(v=>v+' %')).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').style('stroke','var(--line)'));
   svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).tickSizeOuter(0));
+  cup(svg, 4, 14, 'start', 'Mejor posición');
   svg.append('rect').attr('x',m.l).attr('width',W-m.l-m.r).attr('y',y(25)).attr('height',y(75)-y(25)).style('fill','var(--gold)').style('opacity',.08);
   [[50,'Mediana mundial'],[25,'Q1 mundial'],[75,'Q3 mundial']].forEach(([v,t])=>{ svg.append('line').attr('x1',m.l).attr('x2',W-m.r).attr('y1',y(v)).attr('y2',y(v)).style('stroke','var(--gold)').style('stroke-dasharray','5 4'); svg.append('text').attr('x',m.r>20? W-m.r+6 : W-m.r-4).attr('y',y(v)+(m.r>20?4:-4)).attr('text-anchor',m.r>20?'start':'end').text(t).style('fill','var(--gold)').style('font-size','11px').style('font-weight',700); });
   const tip=tipBox(el), bw=Math.min(46,x.bandwidth());
@@ -1164,7 +1296,7 @@ function renderBox(){
   svg2.attr('height',H2);
   const x2=d3.scaleLinear().domain([0,100]).range([m2.l,W2-m2.r]), y2=d3.scaleBand().domain(rows.map(r=>r.k)).range([m2.t,H2-m2.b]).padding(.35);
   svg2.append('g').attr('class','grid').attr('transform',`translate(0,${H2-m2.b})`).call(d3.axisBottom(x2).tickValues([0,25,50,75,100]).tickSize(-(H2-m2.t-m2.b)).tickFormat(v=>v+' %')).call(g=>g.select('.domain').remove()).call(g=>g.selectAll('line').style('stroke','var(--line)'));
-  svg2.append('text').attr('x',m2.l).attr('y',12).text('← mejor posición').style('font-size','11px');
+  cup(svg2, m2.l, 14, 'start', '← Mejor posición');
   const tip2=tipBox(el2);
   rows.forEach(r=>{
     const cy=y2(r.k)+y2.bandwidth()/2, h=y2.bandwidth(), st=r.st, g=svg2.append('g');
@@ -1186,19 +1318,23 @@ function renderStrip(){
   const sel=document.getElementById('stripYear'); if(!sel.options.length){ [...YEARS].reverse().forEach(y=>sel.add(new Option(y,y))); }
   const y=+sel.value; document.getElementById('stripYearLbl').textContent=y;
   const el=document.getElementById('chStrip'); el.innerHTML='';
-  const W=Math.max(260,el.clientWidth), H=200, m={t:20,r:16,b:30,l:16};
+  const W=Math.max(260,el.clientWidth), H=230, m={t:30,r:18,b:34,l:16};
   const data=byYD(y).sort((a,b)=>a.g-b.g);
   if(!data.length){ el.innerHTML='<p class="note">Sin universidades de este tipo en la edición elegida.</p>'; return; }
-  const x=d3.scaleLinear().domain([0, TOT[y]? TOT[y][0] : d3.max(data,d=>d.g)*1.1]).range([m.l,W-m.r]);
-  const svg=d3.select(el).append('svg').attr('width',W).attr('height',H).attr('role','img').attr('aria-label','Puestos mundiales de universidades peruanas');
-  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).ticks(W>500?6:4).tickFormat(fInt));
-  svg.append('text').attr('x',W-m.r).attr('y',H-2).attr('text-anchor','end').text(TOT[y]? 'Puesto mundial (total '+(TOT[y][1]?'estimado ':'')+fInt(TOT[y][0])+')' : 'Puesto mundial').style('font-size','11px');
+  const T = TOT[y]? TOT[y][0] : Math.round(d3.max(data,d=>d.g)*1.1);
+  const x=d3.scaleLinear().domain([T,1]).range([m.l,W-m.r]);   // espejo: el puesto 1 queda a la derecha
+  const svg=d3.select(el).append('svg').attr('width',W).attr('height',H).attr('role','img').attr('aria-label','Puestos mundiales de universidades peruanas; a la derecha, el puesto 1');
+  const step = T>8000 ? 2000 : T>4000 ? 1000 : 500, tv=[...d3.range(Math.floor(T/step)*step, 0, -step), 1].filter(t=>t<=T && (t===1 || x(t)<W-m.r-34));
+  svg.append('g').attr('class','axis').attr('transform',`translate(0,${H-m.b})`).call(d3.axisBottom(x).tickValues(tv).tickFormat(t=>t===1?'1':fInt(t)).tickSizeOuter(0));
+  svg.append('text').attr('x',m.l).attr('y',H-2).text(TOT[y]? 'Puesto mundial (total '+(TOT[y][1]?'estimado ':'')+fInt(TOT[y][0])+')  · mejor hacia la derecha →' : 'Puesto mundial · mejor hacia la derecha →').style('font-size','11px');
+  cup(svg, W-m.r, H-m.b-10, 'end', 'Puesto 1 · top');
+  svg.append('line').attr('x1',x(1)).attr('x2',x(1)).attr('y1',H-m.b-6).attr('y2',H-m.b).style('stroke','var(--gold)').style('stroke-width',2);
   const pos=[]; data.forEach(d=>{ let lvl=0; while(pos.some(p=>p.l===lvl && Math.abs(x(p.g)-x(d.g))<11)) lvl++; pos.push({...d,l:lvl}); });
   const cy=d=> (H-m.b-14) - d.l*11, tip=tipBox(el);
   svg.append('g').selectAll('circle').data(pos).join('circle').attr('cx',d=>x(d.g)).attr('cy',cy).attr('r',d=>d.u===S.focus?7:5)
     .style('fill',d=>d.u===S.focus?'var(--accent)':S.comps.includes(d.u)?compCol(d.u):'color-mix(in srgb,var(--muted) 45%,var(--panel))').style('stroke','var(--panel)').style('stroke-width',1.5)
     .on('pointermove',(ev,d)=>{ tip.innerHTML=`<b>${esc(full(d.u))}</b><div class="r"><span>Nacional</span><span>${ord(d.n)}</span></div><div class="r"><span>Mundial</span><span class="num">${fInt(d.g)}</span></div>`; const [mx,my]=d3.pointer(ev,el); placeTip(el,tip,mx,my); }).on('pointerleave',()=>tip.style.opacity=0);
-  const me=pos.find(d=>d.u===S.focus); if(me){ const topY=d3.min(pos,cy)-16; svg.append('line').attr('x1',x(me.g)).attr('x2',x(me.g)).attr('y1',topY+4).attr('y2',cy(me)-8).style('stroke','var(--accent)'); svg.append('text').attr('x',clamp(x(me.g),60,W-60)).attr('y',topY).attr('text-anchor','middle').text(nm(me.u)+' · '+fInt(me.g)).style('font-weight',800).style('fill','var(--ink)'); }
+  const me=pos.find(d=>d.u===S.focus); if(me){ const topY=Math.max(m.t+6, d3.min(pos,cy)-16); svg.append('line').attr('x1',x(me.g)).attr('x2',x(me.g)).attr('y1',topY+4).attr('y2',cy(me)-8).style('stroke','var(--accent)'); svg.append('text').attr('x',clamp(x(me.g),60,W-60)).attr('y',topY).attr('text-anchor','middle').text(nm(me.u)+' · '+fInt(me.g)).style('font-weight',800).style('fill','var(--ink)'); }
 }
 function renderFull(){
   const sel=document.getElementById('tblYear'); if(!sel.options.length){ [...YEARS].reverse().forEach(y=>sel.add(new Option(y,y))); }
@@ -1210,20 +1346,10 @@ function renderFull(){
 }
 
 /* ===== Panel 3: Tendencias ===== */
+const PROJ_END = 2035;
 function renderTrend(){
-  const f=S.focus, F=facts(), m=byU.get(f)||new Map(), H=S.horizon;
+  const f=S.focus, F=facts(), m=byU.get(f)||new Map(), H=PROJ_END;
   const ys=[...m.keys()].filter(y=>y>=2020).sort((a,b)=>a-b);
-  const el=document.getElementById('chParadox');
-  if(ys.length<2){ el.innerHTML='<p class="note">Se necesitan al menos dos ediciones desde 2020.</p>'; }
-  else {
-    const g0=m.get(ys[0]).g, p0=pctOf(m.get(ys[0]));
-    lineChart(el,{xDomain:[ys[0],LAST], h:260, aria:'Índice de puesto mundial frente a percentil', yFmt:v=>f0(v), refs:[{y:100,label:'Base '+ys[0]+' = 100'}],
-      series:[
-        {name:'Puesto mundial (índice)', label:'Puesto', color:'#E8A39C', width:2.5, pts:ys.map(y=>({x:y,y:m.get(y).g/g0*100, raw:fInt(m.get(y).g)}))},
-        {name:'Percentil mundial (índice)', label:'Percentil', color:focusCol, width:4, big:true, pts:ys.map(y=>({x:y,y:pctOf(m.get(y))/p0*100, raw:f1(pctOf(m.get(y)))+' %', est:!!TOT[y][1]}))}],
-      endLabels:true, yRev:true, tipFmt:(p)=>p.raw+' · índice '+f0(p.y), tipTitle:x=>'Edición '+x});
-    const n=document.createElement('p'); n.className='note'; n.textContent='Índice base '+ys[0]+' = 100; por encima de la línea dorada = mejor que el año base. El puesto absoluto se movió en contra; el percentil mejoró.'; el.appendChild(n);
-  }
   const set=[f,...S.comps].filter(u=>byU.has(u));
   lineChart(document.getElementById('chPctComp'),{xDomain:[2020,LAST], yRev:true, h:300, endLabels:true, aria:'Percentil mundial comparado',
     series:set.map(u=>({name:nm(u), label:nm(u), color:colOf(u), width:u===f?4.5:1.8, big:u===f, z:u===f?2:1, op:u===f?1:.9, pts:d3.range(2020,LAST+1).map(y=>{const r=byU.get(u).get(y); return {x:y,y:r?pctOf(r):null,est:!!TOT[y][1]};})})),
@@ -1233,7 +1359,7 @@ function renderTrend(){
   if(!pset.length) prodEl.innerHTML='<p class="note">Sin datos de producción para este grupo.</p>';
   else lineChart(prodEl,{xDomain:[2021,2025], h:400, endLabels:true, aria:'Producción científica anual según OpenAlex',
     series:pset.map(u=>({name:nm(u), label:nm(u), color:colOf(u), width:u===f?4.5:1.8, big:u===f, z:u===f?2:1, pts:PUB_Y.map((yy,i)=>({x:yy,y:PUB[nm(u)].w[i]}))})),
-    yFmt:fInt, tipFmt:p=>fInt(p.y)+' trabajos', tipTitle:x=>'Año '+x});
+    yFmt:fInt, tipFmt:p=>fInt(p.y)+' trabajos', tipTitle:x=>'Año '+x, cup:true});
   const moms=F.moms.map(d=>({k:d.u,label:nm(d.u),v:-d.s.s,bold:d.u===f,color:d.u===f?'var(--accent)':(-d.s.s>=0?'#C9E6D3':'#F3C9C4'), s:d.s}));
   hBar(document.getElementById('chMomentum'),{data:moms, rowH:20, vFmt:v=>(v>0?'+':'')+f1(v), tFmt:v=>f0(v), aria:'Velocidad de mejora del percentil',
     tip:d=>`<b>${esc(full(d.k))}</b><div class="r"><span>Mejora anual</span><span class="num">${(d.v>0?'+':'')+f1(d.v)} pp</span></div><div class="r"><span>Ediciones usadas</span><span>${d.s.n}</span></div>`});
@@ -1252,56 +1378,103 @@ function renderTrend(){
 }
 
 /* ===== Panel 4: Escenarios ===== */
-function leverLine(l){ const u=unitsOf(l), b=l.base(); return `+${fInt(u)} ${l.unit}/año · <b>${fmtS(costOf(l))}</b>/año${b!=null?` <span class="lb">(hoy ≈ ${fInt(b)}/año)</span>`:''}`; }
+function leverLine(l){
+  const v=S.lev[l.id]||0, u=unitsOf(l), b=l.base();
+  if(v===0) return `${ic('clock',13)} <span>Inercia: se mantiene lo actual${b!=null?` (≈ ${fInt(b)} ${esc(l.unit)}/año)`:''}.</span>`;
+  if(v<0) return `${ic('scissors',13)} <span><b>${esc(l.neg)}.</b> ${l.negSave? `−${fInt(-u)} ${esc(l.unit)}/año · ahorro <b>${fmtS(-costOf(l))}</b>/año` : 'Descuido sin ahorro relevante: solo se pierde puntaje'}.</span>`;
+  return `${ic('plus',13)} <span>+${fInt(u)} ${esc(l.unit)}/año · <b>${fmtS(costOf(l))}</b>/año${b!=null?` <span class="lb">(hoy ≈ ${fInt(b)}/año)</span>`:''}</span>`;
+}
+const sgn = v => (v>0?'+':v<0?'−':'')+Math.abs(v);
+function paintRange(inp){
+  const v=+inp.value, c=colorAt(v), p=(v+100)/2, a=Math.min(50,p), b=Math.max(50,p), c0=colorAt(0);
+  inp.style.setProperty('--c',c);
+  inp.style.background=`linear-gradient(90deg, var(--soft) 0%, var(--soft) ${a}%, ${v<0?c:c0} ${a}%, ${v<0?c0:c} ${b}%, var(--soft) ${b}%, var(--soft) 100%)`;
+  const lv=inp.closest('.lever'); if(lv) lv.style.setProperty('--c',c);
+}
+const FAC_IC = {'Investigación':'flask','Innovación':'bulb','Impacto social':'users'};
 function buildLevers(){
   const box=document.getElementById('levers'); let html='', cur='';
   LEVERS.forEach(l=>{
-    if(l.f!==cur){ cur=l.f; const w=d3.sum(LEVERS.filter(x=>x.f===cur),x=>x.w); html+=`<div class="fac"><span>${cur}</span><span>${w} %</span></div>`; }
-    html+=`<div class="lever"><div class="lh"><label for="lv-${l.id}">${l.n}</label><span class="w">peso ${l.w} %</span></div><span class="ld">${l.ind}</span>
-      <input type="range" id="lv-${l.id}" min="0" max="100" step="5" value="${S.lev[l.id]||0}" data-id="${l.id}">
-      <div class="lv"><span>Intensidad <b id="lvv-${l.id}">${S.lev[l.id]||0} %</b></span><span>${fmtS(l.uc)} por unidad</span></div>
+    if(l.f!==cur){ cur=l.f; const w=d3.sum(LEVERS.filter(x=>x.f===cur),x=>x.w); html+=`<div class="fac"><span>${ic(FAC_IC[cur],14)} ${cur}</span><span>${w} %</span></div>`; }
+    const v=S.lev[l.id]||0;
+    html+=`<div class="lever"><div class="lh"><label for="lv-${l.id}">${ic(l.ic,15)} ${l.n}</label><span class="w">peso ${l.w} %</span></div><span class="ld">${l.ind}</span>
+      <div class="rwrap"><input type="range" id="lv-${l.id}" min="-100" max="100" step="5" value="${v}" data-id="${l.id}" aria-describedby="lvu-${l.id}"></div>
+      <div class="lscale"><span>${ic('scissors',11)} −100 recortar</span><span>${ic('clock',11)} 0 inercia</span><span>+100 óptimo ${ic('trophy',11)}</span></div>
+      <div class="lv"><span>Intensidad <b id="lvv-${l.id}">${sgn(v)} %</b></span><span>${ic('coins',12)} ${fmtS(l.uc)} por unidad</span></div>
       <div class="lu" id="lvu-${l.id}">${leverLine(l)}</div></div>`;
   });
   box.innerHTML=html;
-  box.querySelectorAll('input[type=range]').forEach(inp=>inp.addEventListener('input',()=>{ const l=LEVERS.find(x=>x.id===inp.dataset.id); S.lev[l.id]=+inp.value; document.getElementById('lvv-'+l.id).textContent=inp.value+' %'; document.getElementById('lvu-'+l.id).innerHTML=leverLine(l); save(); award('strategist',15); renderScen(); }));
-  document.getElementById('badList').innerHTML=BAD.map(b=>`<label class="chk"><input type="checkbox" data-b="${b.id}" ${S.bad[b.id]?'checked':''}><span>${b.t} <small>(+${f1(b.v)} pp/año)${b.s?' · '+b.s:''}</small></span></label>`).join('');
-  document.querySelectorAll('#badList input').forEach(c=>c.addEventListener('change',()=>{ S.bad[c.dataset.b]=c.checked; save(); award('pess',15); renderScen(); }));
+  box.querySelectorAll('input[type=range]').forEach(inp=>{ paintRange(inp); inp.addEventListener('input',()=>{ const l=LEVERS.find(x=>x.id===inp.dataset.id); S.lev[l.id]=+inp.value; paintRange(inp);
+    document.getElementById('lvv-'+l.id).textContent=sgn(+inp.value)+' %'; document.getElementById('lvu-'+l.id).innerHTML=leverLine(l); save();
+    award(+inp.value<0?'pess':'strategist',15); renderScen(); }); });
+}
+/* Animación de dinero */
+let moneyPrev=null, moneyRaf=0, lastBurst=0;
+function tweenMoney(el, from, to){
+  cancelAnimationFrame(moneyRaf); if(!motionOK() || from==null){ el.textContent=fmtS(to); return; }
+  const t0=performance.now(), d=650;
+  const f=()=>{ const k=Math.min(1,(performance.now()-t0)/d), e=1-Math.pow(1-k,3); el.textContent=fmtS(Math.round(from+(to-from)*e)); if(k<1) moneyRaf=requestAnimationFrame(f); };
+  moneyRaf=requestAnimationFrame(f);
+}
+function coinBurst(delta){
+  const now=performance.now(); if(!motionOK() || !delta || now-lastBurst<180) return; lastBurst=now;
+  const box=document.getElementById('coinBox'); if(!box) return;
+  const n=Math.min(9, 2+Math.round(Math.abs(delta)/(S.budget*1e6)*24));
+  for(let i=0;i<n;i++){ const c=document.createElement('span'); c.className='coin '+(delta>0?'in':'out'); c.textContent='S/'; c.style.left=(6+Math.random()*48)+'px'; c.style.animationDelay=(i*55)+'ms'; box.appendChild(c); setTimeout(()=>c.remove(), 1100+i*55); }
+}
+function renderMoney(ann){
+  const bud=S.budget*1e6, over=ann>bud+1, el=document.getElementById('mVal');
+  if(!el) return;
+  document.getElementById('mLbl').innerHTML = ann<0 ? `${ic('wallet',13)} Ahorro neto anual` : `${ic('wallet',13)} Inversión anual del plan`;
+  tweenMoney(el, moneyPrev==null?null:Math.abs(moneyPrev), Math.abs(ann)); if(moneyPrev!=null) coinBurst(ann-moneyPrev); moneyPrev=ann;
+  const r=clamp(ann/bud,0,1.25);
+  document.getElementById('mBar').style.width=Math.min(100,r*100)+'%';
+  document.getElementById('money').classList.toggle('over',over); document.getElementById('money').classList.toggle('save',ann<0);
+  const yrs=actionYears(S.horizon);
+  document.getElementById('mSub').innerHTML = ann<0 ? `Se dejan de gastar ${fmtS(-ann)} al año, a costa del puesto.` :
+    `${f0(ann/bud*100)} % de ${fmtS(bud)}${over?` · <b>excede en ${fmtS(ann-bud)}</b>`:''} · acumulado a ${S.horizon}: ${fmtS(ann*yrs)}`;
+  const pile=document.getElementById('pile'), nC=Math.round(Math.max(0,r)*10);
+  if(pile.childElementCount!==nC){ pile.innerHTML=''; for(let i=0;i<nC;i++){ const d=document.createElement('i'); d.style.bottom=(i*5)+'px'; pile.appendChild(d); } }
 }
 let scenView='pct', ladderL='q1';
 function renderScen(){
   const ext=isExt(); document.getElementById('extPath').hidden=!ext; document.getElementById('simWrap').hidden=ext;
   if(ext){ renderScenExt(); return; }
-  const f=S.focus, H=S.horizon, ann=annualCost(), bud=S.budget*1e6, over=ann>bud+1, yrs=actionYears(H);
-  document.getElementById('budgetTxt').textContent=`${fmtS(ann)} / ${fmtS(bud)} al año`;
-  document.getElementById('budgetBar').style.width=Math.min(100,ann/bud*100)+'%';
-  document.getElementById('budget').classList.toggle('over',over);
-  document.getElementById('budgetNote').innerHTML = (over ? `<b>Supera el presupuesto en ${fmtS(ann-bud)} al año.</b> ` : '') + `Inversión acumulada que cuenta para la edición ${H}: <b>${fmtS(ann*yrs)}</b> (${yrs} ${yrs===1?'año':'años'} de datos, ${S.start}–${H-2}).`;
-  document.getElementById('compBoostTxt').textContent=`En el escenario pesimista, las demás universidades peruanas ganan ${f1(S.comp)} pp de percentil por año; como toda decisión, el efecto aparece desde la edición ${S.start+2}.`;
+  const f=S.focus, H=S.horizon, ann=annualCost(), bud=S.budget*1e6;
+  document.querySelectorAll('.hz2').forEach(e=>e.textContent=H);
+  document.getElementById('compBoostTxt').textContent = (S.compSim||0)>0 ? `Las demás universidades peruanas ganan ${f1(S.compSim)} pp de percentil por año desde la edición ${S.start+2}; afecta su puesto nacional simulado.` : 'Las demás universidades siguen su propia inercia.';
   const last=byU.get(f)?.get(LAST);
-  if(!last){ document.getElementById('scenCards').innerHTML='<p class="note">La universidad foco no figura en '+LAST+'.</p>'; return; }
-  const s=scen(H);
-  const card=(c,t,v,sub,p)=>`<div class="sc" style="--c:${c}"><h4>${t}</h4><div class="v num">${v}</div><p>${sub}</p><p>${p}</p></div>`;
-  document.getElementById('scenCards').innerHTML =
-    card('var(--muted)',ic('clock')+' A · Inercial', ord(s.natA)+' <small>nacional</small>', `Top ${f1(s.A)} % · puesto ${fInt(s.gA)}`, 'No se hace nada.')+
-    card('var(--accent)',ic('target')+' B · Acción', ord(s.natB)+' <small>nacional</small>', `Top ${f1(s.B)} % · puesto ${fInt(s.gB)}`, `${fmtS(ann)}/año · ${f1(s.dB)} pp sobre la inercia.`)+
-    card('var(--bad)',ic('alert')+' C · Pesimista', ord(s.natC)+' <small>nacional</small>', `Top ${f1(s.C)} % · puesto ${fInt(s.gC)}`, `Malas decisiones y competencia que mejora.`);
+  if(!last){ document.getElementById('simSum').innerHTML='<p class="note">La universidad foco no figura en '+LAST+'.</p>'; return; }
+  const s=scen(H), r=levRatio(), tag=scenTag(r), col=colorAt(r*100);
+  // KPI único de la simulación
+  const chip=document.getElementById('ssTag'); chip.innerHTML=`${ic(tag.i,14)} ${tag.t}`; chip.style.background=col; chip.style.color=inkOn(col);
+  document.getElementById('simSum').style.setProperty('--c',col);
+  document.getElementById('ssNat').textContent=ord(s.natB);
+  const dN=s.natA-s.natB, dP=s.A-s.B;
+  document.getElementById('ssMeta').innerHTML=
+    `<div>${ic('globe',14)} Top <b>${f1(s.B)} %</b> del mundo · puesto <b>${fInt(s.gB)}</b></div>`+
+    `<div>${ic('swap',14)} Frente a la inercia (${ord(s.natA)}, ${f1(s.A)} %): ${dN===0?'mismo puesto nacional':`<b style="color:${dN>0?'var(--ok)':'var(--bad)'}">${Math.abs(dN)} ${Math.abs(dN)===1?'puesto':'puestos'} ${dN>0?'mejor':'peor'}</b>`} · ${dP>=0?'−':'+'}${f1(Math.abs(dP))} pp</div>`+
+    `<div class="mut">${ic('info',14)} Rango posible: ${ord(s.natO)} con todo al máximo · ${ord(s.natC)} con todo recortado</div>`;
+  document.getElementById('ssMark').style.left=((r+1)/2*100)+'%';
+  renderMoney(ann);
   const yrsArr=d3.range(LAST,H+1), obsY=[...byU.get(f).keys()].filter(y=>y>=2020).sort((a,b)=>a-b), S0=yrsArr.map(scen);
-  const pick={pct:['A','B','C'],nat:['natA','natB','natC'],glob:['gA','gB','gC']}[scenView];
-  const obsV=y=>{ const r=byU.get(f).get(y); return scenView==='pct'? pctOf(r) : scenView==='nat'? r.n : r.g; };
-  const names=['A · Inercial','B · Acción','C · Pesimista'], cols=['var(--muted)','var(--accent)','var(--bad)'];
+  const pick={pct:['A','B','C','O'],nat:['natA','natB','natC','natO'],glob:['gA','gB','gC','gO']}[scenView];
+  const obsV=y=>{ const rr=byU.get(f).get(y); return scenView==='pct'? pctOf(rr) : scenView==='nat'? rr.n : rr.g; };
+  const defs=[{name:'Inercial',label:'Inercial',color:'#D9A300',width:2.5,dash:'6 5'},{name:'Tu simulación',label:'Simulación',color:col,width:4.5,big:true,z:3},
+    {name:'Pesimista (todo recortado)',label:'Pesimista',color:'#C62828',width:1.6,dash:'2 4',op:.8},{name:'Óptimo (todo al máximo)',label:'Óptimo',color:'#1E5BD8',width:1.6,dash:'2 4',op:.8}];
   const series=[{name:'Observado',color:'var(--ink)',width:2.5,pts:obsY.map(y=>({x:y,y:obsV(y),est:!!TOT[y][1]}))},
-    ...pick.map((k,i)=>({name:names[i],color:cols[i],width:i===1?3.5:2.5,dash:i===0?'6 5':null,big:i===1,pts:S0.map(sc=>({x:sc.E,y:sc.E===LAST?obsV(LAST):sc[k]})), label:names[i].split(' · ')[1]}))];
+    ...pick.map((k,i)=>({...defs[i], pts:S0.map(sc=>({x:sc.E,y:sc.E===LAST?obsV(LAST):sc[k]}))}))];
   const fmt = scenView==='pct'? (v=>f0(v)+' %') : scenView==='nat'? (v=>ord(v)) : (v=>fInt(v));
   const tf = scenView==='pct'? (p=>f1(p.y)+' %') : scenView==='nat'? (p=>ord(p.y)) : (p=>fInt(p.y));
-  const o={xDomain:[obsY[0],H], yRev:true, h:250, endLabels:true, aria:'Proyección por escenario', vlines:[{x:LAST+0.5,label:'Proyección'}], series, yFmt:fmt, tipFmt:tf};
-  if(scenView==='nat'){ o.yInt=true; const mx=d3.max(series.flatMap(s=>s.pts),p=>p.y); o.yDomain=[0.5, Math.max(8,mx+0.5)]; }
+  const o={xDomain:[obsY[0],H], yRev:true, h:250, endLabels:true, aria:'Proyección de la simulación', vlines:[{x:LAST+0.5,label:'Proyección'}], series, yFmt:fmt, tipFmt:tf};
+  if(scenView==='nat'){ o.yInt=true; const mx=d3.max(series.flatMap(x=>x.pts),p=>p.y); o.yDomain=[0.5, Math.max(8,mx+0.5)]; }
   if(scenView==='pct'){ o.refs=[{y:50,label:'Mitad superior del mundo'}]; }
   lineChart(document.getElementById('chScen'),o);
-  document.getElementById('lgScen').innerHTML=series.map(s=>`<span><i style="background:${s.color}"></i>${s.name}</span>`).join('');
+  document.getElementById('lgScen').innerHTML=series.map(x=>`<span><i style="background:${x.color}"></i>${x.name}</span>`).join('');
   document.querySelectorAll('#segScen button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.v===scenView));
-  const ctb=LEVERS.map(l=>({k:l.id,label:l.n.length>30? l.n.slice(0,29)+'…' : l.n, v:leverEff(l,H), color: l.f==='Investigación'?'var(--accent)': l.f==='Innovación'?'var(--gold)':'color-mix(in srgb,var(--accent) 45%,var(--gold))', l}));
-  hBar(document.getElementById('chContrib'),{data:ctb,rowH:24,vFmt:v=>f1(v)+' pp', tFmt:v=>f0(v), aria:'Aporte de cada palanca',
-    tip:d=>`<b>${esc(d.l.n)}</b><div class="r"><span>Intensidad</span><span>${S.lev[d.k]} %</span></div><div class="r"><span>Unidades/año</span><span>${fInt(unitsOf(d.l))}</span></div><div class="r"><span>Costo anual</span><span>${fmtS(costOf(d.l))}</span></div><div class="r"><span>Maduración en ${H}</span><span>${f0(ramp(d.l.lag,H)*100)} %</span></div><div class="r"><span>Aporte</span><span>${f1(d.v)} pp</span></div>`});
+  const ctb=LEVERS.map(l=>({k:l.id,label:l.n.length>30? l.n.slice(0,29)+'…' : l.n, v:leverEff(l,H), color:colorAt(S.lev[l.id]||0), l}));
+  hBar(document.getElementById('chContrib'),{data:ctb,rowH:24,vFmt:v=>(v>0?'+':v<0?'−':'')+f1(Math.abs(v))+' pp', tFmt:v=>f0(v), aria:'Aporte de cada palanca',
+    tip:d=>`<b>${esc(d.l.n)}</b><div class="r"><span>Intensidad</span><span>${sgn(S.lev[d.k]||0)} %</span></div><div class="r"><span>Unidades/año</span><span>${(S.lev[d.k]||0)<0 && !d.l.negSave ? '—' : fInt(unitsOf(d.l))}</span></div><div class="r"><span>${costOf(d.l)<0?'Ahorro':'Costo'} anual</span><span>${fmtS(Math.abs(costOf(d.l)))}</span></div><div class="r"><span>Maduración en ${H}</span><span>${f0(ramp(d.l.lag,H)*100)} %</span></div><div class="r"><span>Aporte</span><span>${f1(d.v)} pp</span></div>`});
   renderLadder(); renderCostTable();
   if(s.natB<=5) award('top5',20); if(s.natB<=3) award('podium',40); if(s.B<50) award('half',30);
 }
@@ -1322,7 +1495,7 @@ function renderLadder(){
   const tip=tipBox(el);
   const g=svg.append('g').selectAll('g').data(steps).join('g');
   g.append('rect').attr('x',d=>x(d.v)).attr('width',x.bandwidth()).attr('y',d=>yv(d.cost)).attr('height',d=>yv(0)-yv(d.cost)).attr('rx',3)
-    .style('fill',d=> d.v<=cur ? 'var(--accent)' : 'color-mix(in srgb,var(--accent) 30%,var(--panel))');
+    .style('fill',d=> d.v<=cur ? colorAt(d.v) : `color-mix(in srgb,${colorAt(d.v)} 30%,var(--panel))`);
   g.filter((d,i)=>x.bandwidth()>=18 || i%2===1).append('text').attr('x',d=>x(d.v)+x.bandwidth()/2).attr('y',d=>yv(d.cost)-5).attr('text-anchor','middle').text(d=>'+'+fInt(d.units)).style('font-size','11px').style('font-weight',700).style('fill','var(--ink)');
   g.filter((d,i)=>x.bandwidth()>=18 || i%2===1).append('text').attr('x',d=>x(d.v)+x.bandwidth()/2).attr('y',H2-m.b+36).attr('text-anchor','middle').text(d=>ord(d.nat)).style('font-size','11px').style('font-weight',700).style('fill',d=>d.nat<=3?'var(--ok)':'var(--muted)');
   g.filter((d,i)=>x.bandwidth()>=22 || i%2===1).append('text').attr('x',d=>x(d.v)+x.bandwidth()/2).attr('y',H2-m.b+54).attr('text-anchor','middle').text(d=>f1(d.pct)).style('font-size','10.5px').style('fill','var(--muted)');
@@ -1335,8 +1508,8 @@ function renderLadder(){
 function renderCostTable(){
   const H=S.horizon, srcTxt={ref:'Referencia publicada',sup:'Supuesto del modelo',mix:'Referencia y supuesto'};
   document.getElementById('costTbl').innerHTML=`<thead><tr><th>Palanca</th><th class="r">Hoy (estimado)</th><th class="r">Intensidad</th><th class="r">Adicional/año</th><th class="r">Costo unitario</th><th class="r">Costo anual</th><th>Base del costo</th></tr></thead><tbody>`+
-    LEVERS.map(l=>`<tr><td>${esc(l.n)}</td><td class="r num">${l.base()!=null?fInt(l.base()):'—'}</td><td class="r num">${S.lev[l.id]||0} %</td><td class="r num">+${fInt(unitsOf(l))} <small>${esc(l.unit)}</small></td><td class="r num">${fmtS(l.uc)}</td><td class="r num"><b>${fmtS(costOf(l))}</b></td><td><small>${srcTxt[l.src]}: ${esc(l.ucTxt)}</small></td></tr>`).join('')+
-    `<tr class="me"><td>Total del plan</td><td></td><td></td><td></td><td></td><td class="r num">${fmtS(annualCost())}</td><td><small>Acumulado a la edición ${H}: ${fmtS(annualCost()*actionYears(H))}</small></td></tr></tbody>`;
+    LEVERS.map(l=>{ const v=S.lev[l.id]||0, u=unitsOf(l); return `<tr><td>${ic(l.ic,14)} ${esc(l.n)}${v<0?`<br><small style="color:var(--bad)">${esc(l.neg)}</small>`:''}</td><td class="r num">${l.base()!=null?fInt(l.base()):'—'}</td><td class="r num"><span class="dotc" style="background:${colorAt(v)}"></span>${sgn(v)} %</td><td class="r num">${v<0&&!l.negSave?'—':(u>0?'+':u<0?'−':'')+fInt(Math.abs(u))} <small>${esc(l.unit)}</small></td><td class="r num">${fmtS(l.uc)}</td><td class="r num"><b>${fmtS(costOf(l))}</b></td><td><small>${srcTxt[l.src]}: ${esc(l.ucTxt)}</small></td></tr>`; }).join('')+
+    `<tr class="me"><td>${annualCost()<0?'Ahorro neto del plan':'Total del plan'}</td><td></td><td></td><td></td><td></td><td class="r num">${fmtS(annualCost())}</td><td><small>Acumulado a la edición ${H}: ${fmtS(annualCost()*actionYears(H))}</small></td></tr></tbody>`;
   document.getElementById('refList').innerHTML=REFS.map(r=>`<li><b>${esc(r.t)}.</b> ${esc(r.d)} <a href="${r.url}" target="_blank" rel="noopener">${esc(r.s)}</a></li>`).join('');
   document.getElementById('q1note').innerHTML=`Línea de base: ${fInt(baseLed())} trabajos al año con autor de correspondencia ${esc(sigF())} (${PUB[sigF()]?.led?'OpenAlex, 2025':PUB[sigF()]?'estimado como 45 % de sus trabajos en OpenAlex, 2025':'valor por defecto; ajústelo en Personalizar'}). Se asume que el <b>${S.q1share} %</b> está en revistas Q1 (≈ ${fInt(q1Base())} artículos); en 2023, entre el 26 % y el 65 % de la producción de las principales universidades peruanas estuvo en Q1–Q2 (Mayta-Tristán, Andina). Ajuste el supuesto en Personalizar.`;
 }
@@ -1375,7 +1548,7 @@ function renderStory(){
       <label class="field" style="margin:0"><span>Postulantes por cada puesto nacional (%)</span><input type="number" id="rvSens" value="${R.sens}" min="0" max="5" step="0.1"><small>En EE. UU., subir un puesto en U.S. News eleva ~1 % las postulaciones; SCImago es menos visible para escolares, por eso 0,5 % por defecto.</small></label>
     </div>
     <div class="dec" style="margin-top:12px">
-      ${ri.map((r,j)=>`<div><h4>${['A · Inercial','B · Acción','C · Pesimista'][j]} (${ord(s[r.k])})</h4><p class="w">${r.st>=0?'+':'−'}${fInt(Math.abs(Math.round(r.st)))}</p><p>ingresantes por año (${r.d>0?'pierde '+r.d:r.d<0?'gana '+(-r.d):'mantiene'} ${Math.abs(r.d)===1?'puesto':'puestos'}). Ingreso de una cohorte en 5 años: <b>${r.rev>=0?'+':'−'}${fmtS(Math.abs(r.rev))}</b>.</p></div>`).join('')}
+      ${ri.map((r,j)=>`<div><h4>${['A · Inercial','B · Tu simulación','C · Pesimista'][j]} (${ord(s[r.k])})</h4><p class="w">${r.st>=0?'+':'−'}${fInt(Math.abs(Math.round(r.st)))}</p><p>ingresantes por año (${r.d>0?'pierde '+r.d:r.d<0?'gana '+(-r.d):'mantiene'} ${Math.abs(r.d)===1?'puesto':'puestos'}). Ingreso de una cohorte en 5 años: <b>${r.rev>=0?'+':'−'}${fmtS(Math.abs(r.rev))}</b>.</p></div>`).join('')}
     </div>
     <p class="note">Base: ${fInt(ingr)} ingresantes al año. Frente a la inercia, el plan B ${gainBA>=0?'protege o gana':'pierde'} ${fmtS(Math.abs(gainBA))} por cohorte con una inversión de ${fmtS(ann*yrs)} hasta ${H}; el escenario pesimista arriesga ${fmtS(Math.abs(lossCA))} por cohorte. Estimación ilustrativa basada en Luca y Smith (Harvard Business School, 2011) y Monks y Ehrenberg (1999).</p></div>`;
   const T={
@@ -1604,12 +1777,13 @@ function renderAuth(){
 let raceI=0, raceTimer=null, raceFromStart=false;
 function drawRace(i){
   const el=document.getElementById('chRace'), y=YEARS[i]; document.getElementById('raceYear').textContent=y; document.getElementById('raceSlider').value=i;
-  const K=Math.min(14, NY(y)), rowH=28, W=Math.max(260,el.clientWidth), H=Math.max(380, 14*rowH+30);
+  const K=Math.min(14, NY(y)), rowH=28, W=Math.max(260,el.clientWidth), H=Math.max(398, 14*rowH+48);
   let svg=d3.select(el).select('svg');
   if(svg.empty()){ el.innerHTML=''; svg=d3.select(el).append('svg').attr('role','img'); svg.append('g').attr('class','bars'); svg.append('text').attr('class','rnote'); }
   svg.attr('width',W).attr('height',H).attr('aria-label','Carrera nacional, edición '+y);
   const data=[...byY.get(y)].sort((a,b)=>a.n-b.n||a.g-b.g).slice(0,K);
-  const lw=Math.min(150, W*0.28), m={l:lw, r:70, t:4};
+  const lw=Math.min(150, W*0.28), m={l:lw, r:70, t:22};
+  svg.selectAll('g.cup').remove(); cup(svg, W-6, 14, 'end', 'Barra más larga = mejor');
   const x=d3.scaleLinear().domain([0,10500]).range([0,W-m.l-m.r]);
   const len=g=>Math.max(4,x(Math.max(0,11500-g)));
   const dur=motionOK()? +document.getElementById('raceSpeed').value*0.7 : 0;
@@ -1629,10 +1803,10 @@ function drawRace(i){
 }
 function racePlay(){
   const btn=document.getElementById('racePlay');
-  if(raceTimer){ clearInterval(raceTimer); raceTimer=null; btn.textContent='▶ Reproducir'; return; }
+  if(raceTimer){ clearInterval(raceTimer); raceTimer=null; btn.innerHTML=ic('play')+' Reproducir'; return; }
   if(raceI>=YEARS.length-1) raceI=0;
-  raceFromStart = raceI===0; btn.textContent='❚❚ Pausa';
-  raceTimer=setInterval(()=>{ raceI++; drawRace(raceI); if(raceI>=YEARS.length-1){ clearInterval(raceTimer); raceTimer=null; btn.textContent='▶ Reproducir'; if(raceFromStart) award('race',25); } }, +document.getElementById('raceSpeed').value);
+  raceFromStart = raceI===0; btn.innerHTML=ic('clock')+' Pausa';
+  raceTimer=setInterval(()=>{ raceI++; drawRace(raceI); if(raceI>=YEARS.length-1){ clearInterval(raceTimer); raceTimer=null; btn.innerHTML=ic('play')+' Reproducir'; if(raceFromStart) award('race',25); } }, +document.getElementById('raceSpeed').value);
 }
 let QZ={i:0,ans:[]};
 function quizQs(){
@@ -1770,8 +1944,8 @@ function init(){
   applyLook(); hud(); header(); buildSettings(); buildLevers();
   document.getElementById('startYear').value=S.start;
   document.getElementById('startYear').onchange=e=>{ S.start=+e.target.value; save(); renderScen(); };
-  const cb=document.getElementById('compBoost'); cb.value=S.comp; cb.oninput=()=>{ S.comp=+cb.value; save(); award('pess',15); renderScen(); };
-  document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{ S.lev={...PRESETS[b.dataset.preset]}; save(); buildLevers(); award('strategist',15); renderScen(); });
+  const cb=document.getElementById('compBoost'); cb.value=S.compSim||0; cb.oninput=()=>{ S.compSim=+cb.value; save(); award('pess',15); renderScen(); };
+  document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{ S.lev={...PRESETS[b.dataset.preset]}; save(); buildLevers(); award(b.dataset.preset==='pess'?'pess':'strategist',15); document.querySelectorAll('[data-preset]').forEach(x=>x.setAttribute('aria-pressed',x===b)); renderScen(); });
   document.querySelectorAll('#segScen button').forEach(b=>b.onclick=()=>{ scenView=b.dataset.v; renderScen(); });
   document.querySelectorAll('#segComp button').forEach(b=>b.onclick=()=>{ compMode=b.dataset.v; renderDesc(); });
   document.querySelectorAll('#segType button').forEach(b=>b.onclick=()=>{ descT=b.dataset.v; renderDesc(); });

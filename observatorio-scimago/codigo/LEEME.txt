@@ -9,7 +9,7 @@ Un tablero interactivo en un solo archivo HTML que analiza el desempeño de las 
 peruanas en el SCImago Institutions Rankings (ediciones 2009 y 2011–2026). Incluye:
 - Selección inicial de la universidad: las 38 que figuran en SCImago 2026 y, en «Otras»,
   las licenciadas por SUNEDU que aún no figuran (ruta de ingreso al ranking).
-- KPIs, panel descriptivo con boxplots, tendencias con proyección, simulador de escenarios con
+- KPIs, panel descriptivo con boxplots, tendencias con proyección, simulación de decisiones (palancas de −100 a +100) con
   costos referenciados, narrativas por público (con registro local) y una arena gamificada.
 
 Fuentes de datos incluidas

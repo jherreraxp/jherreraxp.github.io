@@ -2,7 +2,7 @@
  "id": "observatorio-scimago",
  "titulo": "Observatorio SCImago Perú",
  "fecha": "2026-11-13",
- "resumen": "Tablero interactivo sobre el desempeño de las universidades peruanas en el SCImago Institutions Rankings 2009–2026: KPIs, boxplots, tendencias con proyección, simulador de escenarios con costos referenciados y narrativas por público.",
+ "resumen": "Tablero interactivo sobre el desempeño de las universidades peruanas en el SCImago Institutions Rankings 2009–2026: KPIs, boxplots, tendencias con proyección, simulación de decisiones (palancas de −100 a +100) con costos referenciados y narrativas por público.",
  "etiquetas": [
   "Analítica",
   "Rankings universitarios",
@@ -27,7 +27,7 @@
    "Percentil corregido por el crecimiento del universo, producción científica (OpenAlex) y proyección con banda de incertidumbre."
   ],
   [
-   "Escenarios con costos",
+   "Simulación de −100 a +100 con costos",
    "Palancas de la metodología SCImago traducidas a artículos, patentes y estancias, con su costo en soles y la escalera de decisión cada 5 %."
   ],
   [
