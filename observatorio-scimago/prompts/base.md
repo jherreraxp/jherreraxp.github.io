@@ -35,19 +35,18 @@ PANEL 3. TENDENCIAS Y REGRESIONES
 2. Para cada modelo reporta la ecuación, R², RMSE y el error de validación cruzada (dejando un periodo fuera si hay pocos datos). Elige el mejor y explica por qué en lenguaje simple.
 3. Muestra los residuos y advierte si hay pocos puntos o un cambio de tendencia.
 4. Calcula la pendiente (velocidad de cambio) de todas las entidades y ordénalas en un ranking de impulso.
-5. Proyecta hasta el horizonte indicado con una banda de incertidumbre e incluye una tabla de valores proyectados.
-6. Resalta la entidad foco en color fuerte, muestra las demás en tonos pastel y suaviza las líneas sin alterar el primer ni el último dato.
+5. Proyecta hasta el horizonte indicado con una tendencia amortiguada (el impulso se reduce cada periodo; Gardner y McKenzie, 1985) e incluye una tabla de valores proyectados. Ofrece opciones de horizonte y de los supuestos clave (por ejemplo, el crecimiento del universo de comparación).
+6. Valida la proyección fuera de muestra: pronostica periodos ya conocidos con los datos previos y compara su error (MAE, sesgo) con un modelo ingenuo y uno lineal. Usa ese error real para dibujar la banda de incertidumbre.
+7. Resalta la entidad foco en color fuerte, muestra las demás en tonos pastel y suaviza las líneas sin alterar el primer ni el último dato (media 1-2-1 y curva monótona). Marca con un ícono de copa el lado de cada gráfico donde está la mejor posición.
+8. Agrega un botón «Metodología» que muestre las fórmulas, su explicación en lenguaje simple, la tabla de validación y las fuentes.
 
-PANEL 4. ESCENARIOS Y SIMULACIÓN
-Construye tres escenarios comparables, con el mismo horizonte:
-A) Inercial: no se hace nada y la tendencia continúa (con amortiguación ajustable).
-B) Acción: palancas (deslizadores de 0 a 100 %) que representan los factores que explican la métrica. Cada palanca debe tener: su peso o importancia y la fuente de ese peso; su traducción a unidades reales (p. ej., «+5 % = +12 clientes nuevos al mes»); su costo unitario y total, con fuente o marcado como SUPUESTO; y su tiempo de maduración.
-C) Pesimista: no se actúa, se toman malas decisiones (casillas con su efecto) y la competencia mejora.
-Requisitos:
-- Tarjetas con el resultado de A, B y C en el horizonte y un gráfico de proyección que quede fijo en pantalla mientras se mueven los deslizadores.
-- Una «escalera de decisión»: para cada 5 % de una palanca, cuántas unidades representa, cuánto cuesta y qué resultado produce.
-- Un presupuesto editable con barra de avance y una tabla de supuestos y referencias, con fuente y enlace de cada costo.
-- Calibra la relación entre esfuerzo y resultado con una elasticidad estimada en los propios datos, y dilo.
+PANEL 4. SIMULACIÓN
+- Palancas con deslizadores de −100 a +100 que representan los factores que explican la métrica. En 0 todo sigue la inercia; los valores positivos significan invertir en ese factor; los negativos, la mala decisión correspondiente (por ejemplo, recortar incentivos). Así el escenario pesimista sale de las mismas barras, sin casillas aparte.
+- Cada palanca debe tener: su peso o importancia y la fuente de ese peso; su traducción a unidades reales (p. ej., «+5 % = +12 clientes nuevos al mes»); su costo unitario y total, o el ahorro si se recorta, con fuente o marcado como SUPUESTO; y su tiempo de maduración.
+- Calibra el efecto máximo con datos observados: el mejor ritmo sostenido de mejora y el peor ritmo de deterioro entre los pares. Muéstralos como líneas de referencia «Óptimo» (todo en +100) y «Pesimista» (todo en −100), junto a la inercia y la simulación del usuario.
+- Un único KPI resumen que acompañe al usuario mientras se desplaza: resultado en el horizonte, diferencia frente a la inercia y etiqueta del escenario (pesimista, inercial, optimista u óptimo), con un indicador animado del presupuesto o del ahorro.
+- Paleta sobria de cuatro estados (recorte, inercia, mejora, óptimo); cada deslizador se rellena con un solo color sólido según su estado, nunca con un degradado.
+- Gráfico de proyección fijo en pantalla con opciones de horizonte, una «escalera de decisión» (para cada 5 % de una palanca: unidades, costo y resultado), un gráfico del aporte de cada palanca y una tabla de costos con referencias y enlaces.
 
 PANEL 5. NARRATIVAS (una por público, estructura Situación–Complicación–Resolución)
 - Situación: dónde estamos hoy, con cifras concretas del dataset.

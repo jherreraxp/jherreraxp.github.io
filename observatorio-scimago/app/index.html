@@ -301,41 +301,41 @@ svg.ic{vertical-align:-3px; flex:none}
 @media (max-width:520px){ .kpi .val{font-size:26px} .verdict .big{font-size:40px} .lvl{min-width:0} }
 
 /* ===== v4: simulación con escala de color, KPI único y dinero ===== */
-.lever{border-left:4px solid var(--c,#F2C94C); padding-left:10px; transition:border-color .2s}
+.lever{border-left:3px solid var(--c,#A47F24); padding-left:10px; transition:border-color .2s}
 .lever .lh label{display:inline-flex; gap:6px; align-items:center}
 .lever .lh label svg.ic{color:var(--c,#B58900)}
 .rwrap{position:relative}
 .rwrap::after{content:''; position:absolute; left:50%; top:5px; width:2px; height:18px; margin-left:-1px; background:var(--muted); opacity:.45; pointer-events:none; border-radius:1px}
-.lever input[type=range]{-webkit-appearance:none; appearance:none; width:100%; height:10px; border-radius:6px; background:var(--soft); outline:none; margin:9px 0 3px; cursor:pointer}
+.lever input[type=range]{-webkit-appearance:none; appearance:none; width:100%; height:8px; border-radius:6px; background:var(--soft); outline:none; margin:9px 0 3px; cursor:pointer}
 .lever input[type=range]:focus-visible{box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 40%,transparent)}
-.lever input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:var(--c,#F2C94C); border:3px solid #fff; box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 5px rgba(0,0,0,.3)}
-.lever input[type=range]::-moz-range-thumb{width:18px; height:18px; border-radius:50%; background:var(--c,#F2C94C); border:3px solid #fff; box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 5px rgba(0,0,0,.3)}
+.lever input[type=range]::-webkit-slider-thumb{-webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:var(--c,#A47F24); border:3px solid #fff; box-shadow:0 0 0 1px rgba(0,0,0,.25),0 1px 3px rgba(0,0,0,.25)}
+.lever input[type=range]::-moz-range-thumb{width:18px; height:18px; border-radius:50%; background:var(--c,#A47F24); border:3px solid #fff; box-shadow:0 0 0 1px rgba(0,0,0,.25),0 1px 3px rgba(0,0,0,.25)}
 .lscale{display:flex; justify-content:space-between; font-size:10.5px; color:var(--muted); margin-top:-1px}
 .lscale span{display:inline-flex; gap:3px; align-items:center}
-.lever .lu{display:flex; gap:6px; align-items:flex-start; border-left:3px solid var(--c,#F2C94C)}
+.lever .lu{display:flex; gap:6px; align-items:flex-start}
 .lever .lu svg.ic{flex:none; margin-top:2px}
-.scalebar{display:flex; justify-content:space-between; font-size:11px; font-weight:700; color:var(--muted); margin:12px 0 2px; padding:16px 2px 0; position:relative}
-.scalebar::before{content:''; position:absolute; left:0; right:0; top:0; height:10px; border-radius:6px; background:linear-gradient(90deg,#C62828,#E5482A 12.5%,#F57C00 25%,#F9A825 37.5%,#F2C94C 50%,#B7C53B 62.5%,#43A047 75%,#00897B 87.5%,#1E5BD8)}
 .pgrid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px}
-.pgrid .btn{justify-content:center; border-color:color-mix(in srgb,var(--pc) 45%,var(--line)); font-size:12px; padding:7px 8px; text-align:center}
+.pgrid .btn{justify-content:center; border-color:var(--line); font-size:12px; padding:7px 8px; text-align:center}
 .pgrid .btn svg.ic{color:var(--pc)}
 .pgrid .btn[aria-pressed=true]{background:var(--pc); color:#fff; border-color:var(--pc)}
 .pgrid .btn[aria-pressed=true] svg.ic{color:#fff}
 @media (max-width:520px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.simsum{border-top:6px solid var(--c,#F2C94C); padding:12px 14px; display:grid; gap:8px; transition:border-color .25s}
+.simsum{border-top:4px solid var(--c,#A47F24); padding:12px 14px; display:grid; gap:8px; transition:border-color .25s}
 .ss-top{display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap}
 .ss-k{font-size:13px; font-weight:700; color:var(--muted); display:inline-flex; gap:6px; align-items:center}
 .chip{display:inline-flex; gap:5px; align-items:center; border-radius:999px; padding:4px 11px; font-size:12.5px; font-weight:800; transition:background .25s,color .25s}
 .ss-main{display:grid; grid-template-columns:auto 1fr; gap:14px; align-items:center}
 .ss-rank{display:grid; text-align:center; min-width:84px}
-.ss-rank b{font-family:var(--f-display); font-size:42px; line-height:1; color:var(--c,#B58900); font-weight:800; transition:color .25s; text-shadow:0 0 1px rgba(0,0,0,.15)}
+.ss-rank b{font-family:var(--f-display); font-size:42px; line-height:1; color:var(--c,#A47F24); font-weight:800; transition:color .25s}
 .ss-rank small{font-size:11.5px; color:var(--muted); font-weight:600}
 .ss-meta{display:grid; gap:4px; font-size:13px}
 .ss-meta div{display:flex; gap:6px; align-items:flex-start}
 .ss-meta svg.ic{flex:none; margin-top:2px; color:var(--muted)}
 .ss-meta .mut{color:var(--muted); font-size:12px}
 .ss-meter{position:relative; padding-top:2px}
-.ss-track{height:8px; border-radius:5px; background:linear-gradient(90deg,#C62828,#F57C00 25%,#F2C94C 50%,#43A047 75%,#1E5BD8)}
+.ss-track{position:relative; height:8px; border-radius:5px; background:var(--soft); overflow:hidden}
+.ss-fill{position:absolute; top:0; bottom:0; transition:left .3s, width .3s, background .3s}
+.ss-mid{position:absolute; left:50%; top:0; bottom:0; width:2px; margin-left:-1px; background:var(--muted); opacity:.5}
 #ssMark{position:absolute; top:-3px; width:14px; height:14px; margin-left:-7px; border-radius:50%; background:#fff; border:3px solid var(--ink); transition:left .3s cubic-bezier(.2,.8,.2,1)}
 .ss-lbl{display:flex; justify-content:space-between; font-size:10.5px; color:var(--muted); margin-top:3px}
 .money{display:grid; grid-template-columns:74px 1fr; gap:10px; align-items:center; border-top:1px dashed var(--line); padding-top:8px}
@@ -368,6 +368,73 @@ footer ul.ib li{font-size:13px}
 .field label svg.ic, .field > span svg.ic{vertical-align:-2px; margin-right:2px; color:var(--muted)}
 .seg button svg.ic{vertical-align:-2px}
 @media (prefers-reduced-motion: reduce){ .coin{display:none} #ssMark,.mbar i{transition:none} }
+
+/* ===== v5: paleta sobria, opciones, metodología y prompt ===== */
+.slegend{display:flex; flex-wrap:wrap; gap:6px 14px; font-size:11.5px; color:var(--muted); margin:12px 0 4px; padding:8px 10px; border:1px solid var(--line); border-radius:10px; background:var(--panel)}
+.slegend span{display:inline-flex; align-items:center; gap:6px}
+.slegend i{width:10px; height:10px; border-radius:3px; display:inline-block}
+.lever .lh label svg.ic{color:var(--muted)}
+.chip{box-shadow:none}
+.opts{flex-wrap:wrap; gap:6px 10px; margin:2px 0 6px}
+.optl{font-size:12.5px; font-weight:700; color:var(--muted); display:inline-flex; gap:5px; align-items:center}
+.seg button small{color:inherit; opacity:.75; font-weight:500}
+.segGrow button, #segHz button{font-size:12.5px; padding:5px 10px}
+.lead .btn[data-method]{margin-top:10px}
+.mt-card{width:min(900px,100%); grid-template-rows:auto 1fr}
+.mt-body{overflow:auto; padding:18px 22px 26px; display:grid; gap:4px}
+.mt-body h3{margin:14px 0 6px; display:flex; gap:8px; align-items:center; font-size:16px}
+.mt-body p{margin:0 0 8px; line-height:1.55; font-size:14px}
+.fx{font-family:"Cambria Math","STIX Two Math","Latin Modern Math",Georgia,serif; font-size:16px; background:var(--soft); border-left:3px solid var(--usil); border-radius:0 8px 8px 0; padding:10px 14px; margin:6px 0 10px; overflow-x:auto; white-space:nowrap}
+html.ui-dark .fx{border-left-color:var(--usil)}
+.mt-body var{font-family:"Cambria Math",Georgia,serif; font-style:italic}
+.mt-t td,.mt-t th{font-size:13px}
+.ntabs{margin:0 0 14px}
+.pr-card{display:grid; gap:12px}
+.pr-ais{display:flex; flex-wrap:wrap; gap:6px}
+.pr-ais .btn[aria-pressed=true]{background:var(--navy); color:#fff; border-color:var(--navy)}
+.pr-steps{list-style:none; padding:0; margin:0; display:grid; gap:6px}
+.pr-steps li{display:flex; gap:10px; align-items:flex-start; font-size:14px}
+.pr-steps .n{flex:none; width:24px; height:24px; border-radius:50%; background:var(--soft); color:var(--usil-ink); display:grid; place-items:center; font-weight:800; font-size:12px}
+.pr-act{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+.pr-act a.btn{text-decoration:none}
+.pr-text{white-space:pre-wrap; word-break:break-word; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:12.5px; line-height:1.5; background:var(--soft); border:1px solid var(--line); border-radius:10px; padding:14px; max-height:520px; overflow:auto; margin:0}
+
+/* ===== v5: bienvenida tipo tabla de posiciones ===== */
+.pk-card{width:min(980px,100%)}
+.pk-table{border:1px solid var(--line); border-radius:12px; overflow:hidden}
+.pk-list{display:block !important} .pk-list > * + *{margin-top:6px}
+.pk-hd, .pk-row{display:grid; grid-template-columns:40px 26px 54px minmax(0,1fr) 54px 74px 74px 62px 86px; align-items:center; gap:0 8px; padding:0 12px}
+.pk-hd{background:var(--navy); color:#fff; font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; height:36px}
+.pk-hd span{text-align:center} .pk-hd span:nth-child(4){text-align:left}
+.pk-hd .pk-w{background:var(--gold); color:var(--navy); align-self:stretch; display:grid; place-items:center; margin:0 -4px}
+.pk-row{width:100%; border:0; border-top:1px solid var(--line); background:var(--panel); color:var(--ink); min-height:52px; text-align:left; cursor:pointer; font:inherit}
+.pk-row:hover{background:var(--soft)} .pk-row.on{background:color-mix(in srgb,var(--usil) 9%,var(--panel)); box-shadow:inset 4px 0 0 var(--usil)}
+.pk-row:focus-visible{outline:2px solid var(--usil); outline-offset:-2px}
+.pk-row.top3{background:color-mix(in srgb,var(--gold) 7%,var(--panel))}
+.pk-pos{position:relative; width:34px; height:34px; display:grid; place-items:center}
+.pk-pos b{font-family:var(--f-display); font-size:15px; font-weight:800; position:relative}
+.pk-laurel{position:absolute; inset:0; width:34px; height:34px}
+.pk-med{display:grid; place-items:center}
+.pk-badge{width:50px; height:30px; padding:0 2px; overflow:hidden; border-radius:7px; display:grid; place-items:center; font-family:var(--f-display); font-size:11.5px; font-weight:800; letter-spacing:.02em; color:#fff; background:var(--navy); box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
+.pk-badge.pu{background:#7A5A12} .pk-badge.l5{font-size:9.5px} .pk-badge.l6{font-size:8.5px}
+.pk-name{display:grid; min-width:0}
+.pk-name b{font-family:var(--f-display); font-size:15.5px; letter-spacing:.02em}
+.pk-name small{font-size:11px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.pk-c{text-align:center; font-size:13.5px; font-weight:700}
+.pk-c small{font-size:10.5px; color:var(--muted); font-weight:600}
+.pk-row .pk-w{background:var(--navy); color:#fff; align-self:stretch; display:grid; place-items:center; margin:0 -4px; font-weight:800}
+.pk-row.on .pk-w{background:var(--usil)}
+.pk-d{font-size:12px; font-weight:800; border-radius:999px; padding:2px 8px; display:inline-block}
+.pk-d.up{color:#2E6B4B; background:color-mix(in srgb,#3B7A57 14%,transparent)} .pk-d.dn{color:#8E2C25; background:color-mix(in srgb,#8E2C25 12%,transparent)}
+.pk-d.eq{color:var(--muted); background:var(--soft)} .pk-d.nw{color:#1F4E9E; background:color-mix(in srgb,#1F4E9E 12%,transparent); font-weight:700}
+.pk-t{display:grid; place-items:center} .pk-tnew{font-size:11px; color:var(--muted)}
+.pk-foot{font-size:11.5px; color:var(--muted); margin:8px 2px 0; display:flex; gap:6px; align-items:flex-start}
+html.ui-dark .pk-row .pk-w{background:#071233}
+@media (max-width:720px){
+  .pk-hd, .pk-row{grid-template-columns:34px 22px 44px minmax(0,1fr) 62px 54px; padding:0 8px}
+  .pk-hd span:nth-child(5), .pk-row > :nth-child(5), .pk-hd span:nth-child(6), .pk-row > :nth-child(6), .pk-hd span:nth-child(9), .pk-row > :nth-child(9){display:none}
+  .pk-badge{width:42px; font-size:10px} .pk-badge.l5,.pk-badge.l6{font-size:8px} .pk-hd span:nth-child(4){font-size:10px}
+}
 </style>
 </head>
 <body>
@@ -505,6 +572,7 @@ footer ul.ib li{font-size:13px}
   <div class="lead">
     <h2>Tendencias y proyección</h2>
     <p id="trendLead"></p>
+    <button class="btn" type="button" data-method="trend"><i data-ic="book"></i> Metodología: fórmulas, validación y fuentes</button>
   </div>
   <div class="grid g2">
     <div class="card">
@@ -521,7 +589,8 @@ footer ul.ib li{font-size:13px}
   </div>
   <div class="card">
     <h3><i data-ic="compass"></i> Proyección inercial a 2035</h3>
-    <p class="sub">Tendencia observada con amortiguación (el impulso se reduce cada año). Banda: incertidumbre aproximada, que se ensancha con el horizonte.</p>
+    <p class="sub">Tendencia amortiguada (el impulso se reduce cada año). Banda del 80 %, calibrada con los errores reales de pronóstico de las ediciones recientes.</p>
+    <div class="tbar"><span class="optl"><i data-ic="globe"></i> Crecimiento del universo SCImago:</span><div class="seg segGrow"></div></div>
     <div class="grid g2" style="align-items:start">
       <div class="chart" id="chProj"></div>
       <div class="tblwrap"><table id="tblProj"></table></div>
@@ -560,7 +629,8 @@ footer ul.ib li{font-size:13px}
 <section class="panel" id="escenarios" role="tabpanel" aria-labelledby="tab-escenarios" hidden>
   <div class="lead">
     <h2><i data-ic="sliders" data-sz="22"></i> Simulación: decisiones, costos y puesto</h2>
-    <p>Cada palanca va de −100 a +100. En 0 todo sigue igual (inercia); por encima de 0 se invierte más en lo que valora SCImago; por debajo se recorta o se descuida. El color indica el tipo de escenario, de rojo (pesimista) a amarillo (inercial), verde (optimista) y azul (óptimo).</p>
+    <p>Cada palanca va de −100 a +100. En 0 todo sigue igual (inercia); por encima de 0 se invierte más en lo que valora SCImago; por debajo se recorta o se descuida. El color indica el tipo de escenario: rojo ladrillo (recorte), ocre (inercia), verde (mejora) y azul (óptimo).</p>
+    <button class="btn" type="button" data-method="sim"><i data-ic="book"></i> Metodología del simulador</button>
   </div>
   <div id="extPath" hidden></div>
   <div id="simWrap" class="grid" style="gap:var(--gap)">
@@ -568,14 +638,14 @@ footer ul.ib li{font-size:13px}
     <div class="card" id="leverCard">
       <h3 style="margin-top:0"><i data-ic="layers"></i> Planes de partida</h3>
       <div class="presets pgrid">
-        <button class="btn" type="button" data-preset="pess" style="--pc:#C62828"><i data-ic="alert"></i> Malas decisiones</button>
-        <button class="btn" type="button" data-preset="none" style="--pc:#D9A300"><i data-ic="clock"></i> Inercia</button>
-        <button class="btn" type="button" data-preset="research" style="--pc:#43A047"><i data-ic="flask"></i> Excelencia científica</button>
-        <button class="btn" type="button" data-preset="integral" style="--pc:#43A047"><i data-ic="layers"></i> Plan integral</button>
-        <button class="btn" type="button" data-preset="innov" style="--pc:#00897B"><i data-ic="bulb"></i> Océano azul</button>
-        <button class="btn" type="button" data-preset="max" style="--pc:#1E5BD8"><i data-ic="trophy"></i> Óptimo máximo</button>
+        <button class="btn" type="button" data-preset="pess" style="--pc:#8E2C25"><i data-ic="alert"></i> Malas decisiones</button>
+        <button class="btn" type="button" data-preset="none" style="--pc:#A47F24"><i data-ic="clock"></i> Inercia</button>
+        <button class="btn" type="button" data-preset="research" style="--pc:#3B7A57"><i data-ic="flask"></i> Excelencia científica</button>
+        <button class="btn" type="button" data-preset="integral" style="--pc:#3B7A57"><i data-ic="layers"></i> Plan integral</button>
+        <button class="btn" type="button" data-preset="innov" style="--pc:#3B7A57"><i data-ic="bulb"></i> Océano azul</button>
+        <button class="btn" type="button" data-preset="max" style="--pc:#1F4E9E"><i data-ic="trophy"></i> Óptimo máximo</button>
       </div>
-      <div class="scalebar" aria-hidden="true"><span>−100</span><span>0</span><span>+100</span></div>
+      <div class="slegend" aria-label="Lectura de las palancas"><span><i style="background:#8E2C25"></i>−100 a −5: recorte</span><span><i style="background:#A47F24"></i>0: inercia</span><span><i style="background:#3B7A57"></i>+5 a +95: mejora</span><span><i style="background:#1F4E9E"></i>+100: óptimo</span></div>
       <div id="levers"></div>
       <div class="field">
         <label for="budgetIn"><i data-ic="wallet"></i> Presupuesto anual disponible (S/ millones)</label>
@@ -599,7 +669,7 @@ footer ul.ib li{font-size:13px}
           <div class="ss-rank"><b id="ssNat" class="num">—</b><small>puesto nacional</small></div>
           <div class="ss-meta" id="ssMeta"></div>
         </div>
-        <div class="ss-meter" aria-hidden="true"><div class="ss-track"></div><i id="ssMark"></i><div class="ss-lbl"><span>Pesimista</span><span>Inercial</span><span>Optimista</span><span>Óptimo</span></div></div>
+        <div class="ss-meter" aria-hidden="true"><div class="ss-track"><span class="ss-fill" id="ssFill"></span><span class="ss-mid"></span></div><i id="ssMark"></i><div class="ss-lbl"><span>Pesimista</span><span>Inercial</span><span>Optimista</span><span>Óptimo</span></div></div>
         <div class="money" id="money">
           <div class="coinbox" id="coinBox"><div class="pile" id="pile"></div></div>
           <div class="mtxt"><small id="mLbl">Inversión anual del plan</small><b id="mVal" class="num">S/ 0</b><div class="mbar"><i id="mBar"></i></div><small id="mSub"></small></div>
@@ -607,6 +677,8 @@ footer ul.ib li{font-size:13px}
       </div>
       <div class="card">
         <div class="tbar" style="justify-content:space-between;margin-bottom:4px"><h3 style="margin:0"><i data-ic="line"></i> Proyección de la simulación</h3><div class="seg" id="segScen"><button aria-pressed="true" data-v="pct"><i data-ic="percent"></i> Percentil</button><button aria-pressed="false" data-v="nat"><i data-ic="flag"></i> Nacional</button><button aria-pressed="false" data-v="glob"><i data-ic="globe"></i> Mundial</button></div></div>
+        <div class="tbar opts"><span class="optl"><i data-ic="calendar"></i> Horizonte:</span><div class="seg" id="segHz"><button type="button" data-v="2028">2028</button><button type="button" data-v="2030">2030</button><button type="button" data-v="2032">2032</button><button type="button" data-v="2035">2035</button></div>
+          <span class="optl"><i data-ic="globe"></i> Universo:</span><div class="seg segGrow"></div></div>
         <div class="chart" id="chScen" style="min-height:250px"></div>
         <div class="legend" id="lgScen"></div>
       </div>
@@ -639,6 +711,8 @@ footer ul.ib li{font-size:13px}
     <h2>Narrativas por público</h2>
     <p>Los mismos datos, contados para quien debe actuar sobre ellos. Las cifras se actualizan con la configuración y el simulador.</p>
   </div>
+  <div class="seg ntabs" id="narrTabs" role="tablist"><button type="button" data-v="story" aria-pressed="true"><i data-ic="book"></i> Narrativas por público</button><button type="button" data-v="prompt" aria-pressed="false"><i data-ic="spark"></i> Construya su propio panel (prompt)</button></div>
+  <div id="narrStory">
   <div class="authbar" id="authBar" hidden></div>
   <div class="card authgate" id="authGate"></div>
   <div class="aud" id="audSel" hidden>
@@ -647,6 +721,8 @@ footer ul.ib li{font-size:13px}
     <button type="button" aria-pressed="false" data-a="estudiantes"><b><i data-ic="grad"></i> Estudiantes</b><span>Qué significa y cómo participar</span></button>
   </div>
   <div class="story" id="story" hidden></div>
+  </div>
+  <div id="narrPrompt" hidden></div>
 </section>
 
 <!-- 6 Arena -->
@@ -694,9 +770,16 @@ footer ul.ib li{font-size:13px}
   </details>
 </footer>
 
+<div class="picker" id="method" hidden role="dialog" aria-modal="true" aria-labelledby="mtT">
+  <div class="pk-card mt-card">
+    <div class="pk-head"><div><span class="pk-k">Observatorio SCImago · Perú</span><h2 id="mtT">Metodología</h2><p id="mtSub"></p></div><button class="btn" type="button" id="mtClose"><i data-ic="x"></i> Cerrar</button></div>
+    <div class="mt-body" id="mtBody"></div>
+  </div>
+</div>
+
 <div class="picker" id="picker" hidden role="dialog" aria-modal="true" aria-labelledby="pkT">
   <div class="pk-card">
-    <div class="pk-head"><div><span class="pk-k">Observatorio SCImago · Perú</span><h2 id="pkT">¿Qué universidad desea analizar?</h2><p>El observatorio se personaliza para la universidad elegida: KPIs, comparaciones, proyecciones, simulador y narrativas. Elija una de las universidades peruanas que figuran en SCImago; las demás licenciadas están en «Otras».</p></div><button class="btn" type="button" id="pkClose"><i data-ic="x"></i> Cerrar</button></div>
+    <div class="pk-head"><div><span class="pk-k">Observatorio SCImago · Perú</span><h2 id="pkT">Tabla de posiciones · SCImago 2026</h2><p>Las 38 universidades peruanas del ranking. Elija una para ver su detalle: KPIs, comparaciones, proyecciones, simulación y narrativas. Las demás universidades licenciadas están en «Otras».</p></div><button class="btn" type="button" id="pkClose"><i data-ic="x"></i> Cerrar</button></div>
     <label class="pk-s"><i data-ic="search"></i><input id="pkQ" type="search" placeholder="Buscar por nombre, sigla o región…" aria-label="Buscar universidad"></label>
     <div class="pk-list" id="pkList"></div>
   </div>
@@ -716,7 +799,8 @@ footer ul.ib li{font-size:13px}
   <div class="field"><span><i data-ic="gauge"></i> KPIs visibles</span><div class="comps" id="setKpis" style="grid-template-columns:1fr"></div></div>
   <div class="field"><label for="setHorizon"><i data-ic="calendar"></i> Horizonte de la simulación: <b id="setHorizonTxt">2030</b></label><input type="range" id="setHorizon" min="2028" max="2035" step="1" value="2030"></div>
   <div class="field"><label for="setDamp">Persistencia del impulso: <b id="setDampTxt">60 %</b></label><input type="range" id="setDamp" min="0" max="1" step="0.05" value="0.6"><small>100 % = la tendencia sigue igual; 0 % = se detiene el próximo año.</small></div>
-  <div class="field"><label for="setElas">Elasticidad del simulador: <b id="setElasTxt">15</b></label><input type="range" id="setElas" min="5" max="60" step="1" value="15"><small>Puntos de percentil que se ganarían con el 100 % del puntaje compuesto mejorado. Valor por defecto calibrado con la elasticidad producción–puesto observada en las universidades peruanas (−0,155).</small></div>
+  <div class="field"><label for="setROpt"><i data-ic="trend"></i> Ritmo máximo de mejora (palancas en +100): <b id="setROptTxt"></b></label><input type="range" id="setROpt" min="2" max="15" step="0.5"><small>Mejora anual relativa del percentil cuando el plan ya está maduro. Por defecto: el mejor ritmo sostenido 2021–2026 entre las universidades peruanas con seis ediciones.</small></div>
+  <div class="field"><label for="setRBad"><i data-ic="down"></i> Ritmo máximo de deterioro (palancas en −100): <b id="setRBadTxt"></b></label><input type="range" id="setRBad" min="1" max="12" step="0.5"><small>Por defecto: el peor deterioro sostenido 2021–2026 en el mismo grupo.</small></div>
   <div class="field"><label for="setQ1">Artículos liderados en Q1: <b id="setQ1Txt">30 %</b></label><input type="range" id="setQ1" min="10" max="60" step="5" value="30"><small>Supuesto para la línea de base de publicaciones Q1 del simulador.</small></div>
   <div class="field"><button class="btn" type="button" id="btnReset"><i data-ic="reset"></i> Restablecer todo (incluye XP)</button></div>
 </aside>
@@ -726,9 +810,11 @@ footer ul.ib li{font-size:13px}
 const U=[{"name": "Pontificia Universidad Católica del Perú", "s": "PUCP", "t": "Privada", "r": "Lima"}, {"name": "Universidad Autónoma del Perú", "s": "UA", "t": "Privada", "r": "Lima"}, {"name": "Universidad Católica de Santa María", "s": "UCSM", "t": "Privada", "r": "Regiones"}, {"name": "Universidad César Vallejo", "s": "UCV", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Científica del Sur", "s": "UCSUR", "t": "Privada", "r": "Lima"}, {"name": "Universidad Continental", "s": "UC", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Nacional Agraria La Molina", "s": "UNALM", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional Amazónica de Madre de Dios", "s": "UNAMAD", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional Federico Villarreal", "s": "UNFV", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional Jorge Basadre Grohmann de Tacna", "s": "UNJBG", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional Mayor de San Marcos", "s": "UNMSM", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional Pedro Ruiz Gallo", "s": "UNPRG", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional Toribio Rodríguez de Mendoza de Amazonas", "s": "UNTRM", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de Educación Enrique Guzmán y Valle", "s": "UNE", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional de Ingeniería", "s": "UNI", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional de Moquegua", "s": "UNAM", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de San Agustín", "s": "UNSA", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de San Antonio Abad del Cusco", "s": "UNSAAC", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional de Trujillo", "s": "UNT", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional del Altiplano", "s": "UNAP", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Nacional del Callao", "s": "UNAC", "t": "Pública", "r": "Lima"}, {"name": "Universidad Nacional del Centro del Perú", "s": "UNCP", "t": "Pública", "r": "Regiones"}, {"name": "Universidad Norbert Wiener", "s": "UNW", "t": "Privada", "r": "Lima"}, {"name": "Universidad Peruana Cayetano Heredia", "s": "UPCH", "t": "Privada", "r": "Lima"}, {"name": "Universidad Peruana Unión", "s": "UPeU", "t": "Privada", "r": "Lima"}, {"name": "Universidad Peruana de Ciencias Aplicadas", "s": "UPC", "t": "Privada", "r": "Lima"}, {"name": "Universidad Privada Antenor Orrego", "s": "UPAO", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Privada San Juan Bautista", "s": "UPSJB", "t": "Privada", "r": "Lima"}, {"name": "Universidad Privada del Norte", "s": "UPN", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Ricardo Palma", "s": "URP", "t": "Privada", "r": "Lima"}, {"name": "Universidad San Ignacio de Loyola", "s": "USIL", "t": "Privada", "r": "Lima"}, {"name": "Universidad Señor de Sipán", "s": "USS", "t": "Privada", "r": "Regiones"}, {"name": "Universidad Tecnológica del Perú", "s": "UTP", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Ciencias y Humanidades", "s": "UCH", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Ingeniería y Tecnología", "s": "UTEC", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Lima", "s": "ULIMA", "t": "Privada", "r": "Lima"}, {"name": "Universidad de Piura", "s": "UDEP", "t": "Privada", "r": "Regiones"}, {"name": "Universidad de San Martín de Porres", "s": "USMP", "t": "Privada", "r": "Lima"}, {"name": "Universidad del Pacífico", "s": "UP", "t": "Privada", "r": "Lima"}];
 const RAW=[[2009, 1, 2386, 23, null], [2011, 1, 2717, 23, null], [2011, 2, 3955, 10, null], [2012, 1, 2936, 23, null], [2012, 2, 3292, 0, null], [2012, 3, 4395, 10, null], [2013, 1, 3231, 0, null], [2013, 2, 3411, 23, null], [2013, 3, 4755, 10, null], [2014, 1, 3070, 0, null], [2014, 2, 3802, 23, null], [2014, 3, 5005, 10, null], [2015, 1, 3198, 0, null], [2015, 2, 3866, 23, null], [2015, 3, 5058, 10, null], [2016, 1, 2974, 0, null], [2016, 2, 4037, 23, null], [2016, 3, 5056, 10, null], [2017, 1, 2955, 0, null], [2017, 2, 2962, 23, null], [2017, 3, 4880, 25, null], [2017, 4, 4946, 10, null], [2018, 1, 4052, 0, null], [2018, 2, 4134, 23, null], [2018, 3, 5386, 10, null], [2018, 4, 5523, 25, null], [2018, 5, 5573, 37, null], [2018, 6, 5586, 4, null], [2019, 1, 2845, 23, null], [2019, 2, 3499, 25, null], [2019, 3, 3907, 10, null], [2019, 4, 4280, 0, null], [2019, 5, 4592, 37, null], [2020, 1, 2831, 23, null], [2020, 2, 4117, 10, null], [2020, 3, 4132, 25, null], [2020, 4, 4405, 37, null], [2020, 5, 4903, 0, null], [2020, 6, 5143, 6, null], [2020, 7, 6372, 4, null], [2020, 8, 6529, 14, null], [2020, 9, 6760, 16, null], [2021, 1, 2933, 23, null], [2021, 2, 4069, 6, null], [2021, 3, 4653, 0, null], [2021, 4, 4685, 10, null], [2021, 5, 5315, 37, null], [2021, 6, 5589, 30, null], [2021, 7, 5674, 25, null], [2021, 8, 6010, 5, null], [2021, 9, 6738, 38, null], [2021, 10, 7012, 4, null], [2021, 11, 7218, 14, null], [2021, 12, 7245, 16, null], [2021, 13, 7424, 33, null], [2022, 1, 3137, 18, null], [2022, 2, 3390, 23, null], [2022, 3, 4432, 6, null], [2022, 4, 4625, 10, null], [2022, 5, 4660, 0, null], [2022, 6, 5243, 30, null], [2022, 7, 5822, 5, null], [2022, 8, 6560, 4, null], [2022, 9, 6766, 25, null], [2022, 10, 6812, 3, null], [2022, 11, 7245, 38, null], [2022, 12, 7270, 28, null], [2022, 13, 7389, 16, null], [2022, 14, 7407, 8, null], [2022, 15, 7418, 35, null], [2022, 16, 7786, 14, null], [2022, 17, 7902, 33, null], [2023, 1, 4558, 23, null], [2023, 2, 4813, 0, null], [2023, 3, 5396, 18, null], [2023, 4, 5782, 10, null], [2023, 5, 6208, 30, null], [2023, 6, 6230, 6, null], [2023, 7, 6721, 27, null], [2023, 8, 6764, 37, null], [2023, 8, 6764, 29, null], [2023, 10, 7396, 19, null], [2023, 11, 7416, 4, null], [2023, 12, 7450, 25, null], [2023, 13, 7594, 17, null], [2023, 14, 7694, 14, null], [2023, 15, 7732, 38, null], [2023, 16, 7740, 22, null], [2023, 17, 7830, 28, null], [2023, 18, 7851, 5, null], [2023, 19, 7860, 35, null], [2023, 20, 7867, 16, null], [2023, 21, 7970, 3, null], [2023, 22, 8032, 24, null], [2023, 23, 8042, 2, null], [2023, 24, 8073, 26, null], [2023, 25, 8186, 33, null], [2023, 26, 8201, 8, null], [2023, 27, 8313, 32, null], [2024, 1, 3749, 0, null], [2024, 2, 4289, 23, null], [2024, 3, 4345, 10, null], [2024, 4, 5471, 25, null], [2024, 5, 5661, 32, null], [2024, 6, 5978, 28, null], [2024, 7, 5984, 30, null], [2024, 8, 6155, 3, null], [2024, 9, 6173, 22, null], [2024, 10, 6214, 19, null], [2024, 11, 6335, 29, null], [2024, 12, 6342, 37, null], [2024, 12, 6342, 18, null], [2024, 14, 6720, 5, null], [2024, 15, 6733, 6, null], [2024, 16, 6847, 35, null], [2024, 17, 6858, 17, null], [2024, 18, 6971, 14, null], [2024, 19, 7031, 31, null], [2024, 20, 7141, 16, null], [2024, 21, 7173, 4, null], [2024, 22, 7213, 27, null], [2024, 23, 7285, 38, null], [2024, 24, 7464, 26, null], [2024, 25, 7564, 34, null], [2024, 26, 7587, 24, null], [2024, 27, 7699, 2, null], [2024, 28, 7712, 8, null], [2024, 29, 8431, 33, null], [2024, 30, 8804, 1, null], [2025, 1, 4001, 0, null], [2025, 2, 4730, 10, null], [2025, 3, 4774, 23, null], [2025, 4, 5677, 25, null], [2025, 5, 5784, 3, null], [2025, 6, 6127, 30, null], [2025, 7, 6548, 28, null], [2025, 8, 6822, 4, null], [2025, 9, 6848, 22, null], [2025, 10, 6910, 24, null], [2025, 11, 6983, 31, null], [2025, 12, 7016, 14, null], [2025, 13, 7028, 17, null], [2025, 14, 7139, 5, null], [2025, 15, 7146, 37, null], [2025, 16, 7237, 29, null], [2025, 17, 7274, 32, null], [2025, 18, 7366, 19, null], [2025, 19, 7404, 38, null], [2025, 20, 7418, 21, null], [2025, 21, 7428, 18, null], [2025, 22, 7478, 6, null], [2025, 23, 7496, 16, null], [2025, 24, 7790, 35, null], [2025, 25, 7802, 27, null], [2025, 26, 7840, 26, null], [2025, 27, 7862, 7, null], [2025, 28, 7926, 2, null], [2025, 29, 7930, 11, null], [2025, 30, 8078, 8, null], [2025, 31, 8085, 36, null], [2025, 32, 8099, 13, null], [2025, 33, 8127, 12, null], [2025, 33, 8127, 20, null], [2025, 35, 9139, 1, null], [2025, 36, 9382, 33, null], [2026, 1, 4618, 0, 1], [2026, 2, 5526, 10, 1], [2026, 3, 5964, 23, 1], [2026, 4, 6448, 3, 1], [2026, 5, 6530, 30, 1], [2026, 6, 6663, 31, 1], [2026, 7, 6745, 24, 1], [2026, 8, 6956, 25, 1], [2026, 9, 6968, 4, 2], [2026, 10, 7116, 29, 2], [2026, 11, 7269, 5, 2], [2026, 12, 7373, 28, 1], [2026, 13, 7419, 22, 1], [2026, 14, 7460, 37, 2], [2026, 15, 7528, 27, 2], [2026, 16, 7534, 14, 1], [2026, 17, 7569, 17, 2], [2026, 18, 7620, 7, 1], [2026, 19, 7783, 6, 2], [2026, 20, 7809, 32, 1], [2026, 21, 7850, 38, 1], [2026, 21, 7850, 19, 2], [2026, 23, 7873, 12, 1], [2026, 24, 8027, 18, 2], [2026, 25, 8250, 16, 2], [2026, 26, 8271, 21, 1], [2026, 27, 8383, 9, 2], [2026, 28, 8401, 2, 3], [2026, 29, 8613, 8, 3], [2026, 30, 8665, 26, 3], [2026, 31, 8757, 35, 2], [2026, 32, 8943, 11, 3], [2026, 33, 8950, 13, 2], [2026, 34, 9270, 34, 1], [2026, 35, 9477, 20, 4], [2026, 36, 9831, 1, 2], [2026, 37, 9836, 15, 2], [2026, 38, 10260, 33, 4]];
 const LIC=[["Universidad Científica del Perú", "Privada", "Loreto", -1], ["Universidad Peruana de las Américas", "Privada", "Lima", -1], ["Universidad Nacional Tecnológica de Frontera San Ignacio de Loyola", "Pública", "Cajamarca", -1], ["Universidad Interamericana para el Desarrollo", "Privada", "Lima", -1], ["Universidad José Carlos Mariátegui", "Privada", "Moquegua", -1], ["Universidad Nacional de Música", "Pública", "Lima", -1], ["Universidad Nacional Daniel Alomía Robles", "Pública", "Huánuco", -1], ["Universidad Católica Los Ángeles de Chimbote", "Privada", "Áncash", -1], ["Universidad Politécnica del Perú", "Privada", "Lima", -1], ["Universidad Privada de Trujillo", "Privada", "La Libertad", -1], ["Universidad Peruana del Centro", "Privada", "Junín", -1], ["Universidad Nacional Ciro Alegría", "Pública", "La Libertad", -1], ["Universidad Nacional Pedro Ruiz Gallo", "Pública", "Lambayeque", 11], ["Universidad Nacional San Luis Gonzaga", "Pública", "Ica", -1], ["Universidad Autónoma de Ica", "Privada", "Ica", -1], ["Facultad de Teología Pontificia y Civil de Lima", "Privada", "Lima", -1], ["Universidad Nacional Federico Villarreal", "Pública", "Lima", 8], ["Universidad Tecnológica de los Andes", "Privada", "Apurímac", -1], ["Universidad Peruana Los Andes", "Privada", "Junín", -1], ["Universidad Nacional Micaela Bastidas de Apurímac", "Pública", "Apurímac", -1], ["Universidad Nacional José Faustino Sánchez Carrión", "Pública", "Lima", -1], ["Universidad Señor de Sipán", "Privada", "Lambayeque", 31], ["Universidad Nacional del Callao", "Pública", "Callao", 20], ["Universidad Nacional de Educación Enrique Guzmán y Valle", "Pública", "Lima", 13], ["Universidad Privada Norbert Wiener", "Privada", "Lima", 22], ["Universidad Nacional de Tumbes", "Pública", "Tumbes", -1], ["Universidad Privada San Juan Bautista", "Privada", "Lima", 27], ["Universidad Nacional Amazónica de Madre de Dios", "Pública", "Madre de Dios", 7], ["Universidad Nacional Agraria de la Selva", "Pública", "Huánuco", -1], ["Universidad Nacional Daniel Alcides Carrión", "Pública", "Pasco", -1], ["Universidad Nacional Hermilio Valdizán", "Pública", "Huánuco", -1], ["Universidad Nacional de Huancavelica", "Pública", "Huancavelica", -1], ["Universidad Nacional Intercultural de Quillabamba", "Pública", "Cusco", -1], ["Universidad Tecnológica del Perú", "Privada", "Lima", 32], ["Universidad Privada de Huancayo Franklin Roosevelt", "Privada", "Junín", -1], ["Universidad César Vallejo", "Privada", "La Libertad", 3], ["Universidad de Huánuco", "Privada", "Huánuco", -1], ["Universidad Nacional de Piura", "Pública", "Piura", -1], ["Universidad Nacional de San Antonio Abad del Cusco", "Pública", "Cusco", 17], ["Universidad Nacional de San Martín", "Pública", "San Martín", -1], ["Universidad Nacional de Frontera", "Pública", "Piura", -1], ["Universidad Nacional del Santa", "Pública", "Áncash", -1], ["Universidad Nacional del Centro del Perú", "Pública", "Junín", 21], ["Universidad Católica de Trujillo Benedicto XVI", "Privada", "La Libertad", -1], ["Universidad Nacional Autónoma de Tayacaja Daniel Hernández Morillo", "Pública", "Huancavelica", -1], ["Universidad Nacional de la Amazonía Peruana", "Pública", "Loreto", -1], ["Universidad Nacional Santiago Antúnez de Mayolo", "Pública", "Áncash", -1], ["Universidad Nacional Autónoma de Chota", "Pública", "Cajamarca", -1], ["Universidad Le Cordon Bleu", "Privada", "Lima", -1], ["Universidad Nacional de Ucayali", "Pública", "Ucayali", -1], ["Universidad María Auxiliadora", "Privada", "Lima", -1], ["Universidad Nacional Autónoma Altoandina de Tarma", "Pública", "Junín", -1], ["Universidad Nacional Intercultural de la Amazonía", "Pública", "Ucayali", -1], ["Universidad Nacional de Trujillo", "Pública", "La Libertad", 18], ["Universidad Católica Sedes Sapientiae", "Privada", "Lima", -1], ["Universidad Nacional de Cañete", "Pública", "Lima", -1], ["Universidad Nacional de San Agustín", "Pública", "Arequipa", 16], ["Universidad Nacional de Juliaca", "Pública", "Puno", -1], ["Universidad Nacional Intercultural Fabiola Salazar Leguía de Bagua", "Pública", "Amazonas", -1], ["Universidad Continental", "Privada", "Junín", 5], ["Universidad Autónoma del Perú", "Privada", "Lima", 1], ["Universidad Nacional de Cajamarca", "Pública", "Cajamarca", -1], ["Universidad Nacional Autónoma de Alto Amazonas", "Pública", "Loreto", -1], ["Universidad Nacional Tecnológica de Lima Sur", "Pública", "Lima", -1], ["Universidad Jaime Bausate y Meza", "Privada", "Lima", -1], ["Universidad Nacional Jorge Basadre Grohmann", "Pública", "Tacna", 9], ["Universidad Peruana Unión", "Privada", "Lima", 24], ["Universidad Nacional de San Cristóbal de Huamanga", "Pública", "Ayacucho", -1], ["Universidad Nacional de Barranca", "Pública", "Lima", -1], ["Universidad Científica del Sur", "Privada", "Lima", 4], ["Universidad ESAN", "Privada", "Lima", -1], ["Universidad Nacional Mayor de San Marcos", "Pública", "Lima", 10], ["Universidad Privada Antenor Orrego", "Privada", "La Libertad", 26], ["Universidad Nacional Intercultural de la Selva Central Juan Santos Atahualpa", "Pública", "Junín", -1], ["Universidad Católica Santo Toribio de Mogrovejo", "Privada", "Lambayeque", -1], ["Universidad La Salle", "Privada", "Arequipa", -1], ["Universidad Nacional de Jaén", "Pública", "Cajamarca", -1], ["Universidad Nacional de Moquegua", "Pública", "Moquegua", 15], ["Universidad Católica de Santa María", "Privada", "Arequipa", 2], ["Universidad Nacional del Altiplano", "Pública", "Puno", 19], ["Universidad Andina del Cusco", "Privada", "Cusco", -1], ["Universidad Privada de Tacna", "Privada", "Tacna", -1], ["Universidad Nacional de Ingeniería", "Pública", "Lima", 14], ["Universidad de Ciencias y Humanidades", "Privada", "Lima", 33], ["Universidad Privada del Norte", "Privada", "La Libertad", 28], ["Universidad Católica San Pablo", "Privada", "Arequipa", -1], ["Universidad Marcelino Champagnat", "Privada", "Lima", -1], ["Universidad San Ignacio de Loyola", "Privada", "Lima", 30], ["Universidad Peruana de Ciencias Aplicadas", "Privada", "Lima", 25], ["Universidad Nacional José María Arguedas", "Pública", "Apurímac", -1], ["Universidad Nacional Toribio Rodríguez de Mendoza de Amazonas", "Pública", "Amazonas", 12], ["Universidad de San Martín de Porres", "Privada", "Lima", 37], ["Universidad Antonio Ruiz de Montoya", "Privada", "Lima", -1], ["Universidad Nacional Autónoma de Huanta", "Pública", "Ayacucho", -1], ["Universidad Nacional Agraria La Molina", "Pública", "Lima", 6], ["Universidad de Piura", "Privada", "Piura", 36], ["Universidad Ricardo Palma", "Privada", "Lima", 29], ["Universidad Femenina del Sagrado Corazón", "Privada", "Lima", -1], ["Universidad de Ciencias y Artes de América Latina", "Privada", "Lima", -1], ["Universidad para el Desarrollo Andino", "Privada", "Huancavelica", -1], ["Universidad Peruana Cayetano Heredia", "Privada", "Lima", 23], ["Universidad del Pacífico", "Privada", "Lima", 38], ["Universidad de Lima", "Privada", "Lima", 35], ["Pontificia Universidad Católica del Perú", "Privada", "Lima", 0], ["Universidad de Ingeniería y Tecnología", "Privada", "Lima", 34]];
+const PROMPT = {"base": "ROL\nActúa como analista senior de datos y diseñador de tableros para la toma de decisiones. Trabajas con rigor estadístico, no inventas datos y separas siempre lo observado, lo calculado y lo supuesto.\n\nCONFIGURACIÓN (complete antes de enviar)\n- Dataset adjunto: [nombre del archivo y breve descripción de qué contiene]\n- Entidad foco (lo que quiero analizar y comparar): [p. ej., mi universidad, mi empresa, mi región, un producto]\n- Métrica principal (la que define «mejor» o «peor»): [p. ej., puesto, ventas, tasa de aprobación]. Sentido: [mayor es mejor / menor es mejor]\n- Unidad de tiempo: [año / mes / trimestre]\n- Grupo de comparación: [competidores o pares relevantes]\n- Públicos de las narrativas: [p. ej., gerencia, equipo operativo, clientes o estudiantes]\n- Colores institucionales: [códigos HEX o descripción]\n- Horizonte de proyección: [p. ej., 3 periodos]\n\nPASO 0. AUDITORÍA DE DATOS (antes de diseñar nada)\n1. Describe las columnas, los tipos, el rango temporal, los valores faltantes, los duplicados y las inconsistencias (nombres escritos de distintas formas, separadores, unidades).\n2. Limpia y normaliza los datos; documenta cada decisión.\n3. Si la métrica depende del tamaño del universo (por ejemplo, un puesto entre N participantes), crea una métrica normalizada (percentil, tasa o proporción) para comparar periodos de forma justa.\n4. Indica qué preguntas SÍ y cuáles NO se pueden responder con estos datos.\n\nPANEL 1. KPIs (máximo 6 a 8)\n- Elige los KPIs más útiles para quien decide y justifica cada uno en una línea.\n- Cada KPI muestra el valor actual, la variación frente al periodo anterior (verde si mejora y rojo si empeora, según el sentido de la métrica) y el contexto («de N», «frente al líder», «entre pares»).\n- Incluye al menos un KPI relativo (percentil o cuartil) y uno de brecha frente al líder o al promedio.\n- Agrega una tarjeta resumen con una frase que diga qué significan los números hoy y una tarjeta de «vecindario competitivo» con los inmediatamente superiores e inferiores.\n\nPANEL 2. DESCRIPTIVO\n- Evolución del número de participantes o registros por periodo.\n- Composición por categorías (barras apiladas), con un filtro para activar o desactivar categorías que afecte a todo el panel.\n- Trayectorias de posición en el tiempo (líneas), con la entidad foco resaltada.\n- Boxplots: distribución por periodo y comparación entre grupos, con la entidad foco marcada.\n- Mapa de calor de entidades por periodo y una tabla completa con buscador.\n\nPANEL 3. TENDENCIAS Y REGRESIONES\n1. Ajusta al menos tres modelos sobre la métrica de la entidad foco: lineal, polinomial de grado 2 y logarítmico o exponencial (según la forma de los datos).\n2. Para cada modelo reporta la ecuación, R², RMSE y el error de validación cruzada (dejando un periodo fuera si hay pocos datos). Elige el mejor y explica por qué en lenguaje simple.\n3. Muestra los residuos y advierte si hay pocos puntos o un cambio de tendencia.\n4. Calcula la pendiente (velocidad de cambio) de todas las entidades y ordénalas en un ranking de impulso.\n5. Proyecta hasta el horizonte indicado con una tendencia amortiguada (el impulso se reduce cada periodo; Gardner y McKenzie, 1985) e incluye una tabla de valores proyectados. Ofrece opciones de horizonte y de los supuestos clave (por ejemplo, el crecimiento del universo de comparación).\n6. Valida la proyección fuera de muestra: pronostica periodos ya conocidos con los datos previos y compara su error (MAE, sesgo) con un modelo ingenuo y uno lineal. Usa ese error real para dibujar la banda de incertidumbre.\n7. Resalta la entidad foco en color fuerte, muestra las demás en tonos pastel y suaviza las líneas sin alterar el primer ni el último dato (media 1-2-1 y curva monótona). Marca con un ícono de copa el lado de cada gráfico donde está la mejor posición.\n8. Agrega un botón «Metodología» que muestre las fórmulas, su explicación en lenguaje simple, la tabla de validación y las fuentes.\n\nPANEL 4. SIMULACIÓN\n- Palancas con deslizadores de −100 a +100 que representan los factores que explican la métrica. En 0 todo sigue la inercia; los valores positivos significan invertir en ese factor; los negativos, la mala decisión correspondiente (por ejemplo, recortar incentivos). Así el escenario pesimista sale de las mismas barras, sin casillas aparte.\n- Cada palanca debe tener: su peso o importancia y la fuente de ese peso; su traducción a unidades reales (p. ej., «+5 % = +12 clientes nuevos al mes»); su costo unitario y total, o el ahorro si se recorta, con fuente o marcado como SUPUESTO; y su tiempo de maduración.\n- Calibra el efecto máximo con datos observados: el mejor ritmo sostenido de mejora y el peor ritmo de deterioro entre los pares. Muéstralos como líneas de referencia «Óptimo» (todo en +100) y «Pesimista» (todo en −100), junto a la inercia y la simulación del usuario.\n- Un único KPI resumen que acompañe al usuario mientras se desplaza: resultado en el horizonte, diferencia frente a la inercia y etiqueta del escenario (pesimista, inercial, optimista u óptimo), con un indicador animado del presupuesto o del ahorro.\n- Paleta sobria de cuatro estados (recorte, inercia, mejora, óptimo); cada deslizador se rellena con un solo color sólido según su estado, nunca con un degradado.\n- Gráfico de proyección fijo en pantalla con opciones de horizonte, una «escalera de decisión» (para cada 5 % de una palanca: unidades, costo y resultado), un gráfico del aporte de cada palanca y una tabla de costos con referencias y enlaces.\n\nPANEL 5. NARRATIVAS (una por público, estructura Situación–Complicación–Resolución)\n- Situación: dónde estamos hoy, con cifras concretas del dataset.\n- Complicación: qué amenaza la posición (competidores, tendencias, riesgos) y qué se pierde si empeora, con una calculadora de sensibilidad editable.\n- Resolución: tres decisiones concretas con su costo y efecto esperado, tomados del simulador.\n- Ajusta el tono y el nivel técnico a cada público; las cifras se actualizan con los filtros y el simulador.\n\nPERSONALIZACIÓN Y GAMIFICACIÓN\n- Pantalla inicial para elegir la entidad foco; todo el tablero se personaliza para ella.\n- Panel «Personalizar»: grupo de comparación, tema (claro, oscuro, alto contraste), paleta, KPIs visibles, suavizado, horizonte y supuestos del modelo.\n- XP y niveles por explorar, insignias, carrera animada de posiciones, cuestionario de 5 preguntas generado desde los datos y juego para predecir el próximo periodo.\n- Íconos sobrios en pestañas, KPIs, títulos y botones.\n\nENTREGABLE Y DISEÑO\n- Un solo archivo HTML autocontenido con D3.js (o Chart.js), pestañas y diseño adaptable a celular.\n- Gráficos con tooltips, ejes legibles y etiquetas sin superposición.\n- Textos en español formal; números con formato consistente.\n- Sección final desplegable con fuentes, supuestos y limitaciones.\n\nREGLAS\n- No inventes datos. Si falta uno, búscalo en una fuente confiable y cítalo, o márcalo como SUPUESTO ajustable.\n- Distingue siempre entre dato observado, cálculo y supuesto.\n- Antes de entregar, revisa que no haya errores de consola, que todas las pestañas carguen y que las cifras de las narrativas coincidan con las de los paneles.\n- Al final, entrega un resumen de 5 líneas: hallazgos principales, supuestos críticos y limitaciones.\n", "ais": [{"id": "claude", "nombre": "Claude", "url": "https://claude.ai/new", "prefix": "Indicaciones para Claude: adjunte su dataset junto con este prompt. Entrega el tablero como un único archivo HTML completo en un artefacto; si es muy largo, continúa en el mismo artefacto hasta terminarlo.", "guia": ["Abra Claude, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).", "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.", "Descargue el HTML del artefacto y ábralo en el navegador o publíquelo en GitHub Pages."]}, {"id": "chatgpt", "nombre": "ChatGPT", "url": "https://chatgpt.com/", "prefix": "Indicaciones para ChatGPT: adjunte su dataset junto con este prompt. Usa Canvas si está disponible y entrega el archivo HTML completo; si la respuesta se corta, continúa exactamente donde quedó cuando te escriba «continúa».", "guia": ["Abra ChatGPT, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).", "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.", "Si aparece Canvas, el archivo se abre allí; si la respuesta se corta, escriba «continúa»."]}, {"id": "gemini", "nombre": "Gemini", "url": "https://gemini.google.com/app", "prefix": "Indicaciones para Gemini: adjunte su dataset junto con este prompt. Activa Canvas y entrega el archivo HTML completo en un solo bloque; si se corta, continúa cuando te escriba «continúa».", "guia": ["Abra Gemini, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).", "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.", "Active Canvas para obtener el archivo completo y luego descárguelo."]}, {"id": "copilot", "nombre": "Copilot", "url": "https://copilot.microsoft.com/", "prefix": "Indicaciones para Copilot: adjunte su dataset junto con este prompt. Entrega el archivo HTML en partes numeradas si es necesario y espera a que escriba «siguiente» para enviar la parte que sigue.", "guia": ["Abra Copilot, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).", "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.", "Recibirá el archivo por partes: escriba «siguiente» y únalas en orden."]}, {"id": "deepseek", "nombre": "DeepSeek", "url": "https://chat.deepseek.com/", "prefix": "Indicaciones para DeepSeek: active DeepThink y adjunte su dataset. Si el archivo HTML no cabe en una respuesta, divídelo en partes numeradas que se puedan unir en orden.", "guia": ["Abra DeepSeek, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).", "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.", "Active DeepThink; si el archivo llega en partes numeradas, únalas en orden."]}, {"id": "kimi", "nombre": "Kimi", "url": "https://www.kimi.com/", "prefix": "Indicaciones para Kimi: adjunte su dataset junto con este prompt. Entrega el archivo HTML completo en su propio bloque de código; si se corta, continúa cuando te escriba «continúa».", "guia": ["Abra Kimi, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).", "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.", "El archivo llega en un bloque; si se corta, escriba «continúa»."]}], "site": "https://jherreraxp.github.io/observatorio-scimago/"};
 /* ===== Datos base ===== */
 const TOT = {2020:[7026,0],2021:[7555,1],2022:[8084,0],2023:[8569,1],2024:[9054,0],2025:[9756,0],2026:[10827,0]};
-const GROW = 886; // crecimiento anual medio del universo SCImago 2024–2026
+const GROW_OPTS = [{v:886,t:'Reciente',d:'ritmo 2024–2026: +886 instituciones por año'},{v:634,t:'Promedio',d:'ritmo 2020–2026: +634 por año'},{v:300,t:'Moderado',d:'supuesto: crecimiento a la mitad del promedio, +300 por año'}];
+const GROW = 634; // valor por defecto: promedio 2020–2026
 const LAST = 2026, PREV = 2025;
 const recs = RAW.map(([y,n,g,u,q]) => ({y,n,g,u,q}));
 const YEARS = [...new Set(recs.map(d=>d.y))].sort((a,b)=>a-b);
@@ -736,7 +822,7 @@ const byY = d3.group(recs, d=>d.y);
 const byU = new Map(); recs.forEach(r=>{ if(!byU.has(r.u)) byU.set(r.u,new Map()); byU.get(r.u).set(r.y,r); });
 const NY = y => (byY.get(y)||[]).length;
 const pctOf = r => (r && TOT[r.y]) ? r.g/TOT[r.y][0]*100 : null;
-const Tproj = E => E<=LAST ? TOT[E][0] : TOT[LAST][0] + GROW*(E-LAST);
+const Tproj = E => E<=LAST ? TOT[E][0] : TOT[LAST][0] + ((typeof S!=='undefined' && S.grow) || GROW)*(E-LAST);
 const SIG = s => U.findIndex(u=>u.s===s);
 const iUSIL = SIG('USIL');
 /* ===== Universidades licenciadas por SUNEDU (25/08/2026) ===== */
@@ -846,7 +932,7 @@ const KPI_DEFS = [
  ['qpais','Cuartil en el país'],['qmundo','Cuartil en el mundo'],['sunedu','Frente a todas las universidades licenciadas']
 ];
 const DEF = () => ({focus:iUSIL, comps:['UPC','UCV','USS','UPeU','UCSUR','ULIMA','UP','UTP'].map(SIG), theme:'light', pal:'usil', dense:0, pastel:1,
-  horizon:2030, damp:0.6, elas:15, kpis:KPI_DEFS.map(k=>k[0]), lev:{q1:0,out:0,tal:0,col:0,pat:0,ik:0,ods:0,web:0}, start:2027, budget:5,
+  horizon:2035, damp:0.6, elas:15, grow:GROW, rOpt:null, rBad:null, narrTab:'story', v5:1, kpis:KPI_DEFS.map(k=>k[0]), lev:{q1:0,out:0,tal:0,col:0,pat:0,ik:0,ods:0,web:0}, start:2027, budget:5,
   q1share:30, comp:1.5, compSim:0, xp:0, got:[], visited:[], narr:[], pred:null, tab:'kpis', aud:'rector',
   rev:{mat:19371, pago:20000, ing:20, sens:0.5}, smooth:'media', onboarded:false, baseLedBy:{}, revBy:{}, extBy:{}});
 let S = DEF();
@@ -856,6 +942,7 @@ try {
   else { const s1 = JSON.parse(localStorage.getItem('usil-scimago-v1')||'null'); if(s1){ S.xp=s1.xp||0; S.got=(s1.got||[]).filter(k=>k!=='efficient'); S.visited=s1.visited||[]; S.focus=s1.focus??S.focus; S.theme=s1.theme||S.theme; S.pal=s1.pal||S.pal; } }
 } catch(e){}
 if(!U[S.focus]) S.focus = iUSIL;
+if(!S.v5){ S.horizon=2035; S.grow=GROW; S.v5=1; }
 S.kpis = S.kpis.filter(k=>KPI_DEFS.some(d=>d[0]===k)); if(!S.kpis.length) S.kpis=KPI_DEFS.map(k=>k[0]);
 S.rev = Object.assign(DEF().rev, S.rev||{});
 const save = () => { try { localStorage.setItem('usil-scimago-v2', JSON.stringify(S)); } catch(e){} };
@@ -931,27 +1018,48 @@ function ramp(lag,E){
   const end = (lag==='inn' ? E-3 : E-2);
   return clamp(end - S.start + 1, 0, 5)/5;
 }
-const leverEffV = (l,v,E) => l.w/100 * (v/100) * ramp(l.lag,E) * S.elas;
-function leverEff(l,E){ return leverEffV(l, S.lev[l.id]||0, E); }
-const dMaxOf = E => d3.sum(LEVERS, l=>leverEffV(l,100,E));
+/* Calibración empírica: ritmo anual (log) del percentil de las universidades con las seis ediciones 2021–2026 */
+const CAL = (()=>{ const out=[]; byU.forEach((m,u)=>{ const p=pctSeries(u).filter(d=>d[0]>=2021); if(p.length>=6){ const r=linreg(p.map(([x,y])=>[x,Math.log(y)])); out.push({u, r:r.s}); } });
+  out.sort((a,b)=>a.r-b.r); const best=out[0], worst=out[out.length-1];
+  return {opt:Math.round(-best.r*1000)/10, bad:Math.round(worst.r*1000)/10, optU:best.u, badU:worst.u, n:out.length, all:out}; })();
+const rOpt = () => (S.rOpt ?? CAL.opt)/100, rBad = () => (S.rBad ?? CAL.bad)/100;
+const cumRamp = (lag,E) => { let t=0; for(let e=LAST+1;e<=E;e++) t+=ramp(lag,e); return t; };   // años de plan ya maduros en la ventana SCImago
+const kOf = (l,v,E) => l.w/100 * (v/100) * cumRamp(l.lag,E) * (v>=0 ? rOpt() : rBad());
+function leverEff(l,E){ const A=inert(S.focus,E); return A==null? 0 : A - A*Math.exp(-kOf(l, S.lev[l.id]||0, E)); }   // aporte en pp (positivo = mejora)
 const COMP_PESS = 1.5;   // pp/año que gana la competencia en el escenario pesimista de referencia
 const levRatio = () => d3.sum(LEVERS,l=>l.w*(S.lev[l.id]||0)/100) / d3.sum(LEVERS,l=>l.w);
 /* Escala de color de la rueda cromática: rojo (recortes) → amarillo (inercia) → verde (mejora) → azul (óptimo) */
-const SCALE_STOPS = [[-100,'#C62828'],[-75,'#E5482A'],[-50,'#F57C00'],[-25,'#F9A825'],[0,'#F2C94C'],[25,'#B7C53B'],[50,'#43A047'],[75,'#00897B'],[100,'#1E5BD8']];
-const colorAt = d3.scaleLinear().domain(SCALE_STOPS.map(d=>d[0])).range(SCALE_STOPS.map(d=>d[1])).interpolate(d3.interpolateRgb).clamp(true);
-const inkOn = c => d3.lab(c).l > 62 ? '#14213D' : '#fff';
+const SCALE_STOPS = [[-100,'#8E2C25'],[-50,'#B0533F'],[0,'#A47F24'],[50,'#3B7A57'],[100,'#1F4E9E']];
+const SC = {bad:'#8E2C25', inert:'#A47F24', good:'#3B7A57', best:'#1F4E9E'};
+const colorAt = d3.scaleLinear().domain(SCALE_STOPS.map(d=>d[0])).range(SCALE_STOPS.map(d=>d[1])).interpolate(d3.interpolateLab).clamp(true);
+const inkOn = c => d3.lab(c).l > 70 ? '#14213D' : '#fff';
 function scenTag(r){ const p=r*100;
   if(p<=-60) return {t:'Pesimista severo', i:'alert'}; if(p<-5) return {t:'Pesimista', i:'down'}; if(p<=5) return {t:'Inercial', i:'clock'};
   if(p<60) return {t:'Optimista', i:'trend'}; if(p<95) return {t:'Muy optimista', i:'rocket'}; return {t:'Óptimo máximo', i:'trophy'}; }
 function scen(E){
   const f=S.focus, r=byU.get(f)?.get(LAST); if(!r) return null;
-  const A=inert(f,E), dB=d3.sum(LEVERS,l=>leverEff(l,E)), dM=dMaxOf(E), rr=ramp('res',E);
-  const B=clamp(A-dB,0.5,99.5), C=clamp(A+dM,0.5,99.5), O=clamp(A-dM,0.5,99.5);
+  const A=inert(f,E), rr=ramp('res',E);
+  const kB=d3.sum(LEVERS,l=>kOf(l,S.lev[l.id]||0,E)), kMax=d3.sum(LEVERS,l=>l.w/100*cumRamp(l.lag,E));
+  const B=clamp(A*Math.exp(-kB),0.5,99.5), O=clamp(A*Math.exp(-rOpt()*kMax),0.5,99.5), C=clamp(A*Math.exp(rBad()*kMax),0.5,99.5);
   const others = present().filter(u=>u!==f);
   const natFor = (p, boost) => 1 + others.filter(u=> (inert(u,E) - boost) < p).length;
   const g = v => Math.round(v/100*Tproj(E));
-  return {E, A, B, C, O, dB, dM, natA:natFor(A,0), natB:natFor(B,(S.compSim||0)*5*rr), natC:natFor(C,COMP_PESS*5*rr), natO:natFor(O,0), gA:g(A), gB:g(B), gC:g(C), gO:g(O)};
+  return {E, A, B, C, O, dB:A-B, natA:natFor(A,0), natB:natFor(B,(S.compSim||0)*5*rr), natC:natFor(C,COMP_PESS*5*rr), natO:natFor(O,0), gA:g(A), gB:g(B), gC:g(C), gO:g(O)};
 }
+/* Validación fuera de muestra de la proyección inercial (orígenes recientes, horizontes 1 y 2) */
+function backtest(){
+  const res={naive:{1:[],2:[]}, lin:{1:[],2:[]}, damp:{1:[],2:[]}};
+  [LAST-2, LAST-1].forEach(o=>{ byU.forEach((m,u)=>{
+    const p=pctSeries(u).filter(d=>d[0]>=2021 && d[0]<=o); if(p.length<3 || p[p.length-1][0]!==o) return;
+    const sl=clamp(linreg(p).s,-4,4), last=p[p.length-1][1];
+    [1,2].forEach(h=>{ const r=m.get(o+h); if(!r||!TOT[o+h]) return; const act=pctOf(r);
+      res.naive[h].push(last-act); res.lin[h].push(last+sl*h-act); res.damp[h].push(last+sl*geom(S.damp,h)-act); });
+  }); });
+  const st=a=>({mae:d3.mean(a,Math.abs), bias:d3.mean(a), rmse:Math.sqrt(d3.mean(a,x=>x*x)), n:a.length});
+  const out={}; Object.keys(res).forEach(k=>out[k]={1:st(res[k][1]),2:st(res[k][2])});
+  out.sigma1 = out.damp[1].rmse; return out;
+}
+let BT=null, BTd=null; const bt = () => { if(!BT || BTd!==S.damp){ BT=backtest(); BTd=S.damp; } return BT; };
 const REFS = [
  {t:'Apoyo al pago de APC por cuartil', d:'Q1 (SJR < 2): hasta US$ 2 500; Q2: US$ 2 000; Q3: US$ 700.', s:'Universidad Norbert Wiener, directiva 2025', url:'https://repositorio.uwiener.edu.pe/bitstreams/3ecb743c-0dbe-40e4-8bda-60c0b31a8cc4/download'},
  {t:'Bono por publicación (universidad pública)', d:'Q1: S/ 10 000; Q2–Q3: S/ 8 000; Q4: S/ 5 000 por artículo.', s:'UNSA, incentivo por publicación', url:'https://vri.unsa.edu.pe/?p=14399'},
@@ -992,8 +1100,10 @@ const BADGES = [
  {id:'explorer',t:'Explorador/a',d:'Visitó los seis paneles',m:'6'},
  {id:'custom',t:'A mi medida',d:'Personalizó el observatorio',m:'⚙'},
  {id:'strategist',t:'Estratega',d:'Movió una palanca del simulador',m:'S'},
- {id:'top5',t:'Top 5',d:'Top 5 nacional en el la simulación',m:'5'},
- {id:'podium',t:'Podio',d:'Top 3 nacional en el la simulación',m:'3'},
+ {id:'method',t:'Rigor',d:'Revisó la metodología y su validación',m:'∑'},
+ {id:'prompt',t:'Constructor/a',d:'Copió el prompt para crear su propio panel',m:'⌘'},
+ {id:'top5',t:'Top 5',d:'Top 5 nacional en la simulación',m:'5'},
+ {id:'podium',t:'Podio',d:'Top 3 nacional en la simulación',m:'3'},
  {id:'half',t:'Mitad superior',d:'Percentil mundial menor que 50 %',m:'50'},
  {id:'roi',t:'Inversión rentable',d:'El plan protege más ingreso del que cuesta',m:'S/'},
  {id:'pess',t:'Gestión de riesgos',d:'Exploró el escenario pesimista',m:'!'},
@@ -1184,7 +1294,7 @@ function renderKPIs(){
     const gp=L.g-F.leader(LAST), gpp=P? P.g-F.leader(PREV):null;
     K.gap = {v:fInt(gp)+' <small>puestos</small>', c:`${pill(gpp!=null? gp-gpp:null,true,fInt)} detrás de ${nm(byY.get(LAST).find(r=>r.g===F.leader(LAST)).u)}, líder nacional`};
     const arr=F.sameT(LAST), p=1+arr.filter(r=>r.g<L.g).length, pp = P? 1+F.sameT(PREV).filter(r=>r.g<P.g).length : null;
-    K.priv = {v:`${ordF(p)} <small>de ${arr.length}</small>`, c:`${pill(pp!=null? p-pp:null,true,v=>v,' puesto')} entre universidades ${priv?'privadas':'públicas'} en SCImago ${LAST}`};
+    K.priv = {v:`${ordF(p)} <small>de ${arr.length}</small>`, c:`${pill(pp!=null? p-pp:null,true,v=>v,(pp!=null && Math.abs(p-pp)===1)?' puesto':' puestos')} entre universidades ${priv?'privadas':'públicas'} en SCImago ${LAST}`};
     K.qpais = L.q ? {v:'Q'+L.q, c:'mejor cuartil SCImago dentro del Perú', star:L.q===1} : {v:'—', c:'dato publicado desde 2026'};
     const q=worldQ(F.pctL), qp=F.pctP!=null? worldQ(F.pctP):null;
     K.qmundo = {v:'Q'+q, c:`top ${f1(F.pctL)} % de ${fInt(TOT[LAST][0])} instituciones${qp?` · en ${PREV}: Q${qp}`:''} (cálculo propio)`};
@@ -1347,6 +1457,8 @@ function renderFull(){
 
 /* ===== Panel 3: Tendencias ===== */
 const PROJ_END = 2035;
+function paintGrow(){ document.querySelectorAll('.segGrow').forEach(seg=>{ seg.innerHTML=GROW_OPTS.map(o=>`<button type="button" data-v="${o.v}" aria-pressed="${o.v===S.grow}" title="${o.d}">${ic(o.v===886?'trend':o.v===634?'activity':'clock',13)} ${o.t} <small>+${o.v}/año</small></button>`).join('');
+  seg.querySelectorAll('button').forEach(b=>b.onclick=()=>{ S.grow=+b.dataset.v; save(); RENDER[S.tab](); }); }); }
 function renderTrend(){
   const f=S.focus, F=facts(), m=byU.get(f)||new Map(), H=PROJ_END;
   const ys=[...m.keys()].filter(y=>y>=2020).sort((a,b)=>a-b);
@@ -1367,12 +1479,13 @@ function renderTrend(){
   if(!last){ projEl.innerHTML='<p class="note">La universidad no figura en '+LAST+'.</p>'; document.getElementById('tblProj').innerHTML=''; document.getElementById('trendLead').textContent=''; return; }
   const sd=F.sl.sd||3, obs=ys.map(y=>({x:y,y:pctOf(m.get(y)),est:!!TOT[y][1]}));
   const proj=d3.range(LAST,H+1).map(E=>({x:E,y:E===LAST?pctOf(last):inert(f,E)}));
-  const band=proj.map(p=>({x:p.x, lo:p.y-sd*0.9*Math.sqrt(p.x-LAST), hi:p.y+sd*0.9*Math.sqrt(p.x-LAST)}));
+  const s1=bt().sigma1, band=proj.map(p=>({x:p.x, lo:Math.max(0.5,p.y-1.28*s1*Math.sqrt(p.x-LAST)), hi:Math.min(99.5,p.y+1.28*s1*Math.sqrt(p.x-LAST))}));
   lineChart(projEl,{xDomain:[Math.min(2020,ys[0]),H], yRev:true, h:260, band, aria:'Proyección inercial del percentil', vlines:[{x:LAST+0.5,label:'Proyección'}],
     series:[{name:'Observado',color:focusCol,width:3.5,big:true,pts:obs},{name:'Proyección inercial',color:focusCol,width:2.5,dash:'6 5',pts:proj}],
     yFmt:v=>f0(v)+' %', tipFmt:p=>f1(p.y)+' %', tipTitle:x=>x>LAST?'Proyección '+x:'Edición '+x});
   const rows=d3.range(LAST+1,H+1).map(E=>{ const s=scen(E), b=band.find(b=>b.x===E); return `<tr><td class="num">${E}</td><td class="r num">${f1(s.A)} %</td><td class="r num">${f1(b.lo)}–${f1(b.hi)} %</td><td class="r num">${fInt(s.gA)}</td><td class="r num">${fInt(Math.round(Tproj(E)))}</td><td class="c">${ord(s.natA)}</td></tr>`; });
   document.getElementById('tblProj').innerHTML=`<thead><tr><th>Edición</th><th class="r">Percentil</th><th class="r">Banda</th><th class="r">Puesto mundial</th><th class="r">Universo est.</th><th class="c">Nacional</th></tr></thead><tbody>${rows.join('')}</tbody>`;
+  paintGrow();
   const sH=scen(H);
   document.getElementById('trendLead').innerHTML=`Con la tendencia actual de ${esc(nm(f))} (${F.sl.s<0?'mejora':'retroceso'} de ${f1(Math.abs(F.sl.s))} pp por año) y una persistencia del impulso del ${f0(S.damp*100)} %, la proyección inercial la ubica en el ${f1(sH.A)} % superior del mundo en ${H}, puesto nacional ${ord(sH.natA)}.`;
 }
@@ -1388,7 +1501,7 @@ const sgn = v => (v>0?'+':v<0?'−':'')+Math.abs(v);
 function paintRange(inp){
   const v=+inp.value, c=colorAt(v), p=(v+100)/2, a=Math.min(50,p), b=Math.max(50,p), c0=colorAt(0);
   inp.style.setProperty('--c',c);
-  inp.style.background=`linear-gradient(90deg, var(--soft) 0%, var(--soft) ${a}%, ${v<0?c:c0} ${a}%, ${v<0?c0:c} ${b}%, var(--soft) ${b}%, var(--soft) 100%)`;
+  inp.style.background=`linear-gradient(90deg, var(--soft) 0%, var(--soft) ${a}%, ${c} ${a}%, ${c} ${b}%, var(--soft) ${b}%, var(--soft) 100%)`;
   const lv=inp.closest('.lever'); if(lv) lv.style.setProperty('--c',c);
 }
 const FAC_IC = {'Investigación':'flask','Innovación':'bulb','Impacto social':'users'};
@@ -1455,13 +1568,13 @@ function renderScen(){
     `<div>${ic('globe',14)} Top <b>${f1(s.B)} %</b> del mundo · puesto <b>${fInt(s.gB)}</b></div>`+
     `<div>${ic('swap',14)} Frente a la inercia (${ord(s.natA)}, ${f1(s.A)} %): ${dN===0?'mismo puesto nacional':`<b style="color:${dN>0?'var(--ok)':'var(--bad)'}">${Math.abs(dN)} ${Math.abs(dN)===1?'puesto':'puestos'} ${dN>0?'mejor':'peor'}</b>`} · ${dP>=0?'−':'+'}${f1(Math.abs(dP))} pp</div>`+
     `<div class="mut">${ic('info',14)} Rango posible: ${ord(s.natO)} con todo al máximo · ${ord(s.natC)} con todo recortado</div>`;
-  document.getElementById('ssMark').style.left=((r+1)/2*100)+'%';
+  const mp=(r+1)/2*100; document.getElementById('ssMark').style.left=mp+'%'; const fl=document.getElementById('ssFill'); fl.style.left=Math.min(50,mp)+'%'; fl.style.width=Math.abs(mp-50)+'%'; fl.style.background=col;
   renderMoney(ann);
   const yrsArr=d3.range(LAST,H+1), obsY=[...byU.get(f).keys()].filter(y=>y>=2020).sort((a,b)=>a-b), S0=yrsArr.map(scen);
   const pick={pct:['A','B','C','O'],nat:['natA','natB','natC','natO'],glob:['gA','gB','gC','gO']}[scenView];
   const obsV=y=>{ const rr=byU.get(f).get(y); return scenView==='pct'? pctOf(rr) : scenView==='nat'? rr.n : rr.g; };
-  const defs=[{name:'Inercial',label:'Inercial',color:'#D9A300',width:2.5,dash:'6 5'},{name:'Tu simulación',label:'Simulación',color:col,width:4.5,big:true,z:3},
-    {name:'Pesimista (todo recortado)',label:'Pesimista',color:'#C62828',width:1.6,dash:'2 4',op:.8},{name:'Óptimo (todo al máximo)',label:'Óptimo',color:'#1E5BD8',width:1.6,dash:'2 4',op:.8}];
+  const defs=[{name:'Inercial',label:'Inercial',color:SC.inert,width:2.2,dash:'6 5'},{name:'Tu simulación',label:'Simulación',color:col,width:4,big:true,z:3},
+    {name:`Pesimista (todo en −100; deterioro ${f1(rBad()*100)} %/año)`,label:'Pesimista',color:SC.bad,width:1.6,dash:'2 4',op:.85},{name:`Óptimo (todo en +100; mejora ${f1(rOpt()*100)} %/año)`,label:'Óptimo',color:SC.best,width:1.6,dash:'2 4',op:.85}];
   const series=[{name:'Observado',color:'var(--ink)',width:2.5,pts:obsY.map(y=>({x:y,y:obsV(y),est:!!TOT[y][1]}))},
     ...pick.map((k,i)=>({...defs[i], pts:S0.map(sc=>({x:sc.E,y:sc.E===LAST?obsV(LAST):sc[k]}))}))];
   const fmt = scenView==='pct'? (v=>f0(v)+' %') : scenView==='nat'? (v=>ord(v)) : (v=>fInt(v));
@@ -1472,6 +1585,8 @@ function renderScen(){
   lineChart(document.getElementById('chScen'),o);
   document.getElementById('lgScen').innerHTML=series.map(x=>`<span><i style="background:${x.color}"></i>${x.name}</span>`).join('');
   document.querySelectorAll('#segScen button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.v===scenView));
+  document.querySelectorAll('#segHz button').forEach(b=>b.setAttribute('aria-pressed', +b.dataset.v===S.horizon));
+  paintGrow();
   const ctb=LEVERS.map(l=>({k:l.id,label:l.n.length>30? l.n.slice(0,29)+'…' : l.n, v:leverEff(l,H), color:colorAt(S.lev[l.id]||0), l}));
   hBar(document.getElementById('chContrib'),{data:ctb,rowH:24,vFmt:v=>(v>0?'+':v<0?'−':'')+f1(Math.abs(v))+' pp', tFmt:v=>f0(v), aria:'Aporte de cada palanca',
     tip:d=>`<b>${esc(d.l.n)}</b><div class="r"><span>Intensidad</span><span>${sgn(S.lev[d.k]||0)} %</span></div><div class="r"><span>Unidades/año</span><span>${(S.lev[d.k]||0)<0 && !d.l.negSave ? '—' : fInt(unitsOf(d.l))}</span></div><div class="r"><span>${costOf(d.l)<0?'Ahorro':'Costo'} anual</span><span>${fmtS(Math.abs(costOf(d.l)))}</span></div><div class="r"><span>Maduración en ${H}</span><span>${f0(ramp(d.l.lag,H)*100)} %</span></div><div class="r"><span>Aporte</span><span>${f1(d.v)} pp</span></div>`});
@@ -1705,17 +1820,47 @@ function openPicker(){
   const m=document.getElementById('picker'); m.hidden=false; document.getElementById('pkQ').value=''; renderPicker(); setTimeout(()=>document.getElementById('pkQ').focus(),30);
   document.getElementById('pkClose').hidden = !S.onboarded;
 }
+const MEDALS={1:['#E8C35A','#8A6A1E','Oro'],2:['#CDD3DC','#5E6878','Plata'],3:['#D49A62','#7A4A1F','Bronce']};
+const medal = n => { const m=MEDALS[n]; return m? `<svg class="pk-medal" viewBox="0 0 24 28" width="22" height="26" role="img" aria-label="Medalla de ${m[2]}"><path d="M6 1h5l2 8H8z" fill="#1F4E9E"/><path d="M13 1h5l-2 8h-5z" fill="#8E2C25"/><circle cx="12" cy="18" r="8" fill="${m[0]}" stroke="${m[1]}" stroke-width="1.6"/><circle cx="12" cy="18" r="5.2" fill="none" stroke="${m[1]}" stroke-width=".8" opacity=".6"/><text x="12" y="21.2" text-anchor="middle" font-size="8.5" font-weight="800" fill="${m[1]}">${n}</text></svg>` : ''; };
+function laurel(){ let l=''; for(let side of [-1,1]) for(let i=0;i<6;i++){ const ang=(90+side*(38+i*22))*Math.PI/180, cx=17+13*Math.cos(ang), cy=17+13*Math.sin(ang), rot=(ang*180/Math.PI)+(side>0?-60:60);
+  l+=`<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="3.6" ry="1.7" transform="rotate(${rot.toFixed(0)} ${cx.toFixed(1)} ${cy.toFixed(1)})"/>`; }
+  return `<svg class="pk-laurel" viewBox="0 0 34 34" aria-hidden="true"><g fill="#3B7A57" opacity=".9">${l}</g></svg>`; }
+function pkSpark(u){
+  const p=pctSeries(u); if(p.length<2) return '<span class="pk-tnew">nueva</span>';
+  const W=78,H=24, x=d3.scaleLinear().domain([2020,LAST]).range([3,W-5]), ext=d3.extent(p,d=>d[1]), pad=Math.max(2,(ext[1]-ext[0])*0.12);
+  const y=d3.scaleLinear().domain([ext[0]-pad,ext[1]+pad]).range([3,H-3]);   // percentil menor (mejor) arriba
+  const pts=smoothPts(p.map(([a,b])=>({x:a,y:b}))), up=p[p.length-1][1]<=p[0][1], c=up?'#3B7A57':'#8E2C25';
+  const d=d3.line().curve(d3.curveMonotoneX).x(q=>x(q.x)).y(q=>y(q.y))(pts), lp=p[p.length-1];
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Tendencia del percentil mundial ${p[0][0]}–${LAST}: ${up?'mejora':'empeora'}"><path d="${d}" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round"/><circle cx="${x(lp[0])}" cy="${y(lp[1])}" r="2.6" fill="${c}"/></svg>`;
+}
 function renderPicker(){
   const q=document.getElementById('pkQ').value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
   const match=u=>!q || (full(u)+' '+nm(u)+' '+(U[u].dep||'')).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(q);
-  const inR=[...byY.get(LAST)].sort((a,b)=>a.n-b.n).map(r=>r.u).filter(match);
+  const cur=[...byY.get(LAST)].sort((a,b)=>a.n-b.n||a.g-b.g);
+  const typePos=u=>{ const arr=cur.filter(r=>U[r.u].t===U[u].t).sort((a,b)=>a.g-b.g); return arr.findIndex(r=>r.u===u)+1; };
+  const inR=cur.map(r=>r.u).filter(match);
   const out=[...U.keys()].filter(u=>U[u].lic && !byU.get(u)?.get(LAST)).sort((a,b)=>full(a).localeCompare(full(b),'es')).filter(match);
   const item=(u,meta)=>`<button type="button" class="pk-it ${u===S.focus?'on':''}" data-u="${u}"><span class="pk-n">${esc(full(u))}</span><span class="pk-m">${meta}</span></button>`;
+  const row=u=>{ const r=byU.get(u).get(LAST), pr=byU.get(u).get(PREV), d=pr? pr.n-r.n : null, pub=U[u].t==='Pública', tp=typePos(u);
+    const dz = d==null? `<span class="pk-d nw" title="Primera edición en ${LAST}">nueva</span>` : d>0? `<span class="pk-d up" title="Subió ${d} ${d===1?'puesto':'puestos'} frente a ${PREV}">▲ ${d}</span>` : d<0? `<span class="pk-d dn" title="Bajó ${-d} ${d===-1?'puesto':'puestos'} frente a ${PREV}">▼ ${-d}</span>` : `<span class="pk-d eq" title="Mismo puesto que en ${PREV}">=</span>`;
+    return `<button type="button" class="pk-row ${u===S.focus?'on':''} ${r.n<=3?'top3':''}" data-u="${u}" aria-label="${esc(full(u))}: ${r.n}.º nacional, ${fInt(r.g)} mundial. Ver detalle">
+      <span class="pk-pos">${r.n<=5? laurel() : ''}<b>${r.n}</b></span>
+      <span class="pk-med">${medal(r.n)}</span>
+      <span class="pk-badge ${pub?'pu':'pr'} l${Math.min(6,nm(u).length)}">${esc(nm(u).slice(0,6))}</span>
+      <span class="pk-name"><b>${esc(nm(u))}</b><small>${esc(full(u))} · ${U[u].t} · ${esc(U[u].r)}</small></span>
+      <span class="pk-c num">${ord(r.n)}</span>
+      <span class="pk-c num" title="Puesto entre universidades ${pub?'públicas':'privadas'}">${tp}.ª <small>${pub?'púb.':'priv.'}</small></span>
+      <span class="pk-c pk-w num">${fInt(r.g)}</span>
+      <span class="pk-c">${dz}</span>
+      <span class="pk-c pk-t">${pkSpark(u)}</span>
+    </button>`; };
   const openO = (q && !inR.length) || (isExt() && !q);
   document.getElementById('pkList').innerHTML =
-    `<h4>${ic('trophy')} Universidades en SCImago ${LAST} (${inR.length})</h4>`+(inR.length? inR.map(u=>{ const r=byU.get(u).get(LAST); return item(u,`${ord(r.n)} nacional · ${fInt(r.g)} mundial · ${U[u].t}`); }).join('') : '<p class="note">Ninguna universidad del ranking coincide con la búsqueda.</p>')+
+    `<div class="pk-table" role="list"><div class="pk-hd" aria-hidden="true"><span>#</span><span></span><span></span><span>Universidad</span><span>Nac.</span><span>Priv./Púb.</span><span class="pk-w">Mundial</span><span>vs ${PREV}</span><span>Tendencia</span></div>`+
+    (inR.length? inR.map(row).join('') : '<p class="note" style="padding:10px">Ninguna universidad del ranking coincide con la búsqueda.</p>')+`</div>`+
+    `<p class="pk-foot">${ic('info',13)} Medallas: tres primeros puestos nacionales; corona de laurel: cinco primeros. «vs ${PREV}»: cambio del puesto nacional. Tendencia: percentil mundial 2020–${LAST}, verde si mejoró. Haga clic en una fila para ver el detalle.</p>`+
     `<details class="pk-otras" ${openO?'open':''}><summary>${ic('landmark')} Otras universidades <span>(${out.length} licenciadas por SUNEDU que no figuran en SCImago)</span></summary><div class="pk-ol">${out.map(u=>item(u,`${U[u].t} · ${esc(U[u].dep||U[u].r)}`)).join('') || '<p class="note">Sin coincidencias.</p>'}</div></details>`;
-  document.querySelectorAll('.pk-it').forEach(b=>b.onclick=()=>selectFocus(+b.dataset.u));
+  document.querySelectorAll('.pk-it, .pk-row').forEach(b=>b.onclick=()=>selectFocus(+b.dataset.u));
 }
 function selectFocus(u){
   S.focus=u; S.onboarded=true;
@@ -1875,7 +2020,102 @@ function header(){
   document.querySelectorAll('.yy').forEach(e=>e.textContent=LAST);
   document.getElementById('hdrLine').innerHTML = L ? `En ${LAST}, <b>${esc(full(F.f))}</b> es ${ordF(L.n)} de ${NY(LAST)} universidades peruanas en SCImago${F.pctP!=null?` y ${F.pctL<F.pctP?'mejoró':'retrocedió'} su percentil mundial de ${f1(F.pctP)} % a ${f1(F.pctL)} %`:''}.` : `${esc(full(F.f))} no figura en la edición ${LAST}.`;
 }
-const RENDER={kpis:renderKPIs, descriptivo:renderDesc, tendencias:renderTrend, escenarios:renderScen, narrativas:renderStory, arena:renderArena};
+
+/* ===== Metodología (fórmulas, validación y fuentes) ===== */
+const METH_SRC = [
+ ['SCImago Lab. SIR Methodology (indicadores, pesos y ventana de cinco años).','https://www.scimagoir.com/methodology.php'],
+ ['Gardner, E. S., y McKenzie, E. (1985). Forecasting trends in time series. Management Science, 31(10), 1237–1246.','https://doi.org/10.1287/mnsc.31.10.1237'],
+ ['Hyndman, R. J., y Athanasopoulos, G. (2021). Forecasting: Principles and Practice (3.ª ed.), sección 8.2: métodos con tendencia amortiguada.','https://otexts.com/fpp3/holt.html'],
+ ['Tashman, L. J. (2000). Out-of-sample tests of forecasting accuracy: an analysis and review. International Journal of Forecasting, 16(4), 437–450.','https://EconPapers.repec.org/RePEc:eee:intfor:v:16:y:2000:i:4:p:437-450'],
+ ['Steffen, M. (1990). A simple method for monotonic interpolation in one dimension. Astronomy and Astrophysics, 239, 443–450 (curva monótona usada por d3.curveMonotoneX).','https://ui.adsabs.harvard.edu/abs/1990A%26A...239..443S'],
+ ['Tukey, J. W. (1977). Exploratory Data Analysis. Addison-Wesley (suavizado «hanning» 1/4–1/2–1/4).',null],
+ ['OurResearch. OpenAlex: producción por institución (consultado el 12-nov-2026).','https://openalex.org']
+];
+const fx = h => `<div class="fx">${h}</div>`;
+function methodHTML(){
+  const B=bt(), ph=S.damp, gl=GROW_OPTS.find(o=>o.v===S.grow)||{t:'Personalizado',d:'+'+S.grow+' por año'};
+  const row=(t,k)=>`<tr><td>${t}</td>${[1,2].map(h=>`<td class="r num">${f1(B[k][h].mae)}</td><td class="r num">${(B[k][h].bias>0?'+':'')+f1(B[k][h].bias)}</td>`).join('')}</tr>`;
+  const best=h=>[['naive','ingenuo'],['lin','lineal'],['damp','amortiguado']].sort((a,b)=>B[a[0]][h].mae-B[b[0]][h].mae)[0][1];
+  return `
+  <section id="mt-trend"><h3>${ic('line')} 1. Percentil mundial</h3>
+   <p>El puesto mundial absoluto no es comparable entre ediciones porque el número de instituciones evaluadas crece cada año. Por eso todo el análisis usa el percentil:</p>
+   ${fx('P<sub>t</sub> = 100 · g<sub>t</sub> / N<sub>t</sub>')}
+   <p><var>g</var> es el puesto mundial y <var>N</var> el total de instituciones de la edición (2020: 7 026; 2022: 8 084; 2024: 9 054; 2025: 9 756; 2026: 10 827; 2021 y 2023 se estiman como punto medio). Un valor menor es mejor: 40 % significa estar por delante del 60 % del mundo.</p>
+   <h3>${ic('activity')} 2. Suavizado de las líneas</h3>
+   ${fx('ŷ<sub>i</sub> = (y<sub>i−1</sub> + 2·y<sub>i</sub> + y<sub>i+1</sub>) / 4 &nbsp; para los puntos intermedios; ŷ<sub>1</sub> = y<sub>1</sub> y ŷ<sub>n</sub> = y<sub>n</sub>')}
+   <p>Es la media ponderada «hanning» de Tukey: quita el serrucho sin mover el primer ni el último dato. Luego la curva se traza con la interpolación monótona de Steffen, que no crea picos ni valles que no estén en los datos. El suavizado solo afecta el dibujo: los cálculos usan los valores originales, que se muestran como puntos tenues.</p>
+   <h3>${ic('trend')} 3. Impulso (velocidad de mejora)</h3>
+   ${fx('b = Σ (t − t̄)(P<sub>t</sub> − P̄) / Σ (t − t̄)²')}
+   <p>Pendiente de mínimos cuadrados del percentil en las ediciones 2021–2026 (mínimo tres). En el gráfico de impulso se muestra con el signo invertido, para que un valor positivo signifique mejora. Con pocas ediciones la pendiente es inestable; por eso se acota a ±4 puntos por año en la proyección.</p>
+   <h3>${ic('compass')} 4. Proyección inercial (tendencia amortiguada)</h3>
+   ${fx('P̂<sub>T+h</sub> = P<sub>T</sub> + b̃ · (1 + φ + φ² + … + φ<sup>h−1</sup>), &nbsp; b̃ = máx(−4, mín(4, b)), &nbsp; φ = '+f2(ph))}
+   <p>Cada año se conserva solo una fracción φ del impulso del año anterior, de modo que la tendencia no se extiende sin límite: el cambio total futuro nunca supera b̃ / (1 − φ) = ${f1(1/(1-ph))} veces la pendiente anual. Es la tendencia amortiguada de Gardner y McKenzie (1985), que en las competencias de pronóstico suele ser más precisa a largo plazo que una tendencia lineal. φ se ajusta en «Personalizar».</p>
+   ${fx('N̂<sub>T+h</sub> = N<sub>T</sub> + c · h &nbsp;&nbsp; ĝ<sub>T+h</sub> = P̂<sub>T+h</sub> / 100 · N̂<sub>T+h</sub> &nbsp;&nbsp; puesto nacional = 1 + #{ j : P̂<sub>j</sub> &lt; P̂<sub>foco</sub> }')}
+   <p>El universo crece <var>c</var> instituciones por año. Opción activa: <b>${esc(gl.t)}</b> (${esc(gl.d)}). Como las nuevas instituciones entran en su mayoría por debajo, el percentil puede mejorar aunque el puesto absoluto empeore; el supuesto sobre <var>c</var> pesa mucho en el puesto mundial proyectado a 2035.</p>
+   <h3>${ic('checks')} 5. Validación fuera de muestra y banda de incertidumbre</h3>
+   <p>Para saber cuánto confiar en la proyección se repitió el procedimiento con datos que ya se conocen: con la información hasta ${LAST-2} y hasta ${LAST-1} se pronosticaron las ediciones siguientes de todas las universidades con al menos tres ediciones, y se comparó con lo ocurrido (Tashman, 2000).</p>
+   <div class="tblwrap"><table class="mt-t"><thead><tr><th>Modelo</th><th class="r">MAE a 1 año</th><th class="r">Sesgo a 1 año</th><th class="r">MAE a 2 años</th><th class="r">Sesgo a 2 años</th></tr></thead><tbody>
+    ${row('Ingenuo (repite el último valor)','naive')}${row('Tendencia lineal (φ = 1)','lin')}${row('Tendencia amortiguada (φ = '+f2(ph)+')','damp')}
+   </tbody></table></div>
+   <p class="note">Puntos de percentil; ${B.damp[1].n} pronósticos a un año y ${B.damp[2].n} a dos años. Un sesgo positivo indica que el pronóstico fue más pesimista que lo ocurrido. Menor error a 1 año: modelo ${best(1)}; a 2 años: modelo ${best(2)}.</p>
+   <p><b>Lectura honesta:</b> los tres modelos tienen errores parecidos, de unos ${f0(B.damp[1].mae)} puntos a un año y ${f0(B.damp[2].mae)} a dos años, y ninguno domina con claridad. Por eso la proyección debe leerse como una dirección probable y no como una predicción exacta. Se mantiene la tendencia amortiguada porque su sesgo es el más cercano a cero (${(B.damp[1].bias>0?'+':'')+f1(B.damp[1].bias)} frente a ${(B.naive[1].bias>0?'+':'')+f1(B.naive[1].bias)} del modelo ingenuo): no anticipa sistemáticamente ni de más ni de menos. La banda del 80 % se construye con ese error real:</p>
+   ${fx('P̂<sub>T+h</sub> ± 1.28 · σ<sub>1</sub> · h<sup>1/2</sup>, &nbsp; σ<sub>1</sub> = '+f1(B.sigma1)+' puntos (RMSE de los pronósticos a un año)')}
+   <p>El factor √h refleja que el error crece con el horizonte; en la validación, el error a dos años fue ${f1(B.damp[2].rmse/B.damp[1].rmse)} veces el de un año, cerca de √2 ≈ 1.41.</p>
+  </section>
+  <section id="mt-sim"><h3>${ic('sliders')} 6. Simulación de decisiones</h3>
+   <p>Cada palanca <var>l</var> tiene un peso <var>w</var> tomado de la metodología SCImago y una intensidad <var>v</var> entre −100 y +100. El efecto se acumula según los años de plan que ya entraron en la ventana de cinco años que evalúa cada edición:</p>
+   ${fx('k<sub>l</sub>(E) = (w<sub>l</sub>/100) · (v<sub>l</sub>/100) · M<sub>l</sub>(E) · r, &nbsp;&nbsp; P<sub>simulado</sub>(E) = P<sub>inercial</sub>(E) · exp(−Σ k<sub>l</sub>)')}
+   <p><var>M</var> suma los años de plan ya maduros: la investigación entra con dos años de retraso y llega a plena madurez en cinco años; la innovación tarda un año más; la visibilidad web cuenta desde el año siguiente al inicio. <var>r</var> es el ritmo anual: si la palanca está en positivo se usa el ritmo de mejora r⁺; si está en negativo, el ritmo de deterioro r⁻.</p>
+   ${fx('ln P<sub>t</sub> = a + r · t &nbsp;&nbsp;(ajuste en las universidades con las seis ediciones 2021–2026)')}
+   <p>Ambos ritmos se calibran con datos observados. r⁺ = <b>${f1(rOpt()*100)} % anual</b>: el mejor ritmo sostenido de mejora (${esc(nm(CAL.optU))}). r⁻ = <b>${f1(rBad()*100)} % anual</b>: el peor deterioro sostenido (${esc(nm(CAL.badU))}). Se comparan ${CAL.n} universidades. El «Óptimo» pone todas las palancas en +100 y el «Pesimista» en −100, con la competencia mejorando ${f1(COMP_PESS)} puntos por año. Con un horizonte largo y un plan sostenido, el óptimo permite subir en el puesto mundial aunque el universo crezca; a pocos años, el plan apenas empieza a entrar en la ventana de SCImago.</p>
+   <p>Los costos usan referencias publicadas (APC, bonos, tasas PCT, estancias) y supuestos señalados como tales en la tabla de costos. Recortar una palanca muestra el ahorro correspondiente solo cuando existe un gasto real que dejar de hacer.</p>
+   <h3>${ic('alert')} 7. Limitaciones</h3>
+   <ul class="ib">
+    <li>${ic('info')}<span>Seis ediciones por universidad, como máximo, son pocas para cualquier modelo; los errores de la tabla lo muestran.</span></li>
+    <li>${ic('info')}<span>Los totales de 2021 y 2023 son estimados; el de 2023 explica parte del salto de ese año.</span></li>
+    <li>${ic('info')}<span>El simulador no modela universidades que entren al ranking ni cambios en la metodología de SCImago.</span></li>
+    <li>${ic('info')}<span>Los ritmos de mejora y deterioro provienen de casos peruanos recientes; no garantizan que otra universidad los replique.</span></li>
+   </ul>
+  </section>
+  <section><h3>${ic('book')} Fuentes</h3><ol class="refs">${METH_SRC.map(([t,u])=>`<li>${esc(t)}${u?` <a href="${u}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\//,''))}</a>`:''}</li>`).join('')}</ol></section>`;
+}
+function openMethod(which){
+  const m=document.getElementById('method'); document.getElementById('mtSub').textContent='Fórmulas, explicaciones, validación con datos reales y fuentes de las líneas de tendencia, la proyección y el simulador.';
+  const body=document.getElementById('mtBody'); body.innerHTML=methodHTML(); m.hidden=false;
+  const tgt=document.getElementById(which==='sim'?'mt-sim':'mt-trend'); body.scrollTop = tgt ? tgt.offsetTop-8 : 0;
+  document.getElementById('mtClose').focus(); award('method',10);
+}
+
+/* ===== Narrativas: pestaña con el prompt para construir su propio panel ===== */
+let promptAI='claude';
+const promptText = () => { const a=PROMPT.ais.find(x=>x.id===promptAI)||PROMPT.ais[0]; return a.prefix+'\n\n'+PROMPT.base; };
+function renderPrompt(){
+  const a=PROMPT.ais.find(x=>x.id===promptAI)||PROMPT.ais[0], el=document.getElementById('narrPrompt');
+  el.innerHTML=`<div class="card pr-card">
+    <h3>${ic('spark')} Construya su propio panel con IA</h3>
+    <p class="sub">El mismo prompt que dio origen a este observatorio, listo para cualquier dataset: KPIs, panel descriptivo, tendencias con regresiones y validación, simulación de −100 a +100 con costos y narrativas por público. Elija su IA, copie el prompt, adjunte sus datos y complete el bloque CONFIGURACIÓN.</p>
+    <div class="pr-ais">${PROMPT.ais.map(x=>`<button type="button" class="btn" data-ai="${x.id}" aria-pressed="${x.id===a.id}">${ic('spark',13)} ${esc(x.nombre)}</button>`).join('')}</div>
+    <ol class="pr-steps">${a.guia.map((g,i)=>`<li><span class="n">${i+1}</span><span>${esc(g)}</span></li>`).join('')}</ol>
+    <div class="pr-act">
+      <button class="btn pri" type="button" id="prCopy">${ic('copy')} Copiar prompt</button>
+      <a class="btn" href="${a.url}" target="_blank" rel="noopener">${ic('play')} Abrir ${esc(a.nombre)}</a>
+      <button class="btn" type="button" id="prDown">${ic('file')} Descargar .txt</button>
+      <a class="btn" href="${PROMPT.site}" target="_blank" rel="noopener">${ic('globe')} Ficha del proyecto</a>
+      <span class="note" id="prMsg" role="status"></span>
+    </div>
+    <pre class="pr-text" tabindex="0" aria-label="Texto del prompt">${esc(promptText())}</pre>
+  </div>`;
+  el.querySelectorAll('[data-ai]').forEach(b=>b.onclick=()=>{ promptAI=b.dataset.ai; renderPrompt(); });
+  document.getElementById('prCopy').onclick=async()=>{ const msg=document.getElementById('prMsg'); try{ await navigator.clipboard.writeText(promptText()); msg.textContent='Prompt copiado. Péguelo en '+a.nombre+' junto con su dataset.'; award('prompt',15); }catch(e){ const r=document.createRange(); r.selectNodeContents(el.querySelector('.pr-text')); const sl=getSelection(); sl.removeAllRanges(); sl.addRange(r); msg.textContent='Texto seleccionado: presione Ctrl+C para copiarlo.'; } };
+  document.getElementById('prDown').onclick=()=>{ const blob=new Blob([promptText()],{type:'text/plain;charset=utf-8'}), u=URL.createObjectURL(blob), l=document.createElement('a'); l.href=u; l.download='prompt-panel-'+a.id+'.txt'; document.body.appendChild(l); l.click(); l.remove(); setTimeout(()=>URL.revokeObjectURL(u),1000); };
+}
+function renderNarr(){
+  const t=S.narrTab==='prompt'?'prompt':'story';
+  document.querySelectorAll('#narrTabs button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.v===t));
+  document.getElementById('narrStory').hidden = t==='prompt'; document.getElementById('narrPrompt').hidden = t!=='prompt';
+  if(t==='prompt') renderPrompt(); else renderStory();
+}
+const RENDER={kpis:renderKPIs, descriptivo:renderDesc, tendencias:renderTrend, escenarios:renderScen, narrativas:renderNarr, arena:renderArena};
 function show(p, fromHash){
   if(!RENDER[p]) p='kpis';
   S.tab=p; save();
@@ -1906,8 +2146,8 @@ function buildSettings(){
   const seg=(id,fn)=>document.querySelectorAll('#'+id+' button').forEach(b=>b.onclick=()=>{ fn(b.dataset.v); save(); custom(); applyLook(); RENDER[S.tab](); });
   seg('setTheme',v=>S.theme=v); seg('setPal',v=>S.pal=v); seg('setDense',v=>S.dense=+v); seg('setPastel',v=>S.pastel=+v); seg('setSmooth',v=>S.smooth=v);
   const bl=document.getElementById('setBaseLed'); bl.value=baseLed(); bl.onchange=()=>{ S.baseLedBy=S.baseLedBy||{}; S.baseLedBy[sigF()]=Math.max(1,+bl.value||defaultLed(sigF())); save(); buildLevers(); RENDER[S.tab](); };
-  const rng=(id,key,txt,fmt)=>{ const r=document.getElementById(id); r.value=S[key]; document.getElementById(txt).textContent=fmt(S[key]); r.oninput=()=>{ S[key]=+r.value; document.getElementById(txt).textContent=fmt(S[key]); save(); custom(); header(); if(key==='q1share') buildLevers(); RENDER[S.tab](); }; };
-  rng('setHorizon','horizon','setHorizonTxt',v=>v); rng('setDamp','damp','setDampTxt',v=>f0(v*100)+' %'); rng('setElas','elas','setElasTxt',v=>v); rng('setQ1','q1share','setQ1Txt',v=>v+' %');
+  const rng=(id,key,txt,fmt)=>{ const r=document.getElementById(id); const cur=S[key] ?? ({rOpt:CAL.opt,rBad:CAL.bad})[key]; r.value=cur; document.getElementById(txt).textContent=fmt(cur); r.oninput=()=>{ S[key]=+r.value; document.getElementById(txt).textContent=fmt(S[key]); save(); custom(); header(); if(key==='q1share') buildLevers(); RENDER[S.tab](); }; };
+  rng('setHorizon','horizon','setHorizonTxt',v=>v); rng('setDamp','damp','setDampTxt',v=>f0(v*100)+' %'); rng('setROpt','rOpt','setROptTxt',v=>f1(v)+' %/año'); rng('setRBad','rBad','setRBadTxt',v=>f1(v)+' %/año'); rng('setQ1','q1share','setQ1Txt',v=>v+' %');
   const near=()=>{ const lst=[...byY.get(LAST)].sort((a,b)=>a.g-b.g), i=lst.findIndex(r=>r.u===S.focus); return lst.slice(Math.max(0,i-4),i+5).map(r=>r.u).filter(u=>u!==S.focus); };
   const setC=a=>{ S.comps=a.filter(u=>u!==S.focus).slice(0,12); save(); custom(); buildComps(); RENDER[S.tab](); };
   document.getElementById('compsNear').onclick=()=>setC(near());
@@ -1938,6 +2178,11 @@ function summary(){
 /* ===== Arranque ===== */
 function init(){
   paintIcons();
+  document.querySelectorAll('#narrTabs button').forEach(b=>b.onclick=()=>{ S.narrTab=b.dataset.v; save(); renderNarr(); });
+  document.querySelectorAll('#segHz button').forEach(b=>b.onclick=()=>{ S.horizon=+b.dataset.v; const hs=document.getElementById('setHorizon'); if(hs){ hs.value=S.horizon; document.getElementById('setHorizonTxt').textContent=S.horizon; } save(); header(); renderScen(); });
+  document.querySelectorAll('[data-method]').forEach(b=>b.onclick=()=>openMethod(b.dataset.method));
+  const mt=document.getElementById('method'); document.getElementById('mtClose').onclick=()=>mt.hidden=true; mt.addEventListener('click',e=>{ if(e.target===mt) mt.hidden=true; });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !mt.hidden) mt.hidden=true; });
   document.getElementById('pkQ').oninput=renderPicker; document.getElementById('pkClose').onclick=()=>document.getElementById('picker').hidden=true;
   document.getElementById('btnSwitch').onclick=openPicker;
   document.addEventListener('keydown',e=>{ if(e.key==='Escape' && S.onboarded) document.getElementById('picker').hidden=true; });
