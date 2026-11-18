@@ -435,6 +435,8 @@ html.ui-dark .pk-row .pk-w{background:#071233}
   .pk-hd span:nth-child(5), .pk-row > :nth-child(5), .pk-hd span:nth-child(6), .pk-row > :nth-child(6), .pk-hd span:nth-child(9), .pk-row > :nth-child(9){display:none}
   .pk-badge{width:42px; font-size:10px} .pk-badge.l5,.pk-badge.l6{font-size:8px} .pk-hd span:nth-child(4){font-size:10px}
 }
+.scen-note{display:flex; gap:8px; align-items:flex-start; font-size:13px; line-height:1.5; color:var(--ink); background:var(--soft); border-radius:10px; padding:9px 12px; margin:8px 0 0}
+.scen-note svg.ic{flex:none; margin-top:3px; color:var(--muted)}
 </style>
 </head>
 <body>
@@ -676,11 +678,12 @@ html.ui-dark .pk-row .pk-w{background:#071233}
         </div>
       </div>
       <div class="card">
-        <div class="tbar" style="justify-content:space-between;margin-bottom:4px"><h3 style="margin:0"><i data-ic="line"></i> Proyección de la simulación</h3><div class="seg" id="segScen"><button aria-pressed="true" data-v="pct"><i data-ic="percent"></i> Percentil</button><button aria-pressed="false" data-v="nat"><i data-ic="flag"></i> Nacional</button><button aria-pressed="false" data-v="glob"><i data-ic="globe"></i> Mundial</button></div></div>
+        <div class="tbar" style="justify-content:space-between;margin-bottom:4px"><h3 style="margin:0"><i data-ic="line"></i> Proyección de la simulación</h3><div class="seg" id="segScen"><button aria-pressed="true" data-v="pct"><i data-ic="percent"></i> Percentil</button><button aria-pressed="false" data-v="nat"><i data-ic="flag"></i> Puesto nacional</button><button aria-pressed="false" data-v="glob"><i data-ic="globe"></i> Puesto mundial</button></div></div>
         <div class="tbar opts"><span class="optl"><i data-ic="calendar"></i> Horizonte:</span><div class="seg" id="segHz"><button type="button" data-v="2028">2028</button><button type="button" data-v="2030">2030</button><button type="button" data-v="2032">2032</button><button type="button" data-v="2035">2035</button></div>
           <span class="optl"><i data-ic="globe"></i> Universo:</span><div class="seg segGrow"></div></div>
         <div class="chart" id="chScen" style="min-height:250px"></div>
         <div class="legend" id="lgScen"></div>
+        <p class="scen-note" id="scenNote"></p>
       </div>
     </div>
   </div>
@@ -1549,7 +1552,7 @@ function renderMoney(ann){
   const pile=document.getElementById('pile'), nC=Math.round(Math.max(0,r)*10);
   if(pile.childElementCount!==nC){ pile.innerHTML=''; for(let i=0;i<nC;i++){ const d=document.createElement('i'); d.style.bottom=(i*5)+'px'; pile.appendChild(d); } }
 }
-let scenView='pct', ladderL='q1';
+let scenView='pct', ladderL='q1';   // la vista por defecto es siempre el percentil
 function renderScen(){
   const ext=isExt(); document.getElementById('extPath').hidden=!ext; document.getElementById('simWrap').hidden=ext;
   if(ext){ renderScenExt(); return; }
@@ -1572,16 +1575,23 @@ function renderScen(){
   renderMoney(ann);
   const yrsArr=d3.range(LAST,H+1), obsY=[...byU.get(f).keys()].filter(y=>y>=2020).sort((a,b)=>a-b), S0=yrsArr.map(scen);
   const pick={pct:['A','B','C','O'],nat:['natA','natB','natC','natO'],glob:['gA','gB','gC','gO']}[scenView];
-  const obsV=y=>{ const rr=byU.get(f).get(y); return scenView==='pct'? pctOf(rr) : scenView==='nat'? rr.n : rr.g; };
+  const obsV=y=>{ const rr=byU.get(f).get(y); return scenView==='pct'? 100-pctOf(rr) : scenView==='nat'? rr.n : rr.g; };
+  const tv=(sc,k)=> scenView==='pct'? 100-sc[k] : sc[k];
   const defs=[{name:'Inercial',label:'Inercial',color:SC.inert,width:2.2,dash:'6 5'},{name:'Tu simulación',label:'Simulación',color:col,width:4,big:true,z:3},
     {name:`Pesimista (todo en −100; deterioro ${f1(rBad()*100)} %/año)`,label:'Pesimista',color:SC.bad,width:1.6,dash:'2 4',op:.85},{name:`Óptimo (todo en +100; mejora ${f1(rOpt()*100)} %/año)`,label:'Óptimo',color:SC.best,width:1.6,dash:'2 4',op:.85}];
   const series=[{name:'Observado',color:'var(--ink)',width:2.5,pts:obsY.map(y=>({x:y,y:obsV(y),est:!!TOT[y][1]}))},
-    ...pick.map((k,i)=>({...defs[i], pts:S0.map(sc=>({x:sc.E,y:sc.E===LAST?obsV(LAST):sc[k]}))}))];
+    ...pick.map((k,i)=>({...defs[i], pts:S0.map(sc=>({x:sc.E,y:sc.E===LAST?obsV(LAST):tv(sc,k)}))}))];
   const fmt = scenView==='pct'? (v=>f0(v)+' %') : scenView==='nat'? (v=>ord(v)) : (v=>fInt(v));
-  const tf = scenView==='pct'? (p=>f1(p.y)+' %') : scenView==='nat'? (p=>ord(p.y)) : (p=>fInt(p.y));
-  const o={xDomain:[obsY[0],H], yRev:true, h:250, endLabels:true, aria:'Proyección de la simulación', vlines:[{x:LAST+0.5,label:'Proyección'}], series, yFmt:fmt, tipFmt:tf};
+  const tf = scenView==='pct'? (p=>'supera al '+f1(p.y)+' %') : scenView==='nat'? (p=>ord(p.y)) : (p=>fInt(p.y));
+  const o={xDomain:[obsY[0],H], yRev:scenView!=='pct', cup:true, h:250, endLabels:true, aria:'Proyección de la simulación', vlines:[{x:LAST+0.5,label:'Proyección'}], series, yFmt:fmt, tipFmt:tf};
   if(scenView==='nat'){ o.yInt=true; const mx=d3.max(series.flatMap(x=>x.pts),p=>p.y); o.yDomain=[0.5, Math.max(8,mx+0.5)]; }
-  if(scenView==='pct'){ o.refs=[{y:50,label:'Mitad superior del mundo'}]; }
+  if(scenView==='pct'){ o.refs=[{y:50,label:'Mitad del mundo'}]; }
+  const sn=document.getElementById('scenNote'), sB=scen(H), sx=v=>f1(100-v);
+  sn.innerHTML = scenView==='pct'
+    ? `${ic('info',14)} <span><b>Percentil mundial expresado como «supera al X % de las instituciones del mundo»</b>: más alto es mejor. Hoy ${esc(nm(f))} supera al ${sx(pctOf(byU.get(f).get(LAST)))} %; con tu simulación, al ${sx(sB.B)} % en ${H} (inercia: ${sx(sB.A)} %).</span>`
+    : scenView==='glob'
+    ? `${ic('alert',14)} <span><b>La paradoja del puesto mundial.</b> El ranking suma unas ${fInt(S.grow)} instituciones por año y la mayoría entra por debajo; aun así, algunas entran por encima y empujan hacia abajo a las que ya estaban. Por eso el puesto absoluto puede empeorar aunque la universidad mejore frente al resto: entre 2021 y ${LAST}, ${esc(nm(f))} ${(()=>{ const a=byU.get(f).get(2021), b=byU.get(f).get(LAST); return a? `pasó del puesto ${fInt(a.g)} al ${fInt(b.g)}, pero su percentil mejoró de ${f1(pctOf(a))} % a ${f1(pctOf(b))} %` : 'muestra este efecto'; })()}. Para comparar años, use la vista «Percentil».</span>`
+    : `${ic('info',14)} <span><b>Puesto nacional</b> entre las universidades peruanas del ranking, calculado con la proyección de cada una.</span>`;
   lineChart(document.getElementById('chScen'),o);
   document.getElementById('lgScen').innerHTML=series.map(x=>`<span><i style="background:${x.color}"></i>${x.name}</span>`).join('');
   document.querySelectorAll('#segScen button').forEach(b=>b.setAttribute('aria-pressed', b.dataset.v===scenView));
