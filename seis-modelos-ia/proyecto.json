@@ -1,0 +1,124 @@
+{
+ "id": "seis-modelos-ia",
+ "titulo": "Seis modelos de IA",
+ "fecha": "2026-11-18",
+ "resumen": "Tutorial interactivo para entender KNN, árboles de decisión, el perceptrón, las CNN, el LSTM y la atención: animaciones, la matemática con ejemplos a mano, modelos reales en el navegador (dibuje un dígito y reconózcalo; prediga la siguiente palabra) y una evaluación de 72 preguntas en cuatro niveles.",
+ "etiquetas": [
+  "Inteligencia artificial",
+  "Aprendizaje automático",
+  "Tutorial interactivo",
+  "Evaluación"
+ ],
+ "caracteristicas": [
+  [
+   "Seis módulos como tutorial",
+   "KNN, árbol de decisión, perceptrón, CNN, LSTM y atención, cada uno con pregunta detonadora, metáfora, retos y cierre."
+  ],
+  [
+   "Laboratorios animados",
+   "Vecinos que votan, cortes de un árbol, una neurona que aprende, filtros que recorren la imagen, compuertas de memoria y mapas de atención."
+  ],
+  [
+   "La matemática, paso a paso",
+   "Fórmulas con notación estándar y un ejemplo resuelto a mano en cada módulo, con fragmentos de Python verificados."
+  ],
+  [
+   "Dibuje un dígito",
+   "Cuatro modelos entrenados con MNIST reconocen su trazo: CNN 99.2 %, perceptrones 90.8 %, KNN 88.9 % y árbol 85.7 %."
+  ],
+  [
+   "Prediga la siguiente palabra",
+   "Bigrama, LSTM y atención sobre un corpus pequeño en español, con entrenamiento en vivo en el navegador."
+  ],
+  [
+   "Evaluación en cuatro niveles",
+   "72 preguntas: Essentials lúdico para quien no programa, Fundamentals, Advanced y Pro con matemática y código."
+  ]
+ ],
+ "app": {
+  "url": "app/",
+  "etiqueta": "Abrir el tutorial",
+  "nota": "Funciona en el navegador, en computadora o celular, sin instalación ni claves."
+ },
+ "prompts": [
+  {
+   "id": "claude",
+   "nombre": "Claude",
+   "url": "https://claude.ai/new",
+   "archivo": "prompts/claude.txt"
+  },
+  {
+   "id": "chatgpt",
+   "nombre": "ChatGPT",
+   "url": "https://chatgpt.com/",
+   "archivo": "prompts/chatgpt.txt"
+  },
+  {
+   "id": "gemini",
+   "nombre": "Gemini",
+   "url": "https://gemini.google.com/app",
+   "archivo": "prompts/gemini.txt"
+  },
+  {
+   "id": "copilot",
+   "nombre": "Copilot",
+   "url": "https://copilot.microsoft.com/",
+   "archivo": "prompts/copilot.txt"
+  },
+  {
+   "id": "deepseek",
+   "nombre": "DeepSeek",
+   "url": "https://chat.deepseek.com/",
+   "archivo": "prompts/deepseek.txt"
+  },
+  {
+   "id": "kimi",
+   "nombre": "Kimi",
+   "url": "https://www.kimi.com/",
+   "archivo": "prompts/kimi.txt"
+  }
+ ],
+ "guia": {
+  "claude": [
+   "Abra Claude y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su público, los modelos y sus colores antes de enviar.",
+   "Descargue el HTML del artefacto y ábralo en el navegador o publíquelo en GitHub Pages."
+  ],
+  "chatgpt": [
+   "Abra ChatGPT y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su público, los modelos y sus colores antes de enviar.",
+   "Si aparece Canvas, el archivo se abre allí; si la respuesta se corta, escriba «continúa»."
+  ],
+  "gemini": [
+   "Abra Gemini y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su público, los modelos y sus colores antes de enviar.",
+   "Active Canvas para obtener el archivo completo y luego descárguelo."
+  ],
+  "copilot": [
+   "Abra Copilot y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su público, los modelos y sus colores antes de enviar.",
+   "Recibirá el archivo por partes: escriba «siguiente» y únalas en orden."
+  ],
+  "deepseek": [
+   "Abra DeepSeek y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su público, los modelos y sus colores antes de enviar.",
+   "Active DeepThink; si el archivo llega en partes numeradas, únalas en orden."
+  ],
+  "kimi": [
+   "Abra Kimi y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su público, los modelos y sus colores antes de enviar.",
+   "El archivo llega en un bloque; si se corta, escriba «continúa»."
+  ]
+ },
+ "instalar": {
+  "zip": "seis-modelos-ia.zip",
+  "leeme": "codigo/LEEME.txt",
+  "minutos": 5,
+  "pasos": [
+   "Descargue el .zip y descomprímalo.",
+   "Abra seis-modelos-ia.html en su navegador para usarlo de inmediato.",
+   "Para publicarlo, súbalo como index.html a un repositorio con GitHub Pages activado, o arrástrelo a Netlify Drop.",
+   "Compártalo con sus estudiantes: cada uno guarda su mejor resultado de la evaluación en su propio navegador."
+  ]
+ }
+}

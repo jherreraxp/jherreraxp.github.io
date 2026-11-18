@@ -1,5 +1,18 @@
 [
  {
+  "id": "seis-modelos-ia",
+  "titulo": "Seis modelos de IA",
+  "resumen": "Tutorial interactivo para entender KNN, árboles de decisión, el perceptrón, las CNN, el LSTM y la atención: animaciones, la matemática con ejemplos a mano, modelos reales en el navegador (dibuje un dígito y reconózcalo; prediga la siguiente palabra) y una evaluación de 72 preguntas en cuatro niveles.",
+  "etiquetas": [
+   "Inteligencia artificial",
+   "Aprendizaje automático",
+   "Tutorial interactivo",
+   "Evaluación"
+  ],
+  "fecha": "2026-11-18",
+  "url": "seis-modelos-ia/"
+ },
+ {
   "id": "observatorio-scimago",
   "titulo": "Observatorio SCImago Perú",
   "resumen": "Tablero interactivo sobre el desempeño de las universidades peruanas en el SCImago Institutions Rankings 2009–2026: KPIs, boxplots, tendencias con proyección, simulador de escenarios con costos referenciados y narrativas por público.",

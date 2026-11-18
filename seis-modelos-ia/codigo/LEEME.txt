@@ -1,0 +1,31 @@
+SEIS MODELOS DE IA
+Tutorial interactivo: KNN, árbol de decisión, perceptrón, CNN, LSTM y atención
+Autor: Dr. José Alfredo Herrera Quispe · https://jherreraxp.github.io · ORCID 0000-0002-8207-9714
+==========================================================================================
+
+Qué es
+------
+Un tutorial en un solo archivo HTML. Cada módulo tiene pregunta detonadora, metáfora,
+laboratorios animados, la matemática con un ejemplo a mano, código Python, retos y cierre.
+Incluye modelos realmente entrenados que corren en el navegador:
+- Reconocimiento de dígitos dibujados a mano (MNIST): CNN 99.2 %, diez perceptrones 90.8 %,
+  árbol 85.7 % y KNN 88.9 % en los 10 000 dígitos de prueba.
+- Predicción de la siguiente palabra en un corpus de 228 frases: bigrama, LSTM y atención,
+  que además pueden reentrenarse en vivo.
+- Evaluación de 72 preguntas en cuatro niveles (Essentials lúdico, Fundamentals, Advanced
+  y Pro con matemática y código).
+
+Cómo usarlo
+-----------
+1. Abra seis-modelos-ia.html con un navegador actualizado (Chrome, Edge, Firefox o Safari).
+   Funciona sin servidor ni claves; necesita internet solo para cargar las tipografías.
+2. Recorra los módulos en orden desde «Inicio», o vaya directo a uno desde el menú.
+3. El mejor resultado de cada nivel de la evaluación se guarda solo en ese navegador.
+
+Cómo publicarlo en su propio sitio (5 minutos)
+----------------------------------------------
+GitHub Pages: cree un repositorio, suba el archivo con el nombre index.html y active
+Settings > Pages > Deploy from a branch (main, carpeta raíz).
+Netlify Drop: arrastre la carpeta con el archivo a https://app.netlify.com/drop
+
+Uso educativo libre citando al autor.

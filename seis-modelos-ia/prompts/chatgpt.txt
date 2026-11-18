@@ -1,0 +1,50 @@
+Indicaciones para ChatGPT: usa Canvas si está disponible y entrega el archivo HTML completo; si la respuesta se corta, continúa exactamente donde quedó cuando te escriba «continúa».
+
+ROL
+Actúa como docente universitario de inteligencia artificial y desarrollador web experto en visualización interactiva. Construye conmigo un tutorial web interactivo, en un único archivo HTML autocontenido (HTML, CSS y JavaScript sin librerías externas, salvo tipografías de Google Fonts), que explique cómo funcionan seis modelos de aprendizaje automático. Escribe todo en español formal, tratando al lector de «usted».
+
+CONFIGURACIÓN (complete antes de enviar)
+- Público: [p. ej., estudiantes de pregrado de Ingeniería de Sistemas; docentes de otras áreas]
+- Modelos: [KNN, árbol de decisión, perceptrón, CNN, LSTM y atención; quite o agregue los que necesite]
+- Colores institucionales: [códigos HEX; por defecto índigo #5B4FE8 y naranja #EB6834]
+- Autor y enlaces: [nombre, ORCID, LinkedIn]
+
+ESTRUCTURA DE CADA MÓDULO
+1. Pregunta detonadora al inicio, respondida al final.
+2. «Qué hace / qué se quiere lograr» en dos líneas.
+3. La idea con una metáfora cotidiana.
+4. Véalo funcionar: laboratorios animados e interactivos (deslizadores, botones paso a paso, dibujo con el mouse o el dedo). Cada laboratorio muestra en vivo la cuenta que está haciendo.
+5. La matemática: fórmulas con la notación estándar y un ejemplo resuelto a mano con números pequeños.
+6. Ejemplo real: un modelo realmente entrenado que corre en el navegador.
+7. En código: un fragmento corto en Python (numpy) con su salida exacta.
+8. Retos de dificultad creciente que el estudiante resuelve con los laboratorios.
+9. Cierre: respuesta a la pregunta detonadora, tres ideas para llevarse y «cómo se usa hoy».
+
+LABORATORIOS MÍNIMOS
+- KNN: plano 2D donde el usuario mueve un punto y ve sus k vecinos y el voto; deslizador de k que muestra el sobreajuste con k = 1.
+- Árbol: elegir atributo y umbral, ver impureza de Gini o entropía y la ganancia; hacer crecer el árbol nivel por nivel.
+- Perceptrón: neurona con pesos ajustables; entrenamiento paso a paso con la regla del perceptrón; demostración de que XOR no se separa con una recta.
+- CNN: convolución animada de un filtro de 3 × 3 sobre una imagen pequeña editable; ReLU y max-pooling; prueba de tolerancia a desplazamientos.
+- LSTM: celda con sus compuertas (olvido, entrada, salida y candidato) controladas con deslizadores; lectura de una frase palabra por palabra.
+- Atención: consultas, claves y valores en un plano; mapa de calor de pesos de atención con máscara causal.
+
+EJEMPLOS REALES (obligatorios)
+- Lienzo para dibujar un dígito (por ejemplo, un 1) y reconocerlo. Preprocesa el trazo como MNIST: recorte, escala a 20 × 20 y centrado por centro de masa en 28 × 28. Si no puedes incrustar pesos entrenados con MNIST, entrena en el navegador un modelo pequeño con un conjunto reducido y dilo explícitamente.
+- Predicción de la siguiente palabra con un corpus pequeño en español generado por código (frases con sujeto, cláusula «que …» y verbo, para que importe recordar el sujeto). Compara bigrama, LSTM y atención, y permite entrenarlos en vivo con un botón.
+- Toda cifra que muestres debe medirse con el propio código; no inventes resultados.
+
+EVALUACIÓN FINAL (al terminar el tutorial)
+Preguntas de opción múltiple en cuatro niveles, tres por modelo en cada nivel, con explicación tras cada respuesta y resumen por modelo al final:
+- Essentials: lúdico, para quien no programa; situaciones cotidianas, sin fórmulas ni código; rachas de aciertos, frases de ánimo y un título al final.
+- Fundamentals: cálculos cortos a mano.
+- Advanced: decisiones de diseño, límites y diagnóstico.
+- Pro: matemática y fragmentos de código en Python cuya salida hay que predecir.
+Baraja las opciones y cuida que la opción correcta no sea siempre la más larga.
+
+CIERRE DEL TUTORIAL
+Síntesis comparativa de los seis modelos, «cómo se usa esto / trabajo futuro», lecturas recomendadas, referencias en formato APA con enlaces y una breve declaración de uso de IA.
+
+CALIDAD
+- Diseño adaptable: funciona en celular (390 px) sin desplazamiento horizontal; tema claro y oscuro.
+- Sin errores de consola; laboratorios ligeros y fluidos.
+- Revisa que cada fórmula, cifra y fragmento de código sea correcto antes de entregar.
