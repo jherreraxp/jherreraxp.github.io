@@ -452,6 +452,59 @@ html.ui-dark .pk-row .pk-w{background:#071233}
 .pk-badge.lg{background:#fff; border:1px solid var(--line); box-shadow:none; padding:2px}
 .pk-badge.lg img{max-width:100%; max-height:100%; object-fit:contain}
 @media (max-width:720px){ .pk-head.wl h2{font-size:22px} .wl-sub{font-size:14px} .pk-head.wl #pkClose{position:static} .pk-head.wl{flex-direction:column; align-items:center} }
+
+/* ===== v7: portada KPI profesional, marca de la universidad, 3D y vecindario tipo tablero ===== */
+.pk-badge{width:60px; height:40px; padding:3px}
+.pk-badge.lg{display:flex; align-items:center; justify-content:center; padding:3px; border-radius:8px} .pk-badge.lg img{width:100%; height:100%; max-width:none; max-height:none; object-fit:contain; display:block}
+.pk-hd, .pk-row{grid-template-columns:40px 30px 66px minmax(0,1fr) 54px 74px 74px 62px 86px}
+.verdict{--b1:#0B1E5B; --b2:#0047E0; position:relative; overflow:hidden; isolation:isolate; min-height:300px;
+  background:radial-gradient(120% 90% at 100% 0%, color-mix(in srgb,var(--b2) 80%,#fff 0%) 0%, transparent 60%), linear-gradient(140deg,var(--b1) 0%, color-mix(in srgb,var(--b1) 70%,#000) 100%);
+  box-shadow:0 18px 40px -18px color-mix(in srgb,var(--b1) 70%,#000), inset 0 1px 0 rgba(255,255,255,.18)}
+.verdict > *{position:relative; z-index:2}
+.verdict .vlogo{position:absolute !important; right:-8%; top:50%; transform:translateY(-50%); width:78%; height:120%; z-index:0 !important; display:grid; place-items:center; pointer-events:none;
+  -webkit-mask-image:linear-gradient(270deg,#000 40%,transparent 96%); mask-image:linear-gradient(270deg,#000 40%,transparent 96%); animation:vfloat 9s ease-in-out infinite}
+.verdict .vlogo img{width:100%; height:100%; object-fit:contain; object-position:right center; opacity:.3}
+.verdict .vlogo b{font-family:var(--f-display); font-size:120px; font-weight:800; color:#fff; opacity:.1; letter-spacing:.02em}
+.verdict .orb{position:absolute !important; border-radius:50%; filter:blur(34px); z-index:0 !important; opacity:.55; animation:vorb 11s ease-in-out infinite}
+.verdict .orb.o1{width:200px; height:200px; left:-60px; bottom:-70px; background:var(--b2)}
+.verdict .orb.o2{width:140px; height:140px; right:30%; top:-50px; background:color-mix(in srgb,var(--b2) 60%,#fff); animation-delay:-5s; opacity:.35}
+.verdict .grid-bg{position:absolute !important; inset:0; z-index:0 !important; background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px); background-size:34px 34px; -webkit-mask-image:radial-gradient(70% 80% at 20% 100%,#000,transparent); mask-image:radial-gradient(70% 80% at 20% 100%,#000,transparent)}
+.verdict::after{content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.16) 50%,transparent 60%); transform:translateX(-120%); animation:vshine 7s ease-in-out infinite; pointer-events:none}
+.verdict .vrank{display:flex; align-items:center; gap:16px}
+.verdict .big{text-shadow:0 4px 18px rgba(0,0,0,.35)}
+.verdict .chips span{display:inline-flex; align-items:center; gap:6px; backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.12)}
+.coin3d{width:72px; height:72px; perspective:480px; flex:none}
+.coin3d .coin-in{width:100%; height:100%; display:grid; place-items:center; border-radius:50%; color:#5B3E00; position:relative;
+  background:conic-gradient(from 210deg,#FFE9A3,#E9B84A 22%,#FFF1BF 40%,#C9902A 62%,#F6D77A 82%,#FFE9A3);
+  box-shadow:inset 0 0 0 4px rgba(255,255,255,.35), inset 0 -8px 14px rgba(120,70,0,.35), 0 12px 22px rgba(0,0,0,.35); transform-style:preserve-3d; animation:vcoin 6s ease-in-out infinite}
+.coin3d .coin-in::after{content:""; position:absolute; inset:7px; border-radius:50%; border:1.5px dashed rgba(91,62,0,.45)}
+.kpi{isolation:isolate; transition:transform .25s ease, box-shadow .25s ease; animation:kin .6s both; animation-delay:var(--d,0ms);
+  background:linear-gradient(160deg,color-mix(in srgb,var(--accent) 6%,var(--panel)) 0%,var(--panel) 55%)}
+.kpi.star{background:linear-gradient(160deg,color-mix(in srgb,var(--gold) 12%,var(--panel)) 0%,var(--panel) 55%)}
+.kpi:hover{transform:translateY(-3px) perspective(700px) rotateX(2deg); box-shadow:0 14px 28px -16px rgba(10,30,90,.45)}
+.kpi > *:not(.kbg){position:relative; z-index:1}
+.kpi .kbg{position:absolute; right:-14px; bottom:-18px; width:96px; height:96px; z-index:0; color:var(--accent); opacity:.09; transform:perspective(500px) rotateY(-22deg) rotateX(8deg); transition:transform .5s ease, opacity .3s; animation:kfloat 7s ease-in-out infinite; animation-delay:var(--d,0ms)}
+.kpi.star .kbg{color:var(--gold); opacity:.16}
+.kpi:hover .kbg{transform:perspective(500px) rotateY(12deg) rotateX(0) scale(1.1); opacity:.18}
+.kpi .kbg svg{width:100%; height:100%; stroke-width:1.4}
+.kpi .lab svg.ic{filter:drop-shadow(0 2px 3px color-mix(in srgb,var(--accent) 40%,transparent))}
+.rivals{gap:0; border:1px solid var(--line); border-radius:12px; overflow:hidden}
+.rv-hd, .rv-row{display:grid; grid-template-columns:40px 66px minmax(0,1fr) 60px 70px; gap:0 8px; align-items:center; padding:0 10px}
+.rv-hd{background:var(--navy); color:#fff; font-size:10.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; height:32px} .rv-hd span{text-align:center} .rv-hd span:nth-child(3){text-align:left}
+.rv-row{width:100%; border:0; border-top:1px solid var(--line); background:var(--panel); color:var(--ink); min-height:54px; text-align:left; cursor:pointer; font:inherit}
+.rv-row:hover{background:var(--soft)}
+.rv-row.me{background:color-mix(in srgb,var(--accent) 10%,var(--panel)); box-shadow:inset 4px 0 0 var(--accent)}
+.rv-row .pk-w{background:var(--navy); color:#fff; align-self:stretch; display:grid; place-items:center; margin:0 -4px; font-weight:800}
+.rv-row.me .pk-w{background:var(--accent)}
+.rv-row .pk-name small{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+@keyframes vfloat{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-52%) scale(1.04)}}
+@keyframes vorb{0%,100%{transform:translate(0,0)}50%{transform:translate(24px,-18px)}}
+@keyframes vshine{0%,55%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+@keyframes vcoin{0%,100%{transform:rotateY(-24deg) rotateX(6deg)}50%{transform:rotateY(24deg) rotateX(-4deg)}}
+@keyframes kin{from{opacity:0; transform:translateY(14px)}to{opacity:1; transform:none}}
+@keyframes kfloat{0%,100%{translate:0 0}50%{translate:0 -6px}}
+@media (max-width:520px){ .rv-hd, .rv-row{grid-template-columns:34px 50px minmax(0,1fr) 56px} .rv-hd span:nth-child(5), .rv-row > :nth-child(5){display:none} .verdict .vlogo{width:80%} }
+@media (prefers-reduced-motion:reduce){ .verdict .vlogo,.verdict .orb,.verdict::after,.coin3d .coin-in,.kpi,.kpi .kbg{animation:none !important} }
 </style>
 </head>
 <body>
@@ -1331,19 +1384,22 @@ function renderKPIs(){
   document.getElementById('kpiGrid').innerHTML = KPI_DEFS.map(([id,lab])=>{ const k=K[id]; if(!k) return '';
     const label = id==='priv' ? (priv?'Puesto entre privadas':'Puesto entre públicas') : lab;
     const KIC={nat:'flag',glob:'globe',gap:'ruler',priv:'landmark',qpais:'award',qmundo:'layers',sunedu:'shield'};
-    return `<div class="kpi ${k.star?'star':''} ${S.kpis.includes(id)?'':'hidden'}" id="kpi-${id}"><span class="lab">${ic(KIC[id])} ${label}</span><span class="val">${k.v}</span><span class="ctx">${k.c}</span></div>`; }).join('');
-  const v=document.getElementById('verdict');
+    return `<div class="kpi ${k.star?'star':''} ${S.kpis.includes(id)?'':'hidden'}" id="kpi-${id}" style="--d:${KPI_DEFS.findIndex(x=>x[0]===id)*70}ms"><i class="kbg" aria-hidden="true">${ic(KIC[id],96)}</i><span class="lab">${ic(KIC[id])} ${label}</span><span class="val">${k.v}</span><span class="ctx">${k.c}</span></div>`; }).join('');
+  const v=document.getElementById('verdict'); { const bc=brandOf(f); v.style.setProperty('--b1',bc[0]); v.style.setProperty('--b2',bc[1]); }
   if(!L){ v.innerHTML=`<h3>${esc(full(f))}</h3><p>No figura en la edición ${LAST}.</p>`; }
   else {
     const dpp = F.pctP!=null? F.pctL-F.pctP : null;
-    v.innerHTML = `<h3>${ic('trophy',18)} ${esc(full(f))} en SCImago ${LAST}</h3>
-     <div class="big num">${ord(L.n)} <small>de ${nL} en Perú</small></div>
+    v.innerHTML = `${heroDeco(f)}<h3>${ic('trophy',18)} ${esc(full(f))} en SCImago ${LAST}</h3>
+     <div class="vrank"><div class="coin3d" aria-hidden="true"><span class="coin-in">${ic('trophy',34)}</span></div><div class="big num">${ord(L.n)} <small>de ${nL} en Perú</small></div></div>
      <p>${F.pctF!=null && F.firstCmp<LAST ? `Desde ${F.firstCmp}, su puesto mundial pasó de ${fInt(byU.get(f).get(F.firstCmp).g)} a ${fInt(L.g)}, pero el número de instituciones evaluadas creció; en términos relativos pasó del ${f1(F.pctF)} % al ${f1(F.pctL)} % superior del mundo.` : `Ocupa el puesto mundial ${fInt(L.g)} de ${fInt(TOT[LAST][0])}.`}</p>
-     <div class="chips"><span>Top ${f1(F.pctL)} % mundial</span>${L.q?`<span>Q${L.q} en el país</span>`:''}${dpp!=null?`<span>${dpp<0?'Mejoró':'Retrocedió'} ${f1(Math.abs(dpp))} pp vs ${PREV}</span>`:''}<span>${F.streak} ediciones seguidas</span></div>`;
+     <div class="chips"><span>${ic('globe',14)} Top ${f1(F.pctL)} % mundial</span>${L.q?`<span>${ic('award',14)} Q${L.q} en el país</span>`:''}${dpp!=null?`<span>${ic('trend',14)} ${dpp<0?'Mejoró':'Retrocedió'} ${f1(Math.abs(dpp))} pp vs ${PREV}</span>`:''}<span>${ic('layers',14)} ${F.streak} ediciones seguidas</span></div>`;
   }
   const lst=[...byY.get(LAST)].sort((a,b)=>a.g-b.g), i=lst.findIndex(r=>r.u===f), rv=document.getElementById('rivals');
   if(i<0){ rv.innerHTML='<p class="note">Sin datos en la edición actual.</p>'; }
-  else rv.innerHTML = lst.slice(Math.max(0,i-2), i+3).map(r=>{ const d=r.g-L.g; return `<div class="rival ${r.u===f?'me':''}"><span class="pos num">${ord(r.n)}</span><span class="nm">${esc(full(r.u))}<small>${U[r.u].t} · ${U[r.u].r}</small></span><span class="gr num">${fInt(r.g)}${r.u===f?'':`<br>${d<0?'+':'−'}${fInt(Math.abs(d))} vs ${nm(f)}`}</span></div>`; }).join('');
+  else rv.innerHTML = '<div class="rv-hd" aria-hidden="true"><span>#</span><span></span><span>Universidad</span><span>Mundial</span><span>Distancia</span></div>'+lst.slice(Math.max(0,i-2), i+3).map(r=>{ const d=r.g-L.g, me=r.u===f;
+    const dz = me ? '<span class="pk-d nw">usted</span>' : d<0 ? `<span class="pk-d dn" title="Está ${fInt(-d)} puestos mundiales por encima">▲ ${fInt(-d)}</span>` : `<span class="pk-d up" title="Está ${fInt(d)} puestos mundiales por debajo">▼ ${fInt(d)}</span>`;
+    return `<button type="button" class="rv-row ${me?'me':''}" data-u="${r.u}" aria-label="${esc(full(r.u))}, ${ord(r.n)} nacional, ${fInt(r.g)} mundial"><span class="pk-pos">${r.n<=5? laurel() : ''}<b>${r.n}</b></span>${pkBadge(r.u)}<span class="pk-name"><b>${esc(nm(r.u))}</b><small>${esc(full(r.u))} · ${U[r.u].t} · ${esc(U[r.u].r)}</small></span><span class="pk-c pk-w num">${fInt(r.g)}</span><span class="pk-c">${dz}</span></button>`; }).join('');
+  rv.querySelectorAll('.rv-row').forEach(b=>b.onclick=()=>{ if(+b.dataset.u!==S.focus) selectFocus(+b.dataset.u); });
   const m=byU.get(f)||new Map(), ys=[...m.keys()].sort((a,b)=>a-b);
   const x0=Math.min(...ys,2019), natPts=ys.map(y=>({x:y,y:m.get(y).n}));
   lineChart(document.getElementById('chNatSpark'),{xDomain:[x0,LAST], yRev:true, yInt:true, yDomain:[1, Math.max(8, d3.max(natPts,p=>p.y)+1)], h:240, animate:true, aria:'Puesto nacional por edición',
@@ -1871,11 +1927,20 @@ function pkSpark(u,Y){
 }
 /* Logos opcionales: si junto al tablero existe logos/index.json (lista de siglas) y logos/SIGLA.png, se muestran; si no, se usan las siglas */
 let LOGOS=new Set();
-try{ if(/^https?:/.test(location.protocol)) fetch('logos/index.json',{cache:'no-store'}).then(r=>r.ok?r.json():[]).then(a=>{ if(Array.isArray(a) && a.length){ LOGOS=new Set(a); if(!document.getElementById('picker').hidden) renderPicker(); } }).catch(()=>{}); }catch(e){}
+try{ if(/^https?:/.test(location.protocol)) fetch('logos/index.json',{cache:'no-store'}).then(r=>r.ok?r.json():[]).then(a=>{ if(Array.isArray(a) && a.length){ LOGOS=new Set(a); if(!document.getElementById('picker').hidden) renderPicker(); try{ renderKPIs(); }catch(e){} } }).catch(()=>{}); }catch(e){}
 /* Logos de Wikipedia (uso referencial, sin fines comerciales). Wikipedia redimensiona en línea (width=120); si falla la carga, se vuelve a la placa de siglas. */
 const WIKI={PUCP:'PUCP text logo.svg',UA:'Autonoma logov2.png',UCSUR:'Logo de la Universidad Científica del Sur.png',UC:'Ucontinental-logotipo.png',UNAC:'Universidad-nacional-del-callao.png',UNCP:'Escudo UNCP.png',UNE:'Escudo UNE.png',UNFV:'Escudo UNFV.png',UNI:'Uni-logo transparente granate.png',UNPRG:'Escudo de la Universidad Nacional Pedro Ruiz Gallo - SVG.svg',UNSA:'Escudo UNSA.png',UNTRM:'Logo-2016-solo-ok.png',UNW:'Logo Universidad Norbert Wiener Powered by ASU.png',UPSJB:'Universidad Privada San Juan Bautista.png',UTP:'Utplogonuevo.svg',UCV:'LogoUCV 2018.png',UDEP:'Logo - Universidad de Piura.png',ULIMA:'Universidad de Lima logo.svg',UNALM:'Unalm logo.png',UNAP:'Logo UNAP.png',UNMSM:'UNMSM coatofarms seal.svg',UNSAAC:'Escudo UNSAAC.png',UPAO:'Upao.jpg',UPC:'UPC logo transparente.png',UPN:'UPN - Universidad Privada del Norte.png',USMP:'USMP-2020.png',USS:'USSlogo.png'};
 const wikiLogo = sg => 'https://es.wikipedia.org/wiki/Special:FilePath/'+encodeURIComponent(WIKI[sg])+'?width=120';
 window.__pkFallback = img => { const b=img.parentNode; b.className='pk-badge '+b.dataset.k; b.textContent=b.dataset.t; };
+const BRAND={PUCP:['#0A1F5C','#1D5FB8'],UNMSM:['#6E0F1C','#C9A227'],UPCH:['#7A1F2B','#C99A2E'],UCV:['#9E1320','#E0412B'],USIL:['#08256B','#2A55C7'],USS:['#0B2E6B','#C8102E'],UPeU:['#003E78','#E8A300'],UPC:['#8E0F1E','#E31837'],UCSUR:['#00457C','#1E9BD7'],URP:['#0B5A33','#2FA364'],UC:['#7A1020','#E31E24'],UPN:['#1B1B1B','#E6A800'],UNW:['#006E6A','#00A99D'],USMP:['#8A1020','#D6283B'],UPSJB:['#10397A','#2B6CD1'],UNALM:['#0A5A3A','#7AB648'],UNI:['#6E1030','#B0204E'],UNAMAD:['#0F3E80','#E8B400'],UP:['#00287A','#1E5AD6'],UNJBG:['#0B3D86','#D7A81E'],UCSM:['#0B3F91','#C21F2D'],UNT:['#12306E','#C9A227'],UDEP:['#0B3A6B','#C8102E'],ULIMA:['#7A0F1F','#C8102E'],UPAO:['#0B2E6B','#2E7DD1'],UNSAAC:['#6E1030','#C9A227'],UNAP:['#0B3D86','#C9A227'],UNFV:['#6E1030','#C9A227'],UNE:['#0B3D86','#1D6FB8'],UNTRM:['#0B5A33','#2FA364'],UNPRG:['#0B3D86','#C9A227'],UNSA:['#7A1020','#C9A227'],UTP:['#0B2A63','#E31837']};
+const brandOf = u => BRAND[nm(u)] || (U[u].t==='Pública' ? ['#0B2A63','#7A5A12'] : ['#0B1E5B','#0047E0']);
+const markSrc = u => { const sg=nm(u);
+  if(LOGOS.has(sg)) return {src:'logos/'+encodeURIComponent(sg)+'_m.png', f:false};
+  if(WIKI[sg] && /^https?:/.test(location.protocol) && !/\.jpe?g$/i.test(WIKI[sg])) return {src:wikiLogo(sg).replace('width=120','width=360'), f:true};
+  return null; };
+const heroDeco = u => { const m=markSrc(u), sg=nm(u);
+  const logo = m ? `<img src="${m.src}" alt="" referrerpolicy="no-referrer" ${m.f?'style="filter:brightness(0) invert(1)"':''} onerror="this.replaceWith(Object.assign(document.createElement('b'),{textContent:'${esc(sg)}'}))">` : `<b>${esc(sg)}</b>`;
+  return `<i class="orb o1"></i><i class="orb o2"></i><i class="grid-bg"></i><div class="vlogo" aria-hidden="true">${logo}</div>`; };
 const pkBadge = u => { const sg=nm(u), pub=U[u].t==='Pública', k=(pub?'pu':'pr')+' l'+Math.min(6,sg.length);
   const src = LOGOS.has(sg) ? 'logos/'+encodeURIComponent(sg)+'.png' : (WIKI[sg] && /^https?:/.test(location.protocol) ? wikiLogo(sg) : null);
   return src ? `<span class="pk-badge lg" data-k="${k}" data-t="${esc(sg.slice(0,6))}"><img src="${src}" alt="${esc(sg)}" loading="lazy" referrerpolicy="no-referrer" onerror="__pkFallback(this)"></span>` : `<span class="pk-badge ${k}">${esc(sg.slice(0,6))}</span>`; };
