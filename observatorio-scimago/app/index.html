@@ -1872,8 +1872,13 @@ function pkSpark(u,Y){
 /* Logos opcionales: si junto al tablero existe logos/index.json (lista de siglas) y logos/SIGLA.png, se muestran; si no, se usan las siglas */
 let LOGOS=new Set();
 try{ if(/^https?:/.test(location.protocol)) fetch('logos/index.json',{cache:'no-store'}).then(r=>r.ok?r.json():[]).then(a=>{ if(Array.isArray(a) && a.length){ LOGOS=new Set(a); if(!document.getElementById('picker').hidden) renderPicker(); } }).catch(()=>{}); }catch(e){}
-const pkBadge = u => { const sg=nm(u), pub=U[u].t==='Pública';
-  return LOGOS.has(sg) ? `<span class="pk-badge lg"><img src="logos/${encodeURIComponent(sg)}.png" alt="" loading="lazy"></span>` : `<span class="pk-badge ${pub?'pu':'pr'} l${Math.min(6,sg.length)}">${esc(sg.slice(0,6))}</span>`; };
+/* Logos de Wikipedia (uso referencial, sin fines comerciales). Wikipedia redimensiona en línea (width=120); si falla la carga, se vuelve a la placa de siglas. */
+const WIKI={PUCP:'PUCP text logo.svg',UA:'Autonoma logov2.png',UCSUR:'Logo de la Universidad Científica del Sur.png',UC:'Ucontinental-logotipo.png',UNAC:'Universidad-nacional-del-callao.png',UNCP:'Escudo UNCP.png',UNE:'Escudo UNE.png',UNFV:'Escudo UNFV.png',UNI:'Uni-logo transparente granate.png',UNPRG:'Escudo de la Universidad Nacional Pedro Ruiz Gallo - SVG.svg',UNSA:'Escudo UNSA.png',UNTRM:'Logo-2016-solo-ok.png',UNW:'Logo Universidad Norbert Wiener Powered by ASU.png',UPSJB:'Universidad Privada San Juan Bautista.png',UTP:'Utplogonuevo.svg',UCV:'LogoUCV 2018.png',UDEP:'Logo - Universidad de Piura.png',ULIMA:'Universidad de Lima logo.svg',UNALM:'Unalm logo.png',UNAP:'Logo UNAP.png',UNMSM:'UNMSM coatofarms seal.svg',UNSAAC:'Escudo UNSAAC.png',UPAO:'Upao.jpg',UPC:'UPC logo transparente.png',UPN:'UPN - Universidad Privada del Norte.png',USMP:'USMP-2020.png',USS:'USSlogo.png'};
+const wikiLogo = sg => 'https://es.wikipedia.org/wiki/Special:FilePath/'+encodeURIComponent(WIKI[sg])+'?width=120';
+window.__pkFallback = img => { const b=img.parentNode; b.className='pk-badge '+b.dataset.k; b.textContent=b.dataset.t; };
+const pkBadge = u => { const sg=nm(u), pub=U[u].t==='Pública', k=(pub?'pu':'pr')+' l'+Math.min(6,sg.length);
+  const src = LOGOS.has(sg) ? 'logos/'+encodeURIComponent(sg)+'.png' : (WIKI[sg] && /^https?:/.test(location.protocol) ? wikiLogo(sg) : null);
+  return src ? `<span class="pk-badge lg" data-k="${k}" data-t="${esc(sg.slice(0,6))}"><img src="${src}" alt="${esc(sg)}" loading="lazy" referrerpolicy="no-referrer" onerror="__pkFallback(this)"></span>` : `<span class="pk-badge ${k}">${esc(sg.slice(0,6))}</span>`; };
 function renderPicker(){
   const q=document.getElementById('pkQ').value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
   const match=u=>!q || (full(u)+' '+nm(u)+' '+(U[u].dep||'')).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').includes(q);
