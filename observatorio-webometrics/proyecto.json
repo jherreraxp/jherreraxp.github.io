@@ -1,0 +1,124 @@
+{
+ "id": "observatorio-webometrics",
+ "titulo": "Observatorio Webometrics Perú",
+ "fecha": "2026-11-25",
+ "resumen": "Tablero interactivo sobre las universidades peruanas en el Ranking Web de Universidades (Webometrics), con la serie histórica 2012–2026 reconstruida desde el Internet Archive: KPIs, tendencias con proyección, simulación de decisiones con costos, narrativas y un Excel con las 29 ediciones.",
+ "etiquetas": [
+  "Analítica",
+  "Rankings universitarios",
+  "Visualización de datos",
+  "Datos abiertos"
+ ],
+ "caracteristicas": [
+  [
+   "Cualquier universidad",
+   "Elija entre las 144 universidades que figuraron en Webometrics desde 2012; el foco por defecto es USIL."
+  ],
+  [
+   "Serie histórica",
+   "15 ediciones de julio en el tablero y 29 ediciones semestrales en el Excel, reconstruidas desde el Internet Archive."
+  ],
+  [
+   "KPIs comparables",
+   "Puesto nacional y mundial, percentil, brecha con el líder, permanencia en el ranking y posición entre las 107 licenciadas."
+  ],
+  [
+   "Tendencias",
+   "Percentil con escala por edición, avisos de cambio de método (2020 y 2025) y proyección con banda de incertidumbre."
+  ],
+  [
+   "Simulación de −100 a +100 con costos",
+   "Palancas de Impacto (50 %), Excelencia (40 %) y Apertura (10 %) traducidas a acciones, con su costo en soles."
+  ],
+  [
+   "Excel histórico",
+   "Datos en formato largo, matrices por edición, resumen con variaciones, comparación con SCImago y gráfico."
+  ]
+ ],
+ "app": {
+  "url": "app/",
+  "etiqueta": "Abrir el observatorio",
+  "nota": "Funciona en el navegador, sin instalación ni claves. El Excel histórico está en la carpeta «datos»."
+ },
+ "prompts": [
+  {
+   "id": "claude",
+   "nombre": "Claude",
+   "url": "https://claude.ai/new",
+   "archivo": "prompts/claude.txt"
+  },
+  {
+   "id": "chatgpt",
+   "nombre": "ChatGPT",
+   "url": "https://chatgpt.com/",
+   "archivo": "prompts/chatgpt.txt"
+  },
+  {
+   "id": "gemini",
+   "nombre": "Gemini",
+   "url": "https://gemini.google.com/app",
+   "archivo": "prompts/gemini.txt"
+  },
+  {
+   "id": "copilot",
+   "nombre": "Copilot",
+   "url": "https://copilot.microsoft.com/",
+   "archivo": "prompts/copilot.txt"
+  },
+  {
+   "id": "deepseek",
+   "nombre": "DeepSeek",
+   "url": "https://chat.deepseek.com/",
+   "archivo": "prompts/deepseek.txt"
+  },
+  {
+   "id": "kimi",
+   "nombre": "Kimi",
+   "url": "https://www.kimi.com/",
+   "archivo": "prompts/kimi.txt"
+  }
+ ],
+ "guia": {
+  "claude": [
+   "Abra Claude, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.",
+   "Descargue el HTML del artefacto y ábralo en el navegador o publíquelo en GitHub Pages."
+  ],
+  "chatgpt": [
+   "Abra ChatGPT, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.",
+   "Si aparece Canvas, el archivo se abre allí; si la respuesta se corta, escriba «continúa»."
+  ],
+  "gemini": [
+   "Abra Gemini, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.",
+   "Active Canvas para obtener el archivo completo y luego descárguelo."
+  ],
+  "copilot": [
+   "Abra Copilot, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.",
+   "Recibirá el archivo por partes: escriba «siguiente» y únalas en orden."
+  ],
+  "deepseek": [
+   "Abra DeepSeek, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.",
+   "Active DeepThink; si el archivo llega en partes numeradas, únalas en orden."
+  ],
+  "kimi": [
+   "Abra Kimi, adjunte su dataset (CSV o Excel) y pegue el prompt (Ctrl+V).",
+   "Complete el bloque CONFIGURACIÓN con su entidad foco, métrica y públicos antes de enviar.",
+   "El archivo llega en un bloque; si se corta, escriba «continúa»."
+  ]
+ },
+ "instalar": {
+  "zip": "observatorio-webometrics.zip",
+  "leeme": "codigo/LEEME.txt",
+  "minutos": 5,
+  "pasos": [
+   "Descargue el .zip y descomprímalo.",
+   "Abra observatorio-webometrics.html en su navegador para usarlo de inmediato; el Excel histórico viene incluido.",
+   "Para publicarlo, súbalo como index.html a un repositorio con GitHub Pages activado, o arrástrelo a Netlify Drop.",
+   "Ajuste los supuestos del simulador en «Personalizar» según su institución."
+  ]
+ }
+}

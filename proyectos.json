@@ -1,5 +1,18 @@
 [
  {
+  "id": "observatorio-webometrics",
+  "titulo": "Observatorio Webometrics Perú",
+  "resumen": "Tablero interactivo sobre las universidades peruanas en Webometrics 2012–2026 (serie reconstruida desde el Internet Archive): KPIs, tendencias, simulador con costos, narrativas y Excel histórico de 29 ediciones.",
+  "etiquetas": [
+   "Analítica",
+   "Rankings universitarios",
+   "Visualización de datos",
+   "Datos abiertos"
+  ],
+  "fecha": "2026-11-25",
+  "url": "observatorio-webometrics/"
+ },
+ {
   "id": "seis-modelos-ia",
   "titulo": "Seis modelos de IA",
   "resumen": "Tutorial interactivo para entender KNN, árboles de decisión, el perceptrón, las CNN, el LSTM y la atención: animaciones, la matemática con ejemplos a mano, modelos reales en el navegador (dibuje un dígito y reconózcalo; prediga la siguiente palabra) y una evaluación de 72 preguntas en cuatro niveles.",

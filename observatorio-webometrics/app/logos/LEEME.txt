@@ -1,0 +1,6 @@
+Logos opcionales de la tabla de posiciones
+
+1. Coloque aquí un archivo PNG por universidad, nombrado con su sigla exacta: USIL.png, PUCP.png, UNMSM.png, etc.
+   Use solo logos que tenga autorización para publicar.
+2. Edite index.json con la lista de siglas que tienen archivo, por ejemplo: ["USIL","PUCP"].
+3. Las universidades sin archivo siguen mostrando su placa con siglas.

@@ -1,0 +1,41 @@
+OBSERVATORIO SCIMAGO PERÚ
+Guía para usarlo y publicarlo
+Autor: Dr. José Alfredo Herrera Quispe · https://jherreraxp.github.io · ORCID 0000-0002-8207-9714
+==========================================================================================
+
+Qué es
+------
+Un tablero interactivo en un solo archivo HTML que analiza el desempeño de las universidades
+peruanas en el Webometrics Institutions Rankings (ediciones 2009 y 2011–2026). Incluye:
+- Selección inicial de la universidad: las 38 que figuran en Webometrics 2026 y, en «Otras»,
+  las licenciadas por SUNEDU que aún no figuran (ruta de ingreso al ranking).
+- KPIs, panel descriptivo con boxplots, tendencias con proyección, simulación de decisiones (palancas de −100 a +100) con
+  costos referenciados, narrativas por público (con registro local) y una arena gamificada.
+
+Fuentes de datos incluidas
+--------------------------
+- Webometrics Institutions Rankings, sector Universidades, Perú (archivos de cada edición).
+- OpenAlex (producción científica 2021–2025, consultado el 12-nov-2026).
+- SUNEDU: universidades con licencia institucional vigente (25/08/2026).
+- Metodología Webometrics: https://www.scimagoir.com/methodology.php
+
+Cómo usarlo
+-----------
+1. Abra observatorio-webometrics.html con un navegador actualizado (Chrome, Edge, Firefox o Safari).
+   Necesita conexión a internet para cargar la librería de gráficos (D3) y las tipografías.
+2. Elija la universidad en la pantalla inicial. Puede cambiarla con «Cambiar universidad».
+3. Ajuste supuestos en «Personalizar» (horizonte, elasticidad, suavizado, línea de base).
+
+Cómo publicarlo en su propio sitio (5 minutos)
+-------------------------------------------------
+GitHub Pages: cree un repositorio, suba el archivo con el nombre index.html y active
+Settings > Pages > Deploy from a branch (main, carpeta raíz).
+Netlify Drop: arrastre la carpeta con el archivo a https://app.netlify.com/drop
+
+Aviso
+-----
+El simulador es un modelo ilustrativo: los costos y la elasticidad están documentados en la
+tabla de referencias del propio tablero. El registro de usuarios de las narrativas se guarda solo
+en el navegador; no protege información confidencial.
+
+Uso educativo libre citando al autor.
